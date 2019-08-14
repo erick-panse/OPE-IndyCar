@@ -15,9 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from funilaria.views import index
+from funilaria.views import novocliente
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', index),
+    path('', novocliente),
+    path('novocliente', novocliente),
 ]
