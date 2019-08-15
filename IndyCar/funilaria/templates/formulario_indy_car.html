@@ -7,7 +7,7 @@
 	</title>
 </head>
 <body>
-	<form action="novocliente" method="POST">
+	<!-- <form action="novocliente" method="POST">
 		<fieldset>
 			<label for="CPF">CPF:</label>
 			<input id="cpf" type="text" name="cpf">	
@@ -32,11 +32,15 @@
 			<input id="telefone" type="text" name="telefone">
 			<p>
 		</fieldset>
-	</form>
+	</form> -->
 
 	<!-- o mesmo formulario de cima só que feito com o django forms -->
 	<fieldset>
-		{{form}}
+		<form action="formulario_indy_car" method="POST">
+			{% csrf_token %}
+			{{form}}
+		<input type="submit" value="Enviar">
+		</form>
 	</fieldset>
 	
 

@@ -20,5 +20,8 @@ from funilaria.views import novocliente
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', novocliente),
-    path('novocliente', novocliente),
+    path('formulario_indy_car.html', novocliente),
+    path('formulario_indy_car', novocliente),
+    path('foi', novocliente),
+    path('foi.html', novocliente),
 ]
