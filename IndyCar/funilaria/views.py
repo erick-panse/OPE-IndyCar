@@ -1,22 +1,25 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import request,HttpResponseRedirect
-from .forms import ClienteForm
+from funilaria.forms import ClienteForm
+from django.contrib import messages
+from funilaria.models import Customer
 # Create your views here.
 
+
+def cliente(request):
+    clientes = Customer.objects.all().order_by('id')
+    return render(request,'index.html',context={'clientes':clientes})
+
 def novocliente(request):
-    #testando
     if request.method == 'POST':
-        print('POST')
         form = ClienteForm(request.POST)
         if form.is_valid():
-            print('CPF = ',request.POST['cpf'])
-            print('NOME = ',request.POST['nome'])
-            print('ENDERECO = ',request.POST['endereco'])
-            print('EMAIL = ',request.POST['email'])
-            print('CEP = ',request.POST['cep'])
-        return HttpResponseRedirect('formulario_indy_car.html')
+            form.save()
+            messages.success(request,'foi')
+        else:
+            messages.error(request,'n foi')
+        return redirect(cliente)
     else:
-        print('GET')
         form = ClienteForm()
         return render(request,'formulario_indy_car.html',context={'form':form})
 

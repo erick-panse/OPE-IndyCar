@@ -14,15 +14,23 @@ class ClienteForm(forms.ModelForm):
         'placeholder':'informe o endereço',
         'name':'endereco',
         'id':'endereco'}))
-    cep = forms.CharField(max_length=8,label='CEP:',widget = forms.TextInput(attrs={
-        'placeholder':'informe o cep',
-        'name':'cep',
-        'id':'cep'}))
+    bairro = forms.CharField(max_length=8,label='bairro:',widget = forms.TextInput(attrs={
+        'placeholder':'informe o bairro',
+        'name':'bairro',
+        'id':'bairro'}))
     email = forms.EmailField(max_length=60,label='Email:',widget = forms.EmailInput(attrs={
         'placeholder':'informe o seu email',
         'name':'email',
         'id':'email'}))
+    rg = forms.CharField(max_length=9,label='rg:',widget = forms.TextInput(attrs={
+        'placeholder':'informe o seu rg',
+        'name':'rg',
+        'id':'rg'}))
+    tel = forms.CharField(max_length=15,label='tel:',widget = forms.TextInput(attrs={
+        'placeholder':'informe o seu tel',
+        'name':'tel',
+        'id':'tel'}))
 
     class Meta:
         model = Cliente
-        fields={'cpf','nome','endereco','cep','email',}
+        fields={'cpf','nome','endereco','bairro','email','rg','tel'}
