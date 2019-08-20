@@ -14,7 +14,7 @@ class Cliente(Customer):
 class Empresa(Customer):
     cnpj = models.CharField(max_length=14)
 
-""" class Car(models.Model):
+class Car(models.Model):
     marca = models.CharField(max_length=10)
     modelo = models.CharField(max_length=20)
     cor = models.CharField(max_length=10)
@@ -23,7 +23,7 @@ class Empresa(Customer):
     cidade = models.CharField(max_length=10)
     estado = models.CharField(max_length=2)
     entrada = models.DateTimeField(auto_now_add=True, blank=False)
-    finalizado = models.DateTimeField(auto_now_add=True, blank=False) """
+    finalizado = models.DateTimeField(auto_now_add=True, blank=False)
 
 
 
