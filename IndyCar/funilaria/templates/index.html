@@ -7,10 +7,14 @@
     <title>Document</title>
 </head>
 <body>
+    {% for i in msg %}
+        <p>{{i}}</p>
+    {% endfor%}
     <a href="{% url 'formcliente' %}">Novo cliente</a>
     <ul>
         {% for i in clientes %}
             <li>{{i.nome}}</li>
+            <a href="{{i.get_cliente}}">editar o cliente</a>
         {% endfor %}
     </ul>
 </body>

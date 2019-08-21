@@ -15,11 +15,13 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.urls import path
+from django.urls import re_path,path
 from funilaria.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('cliente/',cliente,name='cliente'),
     path('',cliente),
+    re_path(r'cliente/(?P<id>\d+)/$',editar_cliente, name='editar_cliente'),
     path('formcliente/', novocliente, name='formcliente'),
 ]
