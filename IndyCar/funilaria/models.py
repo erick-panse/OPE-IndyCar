@@ -13,8 +13,10 @@ class Customer(models.Model):
 class Cliente(Customer):
     rg = models.IntegerField(max_length=9)
 
-    def get_cliente(self):
+    def get_editar_cliente(self):
         return reverse('editar_cliente',kwargs={'id':self.id})
+    def get_del_cliente(self):
+        return reverse('deletar_cliente',kwargs={'id':self.id})
 
 class Empresa(Customer):
     cnpj = models.CharField(max_length=14)

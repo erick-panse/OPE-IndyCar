@@ -21,14 +21,12 @@ from funilaria import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-<<<<<<< HEAD
     path('cliente/',cliente,name='cliente'),
-=======
-    path('login/', views.login_user),
-    path('login/submit', views.submit_login),
-    path('logout/', views.logout_user),
->>>>>>> 769b5c6788653595be202ebcfde4978f812af39c
     path('',cliente),
     re_path(r'cliente/(?P<id>\d+)/$',editar_cliente, name='editar_cliente'),
+    re_path(r'cliente/deletar/(?P<id>\d+)/$',deletar_cliente, name='deletar_cliente'),
     path('formcliente/', novocliente, name='formcliente'),
 ]
+""" path('login/', views.login_user),
+    path('login/submit', views.submit_login),
+    path('logout/', views.logout_user), """
