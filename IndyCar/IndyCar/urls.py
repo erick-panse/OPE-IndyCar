@@ -17,10 +17,17 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import re_path,path
 from funilaria.views import *
+from funilaria import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+<<<<<<< HEAD
     path('cliente/',cliente,name='cliente'),
+=======
+    path('login/', views.login_user),
+    path('login/submit', views.submit_login),
+    path('logout/', views.logout_user),
+>>>>>>> 769b5c6788653595be202ebcfde4978f812af39c
     path('',cliente),
     re_path(r'cliente/(?P<id>\d+)/$',editar_cliente, name='editar_cliente'),
     path('formcliente/', novocliente, name='formcliente'),
