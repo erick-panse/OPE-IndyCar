@@ -6,10 +6,10 @@ class Customer(models.Model):
     endereco = models.CharField(max_length=100)
     bairro = models.CharField(max_length=8)
     email = models.EmailField(max_length=60)
-    telefone = models.CharField(max_length=9,default=000000000)
+    telefone = models.IntegerField(max_length=9,default=000000000)
 
 class Cliente(Customer):
-    rg = models.CharField(max_length=9)
+    rg = models.IntegerField(max_length=9)
 
 class Empresa(Customer):
     cnpj = models.CharField(max_length=14)
@@ -18,7 +18,7 @@ class Car(models.Model):
     marca = models.CharField(max_length=10)
     modelo = models.CharField(max_length=20)
     cor = models.CharField(max_length=10)
-    ano = models.CharField(max_length=4)
+    ano = models.SmallIntegerField(max_length=4)
     placa = models.CharField(max_length=7)
     cidade = models.CharField(max_length=10)
     estado = models.CharField(max_length=2)
