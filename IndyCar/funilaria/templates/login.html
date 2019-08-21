@@ -8,6 +8,9 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <link rel="stylesheet" type="text/css" href="css/style.css" />
 </head>
 <body>
 
@@ -15,31 +18,44 @@
   <h1>Indy Car</h1>
 </div>
   
-<div class="container mt-4">
-  <div class="row">
-    <form action="submit", method="POST"> {% csrf_token %}
-      <div class="for,-group">
-        <label for="username">Usuário</label>
-        <input type="text", class="form-control" id="username" name="username" placehalder="Usuário">
+  <div class="container" >
+    <a class="links" id="paralogin"></a>
+     
+    <div class="content">      
+      <!--FORMULÁRIO DE LOGIN-->
+      <div id="login">
+        <form method="post" action=""> 
+          <h1>Login</h1> 
+          <p> 
+            <label for="username">Usuário</label>
+            <input type="text", class="form-control" id="username" name="username" placehalder="Usuário">
+          </p>
+           
+          <p> 
+            <label for="username">Senha</label>
+            <input type="password", class="form-control" id="password" name="password" placehalder="Senha">
+          </p>
+           
+          <p> 
+            <div>
+                {% for message in massages %}
+                    <div class="alert alert-danger">
+                    <strong>Error!</strong> Usuário ou Senha inválido.
+                    </div>  
+                {% endfor %}
+                <button type="submit" class="btn btn-primary">Entrar</button>
+            </div>
+          </p>
+        </form>
       </div>
+ 
 
-      <div class="for,-group">
-        <label for="username">Senha</label>
-        <input type="password", class="form-control" id="password" name="password" placehalder="Senha">
+        </form>
       </div>
-
-      <div>
-        {% for message in massages %}
-          <div class="alert alert-danger">
-            <strong>Error!</strong> {{message }} 
-          </div>  
-        {% endfor %}
-        <button type="submit" class="btn btn-primary">Entrar</button>
-      </div>    
+    </div>
+  </div>    
     
     </form>
-  </div>
-</div>
 
 </body>
 </html>
