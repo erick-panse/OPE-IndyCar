@@ -18,10 +18,16 @@ class Cliente(Customer):
     def get_del_cliente(self):
         return reverse('deletar_cliente',kwargs={'id':self.id})
 
+
 class Empresa(Customer):
     cnpj = models.CharField(max_length=14)
 
-class Car(models.Model):
+    def get_editar_empresa(self):
+        return reverse('editar_empresa',kwargs={'id':self.id})
+    def get_del_empresa(self):
+        return reverse('deletar_empresa',kwargs={'id':self.id})
+
+class Veiculo(models.Model):
     marca = models.CharField(max_length=10)
     modelo = models.CharField(max_length=20)
     cor = models.CharField(max_length=10)
@@ -29,8 +35,13 @@ class Car(models.Model):
     placa = models.CharField(max_length=7)
     cidade = models.CharField(max_length=10)
     estado = models.CharField(max_length=2)
-    entrada = models.DateTimeField(auto_now_add=True, blank=False)
-    finalizado = models.DateTimeField(auto_now_add=True, blank=False)
+    entrada = models.DateTimeField(auto_now_add=False, blank=False)
+    finalizado = models.DateTimeField(auto_now_add=False, blank=False)
+
+    def get_editar_veiculo(self):
+        return reverse('editar_veiculo',kwargs={'id':self.id})
+    def get_del_veiculo(self):
+        return reverse('deletar_veiculo',kwargs={'id':self.id})
 
 
 

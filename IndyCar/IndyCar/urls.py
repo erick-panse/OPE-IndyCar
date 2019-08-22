@@ -28,6 +28,24 @@ urlpatterns = [
     re_path(r'cliente/deletar/(?P<id>\d+)/$',deletar_cliente, name='deletar_cliente'),
     path('formcliente/', novocliente, name='formcliente'),
 
+    
+    re_path(r'cliente/(?P<id>\d+)/$',editar_cliente, name='editar_cliente'),
+    re_path(r'cliente/deletar/(?P<id>\d+)/$',deletar_cliente, name='deletar_cliente'),
+    path('formcliente/', novocliente, name='formcliente'),
+    path('empresa/',cliente,name='empresa'),
+
+    re_path(r'empresa/(?P<id>\d+)/$',editar_empresa, name='editar_empresa'),
+    re_path(r'empresa/deletar/(?P<id>\d+)/$',deletar_empresa, name='deletar_empresa'),
+    path('formempresa/', novoempresa, name='formempresa'),
+    
+    path('veiculo/',cliente,name='veiculo'),
+   
+    re_path(r'veiculo/(?P<id>\d+)/$',editar_veiculo, name='editar_veiculo'),
+    re_path(r'veiculo/deletar/(?P<id>\d+)/$',deletar_veiculo, name='deletar_veiculo'),
+    path('formveiculo/', novoveiculo, name='formveiculo'), 
+
+
+
     path('login/', views.login_user),
     path('login/submit', views.submit_login),
     path('logout/', views.logout_user)
