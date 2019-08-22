@@ -23,7 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('cliente/',cliente,name='cliente'),
    
-    path('',cliente),
+    path('',views.submit_login),
     re_path(r'cliente/(?P<id>\d+)/$',editar_cliente, name='editar_cliente'),
     re_path(r'cliente/deletar/(?P<id>\d+)/$',deletar_cliente, name='deletar_cliente'),
     path('formcliente/', novocliente, name='formcliente'),

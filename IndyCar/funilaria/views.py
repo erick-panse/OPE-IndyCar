@@ -9,7 +9,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 #comentado pra n ficar obrigatorio
-#@login_required(login_url='/login/' )
+@login_required(login_url='/login/' )
 def cliente(request):
     clientes = Cliente.objects.all().order_by('id')
     msg=messages.get_messages(request)
@@ -145,7 +145,7 @@ def submit_login(request):
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('/')
+            return redirect(cliente)
         else:
             messages.error(request, 'Usuário ou senha inválido')
     return redirect('/login/')
