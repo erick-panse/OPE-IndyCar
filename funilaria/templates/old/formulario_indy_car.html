@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="../static/estilo.css">
+	<title>
+		CLIENTE
+	</title>
+</head>
+<body>
+	<!-- <form action="novocliente" method="POST">
+		<fieldset>
+			<label for="CPF">CPF:</label>
+			<input id="cpf" type="text" name="cpf">	
+			<p>
+			<label for="name">Nome Completo:</label>
+			<input id="nome" type="text" name="nome">
+			<p>
+
+			<label for="email">Email:</label>
+			<input id="email" type="email" name="email">
+			<p>
+
+			<label for="Endereço">Endereço:</label>
+			<input id="endereco" type="text" name="endereco">
+			<p>
+
+			<label for="CEP">CEP:</label>
+			<input id="cep" type="text" name="cep">
+			<p>
+
+			<label for="Telefone">Telefone:</label>
+			<input id="telefone" type="text" name="telefone">
+			<p>
+		</fieldset>
+	</form> -->
+
+	<!-- o mesmo formulario de cima só que feito com o django forms -->
+	<fieldset>
+		<form action="" method="POST">
+			{% csrf_token %}
+			{{form}}
+		<input type="submit" value="Enviar">
+		</form>
+	</fieldset>
+	
+
+</body>
+</html>
