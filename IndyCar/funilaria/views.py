@@ -51,10 +51,10 @@ def deletar_cliente(request,id=None):
         messages.error(request,'cliente nao foi deletado')
     return redirect(cliente)
 
-""" def login_user(request):
+def login_user(request):
     return render(request, 'login.html')
 
-
+'''
 @csrf_protect
 def submit_login(request):
     if request.POST:
@@ -63,10 +63,13 @@ def submit_login(request):
         print(username)
         print(password)
         user = authenticate(username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('/')
         else:
             messages.error(request, 'Usuário ou senha inválido')
     return redirect('/login/')
 
 def logout_user(request):
     logout(request)
-    return redirect('/login/') """
+    return redirect('/login/')'''
