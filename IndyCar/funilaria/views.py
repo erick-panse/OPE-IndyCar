@@ -54,7 +54,7 @@ def deletar_cliente(request,id=None):
 def login_user(request):
     return render(request, 'login.html')
 
-'''
+
 @csrf_protect
 def submit_login(request):
     if request.POST:
@@ -72,4 +72,4 @@ def submit_login(request):
 
 def logout_user(request):
     logout(request)
-    return redirect('/login/')'''
+    return redirect('/login/')
