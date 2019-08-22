@@ -38,10 +38,10 @@
            
           <p> 
             <div>
-                {% for message in massages %}
-                    <div class="alert alert-danger">
-                    <strong>Error!</strong> Usuário ou Senha inválido.
-                    </div>  
+                {% for message in messages %}
+                  <div class="alert alert-danger">
+                    <strong>Error!</strong> {{message}}
+                  </div>  
                 {% endfor %}
                 <button type="submit" class="btn btn-primary">Entrar</button>
             </div>
