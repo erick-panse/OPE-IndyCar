@@ -8,7 +8,7 @@ from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 # Create your views here.
-
+#comentado pra n ficar obrigatorio
 #@login_required(login_url='/login/' )
 def cliente(request):
     clientes = Cliente.objects.all().order_by('id')
