@@ -173,7 +173,7 @@ input[type="submit"]:hover{
   animation-duration: 0.5s;
   animation-timing-function: ease;
   animation-fill-mode: both;
-
+}
 
 /* Efeito ao clicar no botão ( Ir para Login ) */
 #paralogin:target ~ .content #login{
