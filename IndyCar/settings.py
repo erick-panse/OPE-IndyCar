@@ -122,5 +122,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'funilaria/static/'),
+    os.path.join(BASE_DIR, 'usuario/static/'),
+]
 #cliente é o nome do path q redireciona pra lista de clientes
 LOGIN_REDIRECT_URL = 'cliente'
