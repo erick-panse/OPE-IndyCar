@@ -2,6 +2,7 @@ from django import forms
 from funilaria.models import Cliente,Empresa,Veiculo
 
 class ClienteForm(forms.ModelForm):
+    veiculo = forms.ModelChoiceForm(queryset=Veiculo.objects.all().order_by('id'))
     nome = forms.CharField(max_length=60,label='Nome completo:',widget = forms.TextInput(attrs={
         'placeholder':'informe o nome',
         'name':'nome',
