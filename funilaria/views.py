@@ -1,8 +1,8 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from django.http import request,HttpResponseRedirect
-from funilaria.forms import ClienteForm,VeiculoForm
+from funilaria.forms import ClienteForm
 from django.contrib import messages
-from funilaria.models import Cliente,Customer,Veiculo,Empresa
+from funilaria.models import Cliente,Customer,Empresa
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 #comentado pra n ficar obrigatorio
@@ -14,34 +14,30 @@ def cliente(request):
 
 def novocliente(request):
     if request.method == 'POST':
-        formv = VeiculoForm(request.POST or None)
-        form = ClienteForm(request.POST or None)
-        if form.is_valid() and formv.is_valid():
+        form_cliente = ClienteForm(request.POST or None)
+        if form_cliente.is_valid():
             try:
-                form.veiculo = formv.save()
-                form.save()
-                print(form.veiculo)
+                form_cliente.save()
                 messages.success(request,'salvo')
             except Exception as e:
                 messages.error(request,e)
         return redirect(cliente)
     else:
-        form = ClienteForm()
-        formv = VeiculoForm()
-        return render(request,'formulario_indy_car.html',context={'form':form,'formv':formv})
+        form_cliente = ClienteForm()
+        return render(request,'formulario_indy_car.html',context={'form_cliente':form_cliente,})
 
 def editar_cliente(request,id=None):
-    instance = get_object_or_404(Cliente,id=id)
-    form = ClienteForm(request.POST or None, instance= instance)
-    if form.is_valid():
+    instance_cliente = get_object_or_404(Cliente,id=id)
+    form_cliente = ClienteForm(request.POST or None, instance= instance_cliente)
+    if form_cliente.is_valid():
         try:
-            instance=form.save()
-            instance.save()
+            instance_cliente=form_cliente.save(commit=False)
+            instance_cliente.save()
             messages.success(request,'editou')
             return redirect(cliente)
         except Exception as e:
             messages.error(request,e)
-    return render(request,'formulario_indy_car.html',context={'form':form,'instance':instance})
+    return render(request,'formulario_indy_car.html',context={'form_cliente':form_cliente,'instance_cliente':instance_cliente})
 
 def deletar_cliente(request,id=None):
     instance = get_object_or_404(Cliente,id=id)
@@ -93,7 +89,7 @@ def deletar_empresa(request,id=None):
         messages.error(request,'empresa nao foi deletado')
     return redirect(empresa)
 
-def veiculo(request):
+""" def veiculo(request):
     veiculos = Veiculo.objects.all().order_by('id')
     msg=messages.get_messages(request)
     return render(request,'index.html',context={'veiculos':veiculos,'msg':msg})
@@ -132,4 +128,4 @@ def deletar_veiculo(request,id=None):
         messages.success(request,'veiculo deletado')
     except Exception as e:
         messages.error(request,'veiculo nao foi deletado')
-    return redirect(veiculo)
+    return redirect(veiculo) """

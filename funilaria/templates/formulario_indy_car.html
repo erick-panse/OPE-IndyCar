@@ -15,8 +15,7 @@
 	<fieldset>
 		<form action="" method="POST">
 			{% csrf_token %}
-			{{form}}
-			{{formv}}
+			{{form_cliente.as_p}}
 		<input type="submit" value="Enviar">
 		</form>
 	</fieldset>

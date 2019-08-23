@@ -1,8 +1,10 @@
 from django import forms
-from funilaria.models import Cliente,Empresa,Veiculo
+from funilaria.models import Cliente,Empresa
 
-class ClienteForm(forms.ModelForm):
-    """ veiculo = forms.ModelChoiceField(queryset=Veiculo.objects.all().order_by('id')) """
+class DateInput(forms.DateInput):
+    input_type='date'
+
+class CustomerForm(forms.ModelForm):
     nome = forms.CharField(max_length=60,label='Nome completo:',widget = forms.TextInput(attrs={
         'placeholder':'informe o nome',
         'name':'nome',
@@ -19,50 +21,10 @@ class ClienteForm(forms.ModelForm):
         'placeholder':'informe o email',
         'name':'email',
         'id':'email'}))
-    rg = forms.CharField(max_length=9,label='rg:',widget = forms.TextInput(attrs={
-        'placeholder':'informe o rg',
-        'name':'rg',
-        'id':'rg'}))
     tel = forms.CharField(max_length=15,label='tel:',widget = forms.TextInput(attrs={
         'placeholder':'informe o tel',
         'name':'tel',
         'id':'tel'}))
-
-    class Meta:
-        model = Cliente
-        fields={'nome','endereco','bairro','email','rg','tel'}
-
-class EmpresaForm(forms.ModelForm):
-    nome = forms.CharField(max_length=60,label='Nome:',widget = forms.TextInput(attrs={
-        'placeholder':'informe o nome',
-        'name':'nome',
-        'id':'nome'}))
-    endereco = forms.CharField(max_length=100,label='Endereço:',widget = forms.TextInput(attrs={
-        'placeholder':'informe o endereço',
-        'name':'endereco',
-        'id':'endereco'}))
-    bairro = forms.CharField(max_length=8,label='bairro:',widget = forms.TextInput(attrs={
-        'placeholder':'informe o bairro',
-        'name':'bairro',
-        'id':'bairro'}))
-    email = forms.EmailField(max_length=60,label='Email:',widget = forms.EmailInput(attrs={
-        'placeholder':'informe o email',
-        'name':'email',
-        'id':'email'}))
-    cnpj = forms.CharField(max_length=9,label='cnpj:',widget = forms.TextInput(attrs={
-        'placeholder':'informe o cnpj',
-        'name':'cnpj',
-        'id':'cnpj'}))
-    tel = forms.CharField(max_length=15,label='tel:',widget = forms.TextInput(attrs={
-        'placeholder':'informe o tel',
-        'name':'tel',
-        'id':'tel'}))
-
-    class Meta:
-        model = Empresa
-        fields={'cnpj','nome','endereco','bairro','email','tel'}
-
-class VeiculoForm(forms.ModelForm):
     marca = forms.CharField(max_length=10,label='marca:',widget = forms.TextInput(attrs={
         'placeholder':'informe a marca',
         'name':'marca',
@@ -75,7 +37,7 @@ class VeiculoForm(forms.ModelForm):
         'placeholder':'informe a cor',
         'name':'cor',
         'id':'cor'}))
-    placa = forms.CharField(max_length=7,label='placa:',widget = forms.EmailInput(attrs={
+    placa = forms.CharField(max_length=7,label='placa:',widget = forms.TextInput(attrs={
         'placeholder':'informe a placa',
         'name':'placa',
         'id':'placa'}))
@@ -92,10 +54,31 @@ class VeiculoForm(forms.ModelForm):
         'name':'estado',
         'id':'estado'}))
 
-    entrada = forms.DateTimeField(label='entrada:',widget = forms.widgets.DateTimeInput(format="%d %b %Y %H:%M:%S %Z"))
-    
-    finalizado = forms.DateTimeField(label='finalizado:',widget = forms.widgets.DateTimeInput(format="%d %b %Y %H:%M:%S %Z"))
+    entrada = forms.DateField(widget=DateInput)
+    saida = forms.DateField(widget=DateInput)
     
     class Meta:
-        model = Veiculo
-        fields={'marca','modelo','cor','placa','ano','cidade','estado'} 
+        abstract=True
+
+
+
+class ClienteForm(CustomerForm):
+    rg = forms.CharField(max_length=9,label='rg:',widget = forms.TextInput(attrs={
+        'placeholder':'informe o rg',
+        'name':'rg',
+        'id':'rg'}))
+    
+
+    class Meta:
+        model = Cliente
+        fields=['rg','nome','endereco','bairro','email','tel','marca','modelo','cor','placa','ano','cidade','estado','entrada','saida']
+
+class EmpresaForm(CustomerForm):
+    cnpj = forms.CharField(max_length=9,label='cnpj:',widget = forms.TextInput(attrs={
+        'placeholder':'informe o cnpj',
+        'name':'cnpj',
+        'id':'cnpj'}))
+
+    class Meta:
+        model = Empresa
+        fields=['cnpj','nome','endereco','bairro','email','tel']

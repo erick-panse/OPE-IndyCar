@@ -2,7 +2,15 @@
 
 {% block main %}
 
-
+    {{ form_veiculo.errors.marca }}
+    {{ form_veiculo.errors.modelo }}
+    {{ form_veiculo.errors.cor }}
+    {{ form_veiculo.errors.ano }}
+    {{ form_veiculo.errors.cidade }}
+    {{ form_veiculo.errors.estado }}
+    {{ form_veiculo.errors.entrada }}
+    {{ form_veiculo.errors.finalizado }}
+    
     {% for i in msg %}
         <p>{{i}}</p>
     {% endfor%}
