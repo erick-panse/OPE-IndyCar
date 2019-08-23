@@ -48,7 +48,7 @@ class EmpresaForm(forms.ModelForm):
         'placeholder':'informe o email',
         'name':'email',
         'id':'email'}))
-    cnpj = forms.CharField(max_length=9,label='rg:',widget = forms.TextInput(attrs={
+    cnpj = forms.CharField(max_length=9,label='cnpj:',widget = forms.TextInput(attrs={
         'placeholder':'informe o cnpj',
         'name':'cnpj',
         'id':'cnpj'}))
@@ -66,34 +66,34 @@ class VeiculoForm(forms.ModelForm):
         'placeholder':'informe a marca',
         'name':'marca',
         'id':'marca'}))
-    modelo = forms.CharField(max_length=20,label='Endereço:',widget = forms.TextInput(attrs={
+    modelo = forms.CharField(max_length=20,label='modelo:',widget = forms.TextInput(attrs={
         'placeholder':'informe o modelo',
         'name':'modelo',
         'id':'modelo'}))
-    cor = forms.CharField(max_length=10,label='bairro:',widget = forms.TextInput(attrs={
+    cor = forms.CharField(max_length=10,label='cor:',widget = forms.TextInput(attrs={
         'placeholder':'informe a cor',
         'name':'cor',
         'id':'cor'}))
-    placa = forms.EmailField(max_length=7,label='Email:',widget = forms.EmailInput(attrs={
+    placa = forms.EmailField(max_length=7,label='placa:',widget = forms.EmailInput(attrs={
         'placeholder':'informe a placa',
         'name':'placa',
         'id':'placa'}))
-    ano = forms.CharField(max_length=4,label='rg:',widget = forms.TextInput(attrs={
+    ano = forms.CharField(max_length=4,label='ano:',widget = forms.TextInput(attrs={
         'placeholder':'informe o ano',
         'name':'ano',
         'id':'ano'}))
-    cidade = forms.CharField(max_length=10,label='tel:',widget = forms.TextInput(attrs={
+    cidade = forms.CharField(max_length=10,label='cidade:',widget = forms.TextInput(attrs={
         'placeholder':'informe a cidade',
         'name':'cidade',
         'id':'cidade'}))
-    estado = forms.CharField(max_length=2,label='tel:',widget = forms.TextInput(attrs={
+    estado = forms.CharField(max_length=2,label='estado:',widget = forms.TextInput(attrs={
         'placeholder':'informe o estado',
         'name':'estado',
         'id':'estado'}))
 
-    entrada = forms.DateTimeField(label='tel:',widget = forms.widgets.DateTimeInput(format="%d %b %Y %H:%M:%S %Z"))
+    entrada = forms.DateTimeField(label='entrada:',widget = forms.widgets.DateTimeInput(format="%d %b %Y %H:%M:%S %Z"))
     
-    finalizado = forms.DateTimeField(label='tel:',widget = forms.widgets.DateTimeInput(format="%d %b %Y %H:%M:%S %Z"))
+    finalizado = forms.DateTimeField(label='finalizado:',widget = forms.widgets.DateTimeInput(format="%d %b %Y %H:%M:%S %Z"))
     
     class Meta:
         model = Veiculo
