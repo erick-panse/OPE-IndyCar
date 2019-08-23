@@ -15,15 +15,15 @@ class ClienteForm(forms.ModelForm):
         'name':'bairro',
         'id':'bairro'}))
     email = forms.EmailField(max_length=60,label='Email:',widget = forms.EmailInput(attrs={
-        'placeholder':'informe email',
+        'placeholder':'informe o email',
         'name':'email',
         'id':'email'}))
     rg = forms.CharField(max_length=9,label='rg:',widget = forms.TextInput(attrs={
-        'placeholder':'informe rg',
+        'placeholder':'informe o rg',
         'name':'rg',
         'id':'rg'}))
     tel = forms.CharField(max_length=15,label='tel:',widget = forms.TextInput(attrs={
-        'placeholder':'informe tel',
+        'placeholder':'informe o tel',
         'name':'tel',
         'id':'tel'}))
 
