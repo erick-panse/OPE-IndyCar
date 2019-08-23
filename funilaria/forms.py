@@ -32,7 +32,7 @@ class ClienteForm(forms.ModelForm):
         fields={'nome','endereco','bairro','email','rg','tel'}
 
 class EmpresaForm(forms.ModelForm):
-    nome = forms.CharField(max_length=60,label='Nome completo:',widget = forms.TextInput(attrs={
+    nome = forms.CharField(max_length=60,label='Nome:',widget = forms.TextInput(attrs={
         'placeholder':'informe o nome',
         'name':'nome',
         'id':'nome'}))
@@ -62,7 +62,7 @@ class EmpresaForm(forms.ModelForm):
         fields={'cnpj','nome','endereco','bairro','email','tel'}
 
 class VeiculoForm(forms.ModelForm):
-    marca = forms.CharField(max_length=10,label='Nome completo:',widget = forms.TextInput(attrs={
+    marca = forms.CharField(max_length=10,label='marca:',widget = forms.TextInput(attrs={
         'placeholder':'informe a marca',
         'name':'marca',
         'id':'marca'}))
