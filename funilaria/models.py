@@ -19,7 +19,7 @@ class Veiculo(models.Model):
         return reverse('deletar_veiculo',kwargs={'id':self.id})
 
 class Customer(models.Model):
-    veiculo=models.ForeignKey(Veiculo,on_delete=models.PROTECT)
+    veiculo=models.ForeignKey(Veiculo,on_delete=models.CASCADE,blank=True,null=True)
     nome = models.CharField(max_length=60)
     endereco = models.CharField(max_length=100)
     bairro = models.CharField(max_length=8)

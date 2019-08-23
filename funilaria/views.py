@@ -1,9 +1,8 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from django.http import request,HttpResponseRedirect
-from funilaria.forms import ClienteForm
+from funilaria.forms import ClienteForm,VeiculoForm
 from django.contrib import messages
-from funilaria.models import Cliente
-from funilaria.models import Customer
+from funilaria.models import Cliente,Customer,Veiculo,Empresa
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 #comentado pra n ficar obrigatorio
@@ -15,17 +14,21 @@ def cliente(request):
 
 def novocliente(request):
     if request.method == 'POST':
+        formv = VeiculoForm(request.POST or None)
         form = ClienteForm(request.POST or None)
-        if form.is_valid():
+        if form.is_valid() and formv.is_valid():
             try:
+                form.veiculo = formv.save()
                 form.save()
+                print(form.veiculo)
                 messages.success(request,'salvo')
             except Exception as e:
                 messages.error(request,e)
         return redirect(cliente)
     else:
         form = ClienteForm()
-        return render(request,'formulario_indy_car.html',context={'form':form})
+        formv = VeiculoForm()
+        return render(request,'formulario_indy_car.html',context={'form':form,'formv':formv})
 
 def editar_cliente(request,id=None):
     instance = get_object_or_404(Cliente,id=id)

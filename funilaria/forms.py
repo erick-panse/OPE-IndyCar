@@ -2,7 +2,7 @@ from django import forms
 from funilaria.models import Cliente,Empresa,Veiculo
 
 class ClienteForm(forms.ModelForm):
-    veiculo = forms.ModelChoiceForm(queryset=Veiculo.objects.all().order_by('id'))
+    """ veiculo = forms.ModelChoiceField(queryset=Veiculo.objects.all().order_by('id')) """
     nome = forms.CharField(max_length=60,label='Nome completo:',widget = forms.TextInput(attrs={
         'placeholder':'informe o nome',
         'name':'nome',
@@ -75,7 +75,7 @@ class VeiculoForm(forms.ModelForm):
         'placeholder':'informe a cor',
         'name':'cor',
         'id':'cor'}))
-    placa = forms.EmailField(max_length=7,label='placa:',widget = forms.EmailInput(attrs={
+    placa = forms.CharField(max_length=7,label='placa:',widget = forms.EmailInput(attrs={
         'placeholder':'informe a placa',
         'name':'placa',
         'id':'placa'}))
@@ -98,4 +98,4 @@ class VeiculoForm(forms.ModelForm):
     
     class Meta:
         model = Veiculo
-        fields={'marca','modelo','cor','placa','ano','cidade','estado','entrada','finalizado'} 
+        fields={'marca','modelo','cor','placa','ano','cidade','estado'} 
