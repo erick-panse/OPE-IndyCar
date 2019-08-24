@@ -2,7 +2,7 @@
 
 {% block main %}
 
-    {{ form_veiculo.errors.marca }}
+    {% comment %} {{ form_veiculo.errors.marca }}
     {{ form_veiculo.errors.modelo }}
     {{ form_veiculo.errors.cor }}
     {{ form_veiculo.errors.ano }}
@@ -24,7 +24,7 @@
             <a href="{{i.get_del_cliente}}">deletar o cliente</a>
         {% endfor %}
     </ul>
-    <a href="/logout/">Sair</a> {% endcomment %}
+    <a href="/logout/">Sair</a>
 
 
     <h2>Clientes</h2>  
@@ -35,8 +35,51 @@
             <li class="list-group-item d-flex justify-content-between align-items-right">{{i.nome}}
             <a href="{{i.get_editar_cliente}}">Editar o Cliente</a>
             <a href="{{i.get_del_cliente}}">Deletar o Cliente</a></li>
-        {% endfor %}
+        {% endfor %} 
+        
+        {% endcomment %}
 
+<<<<<<< HEAD
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Cadastrar Cliente</h5>
+          <p class="card-text">
+            Cadastre aqui um novo <code>Cliente</code>.
+          </p>
+          <a href="/formcliente/"
+             class="btn btn-primary">
+            Novo Cliente
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Lista de Clientes</h5>
+          <p class="card-text">
+            Veja aqui a lista de <code>Clientes</code> cadastrados.
+          </p>
+          <a href="/clientes/"
+             class="btn btn-primary">
+            Vá para Lista
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+=======
     </ul>
     <br>
     <br>
@@ -65,5 +108,7 @@
     
     </tbody>
   </table>
+>>>>>>> 945e1826f8d888eddd4ac3c10f2fbb66c25afef6
 </div>
+
 {% endblock %}

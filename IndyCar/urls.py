@@ -23,9 +23,9 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('cliente/',cliente,name='cliente'),
+    path('clientes/',cliente,name='cliente'),
    
-    path('',funilaria_views.cliente),
+    path('',funilaria_views.index),
     re_path(r'cliente/(?P<id>\d+)/$',funilaria_views.editar_cliente, name='editar_cliente'),
     re_path(r'cliente/deletar/(?P<id>\d+)/$',funilaria_views.deletar_cliente, name='deletar_cliente'),
     path('formcliente/', funilaria_views.novocliente, name='formcliente'),

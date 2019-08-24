@@ -6,11 +6,14 @@ from funilaria.models import Cliente,Customer,Empresa
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 #comentado pra n ficar obrigatorio
+def index (request):
+    return render(request, 'index.html')
+
 @login_required(login_url='/login/')
 def cliente(request):
     clientes = Cliente.objects.all().order_by('id')
     msg=messages.get_messages(request)
-    return render(request,'index.html',context={'clientes':clientes,'msg':msg})
+    return render(request,'Clientes.html',context={'clientes':clientes,'msg':msg})
 
 @login_required(login_url='/login/')
 def novocliente(request):
