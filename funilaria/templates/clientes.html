@@ -1,0 +1,102 @@
+    {% extends 'base.html' %}
+
+    {% block main %}
+    
+    
+    {{ form_veiculo.errors.marca }}
+    {{ form_veiculo.errors.modelo }}
+    {{ form_veiculo.errors.cor }}
+    {{ form_veiculo.errors.ano }}
+    {{ form_veiculo.errors.cidade }}
+    {{ form_veiculo.errors.estado }}
+    {{ form_veiculo.errors.entrada }}
+    {{ form_veiculo.errors.finalizado }}
+    
+    {% for i in msg %}
+        <p>{{i}}</p>
+    {% endfor%}
+    <br>
+    <br>
+    <br>
+    {% comment %} <ul>
+        {% for i in clientes %}
+            <li>{{i.nome}}</li>
+            <a href="{{i.get_editar_cliente}}">editar o cliente</a>
+            <a href="{{i.get_del_cliente}}">deletar o cliente</a>
+        {% endfor %}
+    </ul>
+    <a href="/logout/">Sair</a>
+
+
+
+    <h2>Clientes</h2>  
+    <br>
+    <a href="{% url 'formcliente' %}">+Adicionar Cliente</a>  
+    <ul class="list-group">
+       {% for i in clientes %}
+            <li class="list-group-item d-flex justify-content-between align-items-right">{{i.nome}}
+            <a href="{{i.get_editar_cliente}}">Editar o Cliente</a>
+            <a href="{{i.get_del_cliente}}">Deletar o Cliente</a></li>
+        {% endfor %} 
+        
+ {% endcomment %}
+
+
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Lista de Clientes</h5>
+
+          {% if Cliente|length > 0 %}
+            <p class="card-text">
+              Aqui está a lista de <code>Clientes</code> cadastrados.
+            </p>
+
+            <table class="table">
+              <thead class="thead-dark">
+              <tr>
+                <th>Nome</th>
+                <th>Placa do Veículo</th>
+              </tr>
+              </thead>
+
+              <tbody>
+              {% for i in clientes %}
+                <tr>
+                  <td>{{ i.nome }}</td>
+                  <td>{{ i.placa_veiculo }}</td>
+                  <td>
+                    <a href="{{i.get_editar_cliente}}"
+                       class="btn btn-info">
+                      Atualizar
+                    </a>
+                    <a href="{i.get_del_cliente}}"
+                      class="btn btn-outline-danger">
+                        Excluir
+                    </a>
+                  </td>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+        {% else %}
+          <div class="text-center mt-5 mb-5 jumbotron">
+            <h5>Nenhum <code>Cliente</code> cadastrado ainda.</h5>
+          </div>
+        {% endif %}
+          <hr />
+          <div class="text-right">
+            <a href="{% url 'formcliente' %}" class="btn btn-primary">
+              Cadastrar cliente
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  {% endblock %}
