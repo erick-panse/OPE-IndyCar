@@ -1,9 +1,10 @@
 
+{% extends 'base.html' %}
 
 {% block main %}
 
 
-<!DOCTYPE html>
+{% comment %} <!DOCTYPE html>
 <html>
 <head>
 	<title>
@@ -19,5 +20,130 @@
 		</form>
 	</fieldset>
 </body>
-</html>
+</html> {% endcomment %}
+
+
+<br>
+<br>
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Cadastro de Clientes</h5>
+          <p class="card-text">
+            Complete o formulário abaixo para cadastrar
+            um novo <code>Cliente</code>.
+          </p>
+          <form method="post">
+            {% csrf_token %}
+
+            <!-- Nome -->
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Nome</span>
+              </div>
+              {{form_cliente.nome}}
+            </div>
+
+            <!-- Endereço -->
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Endereço</span>
+              </div>
+              {{form_cliente.endereco}}
+            </div>
+
+			<!-- Bairro -->
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Bairro</span>
+              </div>
+              {{form_cliente.bairro}}
+            </div>
+
+			<!-- Email -->
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Email</span>
+              </div>
+              {{form_cliente.email}}
+            </div>
+
+			<!-- Telefone -->
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Telefone</span>
+              </div>
+              {{form_cliente.tel}}
+            </div>
+
+			<!-- Marca -->
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Marca</span>
+              </div>
+              {{form_cliente.marca}}
+            </div>
+
+			<!-- Modelo -->
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Modelo</span>
+              </div>
+              {{form_cliente.modelo}}
+            </div>
+
+			<!-- Cor -->
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Cor</span>
+              </div>
+              {{form_cliente.cor}}
+            </div>
+
+			<!-- Placa -->
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Placa</span>
+              </div>
+              {{form_cliente.placa}}
+            </div>
+
+			<!-- Ano -->
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Ano</span>
+              </div>
+              {{form_cliente.ano}}
+            </div>
+
+			<!-- Cidade -->
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Cidade</span>
+              </div>
+              {{form_cliente.cidade}}
+            </div>
+
+
+			<!-- Estado -->
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Estado</span>
+              </div>
+              {{form_cliente.estado}}
+            </div>
+
+
+
+            <button class="btn btn-primary">Enviar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 {% endblock %}

@@ -36,7 +36,7 @@ urlpatterns = [
     path('formcliente/', funilaria_views.novocliente, name='formcliente'),
     
     
-    path('empresa/',funilaria_views.empresa,name='empresa'),
+    path('empresas/',funilaria_views.empresa,name='empresa'),
 
     re_path(r'empresa/(?P<id>\d+)/$',funilaria_views.editar_empresa, name='editar_empresa'),
     re_path(r'empresa/deletar/(?P<id>\d+)/$',funilaria_views.deletar_empresa, name='deletar_empresa'),

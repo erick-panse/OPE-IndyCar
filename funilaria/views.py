@@ -13,7 +13,7 @@ def index (request):
 def cliente(request):
     clientes = Cliente.objects.all().order_by('id')
     msg=messages.get_messages(request)
-    return render(request,'Clientes.html',context={'clientes':clientes,'msg':msg})
+    return render(request,'clientes.html',context={'clientes':clientes,'msg':msg})
 
 @login_required(login_url='/login/')
 def novocliente(request):
@@ -58,7 +58,7 @@ def deletar_cliente(request,id=None):
 def empresa(request):
     empresas = Empresa.objects.all().order_by('id')
     msg=messages.get_messages(request)
-    return render(request,'index.html',context={'empresas':empresas,'msg':msg})
+    return render(request,'empresas.html',context={'empresas':empresas,'msg':msg})
 
 @login_required(login_url='/login/')
 def novoempresa(request):
