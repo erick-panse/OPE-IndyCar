@@ -78,20 +78,52 @@
         </div>
       </div>
     </div>
+    <br>
+    <br>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Adicionar Empresas</h5>
+          <p class="card-text">
+            Cadastre aqui uma nova <code>Empresa</code>
+          </p>
+          <a href="{{i.get_editar_empresa}}"
+             class="btn btn-primary">
+            Nova Empresa
+          </a>
+        </div>
+      </div>
+    </div>
+    <br>
+    <br>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Lista de Empresas</h5>
+          <p class="card-text">
+            Veja aqui a lista de <code>Empresas</code> cadastradas
+          </p>
+          <a href="/"
+             class="btn btn-primary">
+            listar Empresas
+          </a>
+        </div>
+      </div>
+    </div>
   </div>
-=======
+{% comment %} 
     </ul>
     <br>
     <br>
     <br>
-    {% comment %} <ul>
+  <ul>
         {% for i in empresas %}
             <li>{{i.nome}}</li>
             <a href="{{i.get_editar_empresa}}">editar o empresa</a>
             <a href="{{i.get_del_empresa}}">deletar o empresa</a>
         {% endfor %}
     </ul>
-    <a href="/logout/">Sair</a> {% endcomment %}
+    <a href="/logout/">Sair</a>
 
 
     <h2>Empresas</h2>  
@@ -109,6 +141,6 @@
     </tbody>
   </table>
 >>>>>>> 945e1826f8d888eddd4ac3c10f2fbb66c25afef6
-</div>
+</div> {% endcomment %}
 
 {% endblock %}
