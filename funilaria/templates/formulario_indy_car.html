@@ -3,26 +3,6 @@
 
 {% block main %}
 
-
-{% comment %} <!DOCTYPE html>
-<html>
-<head>
-	<title>
-		CLIENTE
-	</title>
-</head>
-<body>
-	<fieldset>
-		<form action="" method="POST">
-			{% csrf_token %}
-			{{form_cliente.as_p}}
-		<input type="submit" value="Enviar">
-		</form>
-	</fieldset>
-</body>
-</html> {% endcomment %}
-
-
 <br>
 <br>
 <br>
@@ -35,9 +15,30 @@
           <p class="card-text">
             Complete o formulário abaixo para cadastrar
             um novo <code>Cliente</code>.
+            {{ form_cliente.errors.rg }}
+          {{ form_cliente.errors.nome }}
+          {{ form_cliente.errors.endereco }}
+          {{ form_cliente.errors.bairro }}
+          {{ form_cliente.errors.email }}
+          {{ form_cliente.errors.telefone }}
+          {{ form_cliente.errors.marca_veiculo }}
+          {{ form_cliente.errors.modelo_veiculo }}
+          {{ form_cliente.errors.cor_veiculo }}
+          {{ form_cliente.errors.ano_veiculo }}
+          {{ form_cliente.errors.cidade_veiculo }}
+          {{ form_cliente.errors.estado_veiculo }}
+          {{ form_cliente.errors.entrada_veiculo }}
+          {{ form_cliente.errors.finalizado_veiculo }}
           </p>
-          <form method="post">
+          <form method="POST">
             {% csrf_token %}
+            <!-- rg -->
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">RG</span>
+              </div>
+              {{form_cliente.rg}}
+            </div>
 
             <!-- Nome -->
             <div class="input-group mb-3">
@@ -76,7 +77,7 @@
               <div class="input-group-prepend">
                 <span class="input-group-text">Telefone</span>
               </div>
-              {{form_cliente.tel}}
+              {{form_cliente.telefone}}
             </div>
 
 			<!-- Marca -->
@@ -84,7 +85,7 @@
               <div class="input-group-prepend">
                 <span class="input-group-text">Marca</span>
               </div>
-              {{form_cliente.marca}}
+              {{form_cliente.marca_veiculo}}
             </div>
 
 			<!-- Modelo -->
@@ -92,7 +93,7 @@
               <div class="input-group-prepend">
                 <span class="input-group-text">Modelo</span>
               </div>
-              {{form_cliente.modelo}}
+              {{form_cliente.modelo_veiculo}}
             </div>
 
 			<!-- Cor -->
@@ -100,7 +101,7 @@
               <div class="input-group-prepend">
                 <span class="input-group-text">Cor</span>
               </div>
-              {{form_cliente.cor}}
+              {{form_cliente.cor_veiculo}}
             </div>
 
 			<!-- Placa -->
@@ -108,7 +109,7 @@
               <div class="input-group-prepend">
                 <span class="input-group-text">Placa</span>
               </div>
-              {{form_cliente.placa}}
+              {{form_cliente.placa_veiculo}}
             </div>
 
 			<!-- Ano -->
@@ -116,7 +117,7 @@
               <div class="input-group-prepend">
                 <span class="input-group-text">Ano</span>
               </div>
-              {{form_cliente.ano}}
+              {{form_cliente.ano_veiculo}}
             </div>
 
 			<!-- Cidade -->
@@ -124,7 +125,7 @@
               <div class="input-group-prepend">
                 <span class="input-group-text">Cidade</span>
               </div>
-              {{form_cliente.cidade}}
+              {{form_cliente.cidade_veiculo}}
             </div>
 
 
@@ -133,12 +134,12 @@
               <div class="input-group-prepend">
                 <span class="input-group-text">Estado</span>
               </div>
-              {{form_cliente.estado}}
+              {{form_cliente.estado_veiculo}}
             </div>
 
 
 
-            <button class="btn btn-primary">Enviar</button>
+            <input class="btn btn-primary" type="submit" value="Enviar"></input>
           </form>
         </div>
       </div>

@@ -2,16 +2,6 @@
 
     {% block main %}
     
-    
-    {{ form_veiculo.errors.marca }}
-    {{ form_veiculo.errors.modelo }}
-    {{ form_veiculo.errors.cor }}
-    {{ form_veiculo.errors.ano }}
-    {{ form_veiculo.errors.cidade }}
-    {{ form_veiculo.errors.estado }}
-    {{ form_veiculo.errors.entrada }}
-    {{ form_veiculo.errors.finalizado }}
-    
     {% for i in msg %}
         <p>{{i}}</p>
     {% endfor%}
@@ -50,8 +40,21 @@
       <div class="card">
         <div class="card-body">
           <h5 class="card-title">Lista de Clientes</h5>
-
-          {% if Cliente|length > 0 %}
+          {{ form_cliente.errors.rg }}
+          {{ form_cliente.errors.nome }}
+          {{ form_cliente.errors.endereco }}
+          {{ form_cliente.errors.bairro }}
+          {{ form_cliente.errors.email }}
+          {{ form_cliente.errors.telefone }}
+          {{ form_cliente.errors.marca_veiculo }}
+          {{ form_cliente.errors.modelo_veiculo }}
+          {{ form_cliente.errors.cor_veiculo }}
+          {{ form_cliente.errors.ano_veiculo }}
+          {{ form_cliente.errors.cidade_veiculo }}
+          {{ form_cliente.errors.estado_veiculo }}
+          {{ form_cliente.errors.entrada_veiculo }}
+          {{ form_cliente.errors.finalizado_veiculo }}
+          {% if clientes|length > 0 %}
             <p class="card-text">
               Aqui está a lista de <code>Clientes</code> cadastrados.
             </p>
@@ -60,7 +63,7 @@
               <thead class="thead-dark">
               <tr>
                 <th>Nome</th>
-                <th>Placa do Veículo</th>
+                <th>Veículo</th>
               </tr>
               </thead>
 
@@ -68,13 +71,13 @@
               {% for i in clientes %}
                 <tr>
                   <td>{{ i.nome }}</td>
-                  <td>{{ i.placa }}</td>
+                  <td>{{ i.modelo_veiculo }}<br>{{i.placa_veiculo}}</td>
                   <td>
                     <a href="{{i.get_editar_cliente}}"
                        class="btn btn-info">
                       Atualizar
                     </a>
-                    <a href="{i.get_del_cliente}}"
+                    <a href="{{i.get_del_cliente}}"
                       class="btn btn-outline-danger">
                         Excluir
                     </a>

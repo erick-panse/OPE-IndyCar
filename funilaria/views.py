@@ -19,20 +19,24 @@ def cliente(request):
 def novocliente(request):
     if request.method == 'POST':
         form_cliente = ClienteForm(request.POST or None)
+        print(form_cliente.is_valid())
         if form_cliente.is_valid():
             try:
                 form_cliente.save()
                 messages.success(request,'salvo')
             except Exception as e:
                 messages.error(request,e)
-        return redirect(cliente)
+            return redirect(cliente)
+        else:
+            return render(request,'formulario_indy_car.html',context={'form_cliente':form_cliente})
     else:
         form_cliente = ClienteForm()
-        return render(request,'formulario_indy_car.html',context={'form_cliente':form_cliente,})
+        return render(request,'formulario_indy_car.html',context={'form_cliente':form_cliente})
 
 @login_required(login_url='/login/')
 def editar_cliente(request,id=None):
     instance_cliente = get_object_or_404(Cliente,id=id)
+    print(instance_cliente.modelo_veiculo)
     form_cliente = ClienteForm(request.POST or None, instance= instance_cliente)
     if form_cliente.is_valid():
         try:

@@ -18,49 +18,49 @@ class CustomerForm(forms.ModelForm):
         'placeholder':'informe o bairro',
         'name':'bairro',
         'id':'bairro'}))
-    email = forms.EmailField(max_length=60,label='Email:',widget = forms.EmailInput(attrs={
+    email = forms.EmailField(max_length=60,label='email:',widget = forms.EmailInput(attrs={
         'placeholder':'informe o email',
         'name':'email',
         'id':'email'}))
-    tel = forms.CharField(max_length=15,label='tel:',widget = forms.TextInput(attrs={
+    telefone = forms.CharField(max_length=15,label='telefone:',widget = forms.TextInput(attrs={
         'placeholder':'informe o tel',
         'name':'tel',
         'id':'tel'}))
-    marca = forms.CharField(max_length=10,label='marca:',widget = forms.TextInput(attrs={
+    marca_veiculo = forms.CharField(max_length=10,label='marca:',widget = forms.TextInput(attrs={
         'placeholder':'informe a marca',
         'name':'marca',
         'id':'marca'}))
-    modelo = forms.CharField(max_length=20,label='modelo:',widget = forms.TextInput(attrs={
+    modelo_veiculo = forms.CharField(max_length=20,label='modelo:',widget = forms.TextInput(attrs={
         'placeholder':'informe o modelo',
         'name':'modelo',
         'id':'modelo'}))
-    cor = forms.CharField(max_length=10,label='cor:',widget = forms.TextInput(attrs={
+    cor_veiculo = forms.CharField(max_length=10,label='cor:',widget = forms.TextInput(attrs={
         'placeholder':'informe a cor',
         'name':'cor',
         'id':'cor'}))
-    placa = forms.CharField(max_length=7,label='placa:',widget = forms.TextInput(attrs={
+    placa_veiculo = forms.CharField(max_length=7,label='placa:',widget = forms.TextInput(attrs={
         'placeholder':'informe a placa',
         'name':'placa',
         'id':'placa'}))
-    ano = forms.CharField(max_length=4,label='ano:',widget = forms.TextInput(attrs={
+    ano_veiculo = forms.CharField(max_length=4,label='ano:',widget = forms.TextInput(attrs={
         'placeholder':'informe o ano',
         'name':'ano',
         'id':'ano'}))
-    cidade = forms.CharField(max_length=10,label='cidade:',widget = forms.TextInput(attrs={
+    cidade_veiculo = forms.CharField(max_length=10,label='cidade:',widget = forms.TextInput(attrs={
         'placeholder':'informe a cidade',
         'name':'cidade',
         'id':'cidade'}))
-    estado = forms.CharField(max_length=2,label='estado:',widget = forms.TextInput(attrs={
+    estado_veiculo = forms.CharField(max_length=2,label='estado:',widget = forms.TextInput(attrs={
         'placeholder':'informe o estado',
         'name':'estado',
         'id':'estado'}))
     
-    def validarNome(self):
+    """ def validarNome(self):
         nome = self.cleaned_data_get('nome')
         if not SomenteLetras(campo):
             raise forms.ValidationError('Nome inválido !')
         
-        return nome
+        return nome """
 
     class Meta:
         abstract=True
@@ -75,7 +75,7 @@ class ClienteForm(CustomerForm):
 
     class Meta:
         model = Cliente
-        fields=['rg','nome','endereco','bairro','email','tel','marca','modelo','cor','placa','ano','cidade','estado']
+        fields=['rg','nome','endereco','bairro','email','telefone','marca_veiculo','modelo_veiculo','cor_veiculo','placa_veiculo','ano_veiculo','cidade_veiculo','estado_veiculo']
 
 class EmpresaForm(CustomerForm):
     cnpj = forms.CharField(max_length=9,label='cnpj:',widget = forms.TextInput(attrs={
@@ -85,4 +85,4 @@ class EmpresaForm(CustomerForm):
 
     class Meta:
         model = Empresa
-        fields=['cnpj','nome','endereco','bairro','email','tel','marca','modelo','cor','placa','ano','cidade','estado']
+        fields=['cnpj','nome','endereco','bairro','email','telefone','marca_veiculo','modelo_veiculo','cor_veiculo','placa_veiculo','ano_veiculo','cidade_veiculo','estado_veiculo']
