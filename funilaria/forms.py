@@ -1,6 +1,10 @@
 from django import forms
 from funilaria.models import Cliente,Empresa
 
+
+def SomenteLetras(campo):
+    return '0123456789!@#$%¨&*()_+`{}^:><|\,.;~]´[=-"' not in campo
+
 class CustomerForm(forms.ModelForm):
     nome = forms.CharField(max_length=60,label='Nome completo:',widget = forms.TextInput(attrs={
         'placeholder':'informe o nome',
@@ -51,6 +55,13 @@ class CustomerForm(forms.ModelForm):
         'name':'estado',
         'id':'estado'}))
     
+    def validarNome(self):
+        nome = self.cleaned_data_get('nome')
+        if not SomenteLetras(campo):
+            raise forms.ValidationError('Nome inválido !')
+        
+        return nome
+
     class Meta:
         abstract=True
 
