@@ -45,7 +45,7 @@ urlpatterns = [
     path('perfil/',usuario_views.perfil_usuario,name='perfil_usuario'),
     path('novo-usuario/',usuario_views.novo_usuario,name='novo_usuario'),
     path('perfil/editar/',usuario_views.editar_usuario,name='formusuario'),
-    path('perfil/senha/',usuario_views.alterar_senha,name='alterarsenha'),
+    path('perfil/editar/senha/',usuario_views.alterar_senha,name='alterarsenha'),
 
     path('login/', usuario_views.login_user),
     path('login/submit', usuario_views.submit_login),
