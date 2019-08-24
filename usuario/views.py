@@ -5,11 +5,14 @@ from .forms import UsuarioForm,EditarUsuarioForm
 from django.contrib.auth.forms import PasswordChangeForm
 from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth import authenticate, login, logout,update_session_auth_hash
-# Create your views here.
+from django.contrib.auth.decorators import login_required
 
+# Create your views here.
+@login_required(login_url='/login/')
 def perfil_usuario(request):
     msg=messages.get_messages(request)
     return render(request,'perfil.html',context={'user':request.user,'msg':msg})
+
 
 def novo_usuario(request):
     if request.method == 'POST':
@@ -24,6 +27,7 @@ def novo_usuario(request):
         form = UsuarioForm()
     return render(request,'novo-usuario.html',context={'form':form})
 
+@login_required(login_url='/login/')
 def editar_usuario(request):
     if request.method == 'POST':
         form = EditarUsuarioForm(request.POST or None,instance=request.user)
@@ -37,6 +41,7 @@ def editar_usuario(request):
         form = EditarUsuarioForm(instance=request.user)
     return render(request,'formusuario.html',context={'form':form})
 
+@login_required(login_url='/login/')
 def alterar_senha(request):
     if request.method=="POST":
         form = PasswordChangeForm(data=request.POST,user=request.user)

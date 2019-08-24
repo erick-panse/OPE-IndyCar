@@ -34,7 +34,9 @@ urlpatterns = [
     re_path(r'cliente/(?P<id>\d+)/$',funilaria_views.editar_cliente, name='editar_cliente'),
     re_path(r'cliente/deletar/(?P<id>\d+)/$',funilaria_views.deletar_cliente, name='deletar_cliente'),
     path('formcliente/', funilaria_views.novocliente, name='formcliente'),
-    path('empresa/',funilaria_views.cliente,name='empresa'),
+    
+    
+    path('empresa/',funilaria_views.empresa,name='empresa'),
 
     re_path(r'empresa/(?P<id>\d+)/$',funilaria_views.editar_empresa, name='editar_empresa'),
     re_path(r'empresa/deletar/(?P<id>\d+)/$',funilaria_views.deletar_empresa, name='deletar_empresa'),
@@ -43,7 +45,7 @@ urlpatterns = [
     path('perfil/',usuario_views.perfil_usuario,name='perfil_usuario'),
     path('novo-usuario/',usuario_views.novo_usuario,name='novo_usuario'),
     path('perfil/editar/',usuario_views.editar_usuario,name='formusuario'),
-    path('perfil/alterar-senha/',usuario_views.alterar_senha,name='alterarsenha'),
+    path('perfil/senha/',usuario_views.alterar_senha,name='alterarsenha'),
 
     path('login/', usuario_views.login_user),
     path('login/submit', usuario_views.submit_login),

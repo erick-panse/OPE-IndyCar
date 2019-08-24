@@ -1,0 +1,22 @@
+
+{% block main %}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>
+		EMPRESA
+	</title>
+</head>
+<body>
+	<fieldset>
+		<form action="" method="POST">
+			{% csrf_token %}
+			{{form.as_p}}
+		<input type="submit" value="Enviar">
+		</form>
+	</fieldset>
+</body>
+</html>
+{% endblock %}
