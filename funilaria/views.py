@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from django.http import request,HttpResponseRedirect
-from funilaria.forms import ClienteForm
+from funilaria.forms import ClienteForm,EmpresaForm
 from django.contrib import messages
 from funilaria.models import Cliente,Customer,Empresa
 from django.contrib.auth.decorators import login_required
@@ -65,10 +65,10 @@ def novoempresa(request):
         return redirect(empresa)
     else:
         form = EmpresaForm()
-        return render(request,'formulario_indy_car.html',context={'form':form})
+        return render(request,'formulario_empresa.html',context={'form':form})
 
 def editar_empresa(request,id=None):
-    instance = get_object_or_404(empresa,id=id)
+    instance = get_object_or_404(Empresa,id=id)
     form = EmpresaForm(request.POST or None, instance= instance)
     if form.is_valid():
         try:
@@ -78,14 +78,14 @@ def editar_empresa(request,id=None):
             return redirect(empresa)
         except Exception as e:
             messages.error(request,e)
-    return render(request,'formulario_indy_car.html',context={'form':form,'instance':instance})
+    return render(request,'formulario_empresa.html',context={'form':form,'instance':instance})
 
 def deletar_empresa(request,id=None):
-    instance = get_object_or_404(empresa,id=id)
+    instance = get_object_or_404(Empresa,id=id)
     try:
         instance.delete()
-        messages.success(request,'empresa deletado')
+        messages.success(request,'empresa deletada')
     except Exception as e:
-        messages.error(request,'empresa nao foi deletado')
+        messages.error(request,'empresa nao foi deletada')
     return redirect(empresa)
 
