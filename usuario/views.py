@@ -1,12 +1,19 @@
 from django.shortcuts import render,redirect
 from django.contrib import messages
-from .forms import UserRegisterForm
+#UserCreationForm e EditProfileForm customizados 
+from .forms import UsuarioForm,EditarUsuarioForm
+from django.contrib.auth.forms import PasswordChangeForm
 from django.views.decorators.csrf import csrf_protect
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout,update_session_auth_hash
 # Create your views here.
+
+def perfil_usuario(request):
+    msg=messages.get_messages(request)
+    return render(request,'perfil.html',context={'user':request.user,'msg':msg})
+
 def novo_usuario(request):
     if request.method == 'POST':
-        form = UserRegisterForm(request.POST)
+        form = UsuarioForm(request.POST)
         if form.is_valid():
             form.save()
             messages.success(request,'Usuário cadastrado com sucesso !')
@@ -14,8 +21,37 @@ def novo_usuario(request):
              messages.error(request,'Form inválido!')
         return redirect('/cliente/')
     else:
-        form = UserRegisterForm()
+        form = UsuarioForm()
     return render(request,'novo-usuario.html',context={'form':form})
+
+def editar_usuario(request):
+    if request.method == 'POST':
+        form = EditarUsuarioForm(request.POST or None,instance=request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(request,'Usuário editado com sucesso !')
+        else:
+             messages.error(request,'Form inválido!')
+        return redirect(perfil_usuario)
+    else:
+        form = EditarUsuarioForm(instance=request.user)
+    return render(request,'formusuario.html',context={'form':form})
+
+def alterar_senha(request):
+    if request.method=="POST":
+        form = PasswordChangeForm(data=request.POST,user=request.user)
+        if form.is_valid():
+            form.save()
+            update_session_auth_hash(request,form.user,)
+            messages.success(request,'Senha alterada com sucesso !')
+        else:
+            messages.error(request,'Erro ao alterar')
+        return redirect(perfil_usuario)
+    else:
+        form=PasswordChangeForm(user=request.user)
+    return render(request,'alterarsenha.html',context={'form':form}) 
+
+
 
 def login_user(request):
     return render(request, 'login.html')

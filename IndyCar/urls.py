@@ -40,7 +40,11 @@ urlpatterns = [
     re_path(r'empresa/deletar/(?P<id>\d+)/$',funilaria_views.deletar_empresa, name='deletar_empresa'),
     path('formempresa/', funilaria_views.novoempresa, name='formempresa'),
 
+    path('perfil/',usuario_views.perfil_usuario,name='perfil_usuario'),
     path('novo-usuario/',usuario_views.novo_usuario,name='novo_usuario'),
+    path('perfil/editar/',usuario_views.editar_usuario,name='formusuario'),
+    path('perfil/alterar-senha/',usuario_views.alterar_senha,name='alterarsenha'),
+
     path('login/', usuario_views.login_user),
     path('login/submit', usuario_views.submit_login),
     path('logout/', usuario_views.logout_user),

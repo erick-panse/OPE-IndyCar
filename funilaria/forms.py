@@ -1,9 +1,6 @@
 from django import forms
 from funilaria.models import Cliente,Empresa
 
-class DateInput(forms.DateInput):
-    input_type='date'
-
 class CustomerForm(forms.ModelForm):
     nome = forms.CharField(max_length=60,label='Nome completo:',widget = forms.TextInput(attrs={
         'placeholder':'informe o nome',
@@ -53,9 +50,6 @@ class CustomerForm(forms.ModelForm):
         'placeholder':'informe o estado',
         'name':'estado',
         'id':'estado'}))
-
-    entrada = forms.DateField(widget=DateInput)
-    saida = forms.DateField(widget=DateInput)
     
     class Meta:
         abstract=True
@@ -67,11 +61,10 @@ class ClienteForm(CustomerForm):
         'placeholder':'informe o rg',
         'name':'rg',
         'id':'rg'}))
-    
 
     class Meta:
         model = Cliente
-        fields=['rg','nome','endereco','bairro','email','tel','marca','modelo','cor','placa','ano','cidade','estado','entrada','saida']
+        fields=['rg','nome','endereco','bairro','email','tel','marca','modelo','cor','placa','ano','cidade','estado']
 
 class EmpresaForm(CustomerForm):
     cnpj = forms.CharField(max_length=9,label='cnpj:',widget = forms.TextInput(attrs={

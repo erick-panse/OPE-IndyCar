@@ -15,8 +15,6 @@ class Customer(models.Model):
     placa_veiculo = models.CharField(max_length=7,blank=True,null=True)
     cidade_veiculo = models.CharField(max_length=10,blank=True,null=True)
     estado_veiculo = models.CharField(max_length=2,blank=True,null=True)
-    entrada_veiculo = models.DateField(auto_now=True)
-    saida_veiculo = models.DateField(blank=True,null=True)
 
 
 class Cliente(Customer):
