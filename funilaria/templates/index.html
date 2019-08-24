@@ -39,6 +39,7 @@
         
         {% endcomment %}
 
+<<<<<<< HEAD
 <br>
 <br>
 <br>
@@ -78,6 +79,36 @@
       </div>
     </div>
   </div>
+=======
+    </ul>
+    <br>
+    <br>
+    <br>
+    {% comment %} <ul>
+        {% for i in empresas %}
+            <li>{{i.nome}}</li>
+            <a href="{{i.get_editar_empresa}}">editar o empresa</a>
+            <a href="{{i.get_del_empresa}}">deletar o empresa</a>
+        {% endfor %}
+    </ul>
+    <a href="/logout/">Sair</a> {% endcomment %}
+
+
+    <h2>Empresas</h2>  
+    <br>
+    <a href="{% url 'formempresa' %}">+Adicionar Empresa</a>  
+    <ul class="list-group">
+       {% for i in empresas %}
+            <li class="list-group-item d-flex justify-content-between align-items-right">{{i.nome}}
+            <a href="{{i.get_editar_empresa}}">Editar a Empresa</a>
+            <a href="{{i.get_del_empresa}}">Deletar a Empresa</a></li>
+        {% endfor %}
+
+    </ul>
+    
+    </tbody>
+  </table>
+>>>>>>> 945e1826f8d888eddd4ac3c10f2fbb66c25afef6
 </div>
 
 {% endblock %}

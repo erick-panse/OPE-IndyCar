@@ -81,4 +81,4 @@ class EmpresaForm(CustomerForm):
 
     class Meta:
         model = Empresa
-        fields=['cnpj','nome','endereco','bairro','email','tel']
+        fields=['cnpj','nome','endereco','bairro','email','tel','marca','modelo','cor','placa','ano','cidade','estado','entrada','saida']
