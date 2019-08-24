@@ -6,17 +6,16 @@ from funilaria.models import Cliente,Customer,Empresa
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 #comentado pra n ficar obrigatorio
-@login_required(login_url='/login/' )
-
 def index (request):
     return render(request, 'index.html')
 
-
+@login_required(login_url='/login/')
 def cliente(request):
     clientes = Cliente.objects.all().order_by('id')
     msg=messages.get_messages(request)
     return render(request,'Clientes.html',context={'clientes':clientes,'msg':msg})
 
+@login_required(login_url='/login/')
 def novocliente(request):
     if request.method == 'POST':
         form_cliente = ClienteForm(request.POST or None)
@@ -31,6 +30,7 @@ def novocliente(request):
         form_cliente = ClienteForm()
         return render(request,'formulario_indy_car.html',context={'form_cliente':form_cliente,})
 
+@login_required(login_url='/login/')
 def editar_cliente(request,id=None):
     instance_cliente = get_object_or_404(Cliente,id=id)
     form_cliente = ClienteForm(request.POST or None, instance= instance_cliente)
@@ -44,6 +44,7 @@ def editar_cliente(request,id=None):
             messages.error(request,e)
     return render(request,'formulario_indy_car.html',context={'form_cliente':form_cliente,'instance_cliente':instance_cliente})
 
+@login_required(login_url='/login/')
 def deletar_cliente(request,id=None):
     instance = get_object_or_404(Cliente,id=id)
     try:
@@ -53,11 +54,13 @@ def deletar_cliente(request,id=None):
         messages.error(request,'cliente nao foi deletado')
     return redirect(cliente)
 
+@login_required(login_url='/login/')
 def empresa(request):
     empresas = Empresa.objects.all().order_by('id')
     msg=messages.get_messages(request)
     return render(request,'index.html',context={'empresas':empresas,'msg':msg})
 
+@login_required(login_url='/login/')
 def novoempresa(request):
     if request.method == 'POST':
         form = EmpresaForm(request.POST or None)
@@ -72,6 +75,7 @@ def novoempresa(request):
         form = EmpresaForm()
         return render(request,'formulario_empresa.html',context={'form':form})
 
+@login_required(login_url='/login/')
 def editar_empresa(request,id=None):
     instance = get_object_or_404(Empresa,id=id)
     form = EmpresaForm(request.POST or None, instance= instance)
@@ -85,6 +89,7 @@ def editar_empresa(request,id=None):
             messages.error(request,e)
     return render(request,'formulario_empresa.html',context={'form':form,'instance':instance})
 
+@login_required(login_url='/login/')
 def deletar_empresa(request,id=None):
     instance = get_object_or_404(Empresa,id=id)
     try:
