@@ -67,31 +67,33 @@ def empresa(request):
 @login_required(login_url='/login/')
 def novoempresa(request):
     if request.method == 'POST':
-        form = EmpresaForm(request.POST or None)
-        if form.is_valid():
+        form_empresa= EmpresaForm(request.POST or None)
+        if form_empresa.is_valid():
             try:
-                form.save()
+                form_empresa.save()
                 messages.success(request,'salvo')
+                return redirect(empresa)
             except Exception as e:
                 messages.error(request,e)
-        return redirect(empresa)
+        else:
+            return render(request,'formulario_empresa.html',context={'form_empresa':form_empresa})
     else:
-        form = EmpresaForm()
-        return render(request,'formulario_empresa.html',context={'form':form})
+        form_empresa= EmpresaForm()
+        return render(request,'formulario_empresa.html',context={'form_empresa':form_empresa})
 
 @login_required(login_url='/login/')
 def editar_empresa(request,id=None):
     instance = get_object_or_404(Empresa,id=id)
-    form = EmpresaForm(request.POST or None, instance= instance)
-    if form.is_valid():
+    form_empresa= EmpresaForm(request.POST or None, instance= instance)
+    if form_empresa.is_valid():
         try:
-            instance=form.save()
+            instance=form_empresa.save()
             instance.save()
             messages.success(request,'editou')
             return redirect(empresa)
         except Exception as e:
             messages.error(request,e)
-    return render(request,'formulario_empresa.html',context={'form':form,'instance':instance})
+    return render(request,'formulario_empresa.html',context={'form_empresa':form_empresa,'instance':instance})
 
 @login_required(login_url='/login/')
 def deletar_empresa(request,id=None):

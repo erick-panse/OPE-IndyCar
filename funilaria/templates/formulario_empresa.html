@@ -10,11 +10,123 @@
 	</title>
 </head>
 <body>
+	{% for msg in form_empresa.non_field_errors %}
+		<p>
+			{{msg}}
+		</p>
+	{% endfor %}
 	<fieldset>
-		<form action="" method="POST">
-			{% csrf_token %}
-			{{form.as_p}}
-		<input type="submit" value="Enviar">
+			<form method="POST">
+					{% csrf_token %}
+					<!-- rg -->
+					<div class="input-group mb-3">
+					  <div class="input-group-prepend">
+						<span class="input-group-text">RG</span>
+					  </div>
+					  {{form_empresa.cnpj}}
+					</div>
+		
+					<!-- Nome -->
+					<div class="input-group mb-3">
+					  <div class="input-group-prepend">
+						<span class="input-group-text">Nome</span>
+					  </div>
+					  {{form_empresa.nome}}
+					</div>
+		
+					<!-- Endereço -->
+					<div class="input-group mb-3">
+					  <div class="input-group-prepend">
+						<span class="input-group-text">Endereço</span>
+					  </div>
+					  {{form_empresa.endereco}}
+					</div>
+		
+					<!-- Bairro -->
+					<div class="input-group mb-3">
+					  <div class="input-group-prepend">
+						<span class="input-group-text">Bairro</span>
+					  </div>
+					  {{form_empresa.bairro}}
+					</div>
+		
+					<!-- Email -->
+					<div class="input-group mb-3">
+					  <div class="input-group-prepend">
+						<span class="input-group-text">Email</span>
+					  </div>
+					  {{form_empresa.email}}
+					</div>
+		
+					<!-- Telefone -->
+					<div class="input-group mb-3">
+					  <div class="input-group-prepend">
+						<span class="input-group-text">Telefone</span>
+					  </div>
+					  {{form_empresa.telefone}}
+					</div>
+		
+					<!-- Marca -->
+					<div class="input-group mb-3">
+					  <div class="input-group-prepend">
+						<span class="input-group-text">Marca</span>
+					  </div>
+					  {{form_empresa.marca_veiculo}}
+					</div>
+		
+					<!-- Modelo -->
+					<div class="input-group mb-3">
+					  <div class="input-group-prepend">
+						<span class="input-group-text">Modelo</span>
+					  </div>
+					  {{form_empresa.modelo_veiculo}}
+					</div>
+		
+					<!-- Cor -->
+					<div class="input-group mb-3">
+					  <div class="input-group-prepend">
+						<span class="input-group-text">Cor</span>
+					  </div>
+					  {{form_empresa.cor_veiculo}}
+					</div>
+		
+					<!-- Placa -->
+					<div class="input-group mb-3">
+					  <div class="input-group-prepend">
+						<span class="input-group-text">Placa</span>
+					  </div>
+					  {{form_empresa.placa_veiculo}}
+					</div>
+		
+					<!-- Ano -->
+					<div class="input-group mb-3">
+					  <div class="input-group-prepend">
+						<span class="input-group-text">Ano</span>
+					  </div>
+					  {{form_empresa.ano_veiculo}}
+					</div>
+		
+					<!-- Cidade -->
+					<div class="input-group mb-3">
+					  <div class="input-group-prepend">
+						<span class="input-group-text">Cidade</span>
+					  </div>
+					  {{form_empresa.cidade_veiculo}}
+					</div>
+		
+		
+					<!-- Estado -->
+					<div class="input-group mb-3">
+					  <div class="input-group-prepend">
+						<span class="input-group-text">Estado</span>
+					  </div>
+					  {{form_empresa.estado_veiculo}}
+					</div>
+		
+		
+		
+					<input class="btn btn-primary" type="submit" value="Enviar"></input>
+				  </form>
 		</form>
 	</fieldset>
 </body>

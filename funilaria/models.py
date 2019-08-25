@@ -3,18 +3,18 @@ from django.urls import reverse
 # Create your models here.
 
 class Customer(models.Model):
-    nome = models.CharField(max_length=60,blank=True,null=True)
-    endereco = models.CharField(max_length=10,blank=True,null=True)
-    bairro = models.CharField(max_length=8,blank=True,null=True)
+    nome = models.CharField(max_length=60)
+    endereco = models.CharField(max_length=100)
+    bairro = models.CharField(max_length=30)
     email = models.EmailField(max_length=60)
-    telefone = models.IntegerField(default=000000000)
-    marca_veiculo = models.CharField(max_length=10,blank=True,null=True)
-    modelo_veiculo = models.CharField(max_length=20,blank=True,null=True)
-    cor_veiculo = models.CharField(max_length=10,blank=True,null=True)
-    ano_veiculo = models.SmallIntegerField(default=0000)
-    placa_veiculo = models.CharField(max_length=7,blank=True,null=True)
-    cidade_veiculo = models.CharField(max_length=10,blank=True,null=True)
-    estado_veiculo = models.CharField(max_length=2,blank=True,null=True)
+    telefone = models.IntegerField()
+    marca_veiculo = models.CharField(max_length=10)
+    modelo_veiculo = models.CharField(max_length=20)
+    cor_veiculo = models.CharField(max_length=10)
+    ano_veiculo = models.SmallIntegerField()
+    placa_veiculo = models.CharField(max_length=7)
+    cidade_veiculo = models.CharField(max_length=10)
+    estado_veiculo = models.CharField(max_length=2)
 
 
 class Cliente(Customer):

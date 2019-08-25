@@ -40,20 +40,6 @@
       <div class="card">
         <div class="card-body">
           <h5 class="card-title">Lista de Clientes</h5>
-          {{ form_cliente.errors.rg }}
-          {{ form_cliente.errors.nome }}
-          {{ form_cliente.errors.endereco }}
-          {{ form_cliente.errors.bairro }}
-          {{ form_cliente.errors.email }}
-          {{ form_cliente.errors.telefone }}
-          {{ form_cliente.errors.marca_veiculo }}
-          {{ form_cliente.errors.modelo_veiculo }}
-          {{ form_cliente.errors.cor_veiculo }}
-          {{ form_cliente.errors.ano_veiculo }}
-          {{ form_cliente.errors.cidade_veiculo }}
-          {{ form_cliente.errors.estado_veiculo }}
-          {{ form_cliente.errors.entrada_veiculo }}
-          {{ form_cliente.errors.finalizado_veiculo }}
           {% if clientes|length > 0 %}
             <p class="card-text">
               Aqui está a lista de <code>Clientes</code> cadastrados.

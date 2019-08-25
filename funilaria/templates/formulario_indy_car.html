@@ -15,7 +15,9 @@
           <p class="card-text">
             Complete o formulário abaixo para cadastrar
             um novo <code>Cliente</code>.
-            {{ form_cliente.errors.rg }}
+
+          
+          <!-- {{ form_cliente.errors.rg }}
           {{ form_cliente.errors.nome }}
           {{ form_cliente.errors.endereco }}
           {{ form_cliente.errors.bairro }}
@@ -28,7 +30,13 @@
           {{ form_cliente.errors.cidade_veiculo }}
           {{ form_cliente.errors.estado_veiculo }}
           {{ form_cliente.errors.entrada_veiculo }}
-          {{ form_cliente.errors.finalizado_veiculo }}
+          {{ form_cliente.errors.finalizado_veiculo }} -->
+          {% for msg in form_cliente.non_field_errors %}
+            <p>
+              {{msg}}
+            </p>
+          {% endfor %}
+
           </p>
           <form method="POST">
             {% csrf_token %}

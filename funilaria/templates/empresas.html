@@ -11,8 +11,7 @@
       <div class="card">
         <div class="card-body">
           <h5 class="card-title">Lista de Empresas</h5>
-
-          {% if Cliente|length > 0 %}
+          {% if empresas|length > 0 %}
             <p class="card-text">
               Aqui está a lista de <code>Empresas</code> cadastradas.
             </p>
@@ -25,7 +24,7 @@
               </thead>
 
               <tbody>
-              {% for i in Empresas %}
+              {% for i in empresas %}
                 <tr>
                   <td>{{ i.nome }}</td>
                   <td>
