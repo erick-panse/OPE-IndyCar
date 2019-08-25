@@ -21,6 +21,16 @@ def somenteNumeros(campo):
     except:
         return False
 
+def validarTamanho(campo,tamanho):
+    if not tamanho or not campo:
+        return False
+    return len(str(campo))==tamanho
+
+def validarTelefone(tel):
+    if not tel:
+        return False
+    return somenteNumeros(tel) and (len(str(tel)) in range(10,12))
+
 def validarPlaca(placa):
     if not placa:
         return False
@@ -121,7 +131,7 @@ class CustomerForm(forms.ModelForm):
         if not somenteLetras(bairro):
             raise forms.ValidationError('Bairro inválido !')
 
-        if not somenteNumeros(telefone):
+        if not validarTelefone(telefone):
             raise forms.ValidationError('Telefone inválido !')
 
         if not somenteLetras(marca_veiculo):
@@ -172,7 +182,7 @@ class ClienteForm(CustomerForm):
         cidade_veiculo=dados.get('cidade_veiculo')
         estado_veiculo=dados.get('estado_veiculo')
 
-        if not somenteNumeros(rg):
+        if not somenteNumeros(rg) or not validarTamanho(rg,9):
             raise forms.ValidationError('RG inválido !')
         if not somenteLetras(nome):
             raise forms.ValidationError('Nome inválido !')
@@ -180,7 +190,7 @@ class ClienteForm(CustomerForm):
         if not somenteLetras(bairro):
             raise forms.ValidationError('Bairro inválido !')
 
-        if not somenteNumeros(telefone):
+        if not validarTelefone(telefone):
             raise forms.ValidationError('Telefone inválido !')
 
         if not somenteLetras(marca_veiculo):
@@ -208,7 +218,7 @@ class ClienteForm(CustomerForm):
         fields=['rg','nome','endereco','bairro','email','telefone','marca_veiculo','modelo_veiculo','cor_veiculo','placa_veiculo','ano_veiculo','cidade_veiculo','estado_veiculo']
 
 class EmpresaForm(CustomerForm):
-    cnpj = forms.CharField(max_length=9,label='cnpj:',widget = forms.TextInput(attrs={
+    cnpj = forms.CharField(max_length=14,label='cnpj:',widget = forms.TextInput(attrs={
         'placeholder':'informe o cnpj',
         'name':'cnpj',
         'id':'cnpj'}))
@@ -229,7 +239,7 @@ class EmpresaForm(CustomerForm):
         cidade_veiculo=dados.get('cidade_veiculo')
         estado_veiculo=dados.get('estado_veiculo')
 
-        if not somenteNumeros(cnpj):
+        if not somenteNumeros(cnpj) or not validarTamanho(cnpj,14):
             raise forms.ValidationError('CNPJ inválido !')
         if not somenteLetras(nome):
             raise forms.ValidationError('Nome inválido !')
@@ -237,7 +247,7 @@ class EmpresaForm(CustomerForm):
         if not somenteLetras(bairro):
             raise forms.ValidationError('Bairro inválido !')
 
-        if not somenteNumeros(telefone):
+        if not validarTelefone(telefone):
             raise forms.ValidationError('Telefone inválido !')
 
         if not somenteLetras(marca_veiculo):

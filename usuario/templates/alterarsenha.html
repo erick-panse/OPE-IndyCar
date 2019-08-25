@@ -1,16 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>alterar senha</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block main %}
+<br>
+<br>
+<br>
     <form action="" method="post">
         {% csrf_token %}
         {{form.as_p}}
         <button type="submit">Alterar Senha</button>
     </form>
-</body>
-</html>
+    {% endblock %}
