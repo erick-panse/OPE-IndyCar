@@ -1,52 +1,11 @@
 {% extends 'base.html' %}
 
 {% block main %}
-
-    {% comment %} {{ form_veiculo.errors.marca }}
-    {{ form_veiculo.errors.modelo }}
-    {{ form_veiculo.errors.cor }}
-    {{ form_veiculo.errors.ano }}
-    {{ form_veiculo.errors.cidade }}
-    {{ form_veiculo.errors.estado }}
-    {{ form_veiculo.errors.entrada }}
-    {{ form_veiculo.errors.finalizado }}
-    
-    {% for i in msg %}
-        <p>{{i}}</p>
-    {% endfor%}
-    <br>
-    <br>
-    <br>
-    {% comment %} <ul>
-        {% for i in clientes %}
-            <li>{{i.nome}}</li>
-            <a href="{{i.get_editar_cliente}}">editar o cliente</a>
-            <a href="{{i.get_del_cliente}}">deletar o cliente</a>
-        {% endfor %}
-    </ul>
-    <a href="/logout/">Sair</a>
-
-
-    <h2>Clientes</h2>  
-    <br>
-    <a href="{% url 'formcliente' %}">+Adicionar Cliente</a>  
-    <ul class="list-group">
-       {% for i in clientes %}
-            <li class="list-group-item d-flex justify-content-between align-items-right">{{i.nome}}
-            <a href="{{i.get_editar_cliente}}">Editar o Cliente</a>
-            <a href="{{i.get_del_cliente}}">Deletar o Cliente</a></li>
-        {% endfor %} 
-        
-        {% endcomment %}
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
+{% for message in messages %}
+  <div class="alert alert-info">
+    <strong>{{message}}</strong>
+  </div>  
+{% endfor %}
 <div class="container">
   <div class="row">
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
@@ -72,7 +31,7 @@
           </p>
           <a href="/clientes/"
              class="btn btn-primary">
-            Vá para Lista
+            Vá para a lista
           </a>
         </div>
       </div>
@@ -104,46 +63,12 @@
           </p>
           <a href="/empresas/"
              class="btn btn-primary">
-            listar Empresas
+            Vá para a lista
           </a>
         </div>
       </div>
     </div>
   </div>
-
-{% comment %} 
-    </ul>
-    <br>
-    <br>
-    <br>
-  <ul>
-        {% for i in empresas %}
-            <li>{{i.nome}}</li>
-            <a href="{{i.get_editar_empresa}}">editar o empresa</a>
-            <a href="{{i.get_del_empresa}}">deletar o empresa</a>
-        {% endfor %}
-    </ul>
-    <a href="/logout/">Sair</a>
-
-
-    <h2>Empresas</h2>  
-    <br>
-    <a href="{% url 'formempresa' %}">+Adicionar Empresa</a>  
-    <ul class="list-group">
-       {% for i in empresas %}
-            <li class="list-group-item d-flex justify-content-between align-items-right">{{i.nome}}
-            <a href="{{i.get_editar_empresa}}">Editar a Empresa</a>
-            <a href="{{i.get_del_empresa}}">Deletar a Empresa</a></li>
-        {% endfor %}
-
-    </ul>
-    
-    </tbody>
-  </table>
-<<<<<<< HEAD
->>>>>>> 945e1826f8d888eddd4ac3c10f2fbb66c25afef6
-</div> {% endcomment %}
-
 </div>
 
 

@@ -1,19 +1,15 @@
 {% extends 'base.html' %}
 
 {% block main %}
-<br>
-<br>
-<br>
-    {% if messages %}
-        {% for msg in messages %}
-            <p>msg</p>
-        {% endfor %}
-    {% endif %}
+{% for message in messages %}
+<div class="alert alert-info">
+  <strong>{{message}}</strong>
+</div>  
+{% endfor %}
     <h1>Usuário</h1>
-    <form action="" method="POST">
+    <form action="/novo-usuario/" method="POST">
         {% csrf_token %}
         {{form.as_p}}
-        {{form.errors}}
         <button type="submit">Enviar</button>
     </form>
     {% endblock %}

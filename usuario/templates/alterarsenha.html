@@ -1,9 +1,11 @@
 {% extends 'base.html' %}
 
 {% block main %}
-<br>
-<br>
-<br>
+{% for message in messages %}
+    <div class="alert alert-info">
+        <strong>{{message}}</strong>
+    </div>  
+{% endfor %}
     <form action="" method="post">
         {% csrf_token %}
         {{form.as_p}}

@@ -13,16 +13,18 @@ def perfil_usuario(request):
     msg=messages.get_messages(request)
     return render(request,'perfil.html',context={'user':request.user,'msg':msg})
 
-
+@login_required(login_url='/login/')
 def novo_usuario(request):
     if request.method == 'POST':
         form = UsuarioForm(request.POST)
+        print(form.is_valid())
         if form.is_valid():
             form.save()
-            messages.success(request,'Usuário cadastrado com sucesso !')
+            messages.success(request,'Usuário cadastrado com sucesso')
+            return redirect(perfil_usuario)
         else:
-             messages.error(request,'Form inválido!')
-        return redirect('/cliente/')
+            messages.error(request,'Não foi possível cadastrar o usuário')
+            return render(request,'novo-usuario.html',context={'form':form})
     else:
         form = UsuarioForm()
     return render(request,'novo-usuario.html',context={'form':form})
@@ -33,10 +35,11 @@ def editar_usuario(request):
         form = EditarUsuarioForm(request.POST or None,instance=request.user)
         if form.is_valid():
             form.save()
-            messages.success(request,'Usuário editado com sucesso !')
+            messages.success(request,'Usuário editado com sucesso')
+            return redirect(perfil_usuario)
         else:
-             messages.error(request,'Form inválido!')
-        return redirect(perfil_usuario)
+             messages.error(request,'Não foi possível atualizar os dados do usuário')
+             return redirect('/')
     else:
         form = EditarUsuarioForm(instance=request.user)
     return render(request,'formusuario.html',context={'form':form})
@@ -47,15 +50,14 @@ def alterar_senha(request):
         form = PasswordChangeForm(data=request.POST,user=request.user)
         if form.is_valid():
             form.save()
-            update_session_auth_hash(request,form.user,)
-            messages.success(request,'Senha alterada com sucesso !')
+            update_session_auth_hash(request,form.user)
+            messages.success(request,'Senha alterada com sucesso')
         else:
-            messages.error(request,'Erro ao alterar')
+            messages.error(request,'Não foi possível alterar a senha')
         return redirect(perfil_usuario)
     else:
         form=PasswordChangeForm(user=request.user)
     return render(request,'alterarsenha.html',context={'form':form}) 
-
 
 
 def login_user(request):
@@ -74,6 +76,7 @@ def submit_login(request):
             messages.error(request, 'Usuário ou senha inválido')
     return redirect('/login/')
 
+@login_required(login_url='/login/')
 def logout_user(request):
     logout(request)
     return redirect('/login/')
