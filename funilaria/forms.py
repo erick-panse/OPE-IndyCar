@@ -273,3 +273,33 @@ class EmpresaForm(CustomerForm):
     class Meta:
         model = Empresa
         fields=['cnpj','nome','endereco','bairro','email','telefone','marca_veiculo','modelo_veiculo','cor_veiculo','placa_veiculo','ano_veiculo','cidade_veiculo','estado_veiculo']
+
+class OrcamentoForm():
+    servicos = forms.TextField(max_length=500,label='servicos:',widget = forms.TextInput(attrs={
+        'placeholder':'informe os serviços',
+        'name':'servicos',
+        'id':'servicos'}))
+    Pecas = forms.TextField(max_length=200,label='Peças:',widget = forms.TextInput(attrs={
+        'placeholder':'informe as Peças necessárias',
+        'name':'Pecas',
+        'id':'Pecas'}))
+    quantidade = forms.IntegerField(label='quantidade:',widget = forms.TextInput(attrs={
+        'placeholder':'informe a quantidade de peças',
+        'name':'quantidade',
+        'id':'quantidade'}))
+    total_a_pagar = forms.DecimalField(label='total_a_pagar:',widget = forms.TextInput(attrs={
+        'placeholder':'total_a_pagar',
+        'name':'total_a_pagar',
+        'id':'total_a_pagar'}))
+    mao_de_obra = forms.FloatField(label='mao_de_obra:',widget = forms.TextInput(attrs={
+        'placeholder':'informe a mao_de_obra necessária',
+        'name':'mao_de_obra',
+        'id':'mao_de_obra'}))
+    previsao_entrega = forms.DateField(label='previsao_entrega:',widget = forms.TextInput(attrs={
+        'placeholder':'informe a previsao_entrega',
+        'name':'previsao_entrega',
+        'id':'previsao_entrega'}))
+    data_saida = forms.DateField(label='data_saida:',widget = forms.TextInput(attrs={
+        'placeholder':'informe os data_saida',
+        'name':'data_saida',
+        'id':'data_saida'}))

@@ -34,7 +34,15 @@ class Empresa(Customer):
     def get_del_empresa(self):
         return reverse('deletar_empresa',kwargs={'id':self.id})
 
+class Orcamento():
+    quantidade = models.IntegerField()
+    pecas = models.TextField(max_length=200)
+    servicos = models.TextField(max_length=500)
+    mao_de_obra = models.FloatField()
+    previsao_entrega = models.DateField()
+    data_saida = models.DateField()
+    total_a_pagar = models.DecimalField()
 
-
-
+    def get_del_orcamento(self):
+        return reverse('deletar_orcamento',kwargs={'id':self.id})
 
