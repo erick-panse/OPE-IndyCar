@@ -8,13 +8,9 @@ class Customer(models.Model):
     bairro = models.CharField(max_length=30)
     email = models.EmailField(max_length=60)
     telefone = models.IntegerField()
-    marca_veiculo = models.CharField(max_length=10)
-    modelo_veiculo = models.CharField(max_length=20)
-    cor_veiculo = models.CharField(max_length=10)
-    ano_veiculo = models.SmallIntegerField()
-    placa_veiculo = models.CharField(max_length=7)
-    cidade_veiculo = models.CharField(max_length=10)
-    estado_veiculo = models.CharField(max_length=2)
+
+    def __str__(self):
+        return self.nome
 
 
 class Cliente(Customer):
@@ -34,18 +30,32 @@ class Empresa(Customer):
     def get_del_empresa(self):
         return reverse('deletar_empresa',kwargs={'id':self.id})
 
-class Orcamento():
+class Orcamento(models.Model):
     quantidade = models.IntegerField()
     pecas = models.TextField(max_length=200)
     servicos = models.TextField(max_length=500)
-    mao_de_obra = models.FloatField()
+    valor_mao_de_obra = models.FloatField()
     previsao_entrega = models.DateField()
     data_saida = models.DateField()
-    total_a_pagar = models.DecimalField()
+    total_a_pagar = models.DecimalField(decimal_places=2,max_digits=8)
+
+    def __str__(self):
+        return "orçamento | "+self.valor_mao_de_obra
 
 
-class OrdemDeServico(Customer):
+class OrdemDeServico(models.Model):
+    cliente = models.ForeignKey(Customer,on_delete=models.PROTECT)
+    marca_veiculo = models.CharField(max_length=10)
+    modelo_veiculo = models.CharField(max_length=20)
+    cor_veiculo = models.CharField(max_length=10)
+    ano_veiculo = models.SmallIntegerField()
+    placa_veiculo = models.CharField(max_length=7)
+    cidade_veiculo = models.CharField(max_length=10)
+    estado_veiculo = models.CharField(max_length=2)
     reparos_necessarios = models.TextField(max_length=200)
-    entrada = models.DateField()
+    """ entrada = models.DateField()
     prazo_entrega = models.DateField()
-    finalizado = models.DateField()
+    finalizado = models.DateField() """
+
+    def __str__(self):
+        return "OS do cliente: "+str(self.cliente.nome)

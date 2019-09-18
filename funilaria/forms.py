@@ -1,5 +1,5 @@
 from django import forms
-from funilaria.models import Cliente,Empresa,Orcamento,OrdemDeServico
+from funilaria.models import Cliente,Empresa,Orcamento,OrdemDeServico,Customer
 import datetime
 
 def somenteLetras(campo):
@@ -80,6 +80,97 @@ class CustomerForm(forms.ModelForm):
         'placeholder':'informe o tel',
         'name':'tel',
         'id':'tel'}))
+
+
+    def validar(self):
+        dados=self.cleaned_data
+        nome=dados.get('nome')
+        endereco=dados.get('endereco')
+        bairro=dados.get('bairro')
+        email=dados.get('email')
+        telefone=dados.get('telefone')
+        
+
+        if not somenteLetras(nome):
+            raise forms.ValidationError('Nome inválido !')
+
+        if not somenteLetras(bairro):
+            raise forms.ValidationError('Bairro inválido !')
+
+        if not validarTelefone(telefone):
+            raise forms.ValidationError('Telefone inválido !')
+
+    class Meta:
+        abstract=True
+
+
+
+class ClienteForm(CustomerForm):
+    rg = forms.CharField(max_length=9,label='rg:',widget = forms.TextInput(attrs={
+        'placeholder':'informe o rg',
+        'name':'rg',
+        'id':'rg'}))
+
+    def clean(self):
+        return self.validar()
+
+    class Meta:
+        model = Cliente
+        fields=['rg','nome','endereco','bairro','email','telefone']
+
+class EmpresaForm(CustomerForm):
+    cnpj = forms.CharField(max_length=14,label='cnpj:',widget = forms.TextInput(attrs={
+        'placeholder':'informe o cnpj',
+        'name':'cnpj',
+        'id':'cnpj'}))
+
+    def clean(self):
+        dados = self.cleaned_data
+        cnpj=dados.get('cnpj')
+        if not somenteNumeros(cnpj) or not validarTamanho(cnpj,14):
+            raise forms.ValidationError('CNPJ inválido !')
+        self.validar()
+
+    class Meta:
+        model = Empresa
+        fields=['cnpj','nome','endereco','bairro','email','telefone']
+
+class OrcamentoForm(forms.ModelForm):
+    servicos = forms.CharField(max_length=500,label='servicos:',widget = forms.TextInput(attrs={
+        'placeholder':'informe os serviços',
+        'name':'servicos',
+        'id':'servicos'}))
+    pecas = forms.CharField(max_length=200,label='Peças:',widget = forms.TextInput(attrs={
+        'placeholder':'informe as Peças necessárias',
+        'name':'Pecas',
+        'id':'Pecas'}))
+    quantidade = forms.IntegerField(label='quantidade:',widget = forms.TextInput(attrs={
+        'placeholder':'informe a quantidade de peças',
+        'name':'quantidade',
+        'id':'quantidade'}))
+    total_a_pagar = forms.DecimalField(label='total_a_pagar:',widget = forms.TextInput(attrs={
+        'placeholder':'total_a_pagar',
+        'name':'total_a_pagar',
+        'id':'total_a_pagar'}))
+    valor_mao_de_obra = forms.FloatField(label='mao_de_obra:',widget = forms.TextInput(attrs={
+        'placeholder':'informe a mao_de_obra necessária',
+        'name':'mao_de_obra',
+        'id':'mao_de_obra'}))
+    previsao_entrega = forms.DateField(label='previsao_entrega:',widget = forms.DateInput(attrs={
+        'placeholder':'informe a previsao_entrega',
+        'name':'previsao_entrega',
+        'id':'previsao_entrega'}))
+    data_saida = forms.DateField(label='data_saida:',widget = forms.DateInput(attrs={
+        'placeholder':'informe os data_saida',
+        'name':'data_saida',
+        'id':'data_saida'}))
+    
+    class Meta:
+        model = Orcamento
+        fields=['quantidade','pecas','servicos','valor_mao_de_obra','previsao_entrega','data_saida','total_a_pagar']
+
+class OrdemDeServicoForm(forms.ModelForm):
+    cliente = forms.ModelChoiceField(queryset=Customer.objects.all().order_by('id'))
     marca_veiculo = forms.CharField(max_length=10,label='marca:',widget = forms.TextInput(attrs={
         'placeholder':'informe a marca',
         'name':'marca',
@@ -108,203 +199,6 @@ class CustomerForm(forms.ModelForm):
         'placeholder':'informe o estado',
         'name':'estado',
         'id':'estado'}))
-        
-        
-    def clean(self):
-        dados = super().clean()
-        nome=dados.get('nome')
-        endereco=dados.get('endereco')
-        bairro=dados.get('bairro')
-        email=dados.get('email')
-        telefone=dados.get('telefone')
-        marca_veiculo=dados.get('marca_veiculo')
-        modelo_veiculo=dados.get('modelo_veiculo')
-        cor_veiculo=dados.get('cor_veiculo')
-        placa_veiculo=dados.get('placa_veiculo')
-        ano_veiculo=dados.get('ano_veiculo')
-        cidade_veiculo=dados.get('cidade_veiculo')
-        estado_veiculo=dados.get('estado_veiculo')
-
-        if not somenteLetras(nome):
-            raise forms.ValidationError('Nome inválido !')
-
-        if not somenteLetras(bairro):
-            raise forms.ValidationError('Bairro inválido !')
-
-        if not validarTelefone(telefone):
-            raise forms.ValidationError('Telefone inválido !')
-
-        if not somenteLetras(marca_veiculo):
-            raise forms.ValidationError('Marca inválida !')
-
-        if not validarModelo(modelo_veiculo):
-            raise forms.ValidationError('Modelo inválido !')
-
-        if not somenteLetras(cor_veiculo):
-            raise forms.ValidationError('Cor inválida !')
-
-        if not validarPlaca(placa_veiculo):
-            raise forms.ValidationError('Placa inválida !')
-
-        if not validarAno(ano_veiculo):
-            raise forms.ValidationError('Ano inválido !')
-
-        if not somenteLetras(cidade_veiculo):
-            raise forms.ValidationError('Cidade inválida !')
-        if not somenteLetras(estado_veiculo):
-            raise forms.ValidationError('Estado inválido !')
-
-    class Meta:
-        abstract=True
-
-
-
-class ClienteForm(CustomerForm):
-    rg = forms.CharField(max_length=9,label='rg:',widget = forms.TextInput(attrs={
-        'placeholder':'informe o rg',
-        'name':'rg',
-        'id':'rg'}))
-
-    
-    def clean(self):
-        dados = self.cleaned_data
-        rg=dados.get('rg')
-        nome=dados.get('nome')
-        endereco=dados.get('endereco')
-        bairro=dados.get('bairro')
-        email=dados.get('email')
-        telefone=dados.get('telefone')
-        marca_veiculo=dados.get('marca_veiculo')
-        modelo_veiculo=dados.get('modelo_veiculo')
-        cor_veiculo=dados.get('cor_veiculo')
-        placa_veiculo=dados.get('placa_veiculo')
-        ano_veiculo=dados.get('ano_veiculo')
-        cidade_veiculo=dados.get('cidade_veiculo')
-        estado_veiculo=dados.get('estado_veiculo')
-
-        if not somenteNumeros(rg) or not validarTamanho(rg,9):
-            raise forms.ValidationError('RG inválido !')
-        if not somenteLetras(nome):
-            raise forms.ValidationError('Nome inválido !')
-
-        if not somenteLetras(bairro):
-            raise forms.ValidationError('Bairro inválido !')
-
-        if not validarTelefone(telefone):
-            raise forms.ValidationError('Telefone inválido !')
-
-        if not somenteLetras(marca_veiculo):
-            raise forms.ValidationError('Marca inválida !')
-
-        if not validarModelo(modelo_veiculo):
-            raise forms.ValidationError('Modelo inválido !')
-
-        if not somenteLetras(cor_veiculo):
-            raise forms.ValidationError('Cor inválida !')
-
-        if not validarPlaca(placa_veiculo):
-            raise forms.ValidationError('Placa inválida !')
-
-        if not validarAno(ano_veiculo):
-            raise forms.ValidationError('Ano inválido !')
-
-        if not somenteLetras(cidade_veiculo):
-            raise forms.ValidationError('Cidade inválida !')
-        if not somenteLetras(estado_veiculo):
-            raise forms.ValidationError('Estado inválido !')
-
-    class Meta:
-        model = Cliente
-        fields=['rg','nome','endereco','bairro','email','telefone','marca_veiculo','modelo_veiculo','cor_veiculo','placa_veiculo','ano_veiculo','cidade_veiculo','estado_veiculo']
-
-class EmpresaForm(CustomerForm):
-    cnpj = forms.CharField(max_length=14,label='cnpj:',widget = forms.TextInput(attrs={
-        'placeholder':'informe o cnpj',
-        'name':'cnpj',
-        'id':'cnpj'}))
-
-    def clean(self):
-        dados = self.cleaned_data
-        cnpj=dados.get('cnpj')
-        nome=dados.get('nome')
-        endereco=dados.get('endereco')
-        bairro=dados.get('bairro')
-        email=dados.get('email')
-        telefone=dados.get('telefone')
-        marca_veiculo=dados.get('marca_veiculo')
-        modelo_veiculo=dados.get('modelo_veiculo')
-        cor_veiculo=dados.get('cor_veiculo')
-        placa_veiculo=dados.get('placa_veiculo')
-        ano_veiculo=dados.get('ano_veiculo')
-        cidade_veiculo=dados.get('cidade_veiculo')
-        estado_veiculo=dados.get('estado_veiculo')
-
-        if not somenteNumeros(cnpj) or not validarTamanho(cnpj,14):
-            raise forms.ValidationError('CNPJ inválido !')
-        if not somenteLetras(nome):
-            raise forms.ValidationError('Nome inválido !')
-
-        if not somenteLetras(bairro):
-            raise forms.ValidationError('Bairro inválido !')
-
-        if not validarTelefone(telefone):
-            raise forms.ValidationError('Telefone inválido !')
-
-        if not somenteLetras(marca_veiculo):
-            raise forms.ValidationError('Marca inválida !')
-
-        if not validarModelo(modelo_veiculo):
-            raise forms.ValidationError('Modelo inválido !')
-
-        if not somenteLetras(cor_veiculo):
-            raise forms.ValidationError('Cor inválida !')
-
-        if not validarPlaca(placa_veiculo):
-            raise forms.ValidationError('Placa inválida !')
-
-        if not validarAno(ano_veiculo):
-            raise forms.ValidationError('Ano inválido !')
-
-        if not somenteLetras(cidade_veiculo):
-            raise forms.ValidationError('Cidade inválida !')
-        if not somenteLetras(estado_veiculo):
-            raise forms.ValidationError('Estado inválido !')
-
-    class Meta:
-        model = Empresa
-        fields=['cnpj','nome','endereco','bairro','email','telefone','marca_veiculo','modelo_veiculo','cor_veiculo','placa_veiculo','ano_veiculo','cidade_veiculo','estado_veiculo']
-
-class OrcamentoForm():
-    servicos = forms.CharField(max_length=500,label='servicos:',widget = forms.TextInput(attrs={
-        'placeholder':'informe os serviços',
-        'name':'servicos',
-        'id':'servicos'}))
-    Pecas = forms.CharField(max_length=200,label='Peças:',widget = forms.TextInput(attrs={
-        'placeholder':'informe as Peças necessárias',
-        'name':'Pecas',
-        'id':'Pecas'}))
-    quantidade = forms.IntegerField(label='quantidade:',widget = forms.TextInput(attrs={
-        'placeholder':'informe a quantidade de peças',
-        'name':'quantidade',
-        'id':'quantidade'}))
-    total_a_pagar = forms.DecimalField(label='total_a_pagar:',widget = forms.TextInput(attrs={
-        'placeholder':'total_a_pagar',
-        'name':'total_a_pagar',
-        'id':'total_a_pagar'}))
-    mao_de_obra = forms.FloatField(label='mao_de_obra:',widget = forms.TextInput(attrs={
-        'placeholder':'informe a mao_de_obra necessária',
-        'name':'mao_de_obra',
-        'id':'mao_de_obra'}))
-    previsao_entrega = forms.DateField(label='previsao_entrega:',widget = forms.DateInput(attrs={
-        'placeholder':'informe a previsao_entrega',
-        'name':'previsao_entrega',
-        'id':'previsao_entrega'}))
-    data_saida = forms.DateField(label='data_saida:',widget = forms.DateInput(attrs={
-        'placeholder':'informe os data_saida',
-        'name':'data_saida',
-        'id':'data_saida'}))
-
-class OrdemDeServicoForm(CustomerForm):
     reparos_necessarios = forms.CharField(max_length=500,label='reparos_necessarios:',widget = forms.TextInput(attrs={
         'placeholder':'informe os reparos_necessarios',
         'name':'reparos_necessarios',
@@ -323,6 +217,7 @@ class OrdemDeServicoForm(CustomerForm):
         'id':'finalizado'}))
     
     def clean(self):
+        dados=self.cleaned_data
         reparos_necessarios=dados.get('reparos_necessarios')
         entrada=dados.get('entrada')
         prazo_entrega=dados.get('prazo_entrega')
@@ -358,6 +253,6 @@ class OrdemDeServicoForm(CustomerForm):
         if not somenteLetras(estado_veiculo):
             raise forms.ValidationError('Estado inválido !')
 
-class Meta:
-    model = OrdemDeServico
-    fields=['marca_veiculo','modelo_veiculo','cor_veiculo','placa_veiculo','ano_veiculo','cidade_veiculo','estado_veiculo']
+    class Meta:
+        model = OrdemDeServico
+        fields=['cliente','marca_veiculo','modelo_veiculo','cor_veiculo','placa_veiculo','ano_veiculo','cidade_veiculo','estado_veiculo']
