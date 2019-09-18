@@ -59,6 +59,8 @@ def validarAno(ano):
     now=datetime.datetime.now().year
     return a<=int(now)
 
+
+
 class CustomerForm(forms.ModelForm):
     nome = forms.CharField(max_length=60,label='Nome completo:',widget = forms.TextInput(attrs={
         'placeholder':'informe o nome',
@@ -136,26 +138,29 @@ class EmpresaForm(CustomerForm):
         fields=['cnpj','nome','endereco','bairro','email','telefone']
 
 class OrcamentoForm(forms.ModelForm):
-    servicos = forms.CharField(max_length=500,label='servicos:',widget = forms.TextInput(attrs={
-        'placeholder':'informe os serviços',
-        'name':'servicos',
-        'id':'servicos'}))
-    pecas = forms.CharField(max_length=200,label='Peças:',widget = forms.TextInput(attrs={
-        'placeholder':'informe as Peças necessárias',
-        'name':'Pecas',
-        'id':'Pecas'}))
     quantidade = forms.IntegerField(label='quantidade:',widget = forms.TextInput(attrs={
         'placeholder':'informe a quantidade de peças',
         'name':'quantidade',
         'id':'quantidade'}))
-    total_a_pagar = forms.DecimalField(label='total_a_pagar:',widget = forms.TextInput(attrs={
-        'placeholder':'total_a_pagar',
-        'name':'total_a_pagar',
-        'id':'total_a_pagar'}))
+    servicos = forms.CharField(max_length=500,label='servicos:',widget = forms.Textarea(attrs={
+        'placeholder':'informe os serviços',
+        'name':'servicos',
+        'id':'servicos'}))
+    pecas = forms.CharField(max_length=200,label='Peças:',widget = forms.Textarea(attrs={
+        'placeholder':'informe as Peças necessárias',
+        'name':'Pecas',
+        'id':'Pecas'}))
+    
     valor_mao_de_obra = forms.FloatField(label='mao_de_obra:',widget = forms.TextInput(attrs={
         'placeholder':'informe a mao_de_obra necessária',
         'name':'mao_de_obra',
         'id':'mao_de_obra'}))
+
+    total_a_pagar = forms.DecimalField(label='total_a_pagar:',widget = forms.TextInput(attrs={
+        'readonly':'total_a_pagar',
+        'name':'total_a_pagar',
+        'id':'total_a_pagar'}))
+    
     previsao_entrega = forms.DateField(label='previsao_entrega:',widget = forms.DateInput(attrs={
         'placeholder':'informe a previsao_entrega',
         'name':'previsao_entrega',
@@ -164,6 +169,32 @@ class OrcamentoForm(forms.ModelForm):
         'placeholder':'informe os data_saida',
         'name':'data_saida',
         'id':'data_saida'}))
+    
+    def clean(self):
+        dados=self.cleaned_data
+        quantidade=dados.get('quantidade')
+        servicos=dados.get('servicos')
+        pecas=dados.get('pecas')
+        valor_mao_de_obra=dados.get('valor_mao_de_obra')
+        total_a_pagar=dados.get('total_a_pagar')
+        previsao_entrega=dados.get('previsao_entrega')
+        data_saida=dados.get('data_saida')
+
+        if not somenteNumeros(quantidade):
+            raise forms.ValidationError('quantidade inválida !')
+
+        if not somenteLetras(servicos):
+            raise forms.ValidationError('servicos inválido !')
+        
+        if not somenteLetras(pecas):
+            raise forms.ValidationError('pecas inválida !')
+
+        if not somenteNumeros(valor_mao_de_obra):
+            raise forms.ValidationError('valor_mao_de_obra inválido !')
+
+        if not somenteNumeros(total_a_pagar):
+            raise forms.ValidationError('total_a_pagar inválido !')
+        
     
     class Meta:
         model = Orcamento
@@ -199,7 +230,7 @@ class OrdemDeServicoForm(forms.ModelForm):
         'placeholder':'informe o estado',
         'name':'estado',
         'id':'estado'}))
-    reparos_necessarios = forms.CharField(max_length=500,label='reparos_necessarios:',widget = forms.TextInput(attrs={
+    reparos_necessarios = forms.CharField(max_length=500,label='reparos_necessarios:',widget = forms.Textarea(attrs={
         'placeholder':'informe os reparos_necessarios',
         'name':'reparos_necessarios',
         'id':'reparos_necessarios'}))
@@ -230,7 +261,7 @@ class OrdemDeServicoForm(forms.ModelForm):
         cidade_veiculo=dados.get('cidade_veiculo')
         estado_veiculo=dados.get('estado_veiculo')
 
-        if not somenteLetras(reparos_necessarioso):
+        if not somenteLetras(reparos_necessarios):
             raise forms.ValidationError('reparos necessarios inválida !')
 
         if not somenteLetras(marca_veiculo):
@@ -250,6 +281,7 @@ class OrdemDeServicoForm(forms.ModelForm):
 
         if not somenteLetras(cidade_veiculo):
             raise forms.ValidationError('Cidade inválida !')
+
         if not somenteLetras(estado_veiculo):
             raise forms.ValidationError('Estado inválido !')
 

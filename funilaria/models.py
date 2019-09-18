@@ -53,9 +53,9 @@ class OrdemDeServico(models.Model):
     cidade_veiculo = models.CharField(max_length=10)
     estado_veiculo = models.CharField(max_length=2)
     reparos_necessarios = models.TextField(max_length=200)
-    """ entrada = models.DateField()
+    entrada = models.DateField()
     prazo_entrega = models.DateField()
-    finalizado = models.DateField() """
+    finalizado = models.DateField()
 
     def __str__(self):
         return "OS do cliente: "+str(self.cliente.nome)
