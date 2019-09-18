@@ -43,6 +43,9 @@ class Orcamento():
     data_saida = models.DateField()
     total_a_pagar = models.DecimalField()
 
-    def get_del_orcamento(self):
-        return reverse('deletar_orcamento',kwargs={'id':self.id})
 
+class OrdemDeServico(Customer):
+    reparos_necessarios = models.TextField(max_length=200)
+    entrada = models.DateField()
+    prazo_entrega = models.DateField()
+    finalizado = models.DateField()

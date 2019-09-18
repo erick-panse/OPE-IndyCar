@@ -1,8 +1,8 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from django.http import request,HttpResponseRedirect
-from funilaria.forms import ClienteForm,EmpresaForm
+from funilaria.forms import ClienteForm,EmpresaForm,OrcamentoForm,OrdemDeServicoForm
 from django.contrib import messages
-from funilaria.models import Cliente,Customer,Empresa
+from funilaria.models import Cliente,Customer,Empresa,Orcamento,OrdemDeServico
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 #comentado pra n ficar obrigatorio
@@ -104,3 +104,37 @@ def deletar_empresa(request,id=None):
         messages.error(request,'Não foi possível deletar a empresa')
     return redirect(empresa)
 
+
+@login_required(login_url='/login/')
+def novoorcamento (request):
+    if request.method == 'POST':
+        form_orcamento= OrcamentoForm(request.POST or None)
+        if form_orcamento.is_valid():
+            try:
+                form_orcamento.save()
+                messages.success(request,'Orcamento cadastrada com sucesso')
+                return redirect(orcamento)
+            except Exception as e:
+                messages.error(request,e)
+        else:
+            return render(request,'formulario_orcamento.html',context={'form_orcamento':form_orcamento})
+    else:
+        form_orcamento= OrcamentoForm()
+        return render(request,'formulario_orcamento.html',context={'form_orcamento':form_orcamento})
+
+@login_required(login_url='/login/')
+def novoordemdeservico (request):
+    if request.method == 'POST':
+        form_ordemdeservico= OrdemDeServicoForm(request.POST or None)
+        if form_ordemdeservico.is_valid():
+            try:
+                form_ordemdeservico.save()
+                messages.success(request,'Ordem de servico cadastrada com sucesso')
+                return redirect(ordemdeservico)
+            except Exception as e:
+                messages.error(request,e)
+        else:
+            return render(request,'formulario_ordemdeservico.html',context={'form_ordemdeservico':form_ordemdeservico})
+    else:
+        form_ordemdeservico= OrdemDeServicoForm()
+        return render(request,'formulario_ordemdeservico.html',context={'form_ordemdeservico':form_ordemdeservico})

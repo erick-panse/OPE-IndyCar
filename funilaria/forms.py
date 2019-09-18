@@ -1,5 +1,5 @@
 from django import forms
-from funilaria.models import Cliente,Empresa
+from funilaria.models import Cliente,Empresa,Orcamento,OrdemDeServico
 import datetime
 
 def somenteLetras(campo):
@@ -275,11 +275,11 @@ class EmpresaForm(CustomerForm):
         fields=['cnpj','nome','endereco','bairro','email','telefone','marca_veiculo','modelo_veiculo','cor_veiculo','placa_veiculo','ano_veiculo','cidade_veiculo','estado_veiculo']
 
 class OrcamentoForm():
-    servicos = forms.TextField(max_length=500,label='servicos:',widget = forms.TextInput(attrs={
+    servicos = forms.CharField(max_length=500,label='servicos:',widget = forms.TextInput(attrs={
         'placeholder':'informe os serviços',
         'name':'servicos',
         'id':'servicos'}))
-    Pecas = forms.TextField(max_length=200,label='Peças:',widget = forms.TextInput(attrs={
+    Pecas = forms.CharField(max_length=200,label='Peças:',widget = forms.TextInput(attrs={
         'placeholder':'informe as Peças necessárias',
         'name':'Pecas',
         'id':'Pecas'}))
@@ -295,11 +295,69 @@ class OrcamentoForm():
         'placeholder':'informe a mao_de_obra necessária',
         'name':'mao_de_obra',
         'id':'mao_de_obra'}))
-    previsao_entrega = forms.DateField(label='previsao_entrega:',widget = forms.TextInput(attrs={
+    previsao_entrega = forms.DateField(label='previsao_entrega:',widget = forms.DateInput(attrs={
         'placeholder':'informe a previsao_entrega',
         'name':'previsao_entrega',
         'id':'previsao_entrega'}))
-    data_saida = forms.DateField(label='data_saida:',widget = forms.TextInput(attrs={
+    data_saida = forms.DateField(label='data_saida:',widget = forms.DateInput(attrs={
         'placeholder':'informe os data_saida',
         'name':'data_saida',
         'id':'data_saida'}))
+
+class OrdemDeServicoForm(CustomerForm):
+    reparos_necessarios = forms.CharField(max_length=500,label='reparos_necessarios:',widget = forms.TextInput(attrs={
+        'placeholder':'informe os reparos_necessarios',
+        'name':'reparos_necessarios',
+        'id':'reparos_necessarios'}))
+    entrada = forms.DateField(label='entrada:',widget = forms.DateInput(attrs={
+        'placeholder':'informe os entrada',
+        'name':'entrada',
+        'id':'entrada'}))
+    prazo_entrega = forms.DateField(label='prazo_entrega:',widget = forms.DateInput(attrs={
+        'placeholder':'informe o prazo de entrega',
+        'name':'prazo_entrega',
+        'id':'prazo_entrega'}))
+    finalizado = forms.DateField(label='finalizado:',widget = forms.DateInput(attrs={
+        'placeholder':'informe os finalizado',
+        'name':'finalizado',
+        'id':'finalizado'}))
+    
+    def clean(self):
+        reparos_necessarios=dados.get('reparos_necessarios')
+        entrada=dados.get('entrada')
+        prazo_entrega=dados.get('prazo_entrega')
+        finalizado=dados.get('finalizado')
+        marca_veiculo=dados.get('marca_veiculo')
+        modelo_veiculo=dados.get('modelo_veiculo')
+        cor_veiculo=dados.get('cor_veiculo')
+        placa_veiculo=dados.get('placa_veiculo')
+        ano_veiculo=dados.get('ano_veiculo')
+        cidade_veiculo=dados.get('cidade_veiculo')
+        estado_veiculo=dados.get('estado_veiculo')
+
+        if not somenteLetras(reparos_necessarioso):
+            raise forms.ValidationError('reparos necessarios inválida !')
+
+        if not somenteLetras(marca_veiculo):
+            raise forms.ValidationError('Marca inválida !')
+
+        if not validarModelo(modelo_veiculo):
+            raise forms.ValidationError('Modelo inválido !')
+
+        if not somenteLetras(cor_veiculo):
+            raise forms.ValidationError('Cor inválida !')
+
+        if not validarPlaca(placa_veiculo):
+            raise forms.ValidationError('Placa inválida !')
+
+        if not validarAno(ano_veiculo):
+            raise forms.ValidationError('Ano inválido !')
+
+        if not somenteLetras(cidade_veiculo):
+            raise forms.ValidationError('Cidade inválida !')
+        if not somenteLetras(estado_veiculo):
+            raise forms.ValidationError('Estado inválido !')
+
+class Meta:
+    model = OrdemDeServico
+    fields=['marca_veiculo','modelo_veiculo','cor_veiculo','placa_veiculo','ano_veiculo','cidade_veiculo','estado_veiculo']
