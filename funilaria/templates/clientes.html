@@ -21,7 +21,7 @@
               <thead class="thead-dark">
               <tr>
                 <th>Nome</th>
-                <th>Veículo</th>
+                <th>RG</th>
               </tr>
               </thead>
 
@@ -29,7 +29,7 @@
               {% for i in clientes %}
                 <tr>
                   <td>{{ i.nome }}</td>
-                  <td>{{ i.modelo_veiculo }}<br>{{i.placa_veiculo}}</td>
+                  <td>{{ i.rg }}</td>
                   <td>
                     <a href="{{i.get_editar_cliente}}"
                        class="btn btn-info">
@@ -51,7 +51,7 @@
         {% endif %}
           <hr />
           <div class="text-right">
-            <a href="{% url 'formcliente' %}" class="btn btn-primary">
+            <a href="{% url 'cliente' %}" class="btn btn-primary">
               Cadastrar cliente
             </a>
           </div>
