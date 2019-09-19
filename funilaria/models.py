@@ -67,7 +67,7 @@ class Orcamento(models.Model):
     total_a_pagar = models.DecimalField(decimal_places=2,max_digits=8)
 
     def __str__(self):
-        return "orçamento | "+str(self.valor_mao_de_obra)
+        return "valor orçamento | "+str(self.valor_mao_de_obra)
 
     def get_editar_orcamento(self):
         return reverse('editar_orcamento',kwargs={'id':self.id})
