@@ -22,10 +22,12 @@ from usuario import views as usuario_views
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
+
+    path('paginainicial/', funilaria_views.pagina_inicial),
     path('admin/', admin.site.urls),
     path('clientes/',cliente,name='cliente'),
    
-    path('',funilaria_views.index),
+    path('',funilaria_views.pagina_inicial),
     re_path(r'cliente/(?P<id>\d+)/$',funilaria_views.editar_cliente, name='editar_cliente'),
     re_path(r'cliente/deletar/(?P<id>\d+)/$',funilaria_views.deletar_cliente, name='deletar_cliente'),
     path('cliente/', funilaria_views.novocliente, name='cliente'),

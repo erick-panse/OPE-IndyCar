@@ -8,6 +8,9 @@ from django.contrib.auth import authenticate, login, logout,update_session_auth_
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+def pagina_inicial(request):
+    return render(request, 'pagina-inicial.html')
+
 @login_required(login_url='/login/')
 def perfil_usuario(request):
     msg=messages.get_messages(request)

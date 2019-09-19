@@ -2,6 +2,7 @@ from django import forms
 from funilaria.models import Cliente,Empresa,Orcamento,OrdemDeServico,Customer
 import datetime
 import localflavor.br.forms
+from funilaria.views import *
 from .widgets import FengyuanChenDatePickerInput
 
 def somenteLetras(campo):
@@ -110,7 +111,7 @@ class CustomerForm(forms.ModelForm):
 
 
 class ClienteForm(CustomerForm):
-    cpf = localflavor.br.forms.BRCPFField(max_length=12, min_length=12,label='cpf:',widget = forms.TextInput(attrs={
+    cpf = localflavor.br.forms.CharField(max_length=12, min_length=12,label='cpf:',widget = forms.TextInput(attrs={
         'placeholder':'informe o cpf',
         'name':'cpf',
         'id':'cpf'}))
@@ -123,7 +124,7 @@ class ClienteForm(CustomerForm):
         fields=['cpf','nome','endereco','bairro','email','telefone']
 
 class EmpresaForm(CustomerForm):
-    cnpj = localflavor.br.forms.BRCNPJField(min_length=14, max_length=14,label='cnpj:',widget = forms.TextInput(attrs={
+    cnpj = localflavor.br.forms.CharField(min_length=14, max_length=14,label='cnpj:',widget = forms.TextInput(attrs={
         'placeholder':'informe o cnpj',
         'name':'cnpj',
         'id':'cnpj'}))

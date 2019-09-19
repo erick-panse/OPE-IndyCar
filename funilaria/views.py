@@ -7,6 +7,9 @@ from django.contrib.auth.decorators import login_required
 from datetime import date
 # Create your views here.
 #comentado pra n ficar obrigatorio
+def pagina_inicial(request):
+    return render(request, 'pagina-inicial.html')
+
 @login_required(login_url='/login/')
 def index (request):
     return render(request, 'index.html')
