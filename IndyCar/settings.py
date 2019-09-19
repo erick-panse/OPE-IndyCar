@@ -56,7 +56,7 @@ ROOT_URLCONF = 'IndyCar.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join('funilaria','templates'),os.path.join('funilaria','widgets')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

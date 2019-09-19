@@ -30,12 +30,13 @@
               </div>
               {{form_os.cliente}}
             </div>
-
+            {% if cliente %}
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                   <span class="input-group-text">{{cliente.nome}}</span>
                 </div>             
               </div>
+            {% endif %}
 
       <br>
       <br>
@@ -113,6 +114,13 @@
             <!-- Telefone -->
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
+                  <span class="input-group-text">ENTRADA</span>
+                </div>
+                {{entrada}}
+            </div>
+            <!-- Telefone -->
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
                   <span class="input-group-text">PRAZO DE ENTREGA</span>
                 </div>
                 {{form_os.prazo_entrega}}
@@ -121,9 +129,9 @@
             <!-- Telefone -->
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                  <span class="input-group-text">FINALIZADO</span>
+                  <span class="input-group-text">DATA DE FINALIZAÇÂO</span>
                 </div>
-                {{form_os.finalizado}}
+                {{form_os.data_finalizacao}}
             </div>
 
 

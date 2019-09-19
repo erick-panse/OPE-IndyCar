@@ -4,6 +4,7 @@ from funilaria.forms import ClienteForm,EmpresaForm,OrcamentoForm,OrdemDeServico
 from django.contrib import messages
 from funilaria.models import Cliente,Customer,Empresa,Orcamento,OrdemDeServico
 from django.contrib.auth.decorators import login_required
+from datetime import date
 # Create your views here.
 #comentado pra n ficar obrigatorio
 @login_required(login_url='/login/')
@@ -131,6 +132,7 @@ def ordem_de_servico(request):
 
 @login_required(login_url='/login/')
 def nova_os(request):
+    entrada=date.today()
     if request.method == 'POST':
         form_os= OrdemDeServicoForm(request.POST or None)
         if form_os.is_valid():
@@ -141,10 +143,10 @@ def nova_os(request):
             except Exception as e:
                 messages.error(request,e)
         else:
-            return render(request,'formulario_os.html',context={'form_os':form_os})
+            return render(request,'formulario_os.html',context={'form_os':form_os,'entrada':entrada})
     else:
         form_os= OrdemDeServicoForm()
-        return render(request,'formulario_os.html',context={'form_os':form_os})
+        return render(request,'formulario_os.html',context={'form_os':form_os,'entrada':entrada})
 
 def editar_orcamento():
     pass
@@ -153,15 +155,16 @@ def editar_os(request,id=None):
     instance = get_object_or_404(OrdemDeServico,id=id)
     cliente = instance.cliente 
     form_os= OrdemDeServicoForm(request.POST or None, instance=instance)
+    entrada=instance.entrada if instance else None
     if form_os.is_valid():
         try:
             instance=form_os.save()
             instance.save()
             messages.success(request,'OS atualizada com sucesso')
-            return redirect(os)
+            return redirect(ordem_de_servico)
         except Exception as e:
             messages.error(request,e)
-    return render(request,'formulario_os.html',context={'form_os':form_os,'instance':instance,'cliente':cliente})
+    return render(request,'formulario_os.html',context={'form_os':form_os,'instance':instance,'cliente':cliente,'entrada':entrada})
 
 def deletar_os(request):
     pass

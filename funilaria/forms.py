@@ -2,6 +2,7 @@ from django import forms
 from funilaria.models import Cliente,Empresa,Orcamento,OrdemDeServico,Customer
 import datetime
 import localflavor.br.forms
+from .widgets import FengyuanChenDatePickerInput
 
 def somenteLetras(campo):
     if not campo:
@@ -235,18 +236,14 @@ class OrdemDeServicoForm(forms.ModelForm):
         'placeholder':'informe os reparos_necessarios',
         'name':'reparos_necessarios',
         'id':'reparos_necessarios'}))
-    entrada = forms.DateField(label='entrada:',widget = forms.DateInput(attrs={
-        'placeholder':'informe os entrada',
-        'name':'entrada',
-        'id':'entrada'}))
-    prazo_entrega = forms.DateField(label='prazo_entrega:',widget = forms.DateInput(attrs={
+    prazo_entrega = forms.DateField(label='prazo_entrega:',input_formats=['%d/%m/%Y'],widget = FengyuanChenDatePickerInput(attrs={
         'placeholder':'informe o prazo de entrega',
         'name':'prazo_entrega',
         'id':'prazo_entrega'}))
-    finalizado = forms.DateField(label='finalizado:',widget = forms.DateInput(attrs={
+    data_finalizacao = forms.DateField(required=False,label='data de finalização:',input_formats=['%d/%m/%Y'],widget = FengyuanChenDatePickerInput(attrs={
         'placeholder':'informe os finalizado',
-        'name':'finalizado',
-        'id':'finalizado'}))
+        'name':'data_finalizacao',
+        'id':'data_finalizacao'}))
     
     def clean(self):
         dados=self.cleaned_data
@@ -288,4 +285,4 @@ class OrdemDeServicoForm(forms.ModelForm):
 
     class Meta:
         model = OrdemDeServico
-        fields=['cliente','marca_veiculo','modelo_veiculo','cor_veiculo','placa_veiculo','ano_veiculo','cidade_veiculo','estado_veiculo']
+        fields=['cliente','marca_veiculo','modelo_veiculo','cor_veiculo','placa_veiculo','ano_veiculo','cidade_veiculo','estado_veiculo','reparos_necessarios','prazo_entrega','data_finalizacao']

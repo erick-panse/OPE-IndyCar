@@ -43,9 +43,9 @@ class OrdemDeServico(models.Model):
     cidade_veiculo = models.CharField(max_length=10)
     estado_veiculo = models.CharField(max_length=2)
     reparos_necessarios = models.TextField(max_length=200)
-    entrada = models.DateField(blank=True,null=True)
+    entrada = models.DateField(auto_now_add=True,blank=True)
     prazo_entrega = models.DateField(blank=True,null=True)
-    finalizado = models.DateField(blank=True,null=True)
+    data_finalizacao = models.DateField(blank=True,null=True)
 
     def get_editar_ordem(self):
         return reverse('editar_ordem',kwargs={'id':self.id})
@@ -53,8 +53,11 @@ class OrdemDeServico(models.Model):
         return reverse('deletar_ordem',kwargs={'id':self.id})
 
     def __str__(self):
-        status_finalizado = "finalizado" if self.finalizado else "não finalizado"
-        return "OS do cliente: "+str(self.cliente.nome)+" | "+status_finalizado
+        return "OS do cliente: "+str(self.cliente.nome)+" | "+self.status
+
+    @property
+    def status(self):
+        return "finalizado" if self.data_finalizacao else "não finalizado"
 
 class Orcamento(models.Model):
     ordem_servico = models.ForeignKey(OrdemDeServico,on_delete=models.PROTECT,blank=True,null=True)

@@ -31,7 +31,8 @@
                 <tr>
                   <td>{{ i }}</td>
                   <td>{{ i.cliente.nome }}</td>
-                  <td>{{ i.finalizado }}</td>
+                  <td>
+                    {{ i.status }}</td>
                   <td>
                     <a href="{{i.get_editar_ordem}}"
                        class="btn btn-info">
