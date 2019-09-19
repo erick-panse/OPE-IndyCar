@@ -1,0 +1,141 @@
+
+{% extends 'base.html' %}
+
+{% block main %}
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Cadastro de Clientes</h5>
+          <p class="card-text">
+            Complete o formulário abaixo para cadastrar
+            uma nova <code>Ordem de serviço</code>.
+
+          {% for msg in form_os.non_field_errors %}
+            <p>
+              {{msg}}
+            </p>
+          {% endfor %}
+
+          </p>
+          <form method="POST">
+            {% csrf_token %}
+
+            
+            <!-- rg -->
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">CLIENTE</span>
+              </div>
+              {{form_os.cliente}}
+            </div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">{{cliente.nome}}</span>
+                </div>             
+              </div>
+
+      <br>
+      <br>
+      <br>
+			<!-- Marca -->
+          <h5 class="card-title">Veículo</h5>
+          <p class="card-text">
+            Complete o formulário abaixo para cadastrar
+            um novo <code>Veículo</code>.
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Marca</span>
+              </div>
+              {{form_os.marca_veiculo}}
+            </div>
+
+			<!-- Modelo -->
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Modelo</span>
+              </div>
+              {{form_os.modelo_veiculo}}
+            </div>
+
+			<!-- Cor -->
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Cor</span>
+              </div>
+              {{form_os.cor_veiculo}}
+            </div>
+
+			<!-- Placa -->
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Placa</span>
+              </div>
+              {{form_os.placa_veiculo}}
+            </div>
+
+			<!-- Ano -->
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Ano</span>
+              </div>
+              {{form_os.ano_veiculo}}
+            </div>
+
+			<!-- Cidade -->
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Cidade</span>
+              </div>
+              {{form_os.cidade_veiculo}}
+            </div>
+
+
+			<!-- Estado -->
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Estado</span>
+              </div>
+              {{form_os.estado_veiculo}}
+            </div>
+            <br>
+
+            <!-- Telefone -->
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">REPAROS NECESSÁRIOS</span>
+                </div>
+                {{form_os.reparos_necessarios}}
+              </div>
+
+            <!-- Telefone -->
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">PRAZO DE ENTREGA</span>
+                </div>
+                {{form_os.prazo_entrega}}
+            </div>
+
+            <!-- Telefone -->
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">FINALIZADO</span>
+                </div>
+                {{form_os.finalizado}}
+            </div>
+
+
+
+            <input class="btn btn-primary" type="submit" value="Enviar"></input>
+
+          </fildset>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

@@ -122,19 +122,43 @@ def novoorcamento (request):
         form_orcamento= OrcamentoForm()
         return render(request,'formulario_orcamento.html',context={'form_orcamento':form_orcamento})
 
+
 @login_required(login_url='/login/')
-def novoordemdeservico (request):
+def ordem_de_servico(request):
+    ordens = OrdemDeServico.objects.all().order_by('id')
+    msg=messages.get_messages(request)
+    return render(request,'os.html',context={'ordens':ordens,'msg':msg})
+
+@login_required(login_url='/login/')
+def nova_os(request):
     if request.method == 'POST':
-        form_ordemdeservico= OrdemDeServicoForm(request.POST or None)
-        if form_ordemdeservico.is_valid():
+        form_os= OrdemDeServicoForm(request.POST or None)
+        if form_os.is_valid():
             try:
-                form_ordemdeservico.save()
+                form_os.save()
                 messages.success(request,'Ordem de servico cadastrada com sucesso')
                 return redirect(ordemdeservico)
             except Exception as e:
                 messages.error(request,e)
         else:
-            return render(request,'formulario_ordemdeservico.html',context={'form_ordemdeservico':form_ordemdeservico})
+            return render(request,'formulario_os.html',context={'form_os':form_os})
     else:
-        form_ordemdeservico= OrdemDeServicoForm()
-        return render(request,'formulario_ordemdeservico.html',context={'form_ordemdeservico':form_ordemdeservico})
+        form_os= OrdemDeServicoForm()
+        return render(request,'formulario_os.html',context={'form_os':form_os})
+
+def editar_os(request,id=None):
+    instance = get_object_or_404(OrdemDeServico,id=id)
+    cliente = instance.cliente 
+    form_os= OrdemDeServicoForm(request.POST or None, instance=instance)
+    if form_os.is_valid():
+        try:
+            instance=form_os.save()
+            instance.save()
+            messages.success(request,'OS atualizada com sucesso')
+            return redirect(os)
+        except Exception as e:
+            messages.error(request,e)
+    return render(request,'formulario_os.html',context={'form_os':form_os,'instance':instance,'cliente':cliente})
+
+def deletar_os(request):
+    pass
