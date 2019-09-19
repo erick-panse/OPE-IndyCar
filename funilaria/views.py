@@ -123,6 +123,20 @@ def novoorcamento (request):
         return render(request,'formulario_orcamento.html',context={'form_orcamento':form_orcamento})
 
 @login_required(login_url='/login/')
+def editar_orcamento(request,id=None):
+    instance = get_object_or_404(orcamento,id=id)
+    form_orcamento= OrcamentoForm(request.POST or None, instance= instance)
+    if form_orcamento.is_valid():
+        try:
+            instance=form_orcamento.save()
+            instance.save()
+            messages.success(request,'Orcamento atualizada com sucesso')
+            return redirect(orcamento)
+        except Exception as e:
+            messages.error(request,e)
+    return render(request,'formulario_orcamento.html',context={'form_orcamento':form_orcamento,'instance':instance})
+
+@login_required(login_url='/login/')
 def novoordemdeservico (request):
     if request.method == 'POST':
         form_ordemdeservico= OrdemDeServicoForm(request.POST or None)
@@ -138,3 +152,17 @@ def novoordemdeservico (request):
     else:
         form_ordemdeservico= OrdemDeServicoForm()
         return render(request,'formulario_ordemdeservico.html',context={'form_ordemdeservico':form_ordemdeservico})
+
+@login_required(login_url='/login/')
+def editar_ordemdeservico(request,id=None):
+    instance = get_object_or_404(ordemdeservico,id=id)
+    form_ordemdeservico= OrdemdeservicoForm(request.POST or None, instance= instance)
+    if form_ordemdeservico.is_valid():
+        try:
+            instance=form_ordemdeservico.save()
+            instance.save()
+            messages.success(request,'Ordem de servico atualizada com sucesso')
+            return redirect(ordemdeservico)
+        except Exception as e:
+            messages.error(request,e)
+    return render(request,'formulario_ordemdeservico.html',context={'form_ordemdeservico':form_ordemdeservico,'instance':instance})

@@ -44,10 +44,12 @@ urlpatterns = [
 
     path('orcamento/',funilaria_views.novoorcamento,name='orcamento'),
 
+    re_path(r'orcamento/(?P<id>\d+)/$',funilaria_views.editar_orcamento, name='editar_orcamento'),
     path('formorcamento/', funilaria_views.novoorcamento, name='formorcamento'),
 
     path('ordemdeservico/',funilaria_views.novoordemdeservico,name='ordemdeservico'),
-
+    
+    re_path(r'ordemdeservico/(?P<id>\d+)/$',funilaria_views.editar_ordemdeservico, name='editar_ordemdeservico'),
     path('formordemdeservico/', funilaria_views.novoordemdeservico, name='formordemdeservico'),
 
     path('perfil/',usuario_views.perfil_usuario,name='perfil_usuario'),

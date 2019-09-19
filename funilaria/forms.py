@@ -1,6 +1,7 @@
 from django import forms
 from funilaria.models import Cliente,Empresa,Orcamento,OrdemDeServico,Customer
 import datetime
+import localflavor.br.forms
 
 def somenteLetras(campo):
     if not campo:
@@ -108,20 +109,20 @@ class CustomerForm(forms.ModelForm):
 
 
 class ClienteForm(CustomerForm):
-    rg = forms.CharField(max_length=9,label='rg:',widget = forms.TextInput(attrs={
-        'placeholder':'informe o rg',
-        'name':'rg',
-        'id':'rg'}))
+    cpf = localflavor.br.forms.BRCPFField(max_length=12, min_length=12,label='cpf:',widget = forms.TextInput(attrs={
+        'placeholder':'informe o cpf',
+        'name':'cpf',
+        'id':'cpf'}))
 
     def clean(self):
         return self.validar()
 
     class Meta:
         model = Cliente
-        fields=['rg','nome','endereco','bairro','email','telefone']
+        fields=['cpf','nome','endereco','bairro','email','telefone']
 
 class EmpresaForm(CustomerForm):
-    cnpj = forms.CharField(max_length=14,label='cnpj:',widget = forms.TextInput(attrs={
+    cnpj = localflavor.br.forms.BRCNPJField(min_length=14, max_length=14,label='cnpj:',widget = forms.TextInput(attrs={
         'placeholder':'informe o cnpj',
         'name':'cnpj',
         'id':'cnpj'}))
@@ -198,7 +199,7 @@ class OrcamentoForm(forms.ModelForm):
     
     class Meta:
         model = Orcamento
-        fields=['quantidade','pecas','servicos','valor_mao_de_obra','previsao_entrega','data_saida','total_a_pagar']
+        fields=['pecas','quantidade','servicos','valor_mao_de_obra','previsao_entrega','data_saida','total_a_pagar']
 
 class OrdemDeServicoForm(forms.ModelForm):
     cliente = forms.ModelChoiceField(queryset=Customer.objects.all().order_by('id'))
