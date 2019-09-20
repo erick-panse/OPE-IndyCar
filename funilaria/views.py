@@ -155,10 +155,11 @@ def editar_orcamento():
     pass
     
 def editar_os(request,id=None):
-    instance = get_object_or_404(OrdemDeServico,id=id)
-    cliente = instance.cliente 
+    instance = get_object_or_404(OrdemDeServico,id=id) 
     form_os= OrdemDeServicoForm(request.POST or None, instance=instance)
+    cliente = form_os.instance.cliente
     entrada=instance.entrada if instance else None
+    print(form_os.errors)
     if form_os.is_valid():
         try:
             instance=form_os.save()

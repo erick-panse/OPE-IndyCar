@@ -229,10 +229,34 @@ class OrdemDeServicoForm(forms.ModelForm):
         'placeholder':'informe a cidade',
         'name':'cidade',
         'id':'cidade'}))
-    estado_veiculo = forms.CharField(max_length=2,label='estado:',widget = forms.TextInput(attrs={
-        'placeholder':'informe o estado',
-        'name':'estado',
-        'id':'estado'}))
+    ESTADO_CARRO= [
+    ('AL', 'Alagoas'),
+    ('amapa', 'Amapá'),
+    ('amazonas', 'Amazonas'),
+    ('bahia', 'Bahia'),
+    ('ceara', 'Ceará'),
+    ('distritofederal', 'Distrito federal'),
+    ('espiritosanto', 'Espírito Santo'),
+    ('goias', 'Goiás'),
+    ('maranhao', 'Maranhão'),
+    ('matogrosso', 'Mato Grosso'),
+    ('matogrossodosul', 'Mato Grosso do Sul'),
+    ('matogrossodonorte', 'Minas Gerais'),
+    ('para', 'Pará'),
+    ('paraiba', 'Paraíba'),
+    ('alagoas', 'Pernambuco'),
+    ('piaui', 'Piauí'),
+    ('riodejaneiro', 'Rio de Janeiro'),
+    ('riograndedonorte', 'Rio Grande do Norte'),
+    ('riograndedosul', 'Rio Grande do Sul'),
+    ('rondonia', 'Rondônia'),
+    ('santacatarina', 'Santa Catarina'),
+    ('saopaulo', 'São Paulo'),
+    ('sergipe', 'Sergipe'),
+    ('tocantins', 'Tocantins'),
+    ('estrangeiro', 'Estrangeiro'),
+    ]
+    estado_veiculo= forms.CharField(label='Estado', widget=forms.Select(choices=ESTADO_CARRO))
     reparos_necessarios = forms.CharField(max_length=500,label='reparos_necessarios:',widget = forms.Textarea(attrs={
         'placeholder':'informe os reparos_necessarios',
         'name':'reparos_necessarios',
