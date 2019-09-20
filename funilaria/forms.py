@@ -229,10 +229,36 @@ class OrdemDeServicoForm(forms.ModelForm):
         'placeholder':'informe a cidade',
         'name':'cidade',
         'id':'cidade'}))
-    estado = forms.CharField(max_length=2,label='estado:',widget = forms.TextInput(attrs={
-        'placeholder':'informe o estado',
-        'name':'estado',
-        'id':'estado'}))
+    ESTADO_CARRO= [
+    ('AC', 'Acre'),    
+    ('AL', 'Alagoas'),
+    ('AP', 'Amapá'),
+    ('AM', 'Amazonas'),
+    ('BA', 'Bahia'),
+    ('CE', 'Ceará'),
+    ('DF', 'Distrito federal'),
+    ('ES', 'Espírito Santo'),
+    ('GO', 'Goiás'),
+    ('MA', 'Maranhão'),
+    ('MT', 'Mato Grosso'),
+    ('MS', 'Mato Grosso do Sul'),
+    ('MG', 'Minas Gerais'),
+    ('PA', 'Pará'),
+    ('PB', 'Paraíba'),
+    ('PR', 'Paraná'),
+    ('PE', 'Pernambuco'),
+    ('PI', 'Piauí'),
+    ('RJ', 'Rio de Janeiro'),
+    ('RN', 'Rio Grande do Norte'),
+    ('RS', 'Rio Grande do Sul'),
+    ('RO', 'Rondônia'),
+    ('SC', 'Santa Catarina'),
+    ('SP', 'São Paulo'),
+    ('SE', 'Sergipe'),
+    ('TO', 'Tocantins'),
+    ('ET', 'Estrangeiro'),
+    ]
+    estado_veiculo= forms.CharField(label='Estado', widget=forms.Select(choices=ESTADO_CARRO))
     reparos_necessarios = forms.CharField(max_length=500,label='reparos_necessarios:',widget = forms.Textarea(attrs={
         'placeholder':'informe os reparos necessarios',
         'name':'reparos_necessarios',
@@ -258,7 +284,7 @@ class OrdemDeServicoForm(forms.ModelForm):
         placa=dados.get('placa')
         ano=dados.get('ano')
         cidade=dados.get('cidade')
-        estado=dados.get('estado')
+        estado_veiculo=dados.get('estado_veiculo')
 
         if not somenteLetras(reparos_necessarios):
             raise forms.ValidationError('reparos necessarios inválida !')
@@ -281,12 +307,12 @@ class OrdemDeServicoForm(forms.ModelForm):
         if not somenteLetras(cidade):
             raise forms.ValidationError('Cidade inválida !')
 
-        if not somenteLetras(estado):
+        if not somenteLetras(estado_veiculo):
             raise forms.ValidationError('Estado inválido !')
 
     class Meta:
         model = OrdemDeServico
-        fields=['cliente','marca','modelo','cor','placa','ano','cidade','estado','reparos_necessarios','prazo_entrega','data_finalizacao']
+        fields=['cliente','marca','modelo','cor','placa','ano','cidade','estado_veiculo','reparos_necessarios','prazo_entrega','data_finalizacao']
 
 
 

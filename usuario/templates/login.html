@@ -1,53 +1,59 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-  <title>Indy Car</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	<title>Login V16</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="../static/images/icons/favicon.ico"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../static/css/util.css">
+	<link rel="stylesheet" type="text/css" href="../static/css/main.css">
+<!--===============================================================================================-->
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
-  <meta name="viewport" content="width=device-width", initial-scale="1.0"> 
-  <link rel="stylesheet" type="text/css" href="../static/login_style.css" />
 </head>
 <body>
-  <div class="jumbotron text-center">
-    <h1>Indy Car</h1>
-  </div>
-    
-  <div class="container" >
-    <a class="links" id="paralogin"></a>
-    
-    <div class="content">      
-      <!--FORMULÁRIO DE LOGIN-->
-      <div id="login">
-        <form method="post" action="submit">{% csrf_token %} 
-          <h1>Login</h1> 
-          <p> 
-            <label for="username">Usuário</label>
-            <input type="text", class="form-control" id="username" name="username" placeholder="Usuário">
-          </p>
-          
-          <p> 
-            <label for="username">Senha</label>
-            <input type="password", class="form-control" id="password" name="password" placeholder="Senha">
-          </p>
-          
-          <p> 
-            <div>
-                {% for message in messages %}
-                  <div class="alert alert-info">
-                    <strong>{{message}}</strong>
-                  </div>  
-                {% endfor %}
-                <button type="submit" class="btn btn-primary">Entrar</button>
-            </div>
-          </p>
-        </form>
-      </div>
-      </div>
-    </div> 
+	
+	<div class="limiter">
+		<div class="container-login100" style="background-image: url('../static/images/bg-01.jpg');">
+			<div class="wrap-login100 p-t-30 p-b-50">
+				<span class="login100-form-title p-b-41">
+					Login
+				</span>
+				<form class="login100-form validate-form p-b-33 p-t-5">{% csrf_token %} 
+
+					<div class="wrap-input100 validate-input" data-validate = "Usuario">
+						<input class="input100" type="text" name="username" placeholder="Usuario">
+						<span class="focus-input100" data-placeholder="&#xe82a;"></span>
+					</div>
+
+					<div class="wrap-input100 validate-input" data-validate="Senha">
+						<input class="input100" type="password" name="pass" placeholder="Senha">
+						<span class="focus-input100" data-placeholder="&#xe80f;"></span>
+					</div>
+
+					<div class="container-login100-form-btn m-t-32">
+						{% for message in messages %}
+                  			<div class="alert alert-info">
+                    		<strong>{{message}}</strong>
+                  			</div>  
+                		{% endfor %}
+						<button class="login100-form-btn">
+							Entrar
+						</button>
+					</div>
+
+				</form>
+			</div>
+		</div>
+	</div>
+	
+
+	<div id="dropDownSelect1"></div>
+<!--===============================================================================================-->
+	<script src="../static/js/main.js"></script>
+
 </body>
 </html>
