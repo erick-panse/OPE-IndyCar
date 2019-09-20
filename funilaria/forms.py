@@ -5,6 +5,36 @@ import localflavor.br.forms
 from funilaria.views import *
 from .widgets import FengyuanChenDatePickerInput
 
+
+ESTADO_CARRO= [
+    ('AC', 'Acre'),    
+    ('AL', 'Alagoas'),
+    ('AP', 'Amapá'),
+    ('AM', 'Amazonas'),
+    ('BA', 'Bahia'),
+    ('CE', 'Ceará'),
+    ('DF', 'Distrito federal'),
+    ('ES', 'Espírito Santo'),
+    ('GO', 'Goiás'),
+    ('MA', 'Maranhão'),
+    ('MT', 'Mato Grosso'),
+    ('MS', 'Mato Grosso do Sul'),
+    ('MG', 'Minas Gerais'),
+    ('PA', 'Pará'),
+    ('PB', 'Paraíba'),
+    ('PR', 'Paraná'),
+    ('PE', 'Pernambuco'),
+    ('PI', 'Piauí'),
+    ('RJ', 'Rio de Janeiro'),
+    ('RN', 'Rio Grande do Norte'),
+    ('RS', 'Rio Grande do Sul'),
+    ('RO', 'Rondônia'),
+    ('SC', 'Santa Catarina'),
+    ('SP', 'São Paulo'),
+    ('SE', 'Sergipe'),
+    ('TO', 'Tocantins'),
+    ('ET', 'Estrangeiro'),]
+    
 def somenteLetras(campo):
     if not campo:
         return False
@@ -110,7 +140,7 @@ class CustomerForm(forms.ModelForm):
 
 
 class ClienteForm(CustomerForm):
-    cpf = localflavor.br.forms.CharField(max_length=12, min_length=12,label='cpf:',widget = forms.TextInput(attrs={
+    cpf = localflavor.br.forms.CharField(max_length=11, min_length=11,label='cpf:',widget = forms.TextInput(attrs={
         'placeholder':'informe o cpf',
         'name':'cpf',
         'id':'cpf'}))
@@ -228,35 +258,6 @@ class OrdemDeServicoForm(forms.ModelForm):
         'placeholder':'informe a cidade',
         'name':'cidade',
         'id':'cidade'}))
-    ESTADO_CARRO= [
-    ('AC', 'Acre'),    
-    ('AL', 'Alagoas'),
-    ('AP', 'Amapá'),
-    ('AM', 'Amazonas'),
-    ('BA', 'Bahia'),
-    ('CE', 'Ceará'),
-    ('DF', 'Distrito federal'),
-    ('ES', 'Espírito Santo'),
-    ('GO', 'Goiás'),
-    ('MA', 'Maranhão'),
-    ('MT', 'Mato Grosso'),
-    ('MS', 'Mato Grosso do Sul'),
-    ('MG', 'Minas Gerais'),
-    ('PA', 'Pará'),
-    ('PB', 'Paraíba'),
-    ('PR', 'Paraná'),
-    ('PE', 'Pernambuco'),
-    ('PI', 'Piauí'),
-    ('RJ', 'Rio de Janeiro'),
-    ('RN', 'Rio Grande do Norte'),
-    ('RS', 'Rio Grande do Sul'),
-    ('RO', 'Rondônia'),
-    ('SC', 'Santa Catarina'),
-    ('SP', 'São Paulo'),
-    ('SE', 'Sergipe'),
-    ('TO', 'Tocantins'),
-    ('ET', 'Estrangeiro'),
-    ]
     estado_veiculo= forms.CharField(label='Estado', widget=forms.Select(choices=ESTADO_CARRO))
     reparos_necessarios = forms.CharField(max_length=500,label='reparos_necessarios:',widget = forms.Textarea(attrs={
         'placeholder':'informe os reparos_necessarios',
