@@ -21,7 +21,7 @@
               <thead class="thead-dark">
               <tr>
                 <th>Nome</th>
-                <th>RG</th>
+                <th>CPF</th>
               </tr>
               </thead>
 
@@ -29,7 +29,7 @@
               {% for i in clientes %}
                 <tr>
                   <td>{{ i.nome }}</td>
-                  <td>{{ i.rg }}</td>
+                  <td>{{ i.cpf }}</td>
                   <td>
                     <a href="{{i.get_editar_cliente}}"
                        class="btn btn-info">

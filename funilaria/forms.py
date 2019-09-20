@@ -1,5 +1,5 @@
 from django import forms
-from funilaria.models import Cliente,Empresa,Orcamento,OrdemDeServico,Customer
+from funilaria.models import Cliente,Empresa,Orcamento,OrdemDeServico,Customer,Material
 import datetime
 import localflavor.br.forms
 from funilaria.views import *
@@ -141,12 +141,12 @@ class EmpresaForm(CustomerForm):
         fields=['cnpj','nome','endereco','bairro','email','telefone']
 
 class OrcamentoForm(forms.ModelForm):
-    quantidade = forms.IntegerField(label='quantidade:',widget = forms.TextInput(attrs={
+    quantidade_pecas = forms.IntegerField(label='quantidade_pecas:',widget = forms.TextInput(attrs={
         'placeholder':'informe a quantidade de peças',
-        'name':'quantidade',
-        'id':'quantidade'}))
+        'name':'quantidade_pecas',
+        'id':'quantidade_pecas'}))
     servicos = forms.CharField(max_length=500,label='servicos:',widget = forms.Textarea(attrs={
-        'placeholder':'informe os serviços',
+        'placeholder':'informe os serviços necessários',
         'name':'servicos',
         'id':'servicos'}))
     pecas = forms.CharField(max_length=200,label='Peças:',widget = forms.Textarea(attrs={
@@ -154,28 +154,28 @@ class OrcamentoForm(forms.ModelForm):
         'name':'Pecas',
         'id':'Pecas'}))
     
-    valor_mao_de_obra = forms.FloatField(label='mao_de_obra:',widget = forms.TextInput(attrs={
+    valor_mao_de_obra = forms.FloatField(label='valor_mao_de_obra:',widget = forms.TextInput(attrs={
         'placeholder':'informe a mao_de_obra necessária',
-        'name':'mao_de_obra',
-        'id':'mao_de_obra'}))
+        'name':'valor_mao_de_obra',
+        'id':'valor_mao_de_obra'}))
 
     total_a_pagar = forms.DecimalField(label='total_a_pagar:',widget = forms.TextInput(attrs={
-        'readonly':'total_a_pagar',
+        'readonly':'total a pagar',
         'name':'total_a_pagar',
         'id':'total_a_pagar'}))
     
     previsao_entrega = forms.DateField(label='previsao_entrega:',widget = forms.DateInput(attrs={
-        'placeholder':'informe a previsao_entrega',
+        'placeholder':'informe a previsao entrega',
         'name':'previsao_entrega',
         'id':'previsao_entrega'}))
     data_saida = forms.DateField(label='data_saida:',widget = forms.DateInput(attrs={
-        'placeholder':'informe os data_saida',
+        'placeholder':'informe a data de saida',
         'name':'data_saida',
         'id':'data_saida'}))
     
     def clean(self):
         dados=self.cleaned_data
-        quantidade=dados.get('quantidade')
+        quantidade_pecas=dados.get('quantidade_pecas')
         servicos=dados.get('servicos')
         pecas=dados.get('pecas')
         valor_mao_de_obra=dados.get('valor_mao_de_obra')
@@ -183,8 +183,8 @@ class OrcamentoForm(forms.ModelForm):
         previsao_entrega=dados.get('previsao_entrega')
         data_saida=dados.get('data_saida')
 
-        if not somenteNumeros(quantidade):
-            raise forms.ValidationError('quantidade inválida !')
+        if not somenteNumeros(quantidade_pecas):
+            raise forms.ValidationError('quantidade_pecas inválida !')
 
         if not somenteLetras(servicos):
             raise forms.ValidationError('servicos inválido !')
@@ -201,7 +201,7 @@ class OrcamentoForm(forms.ModelForm):
     
     class Meta:
         model = Orcamento
-        fields=['pecas','quantidade','servicos','valor_mao_de_obra','previsao_entrega','data_saida','total_a_pagar']
+        fields=['pecas','quantidade_pecas','servicos','valor_mao_de_obra','previsao_entrega','data_saida','total_a_pagar']
 
 class OrdemDeServicoForm(forms.ModelForm):
     cliente = forms.ModelChoiceField(queryset=Customer.objects.all().order_by('id'))
@@ -313,3 +313,38 @@ class OrdemDeServicoForm(forms.ModelForm):
     class Meta:
         model = OrdemDeServico
         fields=['cliente','marca_veiculo','modelo_veiculo','cor_veiculo','placa_veiculo','ano_veiculo','cidade_veiculo','estado_veiculo','reparos_necessarios','prazo_entrega','data_finalizacao']
+
+class MaterialForm(forms.ModelForm):
+    quantidade_estoque = forms.IntegerField(label='quantidade_estoque:',widget = forms.TextInput(attrs={
+        'placeholder':'informe a quantidade de estoque',
+        'name':'quantidade_estoque',
+        'id':'quantidade_estoque'}))
+    descricao = forms.CharField(max_length=200,label='descricao:',widget = forms.Textarea(attrs={
+        'placeholder':'informe a descrição',
+        'name':'descricao',
+        'id':'descricao'}))
+    
+    valor = forms.DecimalField(label='valor:',widget = forms.TextInput(attrs={
+        'readonly':'valor da peça',
+        'name':'valor',
+        'id':'valor'}))
+    
+    def clean(self):
+        dados=self.cleaned_data
+        quantidade_estoque=dados.get('quantidade_estoque')
+        descricao=dados.get('descricao')
+        valor=dados.get('valor')
+        
+        if not somenteNumeros(quantidade_estoque):
+            raise forms.ValidationError('quantidade inválida !')
+
+        if not somenteLetras(descricao):
+            raise forms.ValidationError('descricao inválido !')
+
+        if not somenteNumeros(valor):
+            raise forms.ValidationError('valor inválido !')
+        
+    
+    class Meta:
+        model = Material
+        fields=['quantidade_estoque','descricao','valor']
