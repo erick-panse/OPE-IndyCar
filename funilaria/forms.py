@@ -149,10 +149,7 @@ class OrcamentoForm(forms.ModelForm):
         'placeholder':'informe os serviços necessários',
         'name':'servicos',
         'id':'servicos'}))
-    pecas = forms.CharField(max_length=200,label='Peças:',widget = forms.Textarea(attrs={
-        'placeholder':'informe as Peças necessárias',
-        'name':'Pecas',
-        'id':'Pecas'}))
+    pecas = forms.ModelChoiceField(queryset=Material.objects.all())
     
     valor_mao_de_obra = forms.FloatField(label='valor_mao_de_obra:',widget = forms.TextInput(attrs={
         'placeholder':'informe a mao_de_obra necessária',

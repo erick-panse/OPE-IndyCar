@@ -84,7 +84,7 @@ class Material(models.Model):
     valor = models.DecimalField(decimal_places=2,max_digits=8)
 
     def __str__(self):
-        return "descricao | "+str(self.descricao)
+        return str(self.descricao)
 
     def get_editar_material(self):
         return reverse('editar_material',kwargs={'id':self.id})
