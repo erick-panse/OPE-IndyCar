@@ -1,25 +1,52 @@
 from django.db import models
 from django.urls import reverse 
+from model_utils.managers import InheritanceManager
 # Create your models here.
 
 class Customer(models.Model):
+    objects = InheritanceManager()
     nome = models.CharField(max_length=60)
     endereco = models.CharField(max_length=100)
     bairro = models.CharField(max_length=30)
     email = models.EmailField(max_length=60)
     telefone = models.IntegerField()
 
-    def __str__(self):
-        return self.nome
+def formatarCpf(cpf):
+    cpf=str(cpf)
+    f=""
+    for i in range(len(cpf)):
+        if i!=0 and i%3==0 and i+3<=len(cpf):
+            f+='.'+cpf[i]
+        elif i==9:
+            f+='/'+cpf[i]
+        else:
+            f+=cpf[i]
+    return f
 
+def formatarCnpj(cnpj):
+    cnpj=str(cnpj)
+    f=""
+    for i in range(len(cnpj)):
+        if i==2 or i==5:
+            f+='.'+cnpj[i]
+        elif i==8:
+            f+='/'+cnpj[i]
+        elif i==12:
+            f+='-'+cnpj[i]
+        else:
+            f+=cnpj[i]
+    return f
 
 class Cliente(Customer):
-    cpf = models.CharField(max_length=12)
+    cpf = models.CharField(max_length=11)
 
     def get_editar_cliente(self):
         return reverse('editar_cliente',kwargs={'id':self.id})
     def get_del_cliente(self):
         return reverse('deletar_cliente',kwargs={'id':self.id})
+
+    def __str__(self):
+        return self.nome +" | "+formatarCpf(self.cpf)
 
 
 class Empresa(Customer):
@@ -30,8 +57,8 @@ class Empresa(Customer):
     def get_del_empresa(self):
         return reverse('deletar_empresa',kwargs={'id':self.id})
 
-
-
+    def __str__(self):
+        return self.nome +" | "+formatarCnpj(self.cnpj)
 
 class OrdemDeServico(models.Model):
     cliente = models.ForeignKey(Customer,on_delete=models.PROTECT)

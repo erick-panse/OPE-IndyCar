@@ -24,6 +24,7 @@ def cliente(request):
 def novocliente(request):
     if request.method == 'POST':
         form_cliente = ClienteForm(request.POST or None)
+        print(form_cliente.errors)
         if form_cliente.is_valid():
             try:
                 form_cliente.save()
@@ -167,19 +168,22 @@ def nova_os(request):
     entrada=date.today()
     if request.method == 'POST':
         form_os= OrdemDeServicoForm(request.POST or None)
+        print(form_os.errors)
         if form_os.is_valid():
             try:
                 form_os.save()
                 messages.success(request,'Ordem de servico cadastrada com sucesso')
-                return redirect(ordemdeservico)
+                return redirect(ordem_de_servico)
             except Exception as e:
                 messages.error(request,e)
+                return render(request,'formulario_os.html',context={'form_os':form_os,'entrada':entrada})
         else:
             return render(request,'formulario_os.html',context={'form_os':form_os,'entrada':entrada})
     else:
         form_os= OrdemDeServicoForm()
         return render(request,'formulario_os.html',context={'form_os':form_os,'entrada':entrada})
-    
+
+
 def editar_os(request,id=None):
     instance = get_object_or_404(OrdemDeServico,id=id) 
     form_os= OrdemDeServicoForm(request.POST or None, instance=instance)
