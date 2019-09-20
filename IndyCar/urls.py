@@ -38,14 +38,20 @@ urlpatterns = [
     re_path(r'empresa/deletar/(?P<id>\d+)/$',funilaria_views.deletar_empresa, name='deletar_empresa'),
     path('empresa/', funilaria_views.novoempresa, name='empresa'),
 
-    path('orcamento/', funilaria_views.novoorcamento, name='orcamento'),
+    path('orcamentos/',funilaria_views.orcamento,name='orcamento'),
+    path('orcamento/', funilaria_views.novo_orcamento, name='orcamento'),
     re_path(r'orcamento/(?P<id>\d+)/$',funilaria_views.editar_orcamento, name='editar_orcamento'),
-
+    re_path(r'orcamento/deletar/(?P<id>\d+)/$',funilaria_views.deletar_orcamento, name='deletar_orcamento'),
+    
     path('ordensdeservico/',funilaria_views.ordem_de_servico,name='ordensdeservico'),
     path('ordemdeservico/', funilaria_views.nova_os, name='ordemdeservico'),
     re_path(r'ordemdeservico/(?P<id>\d+)/$',funilaria_views.editar_os, name='editar_ordem'),
     re_path(r'ordemdeservico/deletar/(?P<id>\d+)/$',funilaria_views.deletar_os, name='deletar_ordem'),
 
+    path('materiais/',funilaria_views.material,name='material'),
+    path('material/', funilaria_views.novo_material, name='material'),
+    re_path(r'material/(?P<id>\d+)/$',funilaria_views.editar_material, name='editar_material'),
+    re_path(r'material/deletar/(?P<id>\d+)/$',funilaria_views.deletar_material, name='deletar_material'),
 
     path('perfil/',usuario_views.perfil_usuario,name='perfil_usuario'),
     path('novo-usuario/',usuario_views.novo_usuario,name='novo_usuario'),

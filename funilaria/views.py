@@ -1,8 +1,8 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from django.http import request,HttpResponseRedirect
-from funilaria.forms import ClienteForm,EmpresaForm,OrcamentoForm,OrdemDeServicoForm
+from funilaria.forms import ClienteForm,EmpresaForm,OrcamentoForm,OrdemDeServicoForm,MaterialForm
 from django.contrib import messages
-from funilaria.models import Cliente,Customer,Empresa,Orcamento,OrdemDeServico
+from funilaria.models import Cliente,Customer,Empresa,Orcamento,OrdemDeServico,Material
 from django.contrib.auth.decorators import login_required
 from datetime import date
 # Create your views here.
@@ -110,13 +110,19 @@ def deletar_empresa(request,id=None):
 
 
 @login_required(login_url='/login/')
-def novoorcamento (request):
+def orcamento(request):
+    orcamentos = Orcamento.objects.all().order_by('id')
+    msg=messages.get_messages(request)
+    return render(request,'orcamentos.html',context={'orcamentos':orcamentos,'msg':msg})
+
+@login_required(login_url='/login/')
+def novo_orcamento (request):
     if request.method == 'POST':
         form_orcamento= OrcamentoForm(request.POST or None)
         if form_orcamento.is_valid():
             try:
                 form_orcamento.save()
-                messages.success(request,'Orcamento cadastrada com sucesso')
+                messages.success(request,'Orçamento cadastrada com sucesso')
                 return redirect(orcamento)
             except Exception as e:
                 messages.error(request,e)
@@ -126,6 +132,29 @@ def novoorcamento (request):
         form_orcamento= OrcamentoForm()
         return render(request,'formulario_orcamento.html',context={'form_orcamento':form_orcamento})
 
+@login_required(login_url='/login/')
+def editar_orcamento(request,id=None):
+    instance = get_object_or_404(Orcamento,id=id)
+    form_orcamento= OrcamentoForm(request.POST or None, instance= instance)
+    if form_orcamento.is_valid():
+        try:
+            instance=form_orcamento.save()
+            instance.save()
+            messages.success(request,'Orçamento atualizada com sucesso')
+            return redirect(orcamento)
+        except Exception as e:
+            messages.error(request,e)
+    return render(request,'formulario_orcamento.html',context={'form_orcamento':form_orcamento,'instance':instance})
+
+@login_required(login_url='/login/')
+def deletar_orcamento(request,id=None):
+    instance = get_object_or_404(Orcamento,id=id)
+    try:
+        instance.delete()
+        messages.success(request,'Orçamento deletada com sucesso')
+    except Exception as e:
+        messages.error(request,'Não foi possível deletar a Orçamento')
+    return redirect(orcamento)
 
 @login_required(login_url='/login/')
 def ordem_de_servico(request):
@@ -174,3 +203,50 @@ def editar_os(request,id=None):
 
 def deletar_os(request):
     pass
+
+@login_required(login_url='/login/')
+def material(request):
+    materiais = Material.objects.all().order_by('id')
+    msg=messages.get_messages(request)
+    return render(request,'materiais.html',context={'materiais':materiais,'msg':msg})
+
+@login_required(login_url='/login/')
+def novo_material(request):
+    if request.method == 'POST':
+        form_material= MaterialForm(request.POST or None)
+        if form_material.is_valid():
+            try:
+                form_material.save()
+                messages.success(request,'Material cadastrada com sucesso')
+                return redirect(material)
+            except Exception as e:
+                messages.error(request,e)
+        else:
+            return render(request,'formulario_material.html',context={'form_material':form_material})
+    else:
+        form_material= MaterialForm()
+        return render(request,'formulario_material.html',context={'form_material':form_material})
+
+@login_required(login_url='/login/')
+def editar_material(request,id=None):
+    instance = get_object_or_404(Material,id=id)
+    form_material= MaterialForm(request.POST or None, instance= instance)
+    if form_material.is_valid():
+        try:
+            instance=form_material.save()
+            instance.save()
+            messages.success(request,'Material atualizada com sucesso')
+            return redirect(material)
+        except Exception as e:
+            messages.error(request,e)
+    return render(request,'formulario_material.html',context={'form_material':form_material,'instance':instance})
+
+@login_required(login_url='/login/')
+def deletar_material(request,id=None):
+    instance = get_object_or_404(Material,id=id)
+    try:
+        instance.delete()
+        messages.success(request,'Material deletada com sucesso')
+    except Exception as e:
+        messages.error(request,'Não foi possível deletar a material')
+    return redirect(material)
