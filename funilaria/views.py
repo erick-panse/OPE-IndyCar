@@ -153,11 +153,13 @@ def nova_os(request):
 
 def editar_orcamento():
     pass
-    
+
+
 def editar_os(request,id=None):
     instance = get_object_or_404(OrdemDeServico,id=id) 
     form_os= OrdemDeServicoForm(request.POST or None, instance=instance)
     cliente = form_os.instance.cliente
+    print(type(cliente))
     entrada=instance.entrada if instance else None
     print(form_os.errors)
     if form_os.is_valid():

@@ -86,7 +86,6 @@ class CustomerForm(forms.ModelForm):
         'name':'tel',
         'id':'tel'}))
 
-
     def validar(self):
         dados=self.cleaned_data
         nome=dados.get('nome')
@@ -204,7 +203,7 @@ class OrcamentoForm(forms.ModelForm):
         fields=['pecas','quantidade','servicos','valor_mao_de_obra','previsao_entrega','data_saida','total_a_pagar']
 
 class OrdemDeServicoForm(forms.ModelForm):
-    cliente = forms.ModelChoiceField(queryset=Customer.objects.all().order_by('id'))
+    cliente = forms.ModelChoiceField(queryset=Customer.objects.all().select_subclasses().order_by('id'))
     marca_veiculo = forms.CharField(max_length=10,label='marca:',widget = forms.TextInput(attrs={
         'placeholder':'informe a marca',
         'name':'marca',
