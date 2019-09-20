@@ -5,4 +5,4 @@ admin.site.register(Cliente)
 admin.site.register(Empresa)
 admin.site.register(Orcamento)
 admin.site.register(OrdemDeServico)
-admin.site.register(Material)
+
