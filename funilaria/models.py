@@ -61,7 +61,7 @@ class OrdemDeServico(models.Model):
 
 class Orcamento(models.Model):
     ordem_servico = models.ForeignKey(OrdemDeServico,on_delete=models.PROTECT,blank=True,null=True)
-    quantidade = models.IntegerField()
+    quantidade_pecas = models.PositiveIntegerField()
     pecas = models.TextField(max_length=200)
     servicos = models.TextField(max_length=500)
     valor_mao_de_obra = models.FloatField(blank=True,null=True)
@@ -75,3 +75,19 @@ class Orcamento(models.Model):
     def get_editar_orcamento(self):
         return reverse('editar_orcamento',kwargs={'id':self.id})
     
+    def get_del_orcamento(self):
+        return reverse('deletar_orcamento',kwargs={'id':self.id})
+    
+class Material(models.Model):
+    descricao = models.TextField(max_length=200)
+    quantidade_estoque = models.PositiveIntegerField()
+    valor = models.DecimalField(decimal_places=2,max_digits=8)
+
+    def __str__(self):
+        return "descricao | "+str(self.descricao)
+
+    def get_editar_material(self):
+        return reverse('editar_material',kwargs={'id':self.id})
+    
+    def get_del_material(self):
+        return reverse('deletar_material',kwargs={'id':self.id})
