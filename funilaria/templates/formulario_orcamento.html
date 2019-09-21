@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Cadastro de Orçamento</h5>
+          <p class="card-text">
+            Selecione o campo abaixo para cadastrar
+            um novo orçamento ao cliente desejado.
+
+          {% for msg in form_orcamento.non_field_errors %}
+            <p>
+              {{msg}}
+            </p>
+          {% endfor %}
+
+          </p>
+          <form method="POST">
+            {% csrf_token %}
+
+            
+            
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">CLIENTE</span>
+              </div>
+              {{form_orcamento.cliente}}
+            </div>
+            {% if cliente %}
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">{{cliente.nome}}</span>
+                </div>             
+              </div>
+            {% endif %}
+
+      <br>
+      <br>
+      <br>
+			<h5 class="card-title">Criar Orçamento</h5>
+      <p class="card-text">
+      <!-- Serviços -->
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Serviços</span>
+                </div>
+                {{form_orcamento.servicos}}
+            </div>
+
+      <br>      
+
+
+      <!-- Peças -->
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Peças</span>
+                </div>
+                {{form_orcamento.pecas}}
+            </div>
+
+      <br>
+
+      <!-- Quantidade -->
+      
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Quantidade</span>
+              </div>
+              {{form_orcamento.quantidade}}
+            </div>
+
+
+      <br>
+
+      <!-- Valor da Mão de Obra -->
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Valor da Mão de Obra</span>
+                </div>
+                {{form_orcamento.valor_mao_de_obra}}
+            </div>    
+
+
+      <br>
+
+      <!-- Total a Pagar -->
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Total a Pagar</span>
+                </div>
+                {{form_orcamento.total_a_pagar}}
+            </div>
+
+      <br>
+
+      <!-- Previsao de Entrega -->
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Previsao de Entrega</span>
+                </div>
+                {{form_orcamento.previsao_entrega}}
+            </div>
+
+      <br>
+
+      <!-- Data de Saída -->
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Data de Saída</span>
+                </div>
+                {{form_orcamento.data_saida}}
+            </div>
+
+
+
+            <input class="btn btn-primary" type="submit" value="Enviar"></input>
+
+          </fildset>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

@@ -24,6 +24,7 @@ from django.contrib.auth import views as auth_views
 urlpatterns = [
 
     path('paginainicial/', funilaria_views.pagina_inicial),
+    path('index/', funilaria_views.index),
     path('admin/', admin.site.urls),
     path('clientes/',cliente,name='cliente'),
    
@@ -38,8 +39,8 @@ urlpatterns = [
     re_path(r'empresa/deletar/(?P<id>\d+)/$',funilaria_views.deletar_empresa, name='deletar_empresa'),
     path('empresa/', funilaria_views.novoempresa, name='empresa'),
 
-    path('orcamentos/',funilaria_views.orcamento,name='orcamento'),
-    path('orcamento/', funilaria_views.novo_orcamento, name='orcamento'),
+    path('orcamento/',funilaria_views.orcamento,name='orcamento'),
+    path('novoorcamento/', funilaria_views.novo_orcamento, name='orcamento'),
     re_path(r'orcamento/(?P<id>\d+)/$',funilaria_views.editar_orcamento, name='editar_orcamento'),
     re_path(r'orcamento/deletar/(?P<id>\d+)/$',funilaria_views.deletar_orcamento, name='deletar_orcamento'),
     

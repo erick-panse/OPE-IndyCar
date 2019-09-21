@@ -10,6 +10,9 @@ from datetime import date
 def pagina_inicial(request):
     return render(request, 'pagina-inicial.html')
 
+def index(request):
+    return render(request, 'index.html')
+
 @login_required(login_url='/login/')
 def index (request):
     return render(request, 'index.html')
@@ -114,7 +117,7 @@ def deletar_empresa(request,id=None):
 def orcamento(request):
     orcamentos = Orcamento.objects.all().order_by('id')
     msg=messages.get_messages(request)
-    return render(request,'orcamentos.html',context={'orcamentos':orcamentos,'msg':msg})
+    return render(request,'orcamento.html',context={'orcamentos':orcamentos,'msg':msg})
 
 @login_required(login_url='/login/')
 def novo_orcamento (request):

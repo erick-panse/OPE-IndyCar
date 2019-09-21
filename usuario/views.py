@@ -12,6 +12,10 @@ def pagina_inicial(request):
     return render(request, 'pagina-inicial.html')
 
 @login_required(login_url='/login/')
+def index (request):
+    return render(request, 'index.html')
+
+@login_required(login_url='/login/')
 def perfil_usuario(request):
     msg=messages.get_messages(request)
     return render(request,'perfil.html',context={'user':request.user,'msg':msg})
@@ -74,7 +78,7 @@ def submit_login(request):
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('/')
+            return redirect('/index/')
         else:
             messages.error(request, 'Usuário ou senha inválido')
     return redirect('/login/')
