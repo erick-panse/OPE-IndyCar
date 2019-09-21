@@ -332,14 +332,14 @@ class MaterialForm(forms.ModelForm):
         descricao=dados.get('descricao')
         valor=dados.get('valor')
         
-        '''if not somenteNumeros(quantidade_estoque):
-            raise forms.ValidationError('Quantidade inválida !')'''
+        if not somenteNumeros(quantidade_estoque):
+            raise forms.ValidationError('Quantidade inválida !')
 
         if not somenteLetras(descricao):
             raise forms.ValidationError('Descricao inválida !')
-        '''
+
         if not somenteNumeros(valor):
-            raise forms.ValidationError('Valor inválido !')'''
+            raise forms.ValidationError('Valor inválido !')
         
     
     class Meta:
