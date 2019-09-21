@@ -1,7 +1,40 @@
 {% extends 'base.html' %}
 
 {% block main %}
-{% for message in messages %}
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <div class="card">
+            {% for message in messages %}
+            <div class="alert alert-info">
+            <strong>{{message}}</strong>
+            </div>  
+            {% endfor %}
+            <h1>Perfil</h1><br>
+            <p>Nome: {{user.first_name}}</p>
+            <p>Sobrenome: {{user.last_name}}</p>
+            <p>Email: {{user.email}}</p>
+            <a href="/perfil/editar/"
+                class="btn btn-info">
+                Editar
+            </a>
+            <a href="/perfil/editar/senha/"
+                class="btn btn-info">
+                Alterar senha
+            </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    {% endblock %}
+
+
+
+
+{% comment %} {% for message in messages %}
 <div class="alert alert-info">
   <strong>{{message}}</strong>
 </div>  
@@ -17,6 +50,4 @@
     <a href="/perfil/editar/senha/"
         class="btn btn-info">
         Alterar senha
-    </a>
-
-    {% endblock %}
+    </a> {% endcomment %}
