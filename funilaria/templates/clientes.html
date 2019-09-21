@@ -20,6 +20,7 @@
             <table class="table">
               <thead class="thead-dark">
               <tr>
+                <th>ID</th>
                 <th>Nome</th>
                 <th>CPF</th>
               </tr>
@@ -28,6 +29,7 @@
               <tbody>
               {% for i in clientes %}
                 <tr>
+                  <td>{{ i.id }}</td>
                   <td>{{ i.nome }}</td>
                   <td>{{ i.cpf }}</td>
                   <td>

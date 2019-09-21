@@ -12,7 +12,7 @@
       <div class="card">
         <div class="card-body">
           <h5 class="card-title">Lista de Materiais</h5>
-          {% if material|length > 0 %}
+          {% if materiais|length > 0 %}
             <p class="card-text">
               Aqui está a lista de <code>Materiais</code> cadastrados.
             </p>
@@ -20,14 +20,16 @@
             <table class="table">
               <thead class="thead-dark">
               <tr>
+                <th>ID</th>
                 <th>Descrição</th>
                 <th>Quantidade em estoque</th>
               </tr>
               </thead>
 
               <tbody>
-              {% for i in material %}
+              {% for i in materiais %}
                 <tr>
+                  <td>{{ i.id }}</td>
                   <td>{{ i.descricao }}</td>
                   <td>{{ i.quantidade_estoque }}</td>
                   <td>
