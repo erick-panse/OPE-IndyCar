@@ -109,7 +109,7 @@ class EmpresaForm(CustomerForm):
         model = Empresa
         fields=['cnpj','nome','endereco','bairro','email','telefone']
 
-class OrcamentoForm(forms.ModelForm):
+""" class OrcamentoForm(forms.ModelForm):
     quantidade_pecas = forms.CharField(label='Quantidade de peças:',widget = forms.NumberInput(attrs={
         'placeholder':'Informe a quantidade de peças',
         'name':'quantidade_pecas',
@@ -167,7 +167,7 @@ class OrcamentoForm(forms.ModelForm):
     
     class Meta:
         model = Orcamento
-        fields=['pecas','quantidade_pecas','servicos','valor_mao_de_obra','previsao_entrega','data_saida','total_a_pagar']
+        fields=['pecas','quantidade_pecas','servicos','valor_mao_de_obra','previsao_entrega','data_saida','total_a_pagar'] """
 
 class OrdemDeServicoForm(forms.ModelForm):
     cliente = forms.ModelChoiceField(queryset=Customer.objects.all().select_subclasses().order_by('id'))

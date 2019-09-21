@@ -33,16 +33,10 @@ urlpatterns = [
     re_path(r'cliente/deletar/(?P<id>\d+)/$',funilaria_views.deletar_cliente, name='deletar_cliente'),
     path('cliente/', funilaria_views.novocliente, name='cliente'),
     
-    
     path('empresas/',funilaria_views.empresa,name='empresa'),
     re_path(r'empresa/(?P<id>\d+)/$',funilaria_views.editar_empresa, name='editar_empresa'),
     re_path(r'empresa/deletar/(?P<id>\d+)/$',funilaria_views.deletar_empresa, name='deletar_empresa'),
     path('empresa/', funilaria_views.novoempresa, name='empresa'),
-
-    path('orcamentos/',funilaria_views.orcamento,name='orcamento'),
-    path('orcamento/', funilaria_views.novo_orcamento, name='orcamento'),
-    re_path(r'orcamento/(?P<id>\d+)/$',funilaria_views.editar_orcamento, name='editar_orcamento'),
-    re_path(r'orcamento/deletar/(?P<id>\d+)/$',funilaria_views.deletar_orcamento, name='deletar_orcamento'),
     
     path('ordensdeservico/',funilaria_views.ordem_de_servico,name='ordensdeservico'),
     path('ordemdeservico/', funilaria_views.nova_os, name='ordemdeservico'),
@@ -63,3 +57,8 @@ urlpatterns = [
     path('login/submit', usuario_views.submit_login),
     path('logout/', usuario_views.logout_user),
 ]
+
+""" path('orcamentos/',funilaria_views.orcamento,name='orcamento'),
+    path('orcamento/', funilaria_views.novo_orcamento, name='orcamento'),
+    re_path(r'orcamento/(?P<id>\d+)/$',funilaria_views.editar_orcamento, name='editar_orcamento'),
+    re_path(r'orcamento/deletar/(?P<id>\d+)/$',funilaria_views.deletar_orcamento, name='deletar_orcamento'), """

@@ -1,8 +1,8 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from django.http import request,HttpResponseRedirect
-from funilaria.forms import ClienteForm,EmpresaForm,OrcamentoForm,OrdemDeServicoForm,MaterialForm
+from funilaria.forms import ClienteForm,EmpresaForm,OrdemDeServicoForm,MaterialForm
 from django.contrib import messages
-from funilaria.models import Cliente,Customer,Empresa,Orcamento,OrdemDeServico,Material
+from funilaria.models import Cliente,Customer,Empresa,OrdemDeServico,Material
 from django.contrib.auth.decorators import login_required
 from datetime import date
 # Create your views here.
@@ -112,7 +112,7 @@ def deletar_empresa(request,id=None):
     return redirect(empresa)
 
 
-@login_required(login_url='/login/')
+""" @login_required(login_url='/login/')
 def orcamento(request):
     orcamentos = Orcamento.objects.all().order_by('id')
     msg=messages.get_messages(request)
@@ -157,7 +157,7 @@ def deletar_orcamento(request,id=None):
         messages.success(request,'Orçamento deletado com sucesso')
     except Exception as e:
         messages.error(request,'Não foi possível deletar o Orçamento')
-    return redirect(orcamento)
+    return redirect(orcamento) """
 
 @login_required(login_url='/login/')
 def ordem_de_servico(request):
