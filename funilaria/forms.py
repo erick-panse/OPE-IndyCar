@@ -96,23 +96,23 @@ def validarAno(ano):
 
 class CustomerForm(forms.ModelForm):
     nome = forms.CharField(max_length=60,label='Nome completo:',widget = forms.TextInput(attrs={
-        'placeholder':'informe o nome',
+        'placeholder':'Informe o nome',
         'name':'nome',
         'id':'nome'}))
     endereco = forms.CharField(max_length=100,label='Endereço:',widget = forms.TextInput(attrs={
-        'placeholder':'informe o endereço',
+        'placeholder':'Informe o endereço',
         'name':'endereco',
         'id':'endereco'}))
-    bairro = forms.CharField(max_length=30,label='bairro:',widget = forms.TextInput(attrs={
-        'placeholder':'informe o bairro',
+    bairro = forms.CharField(max_length=30,label='Bairro:',widget = forms.TextInput(attrs={
+        'placeholder':'Informe o bairro',
         'name':'bairro',
         'id':'bairro'}))
-    email = forms.EmailField(max_length=60,label='email:',widget = forms.EmailInput(attrs={
-        'placeholder':'informe o email',
+    email = forms.EmailField(max_length=60,label='Email:',widget = forms.EmailInput(attrs={
+        'placeholder':'Informe o email',
         'name':'email',
         'id':'email'}))
-    telefone = forms.CharField(max_length=11,label='telefone:',widget = forms.TextInput(attrs={
-        'placeholder':'informe o tel',
+    telefone = forms.CharField(max_length=11,label='Telefone:',widget = forms.TextInput(attrs={
+        'placeholder':'Informe o telefone',
         'name':'tel',
         'id':'tel'}))
 
@@ -140,8 +140,8 @@ class CustomerForm(forms.ModelForm):
 
 
 class ClienteForm(CustomerForm):
-    cpf = localflavor.br.forms.CharField(max_length=11, min_length=11,label='cpf:',widget = forms.TextInput(attrs={
-        'placeholder':'informe o cpf',
+    cpf = localflavor.br.forms.CharField(max_length=11, min_length=11,label='CPF:',widget = forms.TextInput(attrs={
+        'placeholder':'Informe o CPF',
         'name':'cpf',
         'id':'cpf'}))
 
@@ -153,8 +153,8 @@ class ClienteForm(CustomerForm):
         fields=['cpf','nome','endereco','bairro','email','telefone']
 
 class EmpresaForm(CustomerForm):
-    cnpj = localflavor.br.forms.CharField(min_length=14, max_length=14,label='cnpj:',widget = forms.TextInput(attrs={
-        'placeholder':'informe o cnpj',
+    cnpj = localflavor.br.forms.CharField(min_length=14, max_length=14,label='CNPJ:',widget = forms.TextInput(attrs={
+        'placeholder':'Informe o CNPJ',
         'name':'cnpj',
         'id':'cnpj'}))
 
@@ -170,32 +170,32 @@ class EmpresaForm(CustomerForm):
         fields=['cnpj','nome','endereco','bairro','email','telefone']
 
 class OrcamentoForm(forms.ModelForm):
-    quantidade_pecas = forms.IntegerField(label='quantidade_pecas:',widget = forms.TextInput(attrs={
-        'placeholder':'informe a quantidade de peças',
+    quantidade_pecas = forms.IntegerField(label='Quantidade de peças:',widget = forms.TextInput(attrs={
+        'placeholder':'Informe a quantidade de peças',
         'name':'quantidade_pecas',
         'id':'quantidade_pecas'}))
-    servicos = forms.CharField(max_length=500,label='servicos:',widget = forms.Textarea(attrs={
-        'placeholder':'informe os serviços necessários',
+    servicos = forms.CharField(max_length=500,label='Serviços:',widget = forms.Textarea(attrs={
+        'placeholder':'Informe os serviços necessários',
         'name':'servicos',
         'id':'servicos'}))
     pecas = forms.ModelChoiceField(queryset=Material.objects.all())
     
-    valor_mao_de_obra = forms.FloatField(label='valor_mao_de_obra:',widget = forms.TextInput(attrs={
-        'placeholder':'informe a mao_de_obra necessária',
+    valor_mao_de_obra = forms.FloatField(label='valor da mão de obra:',widget = forms.TextInput(attrs={
+        'placeholder':'Informe o valor da mão de obra',
         'name':'valor_mao_de_obra',
         'id':'valor_mao_de_obra'}))
 
-    total_a_pagar = forms.DecimalField(label='total_a_pagar:',widget = forms.TextInput(attrs={
-        'readonly':'total a pagar',
+    total_a_pagar = forms.DecimalField(label='Total a pagar:',widget = forms.TextInput(attrs={
+        'readonly':'Total a pagar',
         'name':'total_a_pagar',
         'id':'total_a_pagar'}))
     
-    previsao_entrega = forms.DateField(label='previsao_entrega:',widget = forms.DateInput(attrs={
-        'placeholder':'informe a previsao entrega',
+    previsao_entrega = forms.DateField(label='Previsão entrega:',widget = forms.DateInput(attrs={
+        'placeholder':'Informe a previsão entrega',
         'name':'previsao_entrega',
         'id':'previsao_entrega'}))
-    data_saida = forms.DateField(label='data_saida:',widget = forms.DateInput(attrs={
-        'placeholder':'informe a data de saida',
+    data_saida = forms.DateField(label='Data saída:',widget = forms.DateInput(attrs={
+        'placeholder':'Informe a data de saida',
         'name':'data_saida',
         'id':'data_saida'}))
     
@@ -210,19 +210,19 @@ class OrcamentoForm(forms.ModelForm):
         data_saida=dados.get('data_saida')
 
         if not somenteNumeros(quantidade_pecas):
-            raise forms.ValidationError('quantidade_pecas inválida !')
+            raise forms.ValidationError('Quantidade de peças inválida !')
 
         if not somenteLetras(servicos):
-            raise forms.ValidationError('servicos inválido !')
+            raise forms.ValidationError('Serviços inválidos !')
         
         if not somenteLetras(pecas):
-            raise forms.ValidationError('pecas inválida !')
+            raise forms.ValidationError('Peças inválidas !')
 
         if not somenteNumeros(valor_mao_de_obra):
-            raise forms.ValidationError('valor_mao_de_obra inválido !')
+            raise forms.ValidationError('Valor mão de obra inválido !')
 
         if not somenteNumeros(total_a_pagar):
-            raise forms.ValidationError('total_a_pagar inválido !')
+            raise forms.ValidationError('Total a pagar inválido !')
         
     
     class Meta:
@@ -231,41 +231,41 @@ class OrcamentoForm(forms.ModelForm):
 
 class OrdemDeServicoForm(forms.ModelForm):
     cliente = forms.ModelChoiceField(queryset=Customer.objects.all().select_subclasses().order_by('id'))
-    marca_veiculo = forms.CharField(max_length=10,label='marca:',widget = forms.TextInput(attrs={
-        'placeholder':'informe a marca',
+    marca_veiculo = forms.CharField(max_length=10,label='Marca:',widget = forms.TextInput(attrs={
+        'placeholder':'Informe a marca',
         'name':'marca',
         'id':'marca'}))
-    modelo_veiculo = forms.CharField(max_length=20,label='modelo:',widget = forms.TextInput(attrs={
-        'placeholder':'informe o modelo',
+    modelo_veiculo = forms.CharField(max_length=20,label='Modelo:',widget = forms.TextInput(attrs={
+        'placeholder':'Informe o modelo',
         'name':'modelo',
         'id':'modelo'}))
-    cor_veiculo = forms.CharField(max_length=10,label='cor:',widget = forms.TextInput(attrs={
-        'placeholder':'informe a cor',
+    cor_veiculo = forms.CharField(max_length=10,label='Cor:',widget = forms.TextInput(attrs={
+        'placeholder':'Informe a cor',
         'name':'cor',
         'id':'cor'}))
-    placa_veiculo = forms.CharField(max_length=7,label='placa:',widget = forms.TextInput(attrs={
-        'placeholder':'informe a placa',
+    placa_veiculo = forms.CharField(max_length=7,label='Placa:',widget = forms.TextInput(attrs={
+        'placeholder':'Informe a placa',
         'name':'placa',
         'id':'placa'}))
-    ano_veiculo = forms.CharField(max_length=4,label='ano:',widget = forms.TextInput(attrs={
-        'placeholder':'informe o ano',
+    ano_veiculo = forms.CharField(max_length=4,label='Ano:',widget = forms.TextInput(attrs={
+        'placeholder':'Informe o ano',
         'name':'ano',
         'id':'ano'}))
-    cidade_veiculo = forms.CharField(max_length=10,label='cidade:',widget = forms.TextInput(attrs={
-        'placeholder':'informe a cidade',
+    cidade_veiculo = forms.CharField(max_length=10,label='Cidade:',widget = forms.TextInput(attrs={
+        'placeholder':'Informe a cidade',
         'name':'cidade',
         'id':'cidade'}))
     estado_veiculo= forms.CharField(label='Estado', widget=forms.Select(choices=ESTADO_CARRO))
-    reparos_necessarios = forms.CharField(max_length=500,label='reparos_necessarios:',widget = forms.Textarea(attrs={
-        'placeholder':'informe os reparos_necessarios',
+    reparos_necessarios = forms.CharField(max_length=500,label='Reparos necessários:',widget = forms.Textarea(attrs={
+        'placeholder':'Informe os reparos necessários',
         'name':'reparos_necessarios',
         'id':'reparos_necessarios'}))
-    prazo_entrega = forms.DateField(label='prazo_entrega:',input_formats=['%d/%m/%Y'],widget = FengyuanChenDatePickerInput(attrs={
-        'placeholder':'informe o prazo de entrega',
+    prazo_entrega = forms.DateField(label='Prazo entrega:',input_formats=['%d/%m/%Y'],widget = FengyuanChenDatePickerInput(attrs={
+        'placeholder':'Informe o prazo de entrega',
         'name':'prazo_entrega',
         'id':'prazo_entrega'}))
-    data_finalizacao = forms.DateField(required=False,label='data de finalização:',input_formats=['%d/%m/%Y'],widget = FengyuanChenDatePickerInput(attrs={
-        'placeholder':'informe os finalizado',
+    data_finalizacao = forms.DateField(required=False,label='Data de finalização:',input_formats=['%d/%m/%Y'],widget = FengyuanChenDatePickerInput(attrs={
+        'placeholder':'Informe a data de finalização',
         'name':'data_finalizacao',
         'id':'data_finalizacao'}))
     
@@ -284,7 +284,7 @@ class OrdemDeServicoForm(forms.ModelForm):
         estado_veiculo=dados.get('estado_veiculo')
 
         if not somenteLetras(reparos_necessarios):
-            raise forms.ValidationError('reparos necessarios inválida !')
+            raise forms.ValidationError('Reparos necessários inválidos !')
 
         if not somenteLetras(marca_veiculo):
             raise forms.ValidationError('Marca inválida !')
@@ -312,17 +312,17 @@ class OrdemDeServicoForm(forms.ModelForm):
         fields=['cliente','marca_veiculo','modelo_veiculo','cor_veiculo','placa_veiculo','ano_veiculo','cidade_veiculo','estado_veiculo','reparos_necessarios','prazo_entrega','data_finalizacao']
 
 class MaterialForm(forms.ModelForm):
-    quantidade_estoque = forms.IntegerField(label='quantidade_estoque:',widget = forms.TextInput(attrs={
-        'placeholder':'informe a quantidade de estoque',
+    quantidade_estoque = forms.IntegerField(label='Quantidade em estoque:',widget = forms.NumberInput(attrs={
+        'placeholder':'Informe a quantidade em estoque',
         'name':'quantidade_estoque',
         'id':'quantidade_estoque'}))
-    descricao = forms.CharField(max_length=200,label='descricao:',widget = forms.Textarea(attrs={
-        'placeholder':'informe a descrição',
+    descricao = forms.CharField(max_length=200,label='Descrição:',widget = forms.Textarea(attrs={
+        'placeholder':'Informe a descrição',
         'name':'descricao',
         'id':'descricao'}))
     
-    valor = forms.DecimalField(label='valor:',widget = forms.TextInput(attrs={
-        'readonly':'valor da peça',
+    valor = forms.DecimalField(label='Valor:',widget = forms.TextInput(attrs={
+        'placeholder':'Valor da peça',
         'name':'valor',
         'id':'valor'}))
     
@@ -333,13 +333,13 @@ class MaterialForm(forms.ModelForm):
         valor=dados.get('valor')
         
         if not somenteNumeros(quantidade_estoque):
-            raise forms.ValidationError('quantidade inválida !')
+            raise forms.ValidationError('Quantidade inválida !')
 
         if not somenteLetras(descricao):
-            raise forms.ValidationError('descricao inválido !')
+            raise forms.ValidationError('Descricao inválida !')
 
         if not somenteNumeros(valor):
-            raise forms.ValidationError('valor inválido !')
+            raise forms.ValidationError('Valor inválido !')
         
     
     class Meta:

@@ -123,7 +123,7 @@ def novo_orcamento (request):
         if form_orcamento.is_valid():
             try:
                 form_orcamento.save()
-                messages.success(request,'Orçamento cadastrada com sucesso')
+                messages.success(request,'Orçamento cadastrado com sucesso')
                 return redirect(orcamento)
             except Exception as e:
                 messages.error(request,e)
@@ -141,7 +141,7 @@ def editar_orcamento(request,id=None):
         try:
             instance=form_orcamento.save()
             instance.save()
-            messages.success(request,'Orçamento atualizada com sucesso')
+            messages.success(request,'Orçamento atualizado com sucesso')
             return redirect(orcamento)
         except Exception as e:
             messages.error(request,e)
@@ -152,9 +152,9 @@ def deletar_orcamento(request,id=None):
     instance = get_object_or_404(Orcamento,id=id)
     try:
         instance.delete()
-        messages.success(request,'Orçamento deletada com sucesso')
+        messages.success(request,'Orçamento deletado com sucesso')
     except Exception as e:
-        messages.error(request,'Não foi possível deletar a Orçamento')
+        messages.error(request,'Não foi possível deletar o Orçamento')
     return redirect(orcamento)
 
 @login_required(login_url='/login/')
@@ -172,7 +172,7 @@ def nova_os(request):
         if form_os.is_valid():
             try:
                 form_os.save()
-                messages.success(request,'Ordem de servico cadastrada com sucesso')
+                messages.success(request,'Ordem de serviço cadastrada com sucesso')
                 return redirect(ordem_de_servico)
             except Exception as e:
                 messages.error(request,e)
@@ -194,7 +194,7 @@ def editar_os(request,id=None):
         try:
             instance=form_os.save()
             instance.save()
-            messages.success(request,'OS atualizada com sucesso')
+            messages.success(request,'Ordem de Serviço atualizada com sucesso')
             return redirect(ordem_de_servico)
         except Exception as e:
             messages.error(request,e)
@@ -216,7 +216,7 @@ def novo_material(request):
         if form_material.is_valid():
             try:
                 form_material.save()
-                messages.success(request,'Material cadastrada com sucesso')
+                messages.success(request,'Material cadastrado com sucesso')
                 return redirect(material)
             except Exception as e:
                 messages.error(request,e)
@@ -234,7 +234,7 @@ def editar_material(request,id=None):
         try:
             instance=form_material.save()
             instance.save()
-            messages.success(request,'Material atualizada com sucesso')
+            messages.success(request,'Material atualizado com sucesso')
             return redirect(material)
         except Exception as e:
             messages.error(request,e)
@@ -245,7 +245,7 @@ def deletar_material(request,id=None):
     instance = get_object_or_404(Material,id=id)
     try:
         instance.delete()
-        messages.success(request,'Material deletada com sucesso')
+        messages.success(request,'Material deletado com sucesso')
     except Exception as e:
-        messages.error(request,'Não foi possível deletar a material')
+        messages.error(request,'Não foi possível deletar o material')
     return redirect(material)

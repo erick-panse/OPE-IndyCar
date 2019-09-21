@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block main %}
+{% for message in messages %}
+  <div class="alert alert-info">
+    <strong>{{message}}</strong>
+  </div>  
+{% endfor %}
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Lista de Materiais</h5>
+          {% if material|length > 0 %}
+            <p class="card-text">
+              Aqui está a lista de <code>Materiais</code> cadastrados.
+            </p>
+
+            <table class="table">
+              <thead class="thead-dark">
+              <tr>
+                <th>Descrição</th>
+                <th>Quantidade em estoque</th>
+              </tr>
+              </thead>
+
+              <tbody>
+              {% for i in material %}
+                <tr>
+                  <td>{{ i.descricao }}</td>
+                  <td>{{ i.quantidade_estoque }}</td>
+                  <td>
+                    <a href="{{i.get_editar_material}}"
+                       class="btn btn-info">
+                      Atualizar
+                    </a>
+                    <a href="{{i.get_del_material}}"
+                      class="btn btn-outline-danger" onclick="confirmarAcao()">
+                        Excluir
+                    </a>
+                  </td>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+        {% else %}
+          <div class="text-center mt-5 mb-5 jumbotron">
+            <h5>Nenhumo <code>Material</code> cadastrado ainda.</h5>
+          </div>
+        {% endif %}
+          <hr />
+          <div class="text-right">
+            <a href="{% url 'material' %}" class="btn btn-primary">
+              Cadastrar Material
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  {% endblock %}

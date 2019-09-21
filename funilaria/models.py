@@ -84,7 +84,7 @@ class OrdemDeServico(models.Model):
 
     @property
     def status(self):
-        return "finalizado" if self.data_finalizacao else "não finalizado"
+        return "Finalizado" if self.data_finalizacao else "Não finalizado"
 
 class Orcamento(models.Model):
     ordem_servico = models.ForeignKey(OrdemDeServico,on_delete=models.PROTECT,blank=True,null=True)
@@ -107,7 +107,7 @@ class Orcamento(models.Model):
     
 class Material(models.Model):
     descricao = models.TextField(max_length=200)
-    quantidade_estoque = models.PositiveIntegerField()
+    quantidade_estoque = models.IntegerField()
     valor = models.DecimalField(decimal_places=2,max_digits=8)
 
     def __str__(self):

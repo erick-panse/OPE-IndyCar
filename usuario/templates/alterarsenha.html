@@ -6,7 +6,7 @@
         <strong>{{message}}</strong>
     </div>  
 {% endfor %}
-    <form action="" method="post">
+    <form action="" method="POST">
         {% csrf_token %}
         {{form.as_p}}
         <button type="submit">Alterar Senha</button>
