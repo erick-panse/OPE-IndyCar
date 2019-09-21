@@ -24,6 +24,7 @@ from django.contrib.auth import views as auth_views
 urlpatterns = [
 
     path('paginainicial/', funilaria_views.pagina_inicial),
+    path('index/', funilaria_views.index),
     path('admin/', admin.site.urls),
     path('clientes/',cliente,name='cliente'),
    

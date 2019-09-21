@@ -170,7 +170,7 @@ class EmpresaForm(CustomerForm):
         fields=['cnpj','nome','endereco','bairro','email','telefone']
 
 class OrcamentoForm(forms.ModelForm):
-    quantidade_pecas = forms.IntegerField(label='Quantidade de peças:',widget = forms.TextInput(attrs={
+    quantidade_pecas = forms.CharField(label='Quantidade de peças:',widget = forms.NumberInput(attrs={
         'placeholder':'Informe a quantidade de peças',
         'name':'quantidade_pecas',
         'id':'quantidade_pecas'}))
@@ -332,14 +332,14 @@ class MaterialForm(forms.ModelForm):
         descricao=dados.get('descricao')
         valor=dados.get('valor')
         
-        if not somenteNumeros(quantidade_estoque):
-            raise forms.ValidationError('Quantidade inválida !')
+        '''if not somenteNumeros(quantidade_estoque):
+            raise forms.ValidationError('Quantidade inválida !')'''
 
         if not somenteLetras(descricao):
             raise forms.ValidationError('Descricao inválida !')
-
+        '''
         if not somenteNumeros(valor):
-            raise forms.ValidationError('Valor inválido !')
+            raise forms.ValidationError('Valor inválido !')'''
         
     
     class Meta:

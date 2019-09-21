@@ -107,7 +107,7 @@ class Orcamento(models.Model):
     
 class Material(models.Model):
     descricao = models.TextField(max_length=200)
-    quantidade_estoque = models.IntegerField()
+    quantidade_estoque = models.PositiveIntegerField(blank=True,null=True)
     valor = models.DecimalField(decimal_places=2,max_digits=8)
 
     def __str__(self):
