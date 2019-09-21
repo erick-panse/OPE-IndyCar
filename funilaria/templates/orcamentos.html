@@ -21,15 +21,15 @@
               <thead class="thead-dark">
               <tr>
                 <th>Orçamento</th>
-                <th>CLIENTE</th>
-                <th>STATUS</th>
+                <th>Cliente</th>
+                <th>Status</th>
               </tr>
               </thead>
 
               <tbody>
               {% for i in orcamento %}
                 <tr>
-                  <td>{{ i }}</td>
+                  <td>{{ i.id }}</td>
                   <td>{{ i.cliente.nome }}</td>
                   <td>
                     {{ i.status }}</td>

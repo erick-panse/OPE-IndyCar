@@ -2,15 +2,6 @@ from django.db import models
 from django.urls import reverse 
 from model_utils.managers import InheritanceManager
 # Create your models here.
-
-class Customer(models.Model):
-    objects = InheritanceManager()
-    nome = models.CharField(max_length=60)
-    endereco = models.CharField(max_length=100)
-    bairro = models.CharField(max_length=30)
-    email = models.EmailField(max_length=60)
-    telefone = models.IntegerField()
-
 def formatarCpf(cpf):
     cpf=str(cpf)
     f=""
@@ -36,6 +27,14 @@ def formatarCnpj(cnpj):
         else:
             f+=cnpj[i]
     return f
+    
+class Customer(models.Model):
+    objects = InheritanceManager()
+    nome = models.CharField(max_length=60)
+    endereco = models.CharField(max_length=100)
+    bairro = models.CharField(max_length=30)
+    email = models.EmailField(max_length=60)
+    telefone = models.IntegerField()
 
 class Cliente(Customer):
     cpf = models.CharField(max_length=11)
@@ -107,7 +106,7 @@ class Orcamento(models.Model):
     
 class Material(models.Model):
     descricao = models.TextField(max_length=200)
-    quantidade_estoque = models.PositiveIntegerField(blank=True,null=True)
+    quantidade_estoque = models.IntegerField()
     valor = models.DecimalField(decimal_places=2,max_digits=8)
 
     def __str__(self):

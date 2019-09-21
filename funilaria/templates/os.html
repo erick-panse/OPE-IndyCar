@@ -20,16 +20,16 @@
             <table class="table">
               <thead class="thead-dark">
               <tr>
-                <th>OS</th>
-                <th>CLIENTE</th>
-                <th>STATUS</th>
+                <th>ID</th>
+                <th>Cliente</th>
+                <th>Status</th>
               </tr>
               </thead>
 
               <tbody>
               {% for i in ordens %}
                 <tr>
-                  <td>{{ i }}</td>
+                  <td>{{ i.id }}</td>
                   <td>{{ i.cliente.nome }}</td>
                   <td>
                     {{ i.status }}</td>

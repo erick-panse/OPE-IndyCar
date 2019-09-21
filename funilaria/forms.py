@@ -1,10 +1,9 @@
 from django import forms
 from funilaria.models import Cliente,Empresa,Orcamento,OrdemDeServico,Customer,Material
-import datetime
 import localflavor.br.forms
 from funilaria.views import *
 from .widgets import FengyuanChenDatePickerInput
-
+from .validacao import *
 
 ESTADO_CARRO= [
     ('AC', 'Acre'),    
@@ -35,65 +34,6 @@ ESTADO_CARRO= [
     ('TO', 'Tocantins'),
     ('ET', 'Estrangeiro'),]
     
-def somenteLetras(campo):
-    if not campo:
-        return False
-    bloqueado = '0123456789!@#$%¨&*()_+`{}^:><|\,.;~]´[=-"'
-    for i in bloqueado:
-        if i in campo:
-            return False
-    return True
-
-def somenteNumeros(campo):
-    if not campo:
-        return False
-    try:
-        campo=campo.replace(' ','')
-        n=int(campo)
-        return True
-    except:
-        return False
-
-def validarTamanho(campo,tamanho):
-    if not tamanho or not campo:
-        return False
-    return len(str(campo))==tamanho
-
-def validarTelefone(tel):
-    if not tel:
-        return False
-    return somenteNumeros(tel) and (len(str(tel)) in range(10,12))
-
-def validarPlaca(placa):
-    if not placa:
-        return False
-    bloqueado = '!@#$%¨&*()_+`{}^:><|\,.;~]´[=-" '
-    for i in bloqueado:
-        if i in placa:
-            return False
-    return True
-
-def validarModelo(modelo):
-    if not modelo:
-        return False
-    bloqueado = '!@#$%¨&*()_+`{}^:><|\,;~]´[=-"'
-    for i in bloqueado:
-        if i in modelo:
-            return False
-    return True
-
-def validarAno(ano):
-    if not ano:
-        return False
-    try:
-        a = int(ano)
-    except:
-        return False
-    now=datetime.datetime.now().year
-    return a<=int(now)
-
-
-
 class CustomerForm(forms.ModelForm):
     nome = forms.CharField(max_length=60,label='Nome completo:',widget = forms.TextInput(attrs={
         'placeholder':'Informe o nome',
@@ -251,11 +191,11 @@ class OrdemDeServicoForm(forms.ModelForm):
         'placeholder':'Informe o ano',
         'name':'ano',
         'id':'ano'}))
+    estado_veiculo= forms.CharField(label='Estado', widget=forms.Select(choices=ESTADO_CARRO))
     cidade_veiculo = forms.CharField(max_length=10,label='Cidade:',widget = forms.TextInput(attrs={
         'placeholder':'Informe a cidade',
         'name':'cidade',
         'id':'cidade'}))
-    estado_veiculo= forms.CharField(label='Estado', widget=forms.Select(choices=ESTADO_CARRO))
     reparos_necessarios = forms.CharField(max_length=500,label='Reparos necessários:',widget = forms.Textarea(attrs={
         'placeholder':'Informe os reparos necessários',
         'name':'reparos_necessarios',
@@ -312,16 +252,16 @@ class OrdemDeServicoForm(forms.ModelForm):
         fields=['cliente','marca_veiculo','modelo_veiculo','cor_veiculo','placa_veiculo','ano_veiculo','cidade_veiculo','estado_veiculo','reparos_necessarios','prazo_entrega','data_finalizacao']
 
 class MaterialForm(forms.ModelForm):
-    quantidade_estoque = forms.IntegerField(label='Quantidade em estoque:',widget = forms.NumberInput(attrs={
+    quantidade_estoque = forms.CharField(label='Quantidade em estoque:',widget = forms.NumberInput(attrs={
         'placeholder':'Informe a quantidade em estoque',
         'name':'quantidade_estoque',
         'id':'quantidade_estoque'}))
-    descricao = forms.CharField(max_length=200,label='Descrição:',widget = forms.Textarea(attrs={
+    descricao = forms.CharField(max_length=200,label='Descrição:',widget = forms.TextInput(attrs={
         'placeholder':'Informe a descrição',
         'name':'descricao',
         'id':'descricao'}))
     
-    valor = forms.DecimalField(label='Valor:',widget = forms.TextInput(attrs={
+    valor = forms.CharField(label='Valor:',widget = forms.TextInput(attrs={
         'placeholder':'Valor da peça',
         'name':'valor',
         'id':'valor'}))
@@ -338,7 +278,7 @@ class MaterialForm(forms.ModelForm):
         if not somenteLetras(descricao):
             raise forms.ValidationError('Descricao inválida !')
 
-        if not somenteNumeros(valor):
+        if not somenteNumerosFloat(valor):
             raise forms.ValidationError('Valor inválido !')
         
     

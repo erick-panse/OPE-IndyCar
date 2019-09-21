@@ -27,7 +27,6 @@ def cliente(request):
 def novocliente(request):
     if request.method == 'POST':
         form_cliente = ClienteForm(request.POST or None)
-        print(form_cliente.errors)
         if form_cliente.is_valid():
             try:
                 form_cliente.save()
@@ -171,7 +170,6 @@ def nova_os(request):
     entrada=date.today()
     if request.method == 'POST':
         form_os= OrdemDeServicoForm(request.POST or None)
-        print(form_os.errors)
         if form_os.is_valid():
             try:
                 form_os.save()
@@ -192,7 +190,6 @@ def editar_os(request,id=None):
     form_os= OrdemDeServicoForm(request.POST or None, instance=instance)
     cliente = form_os.instance.cliente
     entrada=instance.entrada if instance else None
-    print(form_os.errors)
     if form_os.is_valid():
         try:
             instance=form_os.save()
