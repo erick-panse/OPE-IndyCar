@@ -46,7 +46,7 @@ def editar_usuario(request):
             return redirect(perfil_usuario)
         else:
              messages.error(request,'Não foi possível atualizar os dados do usuário')
-             return redirect('/')
+             return render(request,'formusuario.html',context={'form':form})
     else:
         form = EditarUsuarioForm(instance=request.user)
     return render(request,'formusuario.html',context={'form':form})
@@ -59,9 +59,10 @@ def alterar_senha(request):
             form.save()
             update_session_auth_hash(request,form.user)
             messages.success(request,'Senha alterada com sucesso')
+            return redirect(perfil_usuario)
         else:
             messages.error(request,'Não foi possível alterar a senha')
-        return redirect(perfil_usuario)
+            return render(request,'alterarsenha.html',context={'form':form}) 
     else:
         form=PasswordChangeForm(user=request.user)
     return render(request,'alterarsenha.html',context={'form':form}) 
