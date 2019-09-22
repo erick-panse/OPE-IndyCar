@@ -200,8 +200,15 @@ def editar_os(request,id=None):
             messages.error(request,e)
     return render(request,'formulario_os.html',context={'form_os':form_os,'instance':instance,'cliente':cliente,'entrada':entrada})
 
-def deletar_os(request):
-    pass
+@login_required(login_url='/login/')
+def deletar_os(request,id=None):
+    instance = get_object_or_404(OrdemDeServico,id=id)
+    try:
+        instance.delete()
+        messages.success(request,'Ordem  de Serviço deletada com sucesso')
+    except Exception as e:
+        messages.error(request,'Não foi possível deletar a Ordem de Serviço')
+    return redirect(ordem_de_servico)
 
 @login_required(login_url='/login/')
 def material(request):

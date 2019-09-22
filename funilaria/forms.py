@@ -85,8 +85,13 @@ class ClienteForm(CustomerForm):
         'name':'cpf',
         'id':'cpf'}))
 
+
     def clean(self):
-        return self.validar()
+        dados = self.cleaned_data
+        cpf=dados.get('cpf')
+        if not somenteNumeros(cpf) or not validarTamanho(cpf,11):
+            raise forms.ValidationError('CPF inválido !')
+        self.validar()
 
     class Meta:
         model = Cliente
@@ -187,7 +192,7 @@ class OrdemDeServicoForm(forms.ModelForm):
         'placeholder':'Informe a placa',
         'name':'placa',
         'id':'placa'}))
-    ano_veiculo = forms.CharField(max_length=4,label='Ano:',widget = forms.TextInput(attrs={
+    ano_veiculo = forms.CharField(max_length=4,label='Ano:',widget = forms.NumberInput(attrs={
         'placeholder':'Informe o ano',
         'name':'ano',
         'id':'ano'}))
@@ -261,7 +266,7 @@ class MaterialForm(forms.ModelForm):
         'name':'descricao',
         'id':'descricao'}))
     
-    valor = forms.CharField(label='Valor:',widget = forms.TextInput(attrs={
+    valor = forms.CharField(label='Valor:',widget = forms.NumberInput(attrs={
         'placeholder':'Valor da peça',
         'name':'valor',
         'id':'valor'}))
