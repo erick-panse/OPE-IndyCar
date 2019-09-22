@@ -206,11 +206,11 @@ class OrdemDeServicoForm(forms.ModelForm):
         'name':'reparos_necessarios',
         'id':'reparos_necessarios'}))
     prazo_entrega = forms.DateField(label='Prazo entrega:',input_formats=['%d/%m/%Y'],widget = FengyuanChenDatePickerInput(attrs={
-        'placeholder':'Informe o prazo de entrega',
+        'placeholder':'Prazo de entrega',
         'name':'prazo_entrega',
         'id':'prazo_entrega'}))
     data_finalizacao = forms.DateField(required=False,label='Data de finalização:',input_formats=['%d/%m/%Y'],widget = FengyuanChenDatePickerInput(attrs={
-        'placeholder':'Informe a data de finalização',
+        'placeholder':'Data de finalização',
         'name':'data_finalizacao',
         'id':'data_finalizacao'}))
     
@@ -218,6 +218,7 @@ class OrdemDeServicoForm(forms.ModelForm):
         dados=self.cleaned_data
         reparos_necessarios=dados.get('reparos_necessarios')
         entrada=dados.get('entrada')
+        data_finalizacao=dados.get('data_finalizacao')
         prazo_entrega=dados.get('prazo_entrega')
         finalizado=dados.get('finalizado')
         marca_veiculo=dados.get('marca_veiculo')
@@ -252,12 +253,18 @@ class OrdemDeServicoForm(forms.ModelForm):
         if not somenteLetras(estado_veiculo):
             raise forms.ValidationError('Estado inválido !')
 
+        if not validarDataObrigatoria(prazo_entrega):
+            raise forms.ValidationError('Prazo inválido !')
+
+        if not validarData(data_finalizacao):
+            raise forms.ValidationError('Data de finalização inválida !')
+
     class Meta:
         model = OrdemDeServico
         fields=['cliente','marca_veiculo','modelo_veiculo','cor_veiculo','placa_veiculo','ano_veiculo','cidade_veiculo','estado_veiculo','reparos_necessarios','prazo_entrega','data_finalizacao']
 
 class MaterialForm(forms.ModelForm):
-    quantidade_estoque = forms.CharField(label='Quantidade em estoque:',widget = forms.NumberInput(attrs={
+    quantidade_estoque = forms.CharField(max_length=6,label='Quantidade em estoque:',widget = forms.NumberInput(attrs={
         'placeholder':'Informe a quantidade em estoque',
         'name':'quantidade_estoque',
         'id':'quantidade_estoque'}))
@@ -266,7 +273,7 @@ class MaterialForm(forms.ModelForm):
         'name':'descricao',
         'id':'descricao'}))
     
-    valor = forms.CharField(label='Valor:',widget = forms.NumberInput(attrs={
+    valor = forms.CharField(max_length=10,label='Valor:',widget = forms.NumberInput(attrs={
         'placeholder':'Valor da peça',
         'name':'valor',
         'id':'valor'}))
@@ -276,15 +283,15 @@ class MaterialForm(forms.ModelForm):
         quantidade_estoque=dados.get('quantidade_estoque')
         descricao=dados.get('descricao')
         valor=dados.get('valor')
-        
-        if not somenteNumeros(quantidade_estoque):
-            raise forms.ValidationError('Quantidade inválida !')
 
         if not somenteLetras(descricao):
             raise forms.ValidationError('Descricao inválida !')
 
-        if not somenteNumerosFloat(valor):
+        if not validarValor(valor):
             raise forms.ValidationError('Valor inválido !')
+
+        if not validarQtd(quantidade_estoque):
+            raise forms.ValidationError('Quantidade inválida !')
         
     
     class Meta:

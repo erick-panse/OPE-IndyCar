@@ -85,9 +85,13 @@ class OrdemDeServico(models.Model):
     def status(self):
         return "Finalizado" if self.data_finalizacao else "Não finalizado"
 
+    @property
+    def data_entrega(self):
+        return self.prazo_entrega.strftime("%d/%m/%Y")
+
 class Orcamento(models.Model):
     ordem_servico = models.ForeignKey(OrdemDeServico,on_delete=models.PROTECT,blank=True,null=True)
-    quantidade_pecas = models.PositiveIntegerField(blank=True,null=True)
+    quantidade_pecas = models.PositiveIntegerField(max_length=6,blank=True,null=True)
     pecas = models.TextField(max_length=200)
     servicos = models.TextField(max_length=500)
     valor_mao_de_obra = models.FloatField(blank=True,null=True)
@@ -106,8 +110,8 @@ class Orcamento(models.Model):
     
 class Material(models.Model):
     descricao = models.TextField(max_length=200)
-    quantidade_estoque = models.IntegerField()
-    valor = models.DecimalField(decimal_places=2,max_digits=8)
+    quantidade_estoque = models.IntegerField(max_length=6)
+    valor = models.DecimalField(decimal_places=2,max_digits=10)
 
     def __str__(self):
         return str(self.descricao)

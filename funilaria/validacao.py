@@ -14,7 +14,7 @@ def somenteNumeros(campo):
     try:
         campo=campo.replace(' ','')
         n=int(campo)
-        return True
+        return int(campo)>=0
     except:
         return False
 
@@ -31,6 +31,7 @@ def somenteNumerosFloat(campo):
 def validarTamanho(campo,tamanho):
     if not tamanho or not campo:
         return False
+    campo=campo.replace(' ','')
     return len(str(campo))==tamanho
 
 def validarTelefone(tel):
@@ -65,3 +66,23 @@ def validarAno(ano):
         return False
     now=datetime.datetime.now().year
     return a<=int(now)+5
+
+def validarQtd(campo):
+    if not campo or not somenteNumeros(campo):
+        return False
+    return int(campo)>=0
+
+def validarValor(campo):
+    if not campo or not somenteNumerosFloat(campo):
+        return False
+    return float(campo)>=0
+
+def validarDataObrigatoria(campo):
+    if not campo:
+        return False
+    return type(campo)==datetime.date
+
+def validarData(campo):
+    if campo:
+        return type(campo)==datetime.date
+    return True
