@@ -201,11 +201,11 @@ class OrdemDeServicoForm(forms.ModelForm):
         'name':'reparos_necessarios',
         'id':'reparos_necessarios'}))
     prazo_entrega = forms.DateField(label='Prazo entrega:',input_formats=['%d/%m/%Y'],widget = FengyuanChenDatePickerInput(attrs={
-        'placeholder':'Informe o prazo de entrega',
+        'placeholder':'Prazo de entrega',
         'name':'prazo_entrega',
         'id':'prazo_entrega'}))
     data_finalizacao = forms.DateField(required=False,label='Data de finalização:',input_formats=['%d/%m/%Y'],widget = FengyuanChenDatePickerInput(attrs={
-        'placeholder':'Informe a data de finalização',
+        'placeholder':'Data de finalização',
         'name':'data_finalizacao',
         'id':'data_finalizacao'}))
     
@@ -213,6 +213,7 @@ class OrdemDeServicoForm(forms.ModelForm):
         dados=self.cleaned_data
         reparos_necessarios=dados.get('reparos_necessarios')
         entrada=dados.get('entrada')
+        data_finalizacao=dados.get('data_finalizacao')
         prazo_entrega=dados.get('prazo_entrega')
         finalizado=dados.get('finalizado')
         marca_veiculo=dados.get('marca_veiculo')
@@ -247,6 +248,12 @@ class OrdemDeServicoForm(forms.ModelForm):
         if not somenteLetras(estado_veiculo):
             raise forms.ValidationError('Estado inválido !')
 
+        if not validarDataObrigatoria(prazo_entrega):
+            raise forms.ValidationError('Prazo inválido !')
+
+        if not validarData(data_finalizacao):
+            raise forms.ValidationError('Data de finalização inválida !')
+
     class Meta:
         model = OrdemDeServico
         fields=['cliente','marca_veiculo','modelo_veiculo','cor_veiculo','placa_veiculo','ano_veiculo','cidade_veiculo','estado_veiculo','reparos_necessarios','prazo_entrega','data_finalizacao']
@@ -280,6 +287,9 @@ class MaterialForm(forms.ModelForm):
 
         if not somenteNumerosFloat(valor):
             raise forms.ValidationError('Valor inválido !')
+
+        if not validarQtd(quantidade_estoque):
+            raise forms.ValidationError('Quantidade inválida !')
         
     
     class Meta:

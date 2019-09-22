@@ -167,7 +167,7 @@ def ordem_de_servico(request):
 
 @login_required(login_url='/login/')
 def nova_os(request):
-    entrada=date.today()
+    entrada=date.today().strftime("%d/%m/%Y")
     if request.method == 'POST':
         form_os= OrdemDeServicoForm(request.POST or None)
         if form_os.is_valid():
@@ -189,7 +189,7 @@ def editar_os(request,id=None):
     instance = get_object_or_404(OrdemDeServico,id=id) 
     form_os= OrdemDeServicoForm(request.POST or None, instance=instance)
     cliente = form_os.instance.cliente
-    entrada=instance.entrada if instance else None
+    entrada=instance.entrada.strftime("%d/%m/%Y") if instance else None
     if form_os.is_valid():
         try:
             instance=form_os.save()

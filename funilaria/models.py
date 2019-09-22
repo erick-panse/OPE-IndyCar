@@ -85,6 +85,10 @@ class OrdemDeServico(models.Model):
     def status(self):
         return "Finalizado" if self.data_finalizacao else "Não finalizado"
 
+    @property
+    def data_entrega(self):
+        return self.prazo_entrega.strftime("%d/%m/%Y")
+
 class Orcamento(models.Model):
     ordem_servico = models.ForeignKey(OrdemDeServico,on_delete=models.PROTECT,blank=True,null=True)
     quantidade_pecas = models.PositiveIntegerField(blank=True,null=True)

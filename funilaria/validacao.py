@@ -65,3 +65,18 @@ def validarAno(ano):
         return False
     now=datetime.datetime.now().year
     return a<=int(now)+5
+
+def validarQtd(campo):
+    if not campo or not somenteNumeros(campo):
+        return False
+    return int(campo)>=0
+
+def validarDataObrigatoria(campo):
+    if not campo:
+        return False
+    return type(campo)==datetime.date
+
+def validarData(campo):
+    if campo:
+        return type(campo)==datetime.date
+    return True
