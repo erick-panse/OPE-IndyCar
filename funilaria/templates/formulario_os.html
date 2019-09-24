@@ -8,7 +8,7 @@
       <div class="card">
         <div class="card-body">
           <h5 class="card-title">Cadastro de OS</h5>
-          <p class="card-text">
+          <p >
             Complete o formulário abaixo para cadastrar
             uma nova <code>Ordem de serviço</code>.
 
@@ -21,8 +21,6 @@
           </p>
           <form method="POST">
             {% csrf_token %}
-
-            
             <!-- cpf -->
             <div class="input-group mb-3">
               <div class="input-group-prepend">
@@ -30,101 +28,87 @@
               </div>
               {{form_os.cliente}}
             </div>
-
-      <br>
-			<!-- Marca -->
-          <h5 class="card-title">Veículo</h5>
-          
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text">Marca</span>
+            <!-- Marca -->
+            <h5 class="card-title">Veículo</h5>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Marca</span>
+                </div>
+                {{form_os.marca_veiculo}}
               </div>
-              {{form_os.marca_veiculo}}
-            </div>
-
-			<!-- Modelo -->
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text">Modelo</span>
+              <!-- Modelo -->
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Modelo</span>
+                </div>
+                {{form_os.modelo_veiculo}}
               </div>
-              {{form_os.modelo_veiculo}}
-            </div>
-
-			<!-- Cor -->
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text">Cor</span>
+              <!-- Cor -->
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Cor</span>
+                </div>
+                {{form_os.cor_veiculo}}
               </div>
-              {{form_os.cor_veiculo}}
-            </div>
-
-			<!-- Placa -->
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text">Placa</span>
+              <!-- Placa -->
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Placa</span>
+                </div>
+                {{form_os.placa_veiculo}}
               </div>
-              {{form_os.placa_veiculo}}
-            </div>
-
-			<!-- Ano -->
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text">Ano</span>
+              <!-- Ano -->
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Ano</span>
+                </div>
+                {{form_os.ano_veiculo}}
               </div>
-              {{form_os.ano_veiculo}}
-            </div>
-      <!-- Estado -->
+              <!-- Estado -->
             <div class="input-group mb-3">
               <div class="input-group-prepend">
                 <span class="input-group-text">Estado</span>
               </div>
               {{form_os.estado_veiculo}}
             </div>
-            
-			<!-- Cidade -->
-          <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text">Cidade</span>
+            <!-- Cidade -->
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Cidade</span>
+              </div>
+              {{form_os.cidade_veiculo}}
             </div>
-            {{form_os.cidade_veiculo}}
-          </div>
-          <br>
-          <!-- Telefone -->
-          <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text">Reparos Necessários</span>
+            <br>
+            <!-- Reparos Necessários -->
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Reparos Necessários</span>
+                </div>
+                {{form_os.reparos_necessarios}}
               </div>
-              {{form_os.reparos_necessarios}}
+            <!-- entrada -->
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Entrada</span>
+                </div>
+                <input type="text" readonly value="{{entrada}}">
             </div>
-
-          <!-- Telefone -->
-          <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text">Entrada</span>
-              </div>
-              <input type="text" readonly value="{{entrada}}">
-          </div>
-          <!-- Telefone -->
-          <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text">Prazo de entrega</span>
-              </div>
-              {{form_os.prazo_entrega}}
-          </div>
-
-          <!-- Telefone -->
-          <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text">Data de finalização</span>
-              </div>
-              {{form_os.data_finalizacao}}
-          </div>
-
-
-
+            <!-- Prazo de entrega -->
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Prazo de entrega</span>
+                </div>
+                {{form_os.prazo_entrega}}
+            </div>
+            <!-- Data de finalização -->
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Data de finalização</span>
+                </div>
+                {{form_os.data_finalizacao}}
+            </div>
             <input class="btn btn-primary" type="submit" value="Enviar"></input>
-
-          </fildset>
+            </fildset>
           </form>
         </div>
       </div>
