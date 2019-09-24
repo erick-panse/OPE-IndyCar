@@ -1,0 +1,14 @@
+html {
+    background: #e3e3e3; /* Cor do fundo do documento */
+    height: 100%; /* Define o tamanho do Documento HTML */
+}
+body {
+  background: #fff; /* Cor do fundo do corpo */
+  border: 2px solid e3e3e3;
+  box-sizing: border-box;
+  font-family: "Verdana";
+  height: 100%;
+  margin: 0 auto; /* Centraliza */
+  padding: 8px;
+  width: 70%; /* Define a largura do Corpo do Documento */
+}
