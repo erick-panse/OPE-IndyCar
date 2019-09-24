@@ -3,6 +3,7 @@ from funilaria.models import Cliente,Empresa,Orcamento,OrdemDeServico,Customer,M
 from funilaria.views import *
 from .widgets import FengyuanChenDatePickerInput
 from .validacao import *
+from .fields import DataField
 
 
 class CustomerForm(forms.ModelForm):
@@ -142,7 +143,7 @@ class EmpresaForm(CustomerForm):
     
     class Meta:
         model = Orcamento
-        fields=['pecas','quantidade_pecas','servicos','valor_mao_de_obra','previsao_entrega','data_saida','total_a_pagar'] """
+        fields=['pecas','quantidade_pecas','servicos','valor_mao_de_obra','previsao_entrega','data_saida','total_a_pagar'] """            
 
 class OrdemDeServicoForm(forms.ModelForm):
     cliente = forms.ModelChoiceField(queryset=Customer.objects.all().select_subclasses().order_by('id'))
@@ -179,7 +180,7 @@ class OrdemDeServicoForm(forms.ModelForm):
         'placeholder':'Prazo de entrega',
         'name':'prazo_entrega',
         'id':'prazo_entrega'}))
-    data_finalizacao = forms.DateField(required=False,label='Data de finalização:',input_formats=['%d/%m/%Y'],widget = FengyuanChenDatePickerInput(attrs={
+    data_finalizacao = DataField(required=False,label='Data de finalização:',input_formats=['%d/%m/%Y'],widget = FengyuanChenDatePickerInput(attrs={
         'placeholder':'Data de finalização',
         'name':'data_finalizacao',
         'id':'data_finalizacao'}))
@@ -225,7 +226,7 @@ class OrdemDeServicoForm(forms.ModelForm):
 
         if not validarDataObrigatoria(prazo_entrega):
             raise forms.ValidationError('Prazo inválido !')
-
+        
         if not validarData(data_finalizacao):
             raise forms.ValidationError('Data de finalização inválida !')
 

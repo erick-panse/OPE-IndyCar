@@ -9,7 +9,7 @@ def somenteLetras(campo):
     return True
 
 def somenteNumeros(campo):
-    if not campo:
+    if not campo or " " in str(campo):
         return False
     try:
         campo=campo.replace(' ','')

@@ -167,6 +167,11 @@ def ordem_de_servico(request):
 
 @login_required(login_url='/login/')
 def nova_os(request):
+    #testando a consulta entre datas
+    start_date = date(2011, 4, 1)
+    end_date = date.today()
+    print(OrdemDeServico.objects.filter(data_finalizacao__range=(start_date,end_date)))
+    #testando a consulta entre datas
     entrada=date.today().strftime("%d/%m/%Y")
     if request.method == 'POST':
         form_os= OrdemDeServicoForm(request.POST or None)
