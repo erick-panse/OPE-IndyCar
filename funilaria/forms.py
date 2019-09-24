@@ -1,10 +1,10 @@
 from django import forms
 from funilaria.models import Cliente,Empresa,Orcamento,OrdemDeServico,Customer,Material,Estado
-import localflavor.br.forms
 from funilaria.views import *
 from .widgets import FengyuanChenDatePickerInput
 from .validacao import *
-    
+
+
 class CustomerForm(forms.ModelForm):
     nome = forms.CharField(max_length=60,label='Nome completo:',widget = forms.TextInput(attrs={
         'placeholder':'Informe o nome',
@@ -51,7 +51,7 @@ class CustomerForm(forms.ModelForm):
 
 
 class ClienteForm(CustomerForm):
-    cpf = localflavor.br.forms.CharField(max_length=11, min_length=11,label='CPF:',widget = forms.TextInput(attrs={
+    cpf = forms.CharField(max_length=11, min_length=11,label='CPF:',widget = forms.TextInput(attrs={
         'placeholder':'Informe o CPF',
         'name':'cpf',
         'id':'cpf'}))
@@ -68,7 +68,7 @@ class ClienteForm(CustomerForm):
         fields=['cpf','nome','endereco','bairro','email','telefone']
 
 class EmpresaForm(CustomerForm):
-    cnpj = localflavor.br.forms.CharField(min_length=14, max_length=14,label='CNPJ:',widget = forms.TextInput(attrs={
+    cnpj = forms.CharField(min_length=14, max_length=14,label='CNPJ:',widget = forms.TextInput(attrs={
         'placeholder':'Informe o CNPJ',
         'name':'cnpj',
         'id':'cnpj'}))
@@ -146,15 +146,15 @@ class EmpresaForm(CustomerForm):
 
 class OrdemDeServicoForm(forms.ModelForm):
     cliente = forms.ModelChoiceField(queryset=Customer.objects.all().select_subclasses().order_by('id'))
-    marca_veiculo = forms.CharField(max_length=10,label='Marca:',widget = forms.TextInput(attrs={
+    marca_veiculo = forms.CharField(max_length=30,label='Marca:',widget = forms.TextInput(attrs={
         'placeholder':'Informe a marca',
         'name':'marca',
         'id':'marca'}))
-    modelo_veiculo = forms.CharField(max_length=20,label='Modelo:',widget = forms.TextInput(attrs={
+    modelo_veiculo = forms.CharField(max_length=30,label='Modelo:',widget = forms.TextInput(attrs={
         'placeholder':'Informe o modelo',
         'name':'modelo',
         'id':'modelo'}))
-    cor_veiculo = forms.CharField(max_length=10,label='Cor:',widget = forms.TextInput(attrs={
+    cor_veiculo = forms.CharField(max_length=30,label='Cor:',widget = forms.TextInput(attrs={
         'placeholder':'Informe a cor',
         'name':'cor',
         'id':'cor'}))
@@ -167,7 +167,7 @@ class OrdemDeServicoForm(forms.ModelForm):
         'name':'ano',
         'id':'ano'}))
     estado_veiculo= forms.ModelChoiceField(queryset=Estado.objects.all().order_by('nome'))
-    cidade_veiculo = forms.CharField(max_length=10,label='Cidade:',widget = forms.TextInput(attrs={
+    cidade_veiculo = forms.CharField(max_length=30,label='Cidade:',widget = forms.TextInput(attrs={
         'placeholder':'Informe a cidade',
         'name':'cidade',
         'id':'cidade'}))
@@ -231,7 +231,7 @@ class OrdemDeServicoForm(forms.ModelForm):
 
     class Meta:
         model = OrdemDeServico
-        fields=['cliente','marca_veiculo','modelo_veiculo','cor_veiculo','placa_veiculo','ano_veiculo','cidade_veiculo','estado_veiculo','reparos_necessarios','prazo_entrega','data_finalizacao']
+        fields=['cliente','marca_veiculo','modelo_veiculo','cor_veiculo','placa_veiculo','ano_veiculo','estado_veiculo','cidade_veiculo','reparos_necessarios','prazo_entrega','data_finalizacao']
 
 class MaterialForm(forms.ModelForm):
     quantidade_estoque = forms.CharField(max_length=6,label='Quantidade em estoque:',widget = forms.NumberInput(attrs={
@@ -254,8 +254,8 @@ class MaterialForm(forms.ModelForm):
         descricao=dados.get('descricao')
         valor=dados.get('valor')
 
-        if not somenteLetras(descricao):
-            raise forms.ValidationError('Descricao inválida !')
+        '''if not somenteLetras(descricao):
+            raise forms.ValidationError('Descricao inválida !')'''
 
         if not validarValor(valor):
             raise forms.ValidationError('Valor inválido !')

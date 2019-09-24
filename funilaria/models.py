@@ -35,6 +35,41 @@ class Estado(models.Model):
     def __str__(self):
         return self.sigla+" - "+self.nome
 
+ESTADO_CARRO= [
+    ('AC', 'Acre'),    
+    ('AL', 'Alagoas'),
+    ('AP', 'Amapá'),
+    ('AM', 'Amazonas'),
+    ('BA', 'Bahia'),
+    ('CE', 'Ceará'),
+    ('DF', 'Distrito federal'),
+    ('ES', 'Espírito Santo'),
+    ('GO', 'Goiás'),
+    ('MA', 'Maranhão'),
+    ('MT', 'Mato Grosso'),
+    ('MS', 'Mato Grosso do Sul'),
+    ('MG', 'Minas Gerais'),
+    ('PA', 'Pará'),
+    ('PB', 'Paraíba'),
+    ('PR', 'Paraná'),
+    ('PE', 'Pernambuco'),
+    ('PI', 'Piauí'),
+    ('RJ', 'Rio de Janeiro'),
+    ('RN', 'Rio Grande do Norte'),
+    ('RS', 'Rio Grande do Sul'),
+    ('RO', 'Rondônia'),
+    ('SC', 'Santa Catarina'),
+    ('SP', 'São Paulo'),
+    ('SE', 'Sergipe'),
+    ('TO', 'Tocantins')]
+
+for i in ESTADO_CARRO:
+    try:
+        e = Estado(sigla=i[0],nome=i[1])
+        e.save()
+    except:
+        pass
+
 class Customer(models.Model):
     objects = InheritanceManager()
     nome = models.CharField(max_length=60)
@@ -68,12 +103,12 @@ class Empresa(Customer):
 
 class OrdemDeServico(models.Model):
     cliente = models.ForeignKey(Customer,on_delete=models.PROTECT)
-    marca_veiculo = models.CharField(max_length=10)
-    modelo_veiculo = models.CharField(max_length=20)
-    cor_veiculo = models.CharField(max_length=10)
+    marca_veiculo = models.CharField(max_length=30)
+    modelo_veiculo = models.CharField(max_length=30)
+    cor_veiculo = models.CharField(max_length=30)
     ano_veiculo = models.SmallIntegerField()
     placa_veiculo = models.CharField(max_length=7)
-    cidade_veiculo = models.CharField(max_length=10)
+    cidade_veiculo = models.CharField(max_length=30)
     estado_veiculo = models.ForeignKey(Estado,on_delete=models.PROTECT)
     reparos_necessarios = models.TextField(max_length=200)
     entrada = models.DateField(auto_now_add=True,blank=True)
