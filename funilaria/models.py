@@ -27,7 +27,14 @@ def formatarCnpj(cnpj):
         else:
             f+=cnpj[i]
     return f
-    
+
+class Estado(models.Model):
+    sigla = models.CharField(max_length=2,unique=True)
+    nome = models.CharField(max_length=15,unique=True)
+
+    def __str__(self):
+        return self.sigla+" - "+self.nome
+
 class Customer(models.Model):
     objects = InheritanceManager()
     nome = models.CharField(max_length=60)
@@ -67,7 +74,7 @@ class OrdemDeServico(models.Model):
     ano_veiculo = models.SmallIntegerField()
     placa_veiculo = models.CharField(max_length=7)
     cidade_veiculo = models.CharField(max_length=10)
-    estado_veiculo = models.CharField(max_length=2)
+    estado_veiculo = models.ForeignKey(Estado,on_delete=models.PROTECT)
     reparos_necessarios = models.TextField(max_length=200)
     entrada = models.DateField(auto_now_add=True,blank=True)
     prazo_entrega = models.DateField(blank=True,null=True)
