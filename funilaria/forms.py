@@ -85,11 +85,10 @@ class ClienteForm(CustomerForm):
         'name':'cpf',
         'id':'cpf'}))
 
-
     def clean(self):
         dados = self.cleaned_data
         cpf=dados.get('cpf')
-        if not somenteNumeros(cpf) or not validarTamanho(cpf,11):
+        if not somenteNumeros(cpf) or not validarTamanho(cpf,11) or not validarCpf2(cpf):
             raise forms.ValidationError('CPF inválido !')
         self.validar()
 
@@ -106,7 +105,7 @@ class EmpresaForm(CustomerForm):
     def clean(self):
         dados = self.cleaned_data
         cnpj=dados.get('cnpj')
-        if not somenteNumeros(cnpj) or not validarTamanho(cnpj,14):
+        if not somenteNumeros(cnpj) or not validarTamanho(cnpj,14) or not validarCnpj(cnpj):
             raise forms.ValidationError('CNPJ inválido !')
         self.validar()
 

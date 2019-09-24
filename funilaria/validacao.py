@@ -86,3 +86,92 @@ def validarData(campo):
     if campo:
         return type(campo)==datetime.date
     return True
+
+def validarCpf(campo):
+    d1 = 0
+    f = 11
+    campo = campo[:-2]
+    for i in campo:
+        i = int(i)
+        f -= 1
+        x = i*f
+        d1 += x
+    d1 *= 10
+    d1 %= 11    
+    if d1 == 10:
+        d1 = 0
+    return d1
+
+def validarCpf2(campo):
+    d1=validarCpf(campo)
+    d2 = 0
+    f = 12
+    ult= campo[-2:]
+    campo = campo[:-1]
+    for i in campo:
+        i = int(i)
+        f -= 1
+        x = i*f
+        d2 += x
+    d2 *= 10
+    d2 %= 11    
+    if d2 == 10:
+        d2 = 0
+    x = str(d1)+str(d2)
+    if x == ult:
+        return True
+    return False
+
+def validarCnpj(cnpj):
+    
+    lista_validacao_um = [5, 4, 3, 2, 9, 8, 7, 6, 5, 4 , 3, 2]
+    lista_validacao_dois = [6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2]
+
+    cnpj = cnpj.replace( "-", "" )
+    cnpj = cnpj.replace( ".", "" )
+    cnpj = cnpj.replace( "/", "" )
+
+    verificadores = cnpj[-2:]
+    
+
+    if len( cnpj ) != 14:
+        return False
+    soma = 0
+    id = 0
+    for numero in cnpj:
+        try:
+            lista_validacao_um[id]
+        except:
+            break
+        soma += int( numero ) * int( lista_validacao_um[id] )
+        id += 1
+    soma = soma % 11
+    if soma < 2:
+        digito_um = 0
+    else:
+        digito_um = 11 - soma
+
+    digito_um = str( digito_um ) 
+    soma = 0
+    id = 0
+    
+    for numero in cnpj:
+        
+        try:
+            lista_validacao_dois[id]
+        except:
+            break
+        
+        soma += int( numero ) * int( lista_validacao_dois[id] )
+        id += 1
+    
+    soma = soma % 11
+    if soma < 2:
+        digito_dois = 0
+    else:
+        digito_dois = 11 - soma
+    
+    digito_dois = str( digito_dois )
+
+
+    return bool( verificadores == digito_um + digito_dois )
