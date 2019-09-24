@@ -10,5 +10,36 @@ body {
   height: 100%;
   margin: 0 auto; /* Centraliza */
   padding: 8px;
-  width: 70%; /* Define a largura do Corpo do Documento */
+  width: 75%; /* Define a largura do Corpo do Documento */
+}
+
+
+
+
+
+.perfil {
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  width: 1230px;
+}
+
+
+@media (max-width: 1920px){
+  .perfil {
+    width: 1230px;
+  }
+}
+
+@media (max-width: 992px){
+  .perfil {
+    width: 960px;
+    max-width: 100%;
+  }
+}
+
+.perfil {
+   position: relative;
+   margin-left: auto;
+   margin-right: auto;
 }
