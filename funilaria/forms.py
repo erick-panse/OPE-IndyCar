@@ -1,38 +1,9 @@
 from django import forms
-from funilaria.models import Cliente,Empresa,Orcamento,OrdemDeServico,Customer,Material
+from funilaria.models import Cliente,Empresa,Orcamento,OrdemDeServico,Customer,Material,Estado
 import localflavor.br.forms
 from funilaria.views import *
 from .widgets import FengyuanChenDatePickerInput
 from .validacao import *
-
-ESTADO_CARRO= [
-    ('AC', 'Acre'),    
-    ('AL', 'Alagoas'),
-    ('AP', 'Amapá'),
-    ('AM', 'Amazonas'),
-    ('BA', 'Bahia'),
-    ('CE', 'Ceará'),
-    ('DF', 'Distrito federal'),
-    ('ES', 'Espírito Santo'),
-    ('GO', 'Goiás'),
-    ('MA', 'Maranhão'),
-    ('MT', 'Mato Grosso'),
-    ('MS', 'Mato Grosso do Sul'),
-    ('MG', 'Minas Gerais'),
-    ('PA', 'Pará'),
-    ('PB', 'Paraíba'),
-    ('PR', 'Paraná'),
-    ('PE', 'Pernambuco'),
-    ('PI', 'Piauí'),
-    ('RJ', 'Rio de Janeiro'),
-    ('RN', 'Rio Grande do Norte'),
-    ('RS', 'Rio Grande do Sul'),
-    ('RO', 'Rondônia'),
-    ('SC', 'Santa Catarina'),
-    ('SP', 'São Paulo'),
-    ('SE', 'Sergipe'),
-    ('TO', 'Tocantins'),
-    ('ET', 'Estrangeiro'),]
     
 class CustomerForm(forms.ModelForm):
     nome = forms.CharField(max_length=60,label='Nome completo:',widget = forms.TextInput(attrs={
@@ -196,7 +167,7 @@ class OrdemDeServicoForm(forms.ModelForm):
         'placeholder':'Informe o ano',
         'name':'ano',
         'id':'ano'}))
-    estado_veiculo= forms.CharField(label='Estado', widget=forms.Select(choices=ESTADO_CARRO))
+    estado_veiculo= forms.ModelChoiceField(queryset=Estado.objects.all().order_by('nome'))
     cidade_veiculo = forms.CharField(max_length=10,label='Cidade:',widget = forms.TextInput(attrs={
         'placeholder':'Informe a cidade',
         'name':'cidade',
@@ -250,7 +221,7 @@ class OrdemDeServicoForm(forms.ModelForm):
         if not somenteLetras(cidade_veiculo):
             raise forms.ValidationError('Cidade inválida !')
 
-        if not somenteLetras(estado_veiculo):
+        if type(estado_veiculo)!=Estado:
             raise forms.ValidationError('Estado inválido !')
 
         if not validarDataObrigatoria(prazo_entrega):
