@@ -7,38 +7,54 @@ body {
   border: 2px solid e3e3e3;
   box-sizing: border-box;
   font-family: "Verdana";
-  height: 100%;
+  height: 200%;
   margin: 0 auto; /* Centraliza */
   padding: 8px;
   width: 75%; /* Define a largura do Corpo do Documento */
 }
 
 
-.perfil {
-  position: relative;
-  margin-left: auto;
-  margin-right: auto;
-  width: 1230px;
+/* Responsividade*/
+.container {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  flex-flow: row wrap;
 }
 
+.c1, .c2, .c3 {
+  width: 100%;
+}
 
-@media (max-width: 1920px){
-  .perfil {
-    width: 1230px;
+@media (min-width: 600px) {
+  .c1 {
+    width: 60%;
+    -webkit-order: 2;
+    order: 2;
+  }
+
+  .c2 {
+    width: 40%;
+    -webkit-order: 1;
+    order: 1;
+  }
+
+  .c3 {
+    width: 100%;
+    -webkit-order: 3;
+    order: 3;
   }
 }
 
-@media (max-width: 992px){
-  .perfil {
-    width: 960px;
-    max-width: 100%;
-  }
-}
 
-.perfil {
-   position: relative;
-   margin-left: auto;
-   margin-right: auto;
+@media (min-width: 800px) {
+  .c2 {
+    width: 20%;
+  }
+
+  .c3 {
+    width: 20%;
+  }
 }
 
 
