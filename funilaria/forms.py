@@ -8,25 +8,29 @@ from .fields import DataField
 
 class CustomerForm(forms.ModelForm):
     nome = forms.CharField(max_length=60,label='Nome completo:',widget = forms.TextInput(attrs={
-        'class' : 'myfieldclass',
         'placeholder':'Informe o nome',
         'name':'nome',
+        'class':'inputText',
         'id':'nome'}))
     endereco = forms.CharField(max_length=100,label='Endereço:',widget = forms.TextInput(attrs={
         'placeholder':'Informe o endereço',
         'name':'endereco',
+        'class':'inputText',
         'id':'endereco'}))
     bairro = forms.CharField(max_length=30,label='Bairro:',widget = forms.TextInput(attrs={
         'placeholder':'Informe o bairro',
         'name':'bairro',
+        'class':'inputText',
         'id':'bairro'}))
     email = forms.EmailField(max_length=60,label='Email:',widget = forms.EmailInput(attrs={
         'placeholder':'Informe o email',
         'name':'email',
+        'class':'inputText',
         'id':'email'}))
     telefone = forms.CharField(max_length=11,label='Telefone:',widget = forms.TextInput(attrs={
         'placeholder':'Informe o telefone',
         'name':'tel',
+        'class':'inputText',
         'id':'tel'}))
 
     def validar(self):
@@ -56,6 +60,7 @@ class ClienteForm(CustomerForm):
     cpf = forms.CharField(max_length=11, min_length=11,label='CPF:',widget = forms.TextInput(attrs={
         'placeholder':'Informe o CPF',
         'name':'cpf',
+        'class':'inputText',
         'id':'cpf'}))
 
     def clean(self):
@@ -73,6 +78,7 @@ class EmpresaForm(CustomerForm):
     cnpj = forms.CharField(min_length=14, max_length=14,label='CNPJ:',widget = forms.TextInput(attrs={
         'placeholder':'Informe o CNPJ',
         'name':'cnpj',
+        'class':'inputText',
         'id':'cnpj'}))
 
     def clean(self):
