@@ -8,6 +8,7 @@ from .fields import DataField
 
 class CustomerForm(forms.ModelForm):
     nome = forms.CharField(max_length=60,label='Nome completo:',widget = forms.TextInput(attrs={
+        'class' : 'myfieldclass',
         'placeholder':'Informe o nome',
         'name':'nome',
         'id':'nome'}))
