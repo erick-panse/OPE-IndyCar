@@ -184,11 +184,11 @@ class OrdemDeServicoForm(forms.ModelForm):
         'name':'reparos_necessarios',
         'id':'reparos_necessarios'}))
     prazo_entrega = forms.DateField(label='Prazo entrega:',input_formats=['%d/%m/%Y'],widget = FengyuanChenDatePickerInput(attrs={
-        'readonly':'Prazo de entrega',
+        'placeholder':'Prazo de entrega',
         'name':'prazo_entrega',
         'id':'prazo_entrega'}))
     data_finalizacao = DataField(required=False,label='Data de finalização:',input_formats=['%d/%m/%Y'],widget = FengyuanChenDatePickerInput(attrs={
-        'readonly':'Data de finalização',
+        'placeholder':'Data de finalização',
         'name':'data_finalizacao',
         'id':'data_finalizacao'}))
     
