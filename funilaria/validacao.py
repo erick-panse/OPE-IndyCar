@@ -80,13 +80,18 @@ def validarValor(campo):
     return float(campo)>=0
 
 def validarDataObrigatoria(campo):
-    if not campo:
+    if campo=='' or campo==None:
         return False
+    campo=datetime.datetime.strptime(str(campo), "%Y-%m-%d").date()
     return type(campo)==datetime.date
 
 def validarData(campo):
-    if campo:
-        return type(campo)==datetime.date
+    if campo!='' and campo!=None:
+        try:
+            c=datetime.datetime.strptime(str(campo), "%Y-%m-%d").date()
+            return type(c)==datetime.date
+        except:
+            return False
     return True
 
 def removerSimbolo(campo):

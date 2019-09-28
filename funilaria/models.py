@@ -2,6 +2,8 @@ from django.db import models
 from django.urls import reverse 
 from model_utils.managers import InheritanceManager
 # Create your models here.
+"""
+#n precisa mais já q ta salvando o cpf e cnpj com a mascara
 def formatarCpf(cpf):
     cpf=str(cpf)
     f=""
@@ -27,6 +29,7 @@ def formatarCnpj(cnpj):
         else:
             f+=cnpj[i]
     return f
+"""
 
 class Estado(models.Model):
     sigla = models.CharField(max_length=2,unique=True)
@@ -87,7 +90,7 @@ class Cliente(Customer):
         return reverse('deletar_cliente',kwargs={'id':self.id})
 
     def __str__(self):
-        return self.nome +" | "+formatarCpf(self.cpf)
+        return self.nome +" | "+self.cpf
 
 
 class Empresa(Customer):
@@ -99,7 +102,7 @@ class Empresa(Customer):
         return reverse('deletar_empresa',kwargs={'id':self.id})
 
     def __str__(self):
-        return self.nome +" | "+formatarCnpj(self.cnpj)
+        return self.nome +" | "+self.cnpj
 
 class OrdemDeServico(models.Model):
     cliente = models.ForeignKey(Customer,on_delete=models.PROTECT)

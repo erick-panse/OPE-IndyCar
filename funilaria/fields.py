@@ -1,11 +1,21 @@
 from django import forms
 from .validacao import *
+import  datetime
+
 class DataField(forms.DateField):
-    def to_python(self, value):
-        if not value:
-            return 
-        try:
-            validarData(value)
-            return value
-        except:
-            raise ValidationError('Data de finalização inválida !')
+    def validar(self,campo):
+        if campo!='' and campo!=None:
+            try:
+                c=datetime.datetime.strptime(str(campo), "%d/%m/%Y").date()
+                return type(c)==datetime.date
+            except:
+                return False
+        return True
+
+    def clean(self,value):
+        if value!='':
+            if not self.validar(value):
+                return 'vazio'
+            return datetime.datetime.strptime(str(value), "%d/%m/%Y").date()
+        return None
+            
