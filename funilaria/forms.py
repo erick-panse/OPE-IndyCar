@@ -27,10 +27,10 @@ class CustomerForm(forms.ModelForm):
         'name':'email',
         'class':'inputText',
         'id':'email'}))
-    telefone = forms.CharField(max_length=11,label='Telefone:',widget = forms.TextInput(attrs={
+    telefone = forms.CharField(max_length=16,label='Telefone:',widget = forms.TextInput(attrs={
         'placeholder':'Informe o telefone',
         'name':'tel',
-        'class':'inputText',
+        'class':'tele',
         'id':'tel'}))
 
     def validar(self):
@@ -57,7 +57,7 @@ class CustomerForm(forms.ModelForm):
 
 
 class ClienteForm(CustomerForm):
-    cpf = forms.CharField(max_length=11, min_length=11,label='CPF:',widget = forms.TextInput(attrs={
+    cpf = forms.CharField(max_length=14, min_length=11,label='CPF:',widget = forms.TextInput(attrs={
         'placeholder':'Informe o CPF',
         'name':'cpf',
         'class':'inputText',
@@ -66,7 +66,8 @@ class ClienteForm(CustomerForm):
     def clean(self):
         dados = self.cleaned_data
         cpf=dados.get('cpf')
-        if not somenteNumeros(cpf) or not validarTamanho(cpf,11) or not validarCpf2(cpf):
+        #or not validarTamanho(cpf,11) 
+        if not somenteNumeros(cpf) or not validarCpf2(cpf):
             raise forms.ValidationError('CPF inválido !')
         self.validar()
 
@@ -75,16 +76,16 @@ class ClienteForm(CustomerForm):
         fields=['cpf','nome','endereco','bairro','email','telefone']
 
 class EmpresaForm(CustomerForm):
-    cnpj = forms.CharField(min_length=14, max_length=14,label='CNPJ:',widget = forms.TextInput(attrs={
+    cnpj = forms.CharField(min_length=14, max_length=18,label='CNPJ:',widget = forms.TextInput(attrs={
         'placeholder':'Informe o CNPJ',
         'name':'cnpj',
         'class':'inputText',
         'id':'cnpj'}))
-
+#or not validarTamanho(cnpj,14)
     def clean(self):
         dados = self.cleaned_data
         cnpj=dados.get('cnpj')
-        if not somenteNumeros(cnpj) or not validarTamanho(cnpj,14) or not validarCnpj(cnpj):
+        if not somenteNumeros(cnpj)  or not validarCnpj(cnpj):
             raise forms.ValidationError('CNPJ inválido !')
         self.validar()
 
@@ -166,7 +167,7 @@ class OrdemDeServicoForm(forms.ModelForm):
         'placeholder':'Informe a cor',
         'name':'cor',
         'id':'cor'}))
-    placa_veiculo = forms.CharField(max_length=7,label='Placa:',widget = forms.TextInput(attrs={
+    placa_veiculo = forms.CharField(max_length=8,label='Placa:',widget = forms.TextInput(attrs={
         'placeholder':'Informe a placa',
         'name':'placa',
         'id':'placa'}))
@@ -186,10 +187,12 @@ class OrdemDeServicoForm(forms.ModelForm):
     prazo_entrega = forms.DateField(label='Prazo entrega:',input_formats=['%d/%m/%Y'],widget = FengyuanChenDatePickerInput(attrs={
         'placeholder':'Prazo de entrega',
         'name':'prazo_entrega',
+        'class':"date",
         'id':'prazo_entrega'}))
     data_finalizacao = DataField(required=False,label='Data de finalização:',input_formats=['%d/%m/%Y'],widget = FengyuanChenDatePickerInput(attrs={
         'placeholder':'Data de finalização',
         'name':'data_finalizacao',
+        'class':"date",
         'id':'data_finalizacao'}))
     
     def clean(self):
@@ -251,9 +254,10 @@ class MaterialForm(forms.ModelForm):
         'name':'descricao',
         'id':'descricao'}))
     
-    valor = forms.CharField(max_length=10,label='Valor:',widget = forms.NumberInput(attrs={
+    valor = forms.CharField(max_length=14,label='Valor:',widget = forms.TextInput(attrs={
         'placeholder':'Valor da peça',
         'name':'valor',
+        'class':'money',
         'id':'valor'}))
     
     def clean(self):
@@ -265,7 +269,7 @@ class MaterialForm(forms.ModelForm):
         '''if not somenteLetras(descricao):
             raise forms.ValidationError('Descricao inválida !')'''
 
-        if not validarValor(valor):
+        if not somenteNumeros(valor):
             raise forms.ValidationError('Valor inválido !')
 
         if not validarQtd(quantidade_estoque):

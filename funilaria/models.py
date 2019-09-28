@@ -76,10 +76,10 @@ class Customer(models.Model):
     endereco = models.CharField(max_length=100)
     bairro = models.CharField(max_length=30)
     email = models.EmailField(max_length=60)
-    telefone = models.IntegerField()
+    telefone = models.CharField(max_length=15)
 
 class Cliente(Customer):
-    cpf = models.CharField(max_length=11)
+    cpf = models.CharField(max_length=14)
 
     def get_editar_cliente(self):
         return reverse('editar_cliente',kwargs={'id':self.id})
@@ -91,7 +91,7 @@ class Cliente(Customer):
 
 
 class Empresa(Customer):
-    cnpj = models.CharField(max_length=14)
+    cnpj = models.CharField(max_length=18)
 
     def get_editar_empresa(self):
         return reverse('editar_empresa',kwargs={'id':self.id})
@@ -107,7 +107,7 @@ class OrdemDeServico(models.Model):
     modelo_veiculo = models.CharField(max_length=30)
     cor_veiculo = models.CharField(max_length=30)
     ano_veiculo = models.SmallIntegerField()
-    placa_veiculo = models.CharField(max_length=7)
+    placa_veiculo = models.CharField(max_length=8)
     cidade_veiculo = models.CharField(max_length=30)
     estado_veiculo = models.ForeignKey(Estado,on_delete=models.PROTECT)
     reparos_necessarios = models.TextField(max_length=200)
@@ -153,7 +153,7 @@ class Orcamento(models.Model):
 class Material(models.Model):
     descricao = models.TextField(max_length=200)
     quantidade_estoque = models.IntegerField()
-    valor = models.DecimalField(decimal_places=2,max_digits=10)
+    valor = models.CharField(max_length=14)
 
     def __str__(self):
         return str(self.descricao)

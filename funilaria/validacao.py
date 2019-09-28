@@ -12,7 +12,7 @@ def somenteNumeros(campo):
     if not campo or " " in str(campo):
         return False
     try:
-        campo=campo.replace(' ','')
+        campo = removerSimbolo(campo)
         n=int(campo)
         return int(campo)>=0
     except:
@@ -22,7 +22,7 @@ def somenteNumerosFloat(campo):
     if not campo:
         return False
     try:
-        campo=campo.replace(' ','')
+        campo = campo.replace(',','')
         n=float(campo)
         return True
     except:
@@ -37,12 +37,14 @@ def validarTamanho(campo,tamanho):
 def validarTelefone(tel):
     if not tel:
         return False
-    return somenteNumeros(tel) and (len(str(tel)) in range(10,12))
+    tel = removerSimbolo(tel)
+    return somenteNumeros(tel)
 
 def validarPlaca(placa):
     if not placa:
         return False
-    bloqueado = '!@#$%¨&*()_+`{}^:><|\,.;~]´[=-" '
+    placa=placa.replace('-','')
+    bloqueado = '!@#$%¨&*()_+`{}^:><|\,.;~]´[=" '
     for i in bloqueado:
         if i in placa:
             return False
@@ -87,6 +89,13 @@ def validarData(campo):
         return type(campo)==datetime.date
     return True
 
+def removerSimbolo(campo):
+    bloqueado = '!@#$%¨&*()_+`{}^:></ |\,;.~]´[=-"'
+    for i in campo:
+        if i in bloqueado:
+            campo=campo.replace(i,'')
+    return campo
+
 def validarCpf(campo):
     d1 = 0
     f = 11
@@ -103,6 +112,8 @@ def validarCpf(campo):
     return d1
 
 def validarCpf2(campo):
+    campo=campo.replace('.','')
+    campo=campo.replace('-','')
     d1=validarCpf(campo)
     d2 = 0
     f = 12
@@ -127,9 +138,9 @@ def validarCnpj(cnpj):
     lista_validacao_um = [5, 4, 3, 2, 9, 8, 7, 6, 5, 4 , 3, 2]
     lista_validacao_dois = [6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2]
 
-    cnpj = cnpj.replace( "-", "" )
-    cnpj = cnpj.replace( ".", "" )
-    cnpj = cnpj.replace( "/", "" )
+    cnpj = cnpj.replace( '-', '' )
+    cnpj = cnpj.replace( '.', '' )
+    cnpj = cnpj.replace( '/', '' )
 
     verificadores = cnpj[-2:]
     

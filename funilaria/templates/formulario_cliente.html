@@ -19,7 +19,7 @@
           {% endfor %}
 
           </p>
-          <form method="POST">
+          <form method="POST" id="forms">
             {% csrf_token %}
             <!-- rg -->
             <div class="input-group mb-3">
@@ -69,7 +69,7 @@
               {{form_cliente.telefone}}
             </div>
 
-            <input class="btn btn-primary" type="submit" value="Enviar"></input>
+            <input class="btn btn-primary" class="tira" type="submit" value="Enviar"></input>
 
           </fildset>
           </form>
