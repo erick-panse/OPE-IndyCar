@@ -153,10 +153,16 @@ class Orcamento(models.Model):
     def get_del_orcamento(self):
         return reverse('deletar_orcamento',kwargs={'id':self.id})
     
+
+################################################################################################
+
+
 class Material(models.Model):
     descricao = models.TextField(max_length=200)
     quantidade_estoque = models.IntegerField()
-    valor = models.CharField(max_length=14)
+    #alguns é decimalFiedl
+    valor = models.DecimalField(decimal_places=2,max_digits=8)
+    slug = models.SlugField(null=True,blank=True)
 
     def __str__(self):
         return str(self.descricao)
@@ -166,3 +172,37 @@ class Material(models.Model):
     
     def get_del_material(self):
         return reverse('deletar_material',kwargs={'id':self.id})
+
+    def get_add_to_cart_url(self):
+        return reverse("add-to-cart", kwargs={'id': self.id})
+
+    def get_remove_from_cart_url(self):
+        return reverse("remove-from-cart", kwargs={'id': self.id})
+
+
+from django.conf import settings
+
+class OrdemItem(models.Model):
+    usuario = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
+    material = models.ForeignKey(Material,on_delete=models.CASCADE)
+    quantidade = models.PositiveIntegerField(default=1)
+    selecionado = models.BooleanField(default=False)
+
+    def __str__(self):
+        return "USER: "+str(self.usuario)+" ITEM: "+self.material.descricao+" QTD: "+str(self.quantidade)
+    
+    @property
+    def total(self):
+        return self.material.valor*self.quantidade
+
+
+class Ordem(models.Model):
+    usuario = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
+    itens = models.ManyToManyField(OrdemItem)
+
+    def __str__(self):
+        return self.usuario
+
+
+
+################################################################################################

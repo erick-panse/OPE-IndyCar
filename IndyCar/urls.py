@@ -56,6 +56,8 @@ urlpatterns = [
     path('login/', usuario_views.login_user),
     path('login/submit', usuario_views.submit_login),
     path('logout/', usuario_views.logout_user),
+    re_path(r'add-to-cart/(?P<id>\d+)/$', add_to_cart, name='add-to-cart'),
+    path('carrinho/', carrinho, name='order-summary'),
 ]
 
 """ path('orcamentos/',funilaria_views.orcamento,name='orcamento'),

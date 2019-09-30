@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect,get_object_or_404
 from django.http import request,HttpResponseRedirect
 from funilaria.forms import ClienteForm,EmpresaForm,OrdemDeServicoForm,MaterialForm
 from django.contrib import messages
-from funilaria.models import Cliente,Customer,Empresa,OrdemDeServico,Material
+from funilaria.models import Cliente,Customer,Empresa,OrdemDeServico,Material,Ordem,OrdemItem
 from django.contrib.auth.decorators import login_required
 from datetime import date
 # Create your views here.
@@ -261,3 +261,45 @@ def deletar_material(request,id=None):
     except Exception as e:
         messages.error(request,'Não foi possível deletar o material')
     return redirect(material)
+
+
+##################################################################################################################
+
+def add_to_cart(request, id):
+    print('chamou')
+    item = get_object_or_404(Material, id=id)
+    order_item, created = OrdemItem.objects.get_or_create(
+        material=item,
+        usuario=request.user
+    )
+    order_qs = Ordem.objects.filter(usuario=request.user)
+    if order_qs.exists():
+        print('existe')
+        order = order_qs[0]
+        # check if the order item is in the order
+        if order.itens.filter(id=item.id).exists():
+            print('chamouExiste')
+            order_item.quantidade += 1
+            order_item.save()
+            messages.info(request, "This item quantity was updated.")
+            return redirect("/")
+        else:
+            print('chamouelseexiste')
+            order.itens.add(order_item)
+            messages.info(request, "This item was added to your cart.")
+            return redirect("/")
+    else:
+        print('chamonaou')
+        order = Ordem.objects.create(usuario=request.user)
+        order.itens.add(order_item)
+        messages.info(request, "This item was added to your cart.")
+        return redirect("/")
+
+
+def carrinho(request):
+    usuario=request.user
+    ordem = OrdemItem.objects.filter(usuario=usuario)
+    return render(request,'carrinho.html',context={'object':ordem})
+
+
+##################################################################################################################
