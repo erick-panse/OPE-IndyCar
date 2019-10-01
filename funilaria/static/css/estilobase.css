@@ -10,7 +10,7 @@ body {
   height: 100%;
   margin: 0 auto; /* Centraliza */
   padding: 8px;
-  width: 75%; /* Define a largura do Corpo do Documento */
+  width: 90%; /* Define a largura do Corpo do Documento */
 }
 
 
@@ -70,7 +70,8 @@ body {
 /*Fomulário Ordem de Serviço*/
 
 
-.dropdown-menu a:hover{
+.dropdown-menu a:hover,
+.dropdown-menu a:focus{
 
   background-color: #5bc0de;
   color: white;
