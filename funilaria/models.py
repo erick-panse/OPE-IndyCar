@@ -173,11 +173,14 @@ class Material(models.Model):
     def get_del_material(self):
         return reverse('deletar_material',kwargs={'id':self.id})
 
-    def get_add_to_cart_url(self):
-        return reverse("add-to-cart", kwargs={'id': self.id})
+    def get_add_orcamento(self):
+        return reverse("add_no_orcamento", kwargs={'id': self.id})
 
-    def get_remove_from_cart_url(self):
-        return reverse("remove-from-cart", kwargs={'id': self.id})
+    def get_tirar_orcamento(self):
+        return reverse("tirar_do_orcamento", kwargs={'id': self.id})
+
+    def get_remover_orcamento(self):
+        return reverse("remover_do_orcamento", kwargs={'id': self.id})
 
 
 from django.conf import settings
@@ -201,7 +204,7 @@ class Ordem(models.Model):
     itens = models.ManyToManyField(OrdemItem)
 
     def __str__(self):
-        return self.usuario
+        return str(self.usuario)
 
 
 

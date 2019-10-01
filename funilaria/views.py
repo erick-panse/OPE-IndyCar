@@ -265,41 +265,74 @@ def deletar_material(request,id=None):
 
 ##################################################################################################################
 
-def add_to_cart(request, id):
-    print('chamou')
+def add_no_orcamento(request, id):
     item = get_object_or_404(Material, id=id)
-    order_item, created = OrdemItem.objects.get_or_create(
-        material=item,
-        usuario=request.user
-    )
-    order_qs = Ordem.objects.filter(usuario=request.user)
-    if order_qs.exists():
-        print('existe')
-        order = order_qs[0]
-        # check if the order item is in the order
-        if order.itens.filter(id=item.id).exists():
-            print('chamouExiste')
-            order_item.quantidade += 1
-            order_item.save()
-            messages.info(request, "This item quantity was updated.")
-            return redirect("/")
+    ordem_item, created = OrdemItem.objects.get_or_create(material=item,usuario=request.user)
+    ordem_qs = Ordem.objects.filter(usuario=request.user)
+    if ordem_qs.exists():
+        order = ordem_qs[0]
+        # verifica se o item ja está na ordem
+        if order.itens.filter(material__id=item.id).exists():
+            ordem_item.quantidade += 1
+            ordem_item.save()
+            messages.info(request, "Quantidade atualizada +1")
+            return redirect("/carrinho")
         else:
-            print('chamouelseexiste')
-            order.itens.add(order_item)
-            messages.info(request, "This item was added to your cart.")
-            return redirect("/")
+            order.itens.add(ordem_item)
+            messages.info(request, "Material adicionado a ordem")
+            return redirect("/carrinho")
     else:
-        print('chamonaou')
         order = Ordem.objects.create(usuario=request.user)
-        order.itens.add(order_item)
-        messages.info(request, "This item was added to your cart.")
-        return redirect("/")
+        order.itens.add(ordem_item)
+        messages.info(request, "Material adicionado a ordem")
+        return redirect("/carrinho")
 
+def remover_do_orcamento(request, id):
+    item = get_object_or_404(Material, id=id)
+    ordem_qs = Ordem.objects.filter(usuario=request.user)
+    if ordem_qs.exists():
+        order = ordem_qs[0]
+        # verifica se o item ja está na ordem
+        if order.itens.filter(material__id=item.id).exists():
+            ordem_item = OrdemItem.objects.filter(material=item,usuario=request.user).first()
+            order.itens.remove(ordem_item)
+            messages.info(request, "Material removido da ordem")
+            return redirect("/carrinho")
+        else:
+            messages.info(request, "Material não faz parte da ordem")
+            return redirect("/carrinho")
+    else:
+        messages.info(request, "Nenhuma ordem encontrada")
+        return redirect("/carrinho")
+
+def tirar_do_orcamento(request, id):
+    item = get_object_or_404(Material, id=id)
+    ordem_qs = Ordem.objects.filter(usuario=request.user)
+    if ordem_qs.exists():
+        order = ordem_qs[0]
+        # verifica se o item ja está na ordem
+        if order.itens.filter(material__id=item.id).exists():
+            ordem_item = OrdemItem.objects.filter(material=item,usuario=request.user).first()
+            if ordem_item.quantidade > 1:
+                ordem_item.quantidade -= 1
+                ordem_item.save()
+                messages.info(request, "Quantidade atualizada -1")
+            else:
+                print('removido')
+                order.itens.remove(ordem_item)
+                messages.info(request, "Material removido da ordem")
+            return redirect("/carrinho")
+        else:
+            messages.info(request, "Material não faz parte da ordem")
+            return redirect("/carrinho")
+    else:
+        messages.info(request, "Nenhuma ordem encontrada")
+        return redirect("/carrinho")
 
 def carrinho(request):
     usuario=request.user
-    ordem = OrdemItem.objects.filter(usuario=usuario)
-    return render(request,'carrinho.html',context={'object':ordem})
+    ordem = Ordem.objects.filter(usuario=usuario).first()
+    return render(request,'carrinho.html',context={'ordem':ordem})
 
 
 ##################################################################################################################

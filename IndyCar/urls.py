@@ -56,7 +56,9 @@ urlpatterns = [
     path('login/', usuario_views.login_user),
     path('login/submit', usuario_views.submit_login),
     path('logout/', usuario_views.logout_user),
-    re_path(r'add-to-cart/(?P<id>\d+)/$', add_to_cart, name='add-to-cart'),
+    re_path(r'add-no-orcamento/(?P<id>\d+)/$', add_no_orcamento, name='add_no_orcamento'),
+    re_path(r'tirar-do-orcamento/(?P<id>\d+)/$', tirar_do_orcamento, name='tirar_do_orcamento'),
+    re_path(r'remover-do-orcamento/(?P<id>\d+)/$', remover_do_orcamento, name='remover_do_orcamento'),
     path('carrinho/', carrinho, name='order-summary'),
 ]
 
