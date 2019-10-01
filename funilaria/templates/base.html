@@ -42,6 +42,10 @@
 
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                        <a href="/index/" class="nav-link"> Home</a>
+            </li>
+
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="/clientes/" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Clientes
@@ -52,14 +56,34 @@
                 </div>
             </li>
 
-            <li class="nav-item">
-                <a href="/empresas/" class="nav-link"> Empresas</a>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="/empresas/" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Empresas
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="/empresa/">Adicionar Empresa</a>
+                    <a class="dropdown-item" href="/empresas/">Lista de Empresas</a>
+                </div>
             </li>
-            <li class="nav-item">
-                <a href="/ordensdeservico/" class="nav-link"> OS</a>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="/ordensdeservico/" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Ordem de Servirço
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="/empresa/">Adicionar OS</a>
+                    <a class="dropdown-item" href="/empresas/">Lista de OS</a>
+                </div>
             </li>
-            <li class="nav-item">
-                <a href="/materiais/" class="nav-link"> Materiais</a>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="/materiais/" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Materiais
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="/material/">Adicionar Materiais</a>
+                    <a class="dropdown-item" href="/materiais/">Lista de Materiais</a>
+                </div>
             </li>
             <li class="nav-item">
                 <a href="/logout/" class="nav-link"> Sair</a>

@@ -7,7 +7,7 @@
 #myFooter {
     background-color: #3c3d41;
     color: white;
-    padding-top: 30px;
+    padding-top: 20px;
 }
 
 #myFooter .footer-copyright {
@@ -18,12 +18,12 @@
 }
 
 #myFooter .row {
-    margin-bottom: 60px;
+    margin-bottom: 40px;
 }
 
 #myFooter .navbar-brand {
     margin-top: 45px;
-    height: 65px;
+    height: 45px;
 }
 
 #myFooter .footer-copyright p {
