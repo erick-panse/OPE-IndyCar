@@ -1,4 +1,5 @@
 import datetime
+from .models import Cliente,Empresa
 def somenteLetras(campo):
     if not campo:
         return False
@@ -191,3 +192,13 @@ def validarCnpj(cnpj):
 
 
     return bool( verificadores == digito_um + digito_dois )
+
+
+def validarUniqueCNPJ(cnpj):
+    return len(Empresa.objects.filter(cnpj=cnpj))==0
+
+def validarUniqueCPF(cpf):
+    return len(Cliente.objects.filter(cpf=cpf))==0
+
+""" def validarUniquePlaca(placa):
+    return len(OrdemDeServico.objects.filter(placa_veiculo=placa))==0 """

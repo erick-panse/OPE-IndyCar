@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from django.http import request,HttpResponseRedirect
-from funilaria.forms import ClienteForm,EmpresaForm,OrdemDeServicoForm,MaterialForm
+from funilaria.forms import ClienteForm,EmpresaForm,OrdemDeServicoForm,MaterialForm,NovaEmpresaForm,NovoClienteForm
 from django.contrib import messages
 from funilaria.models import Cliente,Customer,Empresa,OrdemDeServico,Material,Ordem,OrdemItem
 from django.contrib.auth.decorators import login_required
@@ -26,18 +26,19 @@ def cliente(request):
 @login_required(login_url='/login/')
 def novocliente(request):
     if request.method == 'POST':
-        form_cliente = ClienteForm(request.POST or None)
+        form_cliente = NovoClienteForm(request.POST or None)
         if form_cliente.is_valid():
             try:
                 form_cliente.save()
                 messages.success(request,'Cliente cadastrado com sucesso')
             except Exception as e:
                 messages.error(request,e)
+                
             return redirect(cliente)
         else:
             return render(request,'formulario_cliente.html',context={'form_cliente':form_cliente})
     else:
-        form_cliente = ClienteForm()
+        form_cliente = NovoClienteForm()
         return render(request,'formulario_cliente.html',context={'form_cliente':form_cliente})
 
 @login_required(login_url='/login/')
@@ -73,7 +74,7 @@ def empresa(request):
 @login_required(login_url='/login/')
 def novoempresa(request):
     if request.method == 'POST':
-        form_empresa= EmpresaForm(request.POST or None)
+        form_empresa= NovaEmpresaForm(request.POST or None)
         if form_empresa.is_valid():
             try:
                 form_empresa.save()
@@ -81,10 +82,11 @@ def novoempresa(request):
                 return redirect(empresa)
             except Exception as e:
                 messages.error(request,e)
+                return render(request,'formulario_empresa.html',context={'form_empresa':form_empresa})
         else:
             return render(request,'formulario_empresa.html',context={'form_empresa':form_empresa})
     else:
-        form_empresa= EmpresaForm()
+        form_empresa= NovaEmpresaForm()
         return render(request,'formulario_empresa.html',context={'form_empresa':form_empresa})
 
 @login_required(login_url='/login/')

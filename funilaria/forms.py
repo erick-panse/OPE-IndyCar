@@ -31,7 +31,8 @@ class CustomerForm(forms.ModelForm):
         'placeholder':'Informe o telefone',
         'name':'tel',
         'class':'tele',
-        'id':'tel'}))
+        'id':'tel',
+        'autocomplete': 'off'}))
 
     def validar(self):
         dados=self.cleaned_data
@@ -75,18 +76,49 @@ class ClienteForm(CustomerForm):
         model = Cliente
         fields=['cpf','nome','endereco','bairro','email','telefone']
 
+class NovoClienteForm(CustomerForm):
+    def clean(self):
+        dados = self.cleaned_data
+        cpf=dados.get('cpf')
+
+        if not somenteNumeros(cpf) or not validarCpf2(cpf):
+            raise forms.ValidationError('CPF inválido !')
+        if not validarUniqueCPF(cpf):
+            raise forms.ValidationError('Cliente já cadastrado no sistema !')
+        self.validar()
+
+    class Meta:
+        model = Cliente
+        fields=['cpf','nome','endereco','bairro','email','telefone']
+
 class EmpresaForm(CustomerForm):
     cnpj = forms.CharField(min_length=14, max_length=18,label='CNPJ:',widget = forms.TextInput(attrs={
         'placeholder':'Informe o CNPJ',
         'name':'cnpj',
         'class':'inputText',
-        'id':'cnpj'}))
-#or not validarTamanho(cnpj,14)
+        'id':'cnpj',
+        'autocomplete': 'off'}))
+
     def clean(self):
         dados = self.cleaned_data
         cnpj=dados.get('cnpj')
         if not somenteNumeros(cnpj)  or not validarCnpj(cnpj):
             raise forms.ValidationError('CNPJ inválido !')
+        self.validar()
+
+    class Meta:
+        model = Empresa
+        fields=['cnpj','nome','endereco','bairro','email','telefone']
+
+
+class NovaEmpresaForm(EmpresaForm):
+    def clean(self):
+        dados = self.cleaned_data
+        cnpj=dados.get('cnpj')
+        if not somenteNumeros(cnpj)  or not validarCnpj(cnpj):
+            raise forms.ValidationError('CNPJ inválido !')
+        if not validarUniqueCNPJ(cnpj):
+            raise forms.ValidationError('Empresa já cadastrada no sistema !')
         self.validar()
 
     class Meta:
