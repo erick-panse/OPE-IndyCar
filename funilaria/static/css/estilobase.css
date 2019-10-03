@@ -89,3 +89,19 @@ body { padding: 15px; background:#eee; font-family: Arial,
 .dropdown:hover>.dropdown-menu {
   display: block;
 }
+
+#perfil {
+	position: absolute;
+	top:50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	width:450px;
+	height: 450px;
+	box-sizing: border-box;
+	background:white;
+	padding: 40px; 
+}
+
+#negrito {
+  font-weight: bold;
+}
