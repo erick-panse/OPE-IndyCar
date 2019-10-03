@@ -13,6 +13,9 @@ def pagina_inicial(request):
 def index(request):
     return render(request, 'index.html')
 
+def quemsomos(request):
+    return render(request, 'quemsomos.html')
+
 @login_required(login_url='/login/')
 def index (request):
     return render(request, 'index.html')
