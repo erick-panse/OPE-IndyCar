@@ -75,4 +75,10 @@ body {
 
   background-color: #5bc0de;
   color: white;
+  display: block; 
+ 
+}
+
+.dropdown:hover>.dropdown-menu {
+  display: block;
 }
