@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html>
 <head>
   <title>Indy Car</title>
   <meta charset="utf-8">
@@ -11,32 +11,20 @@
 
   <meta name="viewport" content="width=device-width", initial-scale="1.0"> 
   <link rel="stylesheet" type="text/css" href="../static/login_style.css" />
+  <link rel="icon" type="image/jpg" href="../static/images/icons/f.jpg"/>
 </head>
 <body>
-  <div class="jumbotron text-center">
-    <h1>Indy Car</h1>
-  </div>
-    
-  <div class="container" >
-    <a class="links" id="paralogin"></a>
-    
-    <div class="content">      
-      <!--FORMULÁRIO DE LOGIN-->
-      <div id="login">
-        <form method="post" action="submit">{% csrf_token %} 
-          <h1>Login</h1> 
-          <p> 
-            <label for="username">Usuário</label>
-            <input type="text", class="form-control" id="username" name="username" placeholder="Usuário">
-          </p>
-          
-          <p> 
-            <label for="username">Senha</label>
-            <input type="password", class="form-control" id="password" name="password" placeholder="Senha">
-          </p>
-          
-          <p> 
-            <div>
+
+    <div class="form-area">
+    	<h2>Indy Car</h2>
+    	<form method="post" action="submit">{% csrf_token %}
+    		<p>Email:</p>
+    		<input type="text" id="username" class="form-control" name="username" placeholder="Usuário">
+
+    		<p>Senha:</p>
+    		<input type="password" class="form-control" id="password" name="password" placeholder="Senha">
+
+			<div>
                 {% for message in messages %}
                   <div class="alert alert-info">
                     <strong>{{message}}</strong>
@@ -44,10 +32,12 @@
                 {% endfor %}
                 <button type="submit" class="btn btn-primary">Entrar</button>
             </div>
-          </p>
-        </form>
-      </div>
-      </div>
-    </div> 
+        <br>
+    		<a href="">Esqueceu sua senha?</a>
+
+
+    	</form>
+    </div>
+
 </body>
 </html>
