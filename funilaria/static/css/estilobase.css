@@ -1,70 +1,77 @@
-html {
-    background: #e3e3e3; /* Cor do fundo do documento */
-    height: 100%; /* Define o tamanho do Documento HTML */
+/* html {
+    background: #e3e3e3; 
+    height: 100%;
 }
 body {
-  background: #fff; /* Cor do fundo do corpo */
+  background: #fff; 
   border: 2px solid e3e3e3;
   box-sizing: border-box;
   font-family: "Verdana";
   height: 100%;
-  margin: 0 auto; /* Centraliza */
+  margin: 0 auto; 
   padding: 8px;
-  width: 90%; /* Define a largura do Corpo do Documento */
-}
+  width: 100%; 
+} */
 
 
 /* Responsividade*/
-.container {
-  display: -webkit-flex;
-  display: flex;
-  -webkit-flex-flow: row wrap;
-  flex-flow: row wrap;
-}
-
-.c1, .c2, .c3 {
-  width: 100%;
-}
-
-@media (min-width: 600px) {
-  .c1 {
-    width: 60%;
-    -webkit-order: 2;
-    order: 2;
+body { padding: 15px; background:#eee; font-family: Arial, 
+  Helvetica, sans-serif }.
+   
+  .caixa {
+      border: solid 1px #666; 
+      padding: 5px 10px;
+      margin: 40px;
   }
-
-  .c2 {
-    width: 40%;
-    -webkit-order: 1;
-    order: 1;
+   
+  .area-visivel span {
+      color: #666;
+      display: none;
   }
-
-  .c3 {
-    width: 100%;
-    -webkit-order: 3;
-    order: 3;
+   
+  /* max-width  */
+  @media screen and (max-width: 600px) {
+      .um {
+          background: #F9C;
+      }
+      span.lt600 {
+          display: inline-block;
+      }
   }
-}
-
-
-@media (min-width: 800px) {
-  .c2 {
-    width: 20%;
+   
+  /* min-width */
+  @media screen and (min-width: 900px) {
+      .dois {
+          background: #F90;
+      }
+      span.gt900 {
+          display: inline-block;
+      }
   }
-
-  .c3 {
-    width: 20%;
+   
+  /* min-width & max-width */
+  @media screen and (min-width: 600px) and (max-width: 900px) {
+      .tres {
+          background: #9CF;
+      }
+      span.bt600-900 {
+          display: inline-block;
+      }
   }
-}
-
-
+   
+  /* max device width */
+  @media screen and (max-device-width: 480px) {
+      .iphone {
+          background: #ccc;
+      }
+  }
 /* Estilo para formulários*/
 .inputText{
-  width: 300px;
+  width: 200px;
 }
 
-.input-group-text{
-  width: 150px;
+.input-group{
+  width: 100px;
 }
 
 /*Fomulário Ordem de Serviço*/
