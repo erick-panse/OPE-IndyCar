@@ -12,22 +12,26 @@ class CustomerForm(forms.ModelForm):
         'placeholder':'Informe o nome',
         'name':'nome',
         'class':'inputText',
-        'id':'nome'}))
+        'id':'nome',
+        'autocomplete': 'off'}))
     endereco = forms.CharField(max_length=100,label='Endereço:',widget = forms.TextInput(attrs={
         'placeholder':'Informe o endereço',
         'name':'endereco',
         'class':'inputText',
-        'id':'endereco'}))
+        'id':'endereco',
+        'autocomplete': 'off'}))
     bairro = forms.CharField(max_length=30,label='Bairro:',widget = forms.TextInput(attrs={
         'placeholder':'Informe o bairro',
         'name':'bairro',
         'class':'inputText',
-        'id':'bairro'}))
+        'id':'bairro',
+        'autocomplete': 'off'}))
     email = forms.EmailField(max_length=60,label='Email:',widget = forms.EmailInput(attrs={
         'placeholder':'Informe o email',
         'name':'email',
         'class':'inputText',
-        'id':'email'}))
+        'id':'email',
+        'autocomplete': 'off'}))
     telefone = forms.CharField(max_length=16,label='Telefone:',widget = forms.TextInput(attrs={
         'placeholder':'Informe o telefone',
         'name':'tel',
@@ -59,11 +63,12 @@ class CustomerForm(forms.ModelForm):
 
 
 class ClienteForm(CustomerForm):
-    cpf = forms.CharField(max_length=14, min_length=11, label='CPF:', widget = forms.TextInput(attrs={
+    cpf = forms.CharField(error_messages={'unique':"This email has already been registered."},max_length=14, min_length=11, label='CPF:', widget = forms.TextInput(attrs={
         'placeholder':'Informe o CPF',
         'name':'cpf',
         'class':'inputText',
-        'id':'cpf'}))
+        'id':'cpf',
+        'autocomplete': 'off'}))
 
     def clean(self):
         dados = self.cleaned_data
@@ -77,23 +82,10 @@ class ClienteForm(CustomerForm):
         model = Cliente
         fields=['cpf','nome','endereco','bairro','email','telefone']
 
-class NovoClienteForm(CustomerForm):
-    def clean(self):
-        dados = self.cleaned_data
-        cpf=dados.get('cpf')
-
-        if not somenteNumeros(cpf) or not validarCpf2(cpf):
-            raise forms.ValidationError('CPF inválido !')
-        if not validarUniqueCPF(cpf):
-            raise forms.ValidationError('Cliente já cadastrado no sistema !')
-        self.validar()
-
-    class Meta:
-        model = Cliente
-        fields=['cpf','nome','endereco','bairro','email','telefone']
+    
 
 class EmpresaForm(CustomerForm):
-    cnpj = forms.CharField(min_length=14, max_length=18,label='CNPJ:',widget = forms.TextInput(attrs={
+    cnpj = forms.CharField(error_messages={'unique':"This email has already been registered."},min_length=14, max_length=18,label='CNPJ:',widget = forms.TextInput(attrs={
         'placeholder':'Informe o CNPJ',
         'name':'cnpj',
         'class':'inputText',
@@ -111,20 +103,6 @@ class EmpresaForm(CustomerForm):
         model = Empresa
         fields=['cnpj','nome','endereco','bairro','email','telefone']
 
-
-class NovaEmpresaForm(EmpresaForm):
-    def clean(self):
-        dados = self.cleaned_data
-        cnpj=dados.get('cnpj')
-        if not somenteNumeros(cnpj)  or not validarCnpj(cnpj):
-            raise forms.ValidationError('CNPJ inválido !')
-        if not validarUniqueCNPJ(cnpj):
-            raise forms.ValidationError('Empresa já cadastrada no sistema !')
-        self.validar()
-
-    class Meta:
-        model = Empresa
-        fields=['cnpj','nome','endereco','bairro','email','telefone']
 
 """ class OrcamentoForm(forms.ModelForm):
     quantidade_pecas = forms.CharField(label='Quantidade de peças:',widget = forms.NumberInput(attrs={
@@ -192,48 +170,57 @@ class OrdemDeServicoForm(forms.ModelForm):
         'placeholder':'Informe a marca',
         'name':'marca',
         'class':'inputText',
-        'id':'marca'}))
+        'id':'marca',
+        'autocomplete': 'off'}))
     modelo_veiculo = forms.CharField(max_length=30,label='Modelo:',widget = forms.TextInput(attrs={
         'placeholder':'Informe o modelo',
         'name':'modelo',
         'class':'inputText',
-        'id':'modelo'}))
+        'id':'modelo',
+        'autocomplete': 'off'}))
     cor_veiculo = forms.CharField(max_length=30,label='Cor:',widget = forms.TextInput(attrs={
         'placeholder':'Informe a cor',
         'name':'cor',
         'class':'inputText',
-        'id':'cor'}))
+        'id':'cor',
+        'autocomplete': 'off'}))
     placa_veiculo = forms.CharField(max_length=8,label='Placa:',widget = forms.TextInput(attrs={
         'placeholder':'Informe a placa',
         'name':'placa',
         'class':'inputText',
-        'id':'placa'}))
+        'id':'placa',
+        'autocomplete': 'off'}))
     ano_veiculo = forms.CharField(max_length=4,label='Ano:',widget = forms.NumberInput(attrs={
         'placeholder':'Informe o ano',
         'name':'ano',
         'class':'inputText',
-        'id':'ano'}))
+        'id':'ano',
+        'autocomplete': 'off'}))
     estado_veiculo= forms.ModelChoiceField(queryset=Estado.objects.all().order_by('nome'))
     cidade_veiculo = forms.CharField(max_length=30,label='Cidade:',widget = forms.TextInput(attrs={
         'placeholder':'Informe a cidade',
         'name':'cidade',
         'class':'inputText',
-        'id':'cidade'}))
+        'id':'cidade',
+        'autocomplete': 'off'}))
     reparos_necessarios = forms.CharField(max_length=500,label='Reparos necessários:',widget = forms.Textarea(attrs={
         'placeholder':'Informe os reparos necessários',
         'name':'reparos_necessarios',
         'class':'inputText',
-        'id':'reparos_necessarios'}))
+        'id':'reparos_necessarios',
+        'autocomplete': 'off'}))
     prazo_entrega = forms.DateField(label='Prazo entrega:',input_formats=['%d/%m/%Y'],widget = FengyuanChenDatePickerInput(attrs={
         'placeholder':'Prazo de entrega',
         'name':'prazo_entrega',
         'class':"date",
-        'id':'prazo_entrega'}))
+        'id':'prazo_entrega',
+        'autocomplete': 'off'}))
     data_finalizacao = DataField(required=False,label='Data de finalização:',input_formats=['%d/%m/%Y'],widget = FengyuanChenDatePickerInput(attrs={
         'placeholder':'Data de finalização',
         'name':'data_finalizacao',
         'class':"date",
-        'id':'data_finalizacao'}))
+        'id':'data_finalizacao',
+        'autocomplete': 'off'}))
     
     def clean(self):
         dados=self.cleaned_data
@@ -289,19 +276,22 @@ class MaterialForm(forms.ModelForm):
         'placeholder':'Informe a quantidade em estoque',
         'class':'inputText',
         #'name':'quantidade_estoque',
-        'id':'quantidade_estoque'}))
+        'id':'quantidade_estoque',
+        'autocomplete': 'off'}))
     descricao = forms.CharField(max_length=200,label='Descrição:',widget = forms.TextInput(attrs={
         'placeholder':'Informe a descrição',
         'class':'inputText',
         #'name':'descricao',
-        'id':'descricao'}))
+        'id':'descricao',
+        'autocomplete': 'off'}))
     
     valor = forms.CharField(max_length=14,label='Valor:',widget = forms.TextInput(attrs={
         'placeholder':'Valor da peça',
         'name':'valor',
         'class':'inputText',
         #'class':'money',
-        'id':'valor'}))
+        'id':'valor',
+        'autocomplete': 'off'}))
     
     def clean(self):
         dados=self.cleaned_data

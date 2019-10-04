@@ -11,12 +11,12 @@
           <p class="card-text">
             Complete o formulário abaixo para cadastrar
             um novo <code>Cliente</code>.
-
-          {% for msg in form_cliente.non_field_errors %}
-            <p>
-              {{msg}}
-            </p>
+          {% for message in messages %}
+            <div class="alert alert-danger">
+              <strong>{{message}}</strong>
+            </div>  
           {% endfor %}
+
 
           </p>
           <form method="POST" id="forms">

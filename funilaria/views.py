@@ -1,10 +1,13 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from django.http import request,HttpResponseRedirect
-from funilaria.forms import ClienteForm,EmpresaForm,OrdemDeServicoForm,MaterialForm,NovaEmpresaForm,NovoClienteForm
+from funilaria.forms import ClienteForm,EmpresaForm,OrdemDeServicoForm,MaterialForm
 from django.contrib import messages
 from funilaria.models import Cliente,Customer,Empresa,OrdemDeServico,Material,Ordem,OrdemItem
 from django.contrib.auth.decorators import login_required
 from datetime import date
+from django.db import IntegrityError
+from django import forms
+
 # Create your views here.
 #comentado pra n ficar obrigatorio
 def pagina_inicial(request):
@@ -29,19 +32,23 @@ def cliente(request):
 @login_required(login_url='/login/')
 def novocliente(request):
     if request.method == 'POST':
-        form_cliente = NovoClienteForm(request.POST or None)
+        form_cliente = ClienteForm(request.POST or None)
         if form_cliente.is_valid():
             try:
                 form_cliente.save()
                 messages.success(request,'Cliente cadastrado com sucesso')
+            except IntegrityError as e: 
+                print('UNIQUE constraint' in str(e.args))
+                if 'UNIQUE constraint' in str(e.args): 
+                    messages.error(request,'na casa do senhor nao existe satanas')
+                    return render(request,'formulario_cliente.html',context={'form_cliente':form_cliente})
             except Exception as e:
                 messages.error(request,e)
-                
             return redirect(cliente)
         else:
             return render(request,'formulario_cliente.html',context={'form_cliente':form_cliente})
     else:
-        form_cliente = NovoClienteForm()
+        form_cliente = ClienteForm()
         return render(request,'formulario_cliente.html',context={'form_cliente':form_cliente})
 
 @login_required(login_url='/login/')
@@ -54,8 +61,16 @@ def editar_cliente(request,id=None):
             instance_cliente.save()
             messages.success(request,'Cliente atualizado com sucesso')
             return redirect(cliente)
+        except IntegrityError as e: 
+            print('UNIQUE constraint' in str(e.args))
+            if 'UNIQUE constraint' in str(e.args): 
+                messages.error(request,'na casa do senhor nao existe satanas')
+                return render(request,'formulario_cliente.html',context={'form_cliente':form_cliente})
         except Exception as e:
-            messages.error(request,e)
+            print(e)
+            
+    for i in form_cliente.non_field_errors():
+        messages.error(request,i)
     return render(request,'formulario_cliente.html',context={'form_cliente':form_cliente,'instance_cliente':instance_cliente})
 
 @login_required(login_url='/login/')
@@ -77,19 +92,25 @@ def empresa(request):
 @login_required(login_url='/login/')
 def novoempresa(request):
     if request.method == 'POST':
-        form_empresa= NovaEmpresaForm(request.POST or None)
+        form_empresa= EmpresaForm(request.POST or None)
+        print(form_empresa.is_valid())
         if form_empresa.is_valid():
             try:
                 form_empresa.save()
                 messages.success(request,'Empresa cadastrada com sucesso')
                 return redirect(empresa)
+            except IntegrityError as e: 
+                print('UNIQUE constraint' in str(e.args))
+                if 'UNIQUE constraint' in str(e.args): 
+                    messages.error(request,'na casa do senhor nao existe satanas')
+                    return render(request,'formulario_empresa.html',context={'form_empresa':form_empresa})
             except Exception as e:
                 messages.error(request,e)
                 return render(request,'formulario_empresa.html',context={'form_empresa':form_empresa})
         else:
             return render(request,'formulario_empresa.html',context={'form_empresa':form_empresa})
     else:
-        form_empresa= NovaEmpresaForm()
+        form_empresa= EmpresaForm()
         return render(request,'formulario_empresa.html',context={'form_empresa':form_empresa})
 
 @login_required(login_url='/login/')
@@ -102,6 +123,11 @@ def editar_empresa(request,id=None):
             instance.save()
             messages.success(request,'Empresa atualizada com sucesso')
             return redirect(empresa)
+        except IntegrityError as e: 
+            print('UNIQUE constraint' in str(e.args))
+            if 'UNIQUE constraint' in str(e.args): 
+                messages.error(request,'na casa do senhor nao existe satanas')
+                return render(request,'formulario_empresa.html',context={'form_empresa':form_empresa})
         except Exception as e:
             messages.error(request,e)
     return render(request,'formulario_empresa.html',context={'form_empresa':form_empresa,'instance':instance})
