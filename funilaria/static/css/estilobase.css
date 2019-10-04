@@ -16,7 +16,7 @@ body {
 
 /* Responsividade*/
 body { padding: 15px; background:#eee; font-family: Arial, 
-  Helvetica, sans-serif }.
+  Helvetica, sans-serif }
    
   .caixa {
       border: solid 1px #666; 
@@ -69,10 +69,10 @@ body { padding: 15px; background:#eee; font-family: Arial,
 /* Estilo para formulários*/
 .inputText{
   width: 300px;
-}
 
+}
 .input-group{
-  width: 100px;
+  width: 300px;
 }
 
 /*Fomulário Ordem de Serviço*/
@@ -105,4 +105,10 @@ body { padding: 15px; background:#eee; font-family: Arial,
 
 #negrito {
   font-weight: bold;
+}
+.input-group-text{
+  width: 300px;
+}
+.date{
+  width: 300px;
 }

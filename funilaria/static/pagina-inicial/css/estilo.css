@@ -103,3 +103,11 @@ body{
    flex: 0 0 auto;
    -webkit-flex: 0 0 auto;
 }
+
+.input-group-text{
+    width: 300px;
+  }
+
+.inputText{
+    width: 300px;
+}

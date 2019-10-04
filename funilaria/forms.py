@@ -7,6 +7,7 @@ from .fields import DataField
 
 
 class CustomerForm(forms.ModelForm):
+    
     nome = forms.CharField(max_length=60,label='Nome completo:',widget = forms.TextInput(attrs={
         'placeholder':'Informe o nome',
         'name':'nome',
@@ -30,7 +31,7 @@ class CustomerForm(forms.ModelForm):
     telefone = forms.CharField(max_length=16,label='Telefone:',widget = forms.TextInput(attrs={
         'placeholder':'Informe o telefone',
         'name':'tel',
-        'class':'tele',
+        'class':'inputText', #'tele'
         'id':'tel',
         'autocomplete': 'off'}))
 
@@ -58,7 +59,7 @@ class CustomerForm(forms.ModelForm):
 
 
 class ClienteForm(CustomerForm):
-    cpf = forms.CharField(max_length=14, min_length=11,label='CPF:',widget = forms.TextInput(attrs={
+    cpf = forms.CharField(max_length=14, min_length=11, label='CPF:', widget = forms.TextInput(attrs={
         'placeholder':'Informe o CPF',
         'name':'cpf',
         'class':'inputText',
@@ -190,31 +191,38 @@ class OrdemDeServicoForm(forms.ModelForm):
     marca_veiculo = forms.CharField(max_length=30,label='Marca:',widget = forms.TextInput(attrs={
         'placeholder':'Informe a marca',
         'name':'marca',
+        'class':'inputText',
         'id':'marca'}))
     modelo_veiculo = forms.CharField(max_length=30,label='Modelo:',widget = forms.TextInput(attrs={
         'placeholder':'Informe o modelo',
         'name':'modelo',
+        'class':'inputText',
         'id':'modelo'}))
     cor_veiculo = forms.CharField(max_length=30,label='Cor:',widget = forms.TextInput(attrs={
         'placeholder':'Informe a cor',
         'name':'cor',
+        'class':'inputText',
         'id':'cor'}))
     placa_veiculo = forms.CharField(max_length=8,label='Placa:',widget = forms.TextInput(attrs={
         'placeholder':'Informe a placa',
         'name':'placa',
+        'class':'inputText',
         'id':'placa'}))
     ano_veiculo = forms.CharField(max_length=4,label='Ano:',widget = forms.NumberInput(attrs={
         'placeholder':'Informe o ano',
         'name':'ano',
+        'class':'inputText',
         'id':'ano'}))
     estado_veiculo= forms.ModelChoiceField(queryset=Estado.objects.all().order_by('nome'))
     cidade_veiculo = forms.CharField(max_length=30,label='Cidade:',widget = forms.TextInput(attrs={
         'placeholder':'Informe a cidade',
         'name':'cidade',
+        'class':'inputText',
         'id':'cidade'}))
     reparos_necessarios = forms.CharField(max_length=500,label='Reparos necessários:',widget = forms.Textarea(attrs={
         'placeholder':'Informe os reparos necessários',
         'name':'reparos_necessarios',
+        'class':'inputText',
         'id':'reparos_necessarios'}))
     prazo_entrega = forms.DateField(label='Prazo entrega:',input_formats=['%d/%m/%Y'],widget = FengyuanChenDatePickerInput(attrs={
         'placeholder':'Prazo de entrega',
@@ -279,17 +287,20 @@ class OrdemDeServicoForm(forms.ModelForm):
 class MaterialForm(forms.ModelForm):
     quantidade_estoque = forms.CharField(max_length=6,label='Quantidade em estoque:',widget = forms.NumberInput(attrs={
         'placeholder':'Informe a quantidade em estoque',
-        'name':'quantidade_estoque',
+        'class':'inputText',
+        #'name':'quantidade_estoque',
         'id':'quantidade_estoque'}))
     descricao = forms.CharField(max_length=200,label='Descrição:',widget = forms.TextInput(attrs={
         'placeholder':'Informe a descrição',
-        'name':'descricao',
+        'class':'inputText',
+        #'name':'descricao',
         'id':'descricao'}))
     
     valor = forms.CharField(max_length=14,label='Valor:',widget = forms.TextInput(attrs={
         'placeholder':'Valor da peça',
         'name':'valor',
-        'class':'money',
+        'class':'inputText',
+        #'class':'money',
         'id':'valor'}))
     
     def clean(self):

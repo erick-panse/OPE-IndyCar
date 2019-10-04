@@ -21,14 +21,14 @@
           </p>
           <form method="POST">
             {% csrf_token %}
-            <!-- cpf -->
+            <!-- Cliente -->
             <div class="input-group mb-3">
               <div class="input-group-prepend">
                 <span class="input-group-text">Cliente</span>
               </div>
               {{form_os.cliente}}
             </div>
-            <!-- Marca -->
+            <!-- Marca di veículo -->
             <h5 class="card-title">Veículo</h5>
               <div class="input-group mb-3">
                 <div class="input-group-prepend">
