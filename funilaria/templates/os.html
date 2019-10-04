@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 
 {% block main %}
+    <!-- Estilo customizado -->
+    <link rel="stylesheet" type="text/css" href="/static/css/cssos.css">
+
 {% for message in messages %}
   <div class="alert alert-info">
     <strong>{{message}}</strong>
@@ -31,10 +34,10 @@
               <tbody>
               {% for i in ordens %}
                 <tr>
-                  <td>{{ i.id }}</td>
-                  <td>{{ i.cliente.nome }}</td>
-                  <td>{{ i.data_entrega }}</td>
-                  <td>{{ i.status }}</td>
+                  <td><br>{{ i.id }}</td>
+                  <td><br>{{ i.cliente.nome }}</td>
+                  <td><br>{{ i.data_entrega }}</td>
+                  <td class="status"><br>{{ i.status }}</td>
                   <td>
                     <a href="{{i.get_editar_ordem}}"
                        class="btn btn-info">
