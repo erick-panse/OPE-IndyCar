@@ -39,7 +39,8 @@ def validarTelefone(tel):
     if not tel:
         return False
     tel = removerSimbolo(tel)
-    return somenteNumeros(tel)
+    print(len(tel))
+    return somenteNumeros(tel) and (len(tel) in range(10,12))
 
 def validarPlaca(placa):
     if not placa:

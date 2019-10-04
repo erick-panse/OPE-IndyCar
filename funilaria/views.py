@@ -46,6 +46,8 @@ def novocliente(request):
                 messages.error(request,e)
             return redirect(cliente)
         else:
+            for i in form_cliente.non_field_errors():
+                messages.error(request,i)
             return render(request,'formulario_cliente.html',context={'form_cliente':form_cliente})
     else:
         form_cliente = ClienteForm()
