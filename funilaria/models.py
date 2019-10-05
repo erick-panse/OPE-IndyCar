@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse 
 from model_utils.managers import InheritanceManager
+from datetime import datetime
 # Create your models here.
 """
 #n precisa mais já q ta salvando o cpf e cnpj com a mascara
@@ -115,7 +116,7 @@ class OrdemDeServico(models.Model):
     estado_veiculo = models.ForeignKey(Estado,on_delete=models.PROTECT)
     reparos_necessarios = models.TextField(max_length=200)
     entrada = models.DateField(auto_now_add=True,blank=True)
-    prazo_entrega = models.DateField(blank=True,null=True)
+    prazo_entrega = models.DateField(default=datetime.today())
     data_finalizacao = models.DateField(blank=True,null=True)
 
     def get_editar_ordem(self):
@@ -133,6 +134,7 @@ class OrdemDeServico(models.Model):
     @property
     def data_entrega(self):
         return self.prazo_entrega.strftime("%d/%m/%Y")
+
 
 """ class Orcamento(models.Model):
     ordem_servico = models.ForeignKey(OrdemDeServico,on_delete=models.PROTECT,blank=True,null=True)
