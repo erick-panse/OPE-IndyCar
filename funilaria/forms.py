@@ -1,5 +1,5 @@
 from django import forms
-from funilaria.models import Cliente,Empresa,Orcamento,OrdemDeServico,Customer,Material,Estado
+from funilaria.models import Cliente,Empresa,Orcamento,OrdemDeServico,Customer,Material,Estado,Carrinho
 from funilaria.views import *
 from .widgets import FengyuanChenDatePickerInput
 from .validacao import *
@@ -104,27 +104,21 @@ class EmpresaForm(CustomerForm):
         fields=['cnpj','nome','endereco','bairro','email','telefone']
 
 
-""" class OrcamentoForm(forms.ModelForm):
-    quantidade_pecas = forms.CharField(label='Quantidade de peças:',widget = forms.NumberInput(attrs={
-        'placeholder':'Informe a quantidade de peças',
-        'name':'quantidade_pecas',
-        'id':'quantidade_pecas'}))
+class OrcamentoForm(forms.ModelForm):
+    ordem_de_servico = forms.ModelChoiceField(queryset=OrdemDeServico.objects.all().order_by('id'))
     servicos = forms.CharField(max_length=500,label='Serviços:',widget = forms.Textarea(attrs={
         'placeholder':'Informe os serviços necessários',
         'name':'servicos',
         'id':'servicos'}))
-    pecas = forms.ModelChoiceField(queryset=Material.objects.all())
-    
+    carrinho = forms.ModelChoiceField(queryset=Carrinho.objects.all().order_by('id'))
     valor_mao_de_obra = forms.FloatField(label='valor da mão de obra:',widget = forms.TextInput(attrs={
         'placeholder':'Informe o valor da mão de obra',
         'name':'valor_mao_de_obra',
         'id':'valor_mao_de_obra'}))
-
     total_a_pagar = forms.DecimalField(label='Total a pagar:',widget = forms.TextInput(attrs={
         'readonly':'Total a pagar',
         'name':'total_a_pagar',
         'id':'total_a_pagar'}))
-    
     previsao_entrega = forms.DateField(label='Previsão entrega:',widget = forms.DateInput(attrs={
         'placeholder':'Informe a previsão entrega',
         'name':'previsao_entrega',
@@ -136,22 +130,15 @@ class EmpresaForm(CustomerForm):
     
     def clean(self):
         dados=self.cleaned_data
-        quantidade_pecas=dados.get('quantidade_pecas')
         servicos=dados.get('servicos')
-        pecas=dados.get('pecas')
         valor_mao_de_obra=dados.get('valor_mao_de_obra')
         total_a_pagar=dados.get('total_a_pagar')
         previsao_entrega=dados.get('previsao_entrega')
         data_saida=dados.get('data_saida')
 
-        if not somenteNumeros(quantidade_pecas):
-            raise forms.ValidationError('Quantidade de peças inválida !')
 
         if not somenteLetras(servicos):
             raise forms.ValidationError('Serviços inválidos !')
-        
-        if not somenteLetras(pecas):
-            raise forms.ValidationError('Peças inválidas !')
 
         if not somenteNumeros(valor_mao_de_obra):
             raise forms.ValidationError('Valor mão de obra inválido !')
@@ -162,7 +149,7 @@ class EmpresaForm(CustomerForm):
     
     class Meta:
         model = Orcamento
-        fields=['pecas','quantidade_pecas','servicos','valor_mao_de_obra','previsao_entrega','data_saida','total_a_pagar'] """            
+        fields=['usuario','ordem_servico','carrinho','servicos','valor_mao_de_obra','previsao_entrega','data_saida','total_a_pagar']           
 
 class OrdemDeServicoForm(forms.ModelForm):
     cliente = forms.ModelChoiceField(queryset=Customer.objects.all().select_subclasses().order_by('id'))

@@ -57,10 +57,15 @@ urlpatterns = [
     path('login/', usuario_views.login_user),
     path('login/submit', usuario_views.submit_login),
     path('logout/', usuario_views.logout_user),
-    re_path(r'add-no-orcamento/(?P<id>\d+)/$', add_no_orcamento, name='add_no_orcamento'),
-    re_path(r'tirar-do-orcamento/(?P<id>\d+)/$', tirar_do_orcamento, name='tirar_do_orcamento'),
-    re_path(r'remover-do-orcamento/(?P<id>\d+)/$', remover_do_orcamento, name='remover_do_orcamento'),
+    re_path(r'add-no-carrinho/(?P<id>\d+)/$', add_no_carrinho, name='add_no_carrinho'),
+    re_path(r'tirar-do-carrinho/(?P<id>\d+)/$', tirar_do_carrinho, name='tirar_do_carrinho'),
+    re_path(r'remover-do-carrinho/(?P<id>\d+)/$', remover_do_carrinho, name='remover_do_carrinho'),
     path('carrinho/', carrinho, name='order-summary'),
+
+    path('orcamentos/',funilaria_views.orcamento,name='orcamentos'),
+    re_path(r'orcamento/c/(?P<id>\d+)/$', funilaria_views.novo_orcamento, name='orcamento'),
+    re_path(r'orcamento/(?P<id>\d+)/$',funilaria_views.editar_orcamento, name='editar_orcamento'),
+    re_path(r'orcamento/deletar/(?P<id>\d+)/$',funilaria_views.deletar_orcamento, name='deletar_orcamento'),
 ]
 
 """ path('orcamentos/',funilaria_views.orcamento,name='orcamento'),

@@ -23,7 +23,7 @@
 
             
           <!-- Cliente -->  
-            <div class="input-group mb-3">
+            <!-- <div class="input-group mb-3">
               <div class="input-group-prepend">
                 <span class="input-group-text">Cliente</span>
               </div>
@@ -35,13 +35,33 @@
                   <span class="input-group-text">{{cliente.nome}}</span>
                 </div>             
               </div>
-            {% endif %}
-
+            {% endif %} -->
+            
       <br>
       <br>
       <br>
 			<h5 class="card-title">Criar Orçamento</h5>
       <p class="card-text">
+          <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Ordem de serviço</span>
+              </div>
+              {{form_orcamento.ordem_de_servico}}
+            </div>
+
+            <br>
+            <br>
+            <br>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Carrinho</span>
+                </div>
+                {% for i in carrinho.itens.all %}
+                  {{i}}
+                  <br>
+                {% endfor %}
+                  
+              </div>
       <!-- Serviços -->
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
@@ -54,23 +74,23 @@
 
 
       <!-- Peças -->
-            <div class="input-group mb-3">
+            <!-- <div class="input-group mb-3">
                 <div class="input-group-prepend">
                   <span class="input-group-text">Peças</span>
                 </div>
                 {{form_orcamento.pecas}}
-            </div>
+            </div> -->
 
       <br>
 
       <!-- Quantidade -->
       
-            <div class="input-group mb-3">
+            <!-- <div class="input-group mb-3">
               <div class="input-group-prepend">
                 <span class="input-group-text">Quantidade</span>
               </div>
               {{form_orcamento.quantidade_pecas}}
-            </div>
+            </div> -->
 
 
       <br>

@@ -12,7 +12,7 @@
       <div class="card">
         <div class="card-body">
           <h5 class="card-title">Lista de Clientes</h5>
-          {% if ordem.itens.all|length > 0 %}
+          {% if carrinho.itens.all|length > 0 %}
             <p class="card-text">
               Aqui está a lista de <code>Clientes</code> cadastrados.
             </p>
@@ -31,19 +31,19 @@
               </thead>
 
               <tbody>
-              {% for i in ordem.itens.all %}
+              {% for i in carrinho.itens.all %}
                 <tr>
                   <td>{{ i.usuario }}</td>
                   <td>{{ i.material }}</td>
                   <td>{{ i.material.valor }}</td>
                   
-                  <td><a href="{{i.material.get_tirar_orcamento}}"
+                  <td><a href="{{i.material.get_tirar_carrinho}}"
                     class="btn btn-outline-danger">
                       -
                   </a></td>
                   <td>{{ i.quantidade }}</td>
                   <td>
-                    <a href="{{i.material.get_add_orcamento}}"
+                    <a href="{{i.material.get_add_carrinho}}"
                        class="btn btn-info">
                       +
                     </a>
@@ -55,13 +55,13 @@
             </table>
         {% else %}
           <div class="text-center mt-5 mb-5 jumbotron">
-            <h5>Nenhum <code>Cliente</code> cadastrado ainda.</h5>
+            <h5>Nada no carrinho</h5>
           </div>
         {% endif %}
           <hr />
           <div class="text-right">
-            <a href="{% url 'cliente' %}" class="btn btn-primary">
-              Cadastrar cliente
+            <a href="{{carrinho.add_orcamento}}" class="btn btn-primary">
+              Salvar
             </a>
           </div>
         </div>

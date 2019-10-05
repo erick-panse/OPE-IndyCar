@@ -1,8 +1,8 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from django.http import request,HttpResponseRedirect
-from funilaria.forms import ClienteForm,EmpresaForm,OrdemDeServicoForm,MaterialForm
+from funilaria.forms import ClienteForm,EmpresaForm,OrdemDeServicoForm,MaterialForm,OrcamentoForm
 from django.contrib import messages
-from funilaria.models import Cliente,Customer,Empresa,OrdemDeServico,Material,Ordem,OrdemItem
+from funilaria.models import Cliente,Customer,Empresa,OrdemDeServico,Material,Carrinho,ItemCarrinho,Orcamento
 from django.contrib.auth.decorators import login_required
 from datetime import date
 from django.db import IntegrityError
@@ -145,16 +145,18 @@ def deletar_empresa(request,id=None):
     return redirect(empresa)
 
 
-""" @login_required(login_url='/login/')
+@login_required(login_url='/login/')
 def orcamento(request):
     orcamentos = Orcamento.objects.all().order_by('id')
     msg=messages.get_messages(request)
     return render(request,'orcamentos.html',context={'orcamentos':orcamentos,'msg':msg})
 
 @login_required(login_url='/login/')
-def novo_orcamento (request):
+def novo_orcamento (request,id):
     if request.method == 'POST':
         form_orcamento= OrcamentoForm(request.POST or None)
+        if id!=None:
+            form_orcamento.carrinho=Carrinho.objects.filter(id=id).first()
         if form_orcamento.is_valid():
             try:
                 form_orcamento.save()
@@ -163,10 +165,12 @@ def novo_orcamento (request):
             except Exception as e:
                 messages.error(request,e)
         else:
-            return render(request,'formulario_orcamento.html',context={'form_orcamento':form_orcamento})
+            return render(request,'formulario_orcamento.html',context={'form_orcamento':form_orcamento,'carrinho':form_orcamento.carrinho})
     else:
         form_orcamento= OrcamentoForm()
-        return render(request,'formulario_orcamento.html',context={'form_orcamento':form_orcamento})
+        if id!=None:
+            form_orcamento.carrinho=Carrinho.objects.filter(id=id).first()
+        return render(request,'formulario_orcamento.html',context={'form_orcamento':form_orcamento,'carrinho':form_orcamento.carrinho})
 
 @login_required(login_url='/login/')
 def editar_orcamento(request,id=None):
@@ -190,7 +194,7 @@ def deletar_orcamento(request,id=None):
         messages.success(request,'Orçamento deletado com sucesso')
     except Exception as e:
         messages.error(request,'Não foi possível deletar o Orçamento')
-    return redirect(orcamento) """
+    return redirect(orcamento) 
 
 @login_required(login_url='/login/')
 def ordem_de_servico(request):
@@ -298,74 +302,77 @@ def deletar_material(request,id=None):
 
 ##################################################################################################################
 
-def add_no_orcamento(request, id):
+def add_no_carrinho(request, id):
+    print('add')
     item = get_object_or_404(Material, id=id)
-    ordem_item, created = OrdemItem.objects.get_or_create(material=item,usuario=request.user)
-    ordem_qs = Ordem.objects.filter(usuario=request.user)
-    if ordem_qs.exists():
-        order = ordem_qs[0]
-        # verifica se o item ja está na ordem
+    item_carrinho, created = ItemCarrinho.objects.get_or_create(material=item,usuario=request.user)
+    carrinho_qs = Carrinho.objects.filter(usuario=request.user)
+    if carrinho_qs.exists():
+        order = carrinho_qs[0]
+        # verifica se o item ja está no carrinho
         if order.itens.filter(material__id=item.id).exists():
-            ordem_item.quantidade += 1
-            ordem_item.save()
+            item_carrinho.quantidade += 1
+            item_carrinho.save()
             messages.info(request, "Quantidade atualizada +1")
             return redirect("/carrinho")
         else:
-            order.itens.add(ordem_item)
-            messages.info(request, "Material adicionado a ordem")
+            order.itens.add(item_carrinho)
+            messages.info(request, "Material adicionado a carrinho")
             return redirect("/carrinho")
     else:
-        order = Ordem.objects.create(usuario=request.user)
-        order.itens.add(ordem_item)
-        messages.info(request, "Material adicionado a ordem")
+        order = Carrinho.objects.create(usuario=request.user)
+        order.itens.add(item_carrinho)
+        messages.info(request, "Material adicionado a carrinho")
         return redirect("/carrinho")
 
-def remover_do_orcamento(request, id):
+def remover_do_carrinho(request, id):
+    print('out')
     item = get_object_or_404(Material, id=id)
-    ordem_qs = Ordem.objects.filter(usuario=request.user)
-    if ordem_qs.exists():
-        order = ordem_qs[0]
-        # verifica se o item ja está na ordem
+    carrinho_qs = Carrinho.objects.filter(usuario=request.user)
+    if carrinho_qs.exists():
+        order = carrinho_qs[0]
+        # verifica se o item ja está na carrinho
         if order.itens.filter(material__id=item.id).exists():
-            ordem_item = OrdemItem.objects.filter(material=item,usuario=request.user).first()
-            order.itens.remove(ordem_item)
-            messages.info(request, "Material removido da ordem")
+            item_carrinho = ItemCarrinho.objects.filter(material=item,usuario=request.user).first()
+            order.itens.remove(item_carrinho)
+            messages.info(request, "Material removido da carrinho")
             return redirect("/carrinho")
         else:
-            messages.info(request, "Material não faz parte da ordem")
+            messages.info(request, "Material não faz parte da carrinho")
             return redirect("/carrinho")
     else:
-        messages.info(request, "Nenhuma ordem encontrada")
+        messages.info(request, "Nenhuma carrinho encontrada")
         return redirect("/carrinho")
 
-def tirar_do_orcamento(request, id):
+def tirar_do_carrinho(request, id):
+    print('-1')
     item = get_object_or_404(Material, id=id)
-    ordem_qs = Ordem.objects.filter(usuario=request.user)
-    if ordem_qs.exists():
-        order = ordem_qs[0]
-        # verifica se o item ja está na ordem
+    carrinho_qs = Carrinho.objects.filter(usuario=request.user)
+    if carrinho_qs.exists():
+        order = carrinho_qs[0]
+        # verifica se o item ja está na carrinho
         if order.itens.filter(material__id=item.id).exists():
-            ordem_item = OrdemItem.objects.filter(material=item,usuario=request.user).first()
-            if ordem_item.quantidade > 1:
-                ordem_item.quantidade -= 1
-                ordem_item.save()
+            item_carrinho = ItemCarrinho.objects.filter(material=item,usuario=request.user).first()
+            if item_carrinho.quantidade > 1:
+                item_carrinho.quantidade -= 1
+                item_carrinho.save()
                 messages.info(request, "Quantidade atualizada -1")
             else:
                 print('removido')
-                order.itens.remove(ordem_item)
-                messages.info(request, "Material removido da ordem")
+                order.itens.remove(item_carrinho)
+                messages.info(request, "Material removido da carrinho")
             return redirect("/carrinho")
         else:
-            messages.info(request, "Material não faz parte da ordem")
+            messages.info(request, "Material não faz parte da carrinho")
             return redirect("/carrinho")
     else:
-        messages.info(request, "Nenhuma ordem encontrada")
+        messages.info(request, "Nenhuma carrinho encontrada")
         return redirect("/carrinho")
 
 def carrinho(request):
     usuario=request.user
-    ordem = Ordem.objects.filter(usuario=usuario).first()
-    return render(request,'carrinho.html',context={'ordem':ordem})
+    carrinho = Carrinho.objects.filter(usuario=usuario).first()
+    return render(request,'carrinho.html',context={'carrinho':carrinho})
 
 
 ##################################################################################################################

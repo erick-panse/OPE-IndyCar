@@ -134,7 +134,7 @@ class OrdemDeServico(models.Model):
     def data_entrega(self):
         return self.prazo_entrega.strftime("%d/%m/%Y")
 
-class Orcamento(models.Model):
+""" class Orcamento(models.Model):
     ordem_servico = models.ForeignKey(OrdemDeServico,on_delete=models.PROTECT,blank=True,null=True)
     quantidade_pecas = models.PositiveIntegerField(blank=True,null=True)
     pecas = models.TextField(max_length=200)
@@ -152,7 +152,7 @@ class Orcamento(models.Model):
     
     def get_del_orcamento(self):
         return reverse('deletar_orcamento',kwargs={'id':self.id})
-    
+     """
 
 ################################################################################################
 
@@ -160,7 +160,6 @@ class Orcamento(models.Model):
 class Material(models.Model):
     descricao = models.TextField(max_length=200)
     quantidade_estoque = models.IntegerField()
-    #alguns é decimalFiedl
     valor = models.DecimalField(decimal_places=2,max_digits=8)
     slug = models.SlugField(null=True,blank=True)
 
@@ -173,39 +172,68 @@ class Material(models.Model):
     def get_del_material(self):
         return reverse('deletar_material',kwargs={'id':self.id})
 
-    def get_add_orcamento(self):
-        return reverse("add_no_orcamento", kwargs={'id': self.id})
+    def get_add_carrinho(self):
+        return reverse("add_no_carrinho", kwargs={'id': self.id})
 
-    def get_tirar_orcamento(self):
-        return reverse("tirar_do_orcamento", kwargs={'id': self.id})
+    def get_tirar_carrinho(self):
+        return reverse("tirar_do_carrinho", kwargs={'id': self.id})
 
-    def get_remover_orcamento(self):
-        return reverse("remover_do_orcamento", kwargs={'id': self.id})
+    def get_remover_carrinho(self):
+        return reverse("remover_do_carrinho", kwargs={'id': self.id})
 
 
 from django.conf import settings
 
-class OrdemItem(models.Model):
+class ItemCarrinho(models.Model):
     usuario = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
     material = models.ForeignKey(Material,on_delete=models.CASCADE)
     quantidade = models.PositiveIntegerField(default=1)
     selecionado = models.BooleanField(default=False)
 
     def __str__(self):
-        return "USER: "+str(self.usuario)+" ITEM: "+self.material.descricao+" QTD: "+str(self.quantidade)
+        return self.material.descricao+" x"+str(self.quantidade)
     
     @property
     def total(self):
         return self.material.valor*self.quantidade
 
 
-class Ordem(models.Model):
+class Carrinho(models.Model):
     usuario = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
-    itens = models.ManyToManyField(OrdemItem)
+    itens = models.ManyToManyField(ItemCarrinho)
 
     def __str__(self):
-        return str(self.usuario)
+        return str('Carrinho de: '+str(self.usuario))
+
+    def add_orcamento(self):
+        return reverse('orcamento',kwargs={'id':self.id})
 
 
+class Orcamento(models.Model):
+    usuario = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,blank=True,null=True)
+    ordem_servico = models.ForeignKey(OrdemDeServico,on_delete=models.PROTECT,blank=True,null=True)
+    carrinho = models.ForeignKey(Carrinho,on_delete=models.CASCADE,blank=True,null=True)
+    servicos = models.TextField(max_length=500)
+    valor_mao_de_obra = models.FloatField(blank=True,null=True)
+    previsao_entrega = models.DateField(blank=True,null=True)
+    data_saida = models.DateField(blank=True,null=True)
+    total_a_pagar = models.DecimalField(decimal_places=2,max_digits=8)
+
+    @property
+    def total(self):
+        t=0
+        for i in self.carrinho:
+            t+=i.total
+        return total
+
+    def __str__(self):
+        return "valor orçamento | "+str(self.valor_mao_de_obra)
+
+    def get_editar_orcamento(self):
+        return reverse('editar_orcamento',kwargs={'id':self.id})
+    
+    def get_del_orcamento(self):
+        return reverse('deletar_orcamento',kwargs={'id':self.id})
+    
 
 ################################################################################################
