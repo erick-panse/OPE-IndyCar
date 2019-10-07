@@ -152,7 +152,7 @@ class OrcamentoForm(forms.ModelForm):
         fields=['usuario','ordem_servico','carrinho','servicos','valor_mao_de_obra','previsao_entrega','data_saida','total_a_pagar']           
 
 class OrdemDeServicoForm(forms.ModelForm):
-    cliente = forms.ModelChoiceField(queryset=Customer.objects.all().select_subclasses().order_by('id'))
+    cliente = forms.ModelChoiceField(empty_label=" Selecione",queryset=Customer.objects.all().select_subclasses(),widget=forms.Select(attrs={'class':'inputText'}))#.order_by('id'))
     marca_veiculo = forms.CharField(max_length=30,label='Marca:',widget = forms.TextInput(attrs={
         'placeholder':'Informe a marca',
         'name':'marca',
@@ -183,7 +183,7 @@ class OrdemDeServicoForm(forms.ModelForm):
         'class':'inputText',
         'id':'ano',
         'autocomplete': 'off'}))
-    estado_veiculo= forms.ModelChoiceField(queryset=Estado.objects.all().order_by('nome'))
+    estado_veiculo= forms.ModelChoiceField(empty_label=" Selecione",queryset=Estado.objects.all(),widget=forms.Select(attrs={'class':'inputText'}))
     cidade_veiculo = forms.CharField(max_length=30,label='Cidade:',widget = forms.TextInput(attrs={
         'placeholder':'Informe a cidade',
         'name':'cidade',
