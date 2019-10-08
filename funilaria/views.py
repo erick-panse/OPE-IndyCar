@@ -25,7 +25,11 @@ def index (request):
 
 @login_required(login_url='/login/')
 def cliente(request):
-    clientes = Cliente.objects.all().order_by('id')
+    if request.GET.get('cpf')!=None:
+        cpf=request.GET.get('cpf')
+        clientes = Cliente.objects.filter(cpf=cpf)
+    else:
+        clientes = Cliente.objects.all().order_by('id')
     msg=messages.get_messages(request)
     return render(request,'clientes.html',context={'clientes':clientes,'msg':msg})
 
