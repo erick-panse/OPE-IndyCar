@@ -20,14 +20,15 @@ from funilaria.views import *
 from funilaria import views as funilaria_views
 from usuario import views as usuario_views
 from django.contrib.auth import views as auth_views
+from django.conf.urls import url
 
 urlpatterns = [
 
     path('paginainicial/', funilaria_views.pagina_inicial),
-        path('quemsomos/', funilaria_views.quemsomos),
+    path('quemsomos/', funilaria_views.quemsomos),
     path('index/', funilaria_views.index),
     path('admin/', admin.site.urls),
-    path('clientes/',cliente,name='cliente'),
+    url(r'clientes/',cliente,name='cliente'),
    
     path('',funilaria_views.pagina_inicial),
     re_path(r'cliente/(?P<id>\d+)/$',funilaria_views.editar_cliente, name='editar_cliente'),
