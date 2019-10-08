@@ -20,6 +20,8 @@ from funilaria.views import *
 from funilaria import views as funilaria_views
 from usuario import views as usuario_views
 from django.contrib.auth import views as auth_views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
 
@@ -66,7 +68,10 @@ urlpatterns = [
     re_path(r'orcamento/c/(?P<id>\d+)/$', funilaria_views.novo_orcamento, name='orcamento'),
     re_path(r'orcamento/(?P<id>\d+)/$',funilaria_views.editar_orcamento, name='editar_orcamento'),
     re_path(r'orcamento/deletar/(?P<id>\d+)/$',funilaria_views.deletar_orcamento, name='deletar_orcamento'),
-]
+] 
+
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 """ path('orcamentos/',funilaria_views.orcamento,name='orcamento'),
     path('orcamento/', funilaria_views.novo_orcamento, name='orcamento'),

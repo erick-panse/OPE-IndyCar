@@ -56,7 +56,7 @@ ROOT_URLCONF = 'IndyCar.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join('funilaria','templates'),os.path.join('funilaria','widgets')],
+        'DIRS': [os.path.join('funilaria','templates'),os.path.join('funilaria','widgets'),os.path.join('usuario','templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -123,9 +123,14 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'funilaria/static/pagina-inicial/img/')
+
+MEDIA_URL = '/img/'
+
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'funilaria/static/'),
     os.path.join(BASE_DIR, 'usuario/static/'),
+    os.path.join(BASE_DIR, 'funilaria/static/pagina-inicial/img/'),
 ]
 #cliente é o nome do path q redireciona pra lista de clientes
 LOGIN_REDIRECT_URL = 'cliente'

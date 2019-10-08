@@ -1,0 +1,202 @@
+/* html {
+    background: #e3e3e3; 
+    height: 100%;
+}
+body {
+  background: #fff; 
+  border: 2px solid e3e3e3;
+  box-sizing: border-box;
+  font-family: "Verdana";
+  height: 100%;
+  margin: 0 auto; 
+  padding: 8px;
+  width: 100%; 
+} */
+
+
+/* Responsividade*/
+body { padding: 15px; background:#eee; font-family: Arial, 
+  Helvetica, sans-serif }
+   
+  .caixa {
+      border: solid 1px #666; 
+      padding: 5px 10px;
+      margin: 40px;
+  }
+   
+  .area-visivel span {
+      color: #666;
+      display: none;
+  }
+   
+  /* max-width  */
+  @media screen and (max-width: 600px) {
+      .um {
+          background: #F9C;
+      }
+      span.lt600 {
+          display: inline-block;
+      }
+      .inputText{
+        width: 200px;
+      
+      }
+      
+      .input-group{
+        width: 200px;
+      
+      }
+      
+      .input-group-text{
+          width: 200px;
+
+    }
+      table, thead, tbody, th, td, tr { 
+		display: block; 
+    }
+    
+	
+	/* Hide table headers (but not display: none;, for accessibility) */
+	thead tr { 
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+	
+	tr { border: 1px solid #ccc; }
+	
+	td { 
+		/* Behave  like a "row" */
+		border: none;
+		border-bottom: 1px solid #eee; 
+		position: relative;
+        padding-left: 50%; 
+	}
+	
+	td:before { 
+		/* Now like a table header */
+		position: absolute;
+		/* Top/left values mimic padding */
+		top: 6px;
+		left: 6px;
+		width: 45%; 
+		padding-right: 10px; 
+		white-space: nowrap;
+    }
+    td:nth-of-type(1):before { content: "ID"; font-weight: bold;}
+	td:nth-of-type(2):before { content: "Nome"; font-weight: bold;}
+    td:nth-of-type(3):before { content: "CPF"; font-weight: bold;}
+  }
+  
+ 
+
+   
+  /* min-width */
+  @media screen and (min-width: 900px) {
+      .dois {
+          background: #F90;
+      }
+      span.gt900 {
+          display: inline-block;
+      }
+      .inputText{
+        width: 300px;
+      
+      }
+      
+      .input-group{
+        width: 300px;
+      
+      }
+      
+      .input-group-text{
+          width: 300px;
+      }
+
+      
+
+  }
+   
+  /* min-width & max-width */
+  @media screen and (min-width: 600px) and (max-width: 900px) {
+      .tres {
+          background: #9CF;
+      }
+      span.bt600-900 {
+          display: inline-block;
+          
+      }
+      .inputText{
+        width: 300px;
+      
+      }
+      
+      .input-group{
+        width: 300px;
+      
+      }
+      
+      .input-group-text{
+          width: 300px;
+      }
+
+  }
+   
+  /* max device width */
+  @media screen and (max-device-width: 480px) {
+      .iphone {
+          background: #ccc;
+      }
+  }
+/* Estilo para formulários
+.inputText{
+  width: 300px;
+
+}
+
+.input-group{
+  width: 300px;
+
+}
+
+.input-group-text{
+    width: 300px;
+}*/
+
+/*Fomulário Ordem de Serviço*/
+
+
+.dropdown-menu a:hover,
+.dropdown-menu a:focus{
+
+  background-color: #5bc0de;
+  color: white;
+  display: block; 
+ 
+}
+
+.dropdown:hover>.dropdown-menu {
+  display: block;
+}
+
+#perfil {
+	position: absolute;
+	top:50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	width:450px;
+	height: 450px;
+	box-sizing: border-box;
+	background:white;
+	padding: 40px; 
+}
+
+#negrito {
+  font-weight: bold;
+}
+
+.date{
+  width: 300px;
+}
+
+
