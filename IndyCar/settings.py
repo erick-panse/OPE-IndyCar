@@ -25,7 +25,7 @@ SECRET_KEY = '*%&u4d1!240(vst8xrcuzw#bbeldgn2=_n6z3jl655teh@^ss#'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['ph98.pythonanywhere.com','127.0.0.1']
+ALLOWED_HOSTS = ['ph98.pythonanywhere.com','127.0.0.1','indycar.pythonanywhere.com']
 
 
 # Application definition
