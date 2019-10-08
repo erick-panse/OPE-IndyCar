@@ -20,12 +20,9 @@ from funilaria.views import *
 from funilaria import views as funilaria_views
 from usuario import views as usuario_views
 from django.contrib.auth import views as auth_views
-<<<<<<< HEAD
 from django.conf import settings
 from django.conf.urls.static import static
-=======
 from django.conf.urls import url
->>>>>>> df8067de95372fcbdc4e5050fe5fd2e80e9ebbdd
 
 urlpatterns = [
 
