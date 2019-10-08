@@ -111,14 +111,14 @@ class OrcamentoForm(forms.ModelForm):
         'name':'servicos',
         'id':'servicos'}))
     carrinho = forms.ModelChoiceField(queryset=Carrinho.objects.all().order_by('id'))
-    valor_mao_de_obra = forms.FloatField(label='valor da mão de obra:',widget = forms.TextInput(attrs={
+    """ valor_mao_de_obra = forms.DecimalField(label='valor da mão de obra:',widget = forms.TextInput(attrs={
         'placeholder':'Informe o valor da mão de obra',
         'name':'valor_mao_de_obra',
-        'id':'valor_mao_de_obra'}))
-    total_a_pagar = forms.DecimalField(label='Total a pagar:',widget = forms.TextInput(attrs={
+        'id':'valor_mao_de_obra'})) """
+    """ total_a_pagar = forms.DecimalField(label='Total a pagar:',widget = forms.TextInput(attrs={
         'readonly':'Total a pagar',
         'name':'total_a_pagar',
-        'id':'total_a_pagar'}))
+        'id':'total_a_pagar'})) """
     previsao_entrega = forms.DateField(label='Previsão entrega:',widget = forms.DateInput(attrs={
         'placeholder':'Informe a previsão entrega',
         'name':'previsao_entrega',
@@ -130,6 +130,7 @@ class OrcamentoForm(forms.ModelForm):
     
     def clean(self):
         dados=self.cleaned_data
+        ordem_de_servico=dados.get('ordem_de_servico')
         servicos=dados.get('servicos')
         valor_mao_de_obra=dados.get('valor_mao_de_obra')
         total_a_pagar=dados.get('total_a_pagar')
@@ -140,16 +141,22 @@ class OrcamentoForm(forms.ModelForm):
         if not somenteLetras(servicos):
             raise forms.ValidationError('Serviços inválidos !')
 
-        if not somenteNumeros(valor_mao_de_obra):
-            raise forms.ValidationError('Valor mão de obra inválido !')
+        """ if not somenteNumeros(valor_mao_de_obra):
+            raise forms.ValidationError('Valor mão de obra inválido !') """
 
-        if not somenteNumeros(total_a_pagar):
-            raise forms.ValidationError('Total a pagar inválido !')
+        """ if not somenteNumeros(total_a_pagar):
+            raise forms.ValidationError('Total a pagar inválido !') """
+    
+        if not validarData(previsao_entrega):
+            raise forms.ValidationError('Data de previsao_entrega inválida !')
+
+        if not validarData(data_saida):
+            raise forms.ValidationError('Data de data_saida inválida !')
         
     
     class Meta:
         model = Orcamento
-        fields=['usuario','ordem_servico','carrinho','servicos','valor_mao_de_obra','previsao_entrega','data_saida','total_a_pagar']           
+        fields=['usuario','ordem_servico','carrinho','servicos','valor_mao_de_obra','previsao_entrega','data_saida']           
 
 class OrdemDeServicoForm(forms.ModelForm):
     cliente = forms.ModelChoiceField(empty_label=" Selecione",queryset=Customer.objects.all().select_subclasses(),widget=forms.Select(attrs={'class':'inputText'}))#.order_by('id'))

@@ -216,20 +216,20 @@ class Orcamento(models.Model):
     ordem_servico = models.ForeignKey(OrdemDeServico,on_delete=models.PROTECT,blank=True,null=True)
     carrinho = models.ForeignKey(Carrinho,on_delete=models.CASCADE,blank=True,null=True)
     servicos = models.TextField(max_length=500)
-    valor_mao_de_obra = models.FloatField(blank=True,null=True)
+    valor_mao_de_obra = models.DecimalField(decimal_places=2,max_digits=8,default=0)
     previsao_entrega = models.DateField(blank=True,null=True)
     data_saida = models.DateField(blank=True,null=True)
-    total_a_pagar = models.DecimalField(decimal_places=2,max_digits=8)
+    total_a_pagar = models.DecimalField(decimal_places=2,max_digits=8,blank=True,null=True,default=0)
 
     @property
     def total(self):
         t=0
-        for i in self.carrinho:
+        for i in self.carrinho.itens.all():
             t+=i.total
-        return total
+        return t+self.valor_mao_de_obra
 
     def __str__(self):
-        return "valor orçamento | "+str(self.valor_mao_de_obra)
+        return "valor orçamento | R$: "+str(self.total)
 
     def get_editar_orcamento(self):
         return reverse('editar_orcamento',kwargs={'id':self.id})

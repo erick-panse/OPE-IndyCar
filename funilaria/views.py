@@ -156,7 +156,7 @@ def orcamento(request):
     return render(request,'orcamentos.html',context={'orcamentos':orcamentos,'msg':msg})
 
 @login_required(login_url='/login/')
-def novo_orcamento (request,id):
+def novo_orcamento (request,id=None):
     if request.method == 'POST':
         form_orcamento= OrcamentoForm(request.POST or None)
         if id!=None:
@@ -169,6 +169,7 @@ def novo_orcamento (request,id):
             except Exception as e:
                 messages.error(request,e)
         else:
+            print(form_orcamento.errors)
             return render(request,'formulario_orcamento.html',context={'form_orcamento':form_orcamento,'carrinho':form_orcamento.carrinho})
     else:
         form_orcamento= OrcamentoForm()
@@ -305,6 +306,10 @@ def deletar_material(request,id=None):
 
 
 ##################################################################################################################
+def carrinho(request):
+    usuario=request.user
+    carrinho = Carrinho.objects.filter(usuario=usuario).first()
+    return render(request,'carrinho.html',context={'carrinho':carrinho})
 
 def add_no_carrinho(request, id):
     print('add')
@@ -318,16 +323,16 @@ def add_no_carrinho(request, id):
             item_carrinho.quantidade += 1
             item_carrinho.save()
             messages.info(request, "Quantidade atualizada +1")
-            return redirect("/carrinho")
+            return redirect(carrinho)
         else:
             order.itens.add(item_carrinho)
             messages.info(request, "Material adicionado a carrinho")
-            return redirect("/carrinho")
+            return redirect(carrinho)
     else:
         order = Carrinho.objects.create(usuario=request.user)
         order.itens.add(item_carrinho)
         messages.info(request, "Material adicionado a carrinho")
-        return redirect("/carrinho")
+        return redirect(carrinho)
 
 def remover_do_carrinho(request, id):
     print('out')
@@ -340,13 +345,13 @@ def remover_do_carrinho(request, id):
             item_carrinho = ItemCarrinho.objects.filter(material=item,usuario=request.user).first()
             order.itens.remove(item_carrinho)
             messages.info(request, "Material removido da carrinho")
-            return redirect("/carrinho")
+            return redirect(carrinho)
         else:
             messages.info(request, "Material não faz parte da carrinho")
-            return redirect("/carrinho")
+            return redirect(carrinho)
     else:
         messages.info(request, "Nenhuma carrinho encontrada")
-        return redirect("/carrinho")
+        return redirect(carrinho)
 
 def tirar_do_carrinho(request, id):
     print('-1')
@@ -365,18 +370,15 @@ def tirar_do_carrinho(request, id):
                 print('removido')
                 order.itens.remove(item_carrinho)
                 messages.info(request, "Material removido da carrinho")
-            return redirect("/carrinho")
+            return redirect(carrinho)
         else:
             messages.info(request, "Material não faz parte da carrinho")
-            return redirect("/carrinho")
+            return redirect(carrinho)
     else:
         messages.info(request, "Nenhuma carrinho encontrada")
-        return redirect("/carrinho")
+        return redirect(carrinho)
 
-def carrinho(request):
-    usuario=request.user
-    carrinho = Carrinho.objects.filter(usuario=usuario).first()
-    return render(request,'carrinho.html',context={'carrinho':carrinho})
+
 
 
 ##################################################################################################################
