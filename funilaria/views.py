@@ -25,12 +25,12 @@ def index (request):
 
 @login_required(login_url='/login/')
 def cliente(request):
-    if request.GET.get('cpf')!=None:
-        cpf=request.GET.get('cpf')
-        clientes = Cliente.objects.filter(cpf=cpf)
-    else:
-        clientes = Cliente.objects.all().order_by('id')
     msg=messages.get_messages(request)
+    if request.POST.get('cpf')!=None:
+        cpf=request.POST.get('cpf')
+        clientes = Cliente.objects.filter(cpf=cpf)
+        return render(request,'busca_clientes.html',context={'clientes':clientes,'msg':msg})
+    clientes = Cliente.objects.all().order_by('id')
     return render(request,'clientes.html',context={'clientes':clientes,'msg':msg})
 
 @login_required(login_url='/login/')

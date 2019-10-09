@@ -11,16 +11,11 @@
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">Lista de Clientes</h5>
+          <h5 class="card-title">Busca de Clientes</h5>
           {% if clientes|length > 0 %}
             <p class="card-text">
-              Aqui está a lista de <code>Clientes</code> cadastrados.
+              Aqui está a lista de <code>Clientes</code> encontrados.
             </p>
-            <form method="POST" action="/clientes/busca/">
-              {% csrf_token %}
-              <input type="text" name="cpf" id="busca_cliente" placeholder="Informe o cpf para buscar um cliente" required autocomplete="off">
-              <input type="submit" value="Pesquisar">
-            </form>
             <table class="table">
               <thead class="thead-dark">
               <tr>
@@ -37,29 +32,20 @@
                   <td><br>{{ i.id }}</td>
                   <td><br>{{ i.nome }}</td>
                   <td><br>{{ i.cpf }}</td>
-                  <td>
-                    <a href="{{i.get_editar_cliente}}"
-                       class="btn btn-info">
-                      Atualizar
-                    </a>
-                    <a href="{{i.get_del_cliente}}"
-                      class="btn btn-outline-danger" onclick="confirmarAcao()">
-                        Excluir
-                    </a>
-                  </td>
                 </tr>
               {% endfor %}
               </tbody>
             </table>
         {% else %}
           <div class="text-center mt-5 mb-5 jumbotron">
-            <h5>Nenhum <code>Cliente</code> cadastrado ainda.</h5>
+            <h5>Nenhum resultado.</h5>
           </div>
         {% endif %}
           <hr />
           <div class="text-right">
-            <a href="{% url 'cliente' %}" class="btn btn-primary">
-              Cadastrar cliente
+            <a href="/clientes/"
+                class="btn btn-info">
+              Voltar
             </a>
           </div>
         </div>

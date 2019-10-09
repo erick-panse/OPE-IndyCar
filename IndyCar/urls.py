@@ -30,7 +30,8 @@ urlpatterns = [
     path('quemsomos/', funilaria_views.quemsomos),
     path('index/', funilaria_views.index),
     path('admin/', admin.site.urls),
-    url(r'clientes/',cliente,name='cliente'),
+    path('clientes/',cliente,name='cliente'),
+    url(r'clientes/busca/',cliente,name='busca_cliente'),
    
     path('',funilaria_views.pagina_inicial),
     re_path(r'cliente/(?P<id>\d+)/$',funilaria_views.editar_cliente, name='editar_cliente'),
