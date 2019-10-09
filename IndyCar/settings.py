@@ -135,10 +135,12 @@ STATICFILES_DIRS = [
 #cliente é o nome do path q redireciona pra lista de clientes
 LOGIN_REDIRECT_URL = 'cliente'
 
-EMAIL_HOST='smtp.hushmail.com'
-EMAIL_PORT=587
-EMAIL_USER='tstmail92'
-EMAIL_HOST_PASSWORD='mailtst2019'
-EMAIL_USE_TSL=True
-EMAIL_USE_SSL=False
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'tstmail92@gmail.com'
+SERVER_EMAIL = 'tstmail92@gmail.com'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'tstmail92@gmail.com'
+EMAIL_HOST_PASSWORD = 'mailtst2019'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 

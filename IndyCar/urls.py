@@ -72,7 +72,7 @@ urlpatterns = [
     re_path(r'orcamento/(?P<id>\d+)/$',funilaria_views.editar_orcamento, name='editar_orcamento'),
     re_path(r'orcamento/deletar/(?P<id>\d+)/$',funilaria_views.deletar_orcamento, name='deletar_orcamento'),
 
-    path('login/recuperacaodesenha/)',usuario_views.senha, name='senha')
+    path('login/recuperacaodesenha/',usuario_views.senha, name='senha'),
 ] 
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

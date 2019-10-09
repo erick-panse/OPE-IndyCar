@@ -90,8 +90,9 @@ def logout_user(request):
     logout(request)
     return redirect('/')
 
-def senha(request,email):
+def senha(request):
     email=request.POST.get('email')
-    send_mail("rola",'OLA','PAU NO SEU CU',['tstmail92'],[email])
-    return redirect(request,'recuperacao_de_senha.html')
+    print(email)
+    send_mail('teste','testando','tstmail92@gmail.com',[email])
+    return render(request,'alterarsenha.html')
 
