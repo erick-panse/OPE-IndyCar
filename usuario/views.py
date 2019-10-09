@@ -1,12 +1,22 @@
 from django.shortcuts import render,redirect
 from django.contrib import messages
 #UserCreationForm e EditProfileForm customizados 
-from .forms import UsuarioForm,EditarUsuarioForm
+from .forms import UsuarioForm,EditarUsuarioForm,AlterarSenhaForm,AtribuirNovaSenhaForm
 from django.contrib.auth.forms import PasswordChangeForm
 from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth import authenticate, login, logout,update_session_auth_hash
 from django.contrib.auth.decorators import login_required
+#email
 from django.core.mail import send_mail
+from django.contrib.auth.models import User
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.contrib.auth.tokens import default_token_generator
+from django.utils.encoding import force_bytes
+from django.conf import settings
+from django.template import loader
+from django.contrib.auth import get_user_model
+#email
+
 
 # Create your views here.
 def pagina_inicial(request):
@@ -91,8 +101,64 @@ def logout_user(request):
     return redirect('/')
 
 def senha(request):
-    email=request.POST.get('email')
-    print(email)
-    send_mail('teste','testando','tstmail92@gmail.com',[email])
-    return render(request,'alterarsenha.html')
+    if request.POST:
+        form = AlterarSenhaForm(request.POST)
+        if form.is_valid():
+            data= form.cleaned_data["email"]
+            usuarios = User.objects.filter(email=data)
+            for user in usuarios:
+                c = {
+                    'email': user.email,
+                    'domain': request.META['HTTP_HOST'],
+                    'site_name': 'indycar.pythonanywhere.com',
+                    'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                    'user': user,
+                    'token': default_token_generator.make_token(user),
+                    'protocol': 'http',
+                    }
+                subject_template_name='registration/password_reset_subject.txt'
+                # copied from django/contrib/admin/templates/registration/password_reset_subject.txt to templates directory
+                email_template_name='registration/password_reset_email.html'
+                # copied from django/contrib/admin/templates/registration/password_reset_email.html to templates directory
+                subject = loader.render_to_string(subject_template_name, c)
+                # Email subject *must not* contain newlines
+                subject = ''.join(subject.splitlines())
+                email = loader.render_to_string(email_template_name, c)
+                send_mail(subject, email, 'tstmail92@gmail.com' , [user.email], fail_silently=False)
+            messages.success(request, 'Um email foi enviado para ' + data +". Por favor acesse seu inbox para continuar o processo de redefinição de senha.")
+            return redirect('/login/')
+    else:
+        form = AlterarSenhaForm()
+    return render(request,'alterarsenha.html',context={'form':form})
 
+def atribuir_nova_senha(request,uidb64=None, token=None):
+    """
+    View that checks the hash in a password reset link and presents a
+    form for entering a new password.
+    """
+    if request.POST:
+        UserModel = get_user_model()
+        form = AtribuirNovaSenhaForm(request.POST)
+        assert uidb64 is not None and token is not None  # verificação feita pelo URLconf pra ver se o link e token são válidos
+        try:
+            uid = urlsafe_base64_decode(uidb64)
+            user = UserModel._default_manager.get(pk=uid)
+        except (TypeError, ValueError, OverflowError, UserModel.DoesNotExist):
+            user = None
+
+        if user is not None and default_token_generator.check_token(user, token):
+            if form.is_valid():
+                new_password= form.cleaned_data['new_password2']
+                user.set_password(new_password)
+                user.save()
+                messages.success(request, 'Senha alterada com sucesso')
+                return render(request,'nova-senha.html',context={'form':form}) 
+            else:
+                messages.error(request, 'Não foi possível alterar a senha.')
+                return render(request,'nova-senha.html',context={'form':form}) 
+        else:
+            messages.error(request,'Este link não é mais válido')
+            return redirect('/login/')
+    else:
+        form = AtribuirNovaSenhaForm()
+        return render(request,'nova-senha.html',context={'form':form}) 
