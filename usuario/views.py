@@ -6,6 +6,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth import authenticate, login, logout,update_session_auth_hash
 from django.contrib.auth.decorators import login_required
+from django.core.mail import send_mail
 
 # Create your views here.
 def pagina_inicial(request):
@@ -88,3 +89,9 @@ def submit_login(request):
 def logout_user(request):
     logout(request)
     return redirect('/')
+
+def senha(request,email):
+    email=request.POST.get('email')
+    send_mail("rola",'OLA','PAU NO SEU CU',['tstmail92'],[email])
+    return redirect(request,'recuperacao_de_senha.html')
+

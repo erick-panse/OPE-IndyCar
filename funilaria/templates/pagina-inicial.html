@@ -66,10 +66,13 @@
                 <p> Para ter acesso a seu status de veiculo por favor digite seu CPF: </p>
               </p>
 
-              <form>
+
                 <div class="form-group">
-                  <label for="Nome">Status de Serviço:</label>
-                  <input type="text" class="form-control"   id="cpf" aria-describedby="Nome Completo" placeholder="Digite seu CPF:">
+                  <form method="POST" action="ordensdeservico/busca/">
+                    {% csrf_token %}
+                    <input type="text" name="cpf" id="busca_ordem" placeholder="Informe seu cpf" required autocomplete="off">
+                    <button type="submit" class="btn btn-danger">Enviar</button>
+                  </form>
                 </div>
                 <!-- <div class="form-group">
                   <label for="Email1">Email:</label>
@@ -79,8 +82,8 @@
                   <label for="Numero">Seu Numero:</label>
                   <input type="phone" class="form-control" id="exampleInputPassword1" placeholder="Seu Numero">
                 </div> -->
-                <button type="submit" class="btn btn-danger">Enviar</button>
-              </form>
+                
+
               <br>
               <br>
               <br>

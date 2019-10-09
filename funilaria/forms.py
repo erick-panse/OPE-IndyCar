@@ -159,7 +159,7 @@ class OrcamentoForm(forms.ModelForm):
         fields=['usuario','ordem_servico','carrinho','servicos','valor_mao_de_obra','previsao_entrega','data_saida']           
 
 class OrdemDeServicoForm(forms.ModelForm):
-    cliente = forms.ModelChoiceField(empty_label=" Selecione",queryset=Customer.objects.all().select_subclasses(),widget=forms.Select(attrs={'class':'inputText'}))#.order_by('id'))
+    cliente = forms.ModelChoiceField(empty_label=" Selecione",queryset=Customer.objects.all().select_subclasses(Cliente,Empresa),widget=forms.Select(attrs={'class':'inputText'}))#.order_by('id'))
     marca_veiculo = forms.CharField(max_length=30,label='Marca:',widget = forms.TextInput(attrs={
         'placeholder':'Informe a marca',
         'name':'marca',

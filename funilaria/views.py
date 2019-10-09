@@ -28,7 +28,7 @@ def cliente(request):
     msg=messages.get_messages(request)
     if request.POST.get('cpf')!=None:
         cpf=request.POST.get('cpf')
-        clientes = Cliente.objects.filter(cpf=cpf)
+        clientes = Cliente.objects.filter(cpf=cpf).order_by('id')
         return render(request,'busca_clientes.html',context={'clientes':clientes,'msg':msg})
     clientes = Cliente.objects.all().order_by('id')
     return render(request,'clientes.html',context={'clientes':clientes,'msg':msg})
@@ -303,6 +303,17 @@ def deletar_material(request,id=None):
     except Exception as e:
         messages.error(request,'Não foi possível deletar o material')
     return redirect(material)
+
+def status_ordem(request):
+    msg=messages.get_messages(request)
+    cpf=request.POST.get('cpf') or None
+    #pelo jeito colocar Empresa exclui as empresas
+    clientes = Cliente.objects.filter(cpf=cpf).order_by('id')
+    print(clientes[0])
+    print(OrdemDeServico.objects.all()[0].cliente)
+    print(clientes[0]==OrdemDeServico.objects.all()[0].cliente)
+    ordens=[]
+    return render(request,'busca_ordens.html',context={'ordens':ordens,'msg':msg})
 
 
 ##################################################################################################################

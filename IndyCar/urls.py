@@ -47,6 +47,7 @@ urlpatterns = [
     path('ordemdeservico/', funilaria_views.nova_os, name='ordemdeservico'),
     re_path(r'ordemdeservico/(?P<id>\d+)/$',funilaria_views.editar_os, name='editar_ordem'),
     re_path(r'ordemdeservico/deletar/(?P<id>\d+)/$',funilaria_views.deletar_os, name='deletar_ordem'),
+    url(r'ordensdeservico/busca/',status_ordem,name='busca_ordem'),
 
     path('materiais/',funilaria_views.material,name='material'),
     path('material/', funilaria_views.novo_material, name='material'),
@@ -70,6 +71,8 @@ urlpatterns = [
     re_path(r'orcamento/c/(?P<id>\d+)/$', funilaria_views.novo_orcamento, name='orcamento'),
     re_path(r'orcamento/(?P<id>\d+)/$',funilaria_views.editar_orcamento, name='editar_orcamento'),
     re_path(r'orcamento/deletar/(?P<id>\d+)/$',funilaria_views.deletar_orcamento, name='deletar_orcamento'),
+
+    path('login/recuperacaodesenha/)',usuario_views.senha, name='senha')
 ] 
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
