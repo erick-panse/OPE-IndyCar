@@ -41,12 +41,16 @@ def novo_usuario(request):
             messages.success(request,'Usuário cadastrado com sucesso')
             return redirect(perfil_usuario)
         else:
-            messages.error(request,'Não foi possível cadastrar o usuário')
+            if form.non_field_errors():
+                for i in form.non_field_errors():
+                    messages.error(request,i)
+                return render(request,'novo-usuario.html',context={'form':form})
+            messages.error(request,'Senha inválida')
             return render(request,'novo-usuario.html',context={'form':form})
     else:
         form = UsuarioForm()
-    return render(request,'novo-usuario.html',context={'form':form})
-
+        return render(request,'novo-usuario.html',context={'form':form})
+    
 @login_required(login_url='/login/')
 def editar_usuario(request):
     if request.method == 'POST':
@@ -56,8 +60,9 @@ def editar_usuario(request):
             messages.success(request,'Usuário editado com sucesso')
             return redirect(perfil_usuario)
         else:
-             messages.error(request,'Não foi possível atualizar os dados do usuário')
-             return render(request,'formusuario.html',context={'form':form})
+            for i in form.non_field_errors():
+                messages.error(request,i)
+            return render(request,'formusuario.html',context={'form':form})
     else:
         form = EditarUsuarioForm(instance=request.user)
     return render(request,'formusuario.html',context={'form':form})

@@ -13,6 +13,8 @@ class UsuarioForm(UserCreationForm):
         first_name=dados.get('first_name')
         last_name=dados.get('last_name')
         email=dados.get('email')
+        password1=dados.get('password1')
+        password2=dados.get('password2')
 
         if not somenteEmail(username):
             raise forms.ValidationError('nome de usuário inválido !')
