@@ -148,59 +148,6 @@ def deletar_empresa(request,id=None):
         messages.error(request,'Não foi possível deletar a empresa')
     return redirect(empresa)
 
-
-@login_required(login_url='/login/')
-def orcamento(request):
-    orcamentos = Orcamento.objects.all().order_by('id')
-    msg=messages.get_messages(request)
-    return render(request,'orcamentos.html',context={'orcamentos':orcamentos,'msg':msg})
-
-@login_required(login_url='/login/')
-def novo_orcamento (request,id=None):
-    if request.method == 'POST':
-        form_orcamento= OrcamentoForm(request.POST or None)
-        if id!=None:
-            form_orcamento.carrinho=Carrinho.objects.filter(id=id).first()
-        if form_orcamento.is_valid():
-            try:
-                form_orcamento.save()
-                messages.success(request,'Orçamento cadastrado com sucesso')
-                return redirect(orcamento)
-            except Exception as e:
-                messages.error(request,e)
-        else:
-            print(form_orcamento.errors)
-            return render(request,'formulario_orcamento.html',context={'form_orcamento':form_orcamento,'carrinho':form_orcamento.carrinho})
-    else:
-        form_orcamento= OrcamentoForm()
-        if id!=None:
-            form_orcamento.carrinho=Carrinho.objects.filter(id=id).first()
-        return render(request,'formulario_orcamento.html',context={'form_orcamento':form_orcamento,'carrinho':form_orcamento.carrinho})
-
-@login_required(login_url='/login/')
-def editar_orcamento(request,id=None):
-    instance = get_object_or_404(Orcamento,id=id)
-    form_orcamento= OrcamentoForm(request.POST or None, instance= instance)
-    if form_orcamento.is_valid():
-        try:
-            instance=form_orcamento.save()
-            instance.save()
-            messages.success(request,'Orçamento atualizado com sucesso')
-            return redirect(orcamento)
-        except Exception as e:
-            messages.error(request,e)
-    return render(request,'formulario_orcamento.html',context={'form_orcamento':form_orcamento,'instance':instance})
-
-@login_required(login_url='/login/')
-def deletar_orcamento(request,id=None):
-    instance = get_object_or_404(Orcamento,id=id)
-    try:
-        instance.delete()
-        messages.success(request,'Orçamento deletado com sucesso')
-    except Exception as e:
-        messages.error(request,'Não foi possível deletar o Orçamento')
-    return redirect(orcamento) 
-
 @login_required(login_url='/login/')
 def ordem_de_servico(request):
     ordens = OrdemDeServico.objects.all().order_by('id')
@@ -319,14 +266,14 @@ def status_ordem(request):
 ##################################################################################################################
 def carrinho(request):
     usuario=request.user
-    carrinho = Carrinho.objects.filter(usuario=usuario).first()
+    carrinho = Carrinho.objects.get(usuario=usuario, finalizado=False)
     return render(request,'carrinho.html',context={'carrinho':carrinho})
 
 def add_no_carrinho(request, id):
     print('add')
     item = get_object_or_404(Material, id=id)
     item_carrinho, created = ItemCarrinho.objects.get_or_create(material=item,usuario=request.user)
-    carrinho_qs = Carrinho.objects.filter(usuario=request.user)
+    carrinho_qs = Carrinho.objects.filter(usuario=request.user,finalizado=False)
     if carrinho_qs.exists():
         order = carrinho_qs[0]
         # verifica se o item ja está no carrinho
@@ -348,7 +295,7 @@ def add_no_carrinho(request, id):
 def remover_do_carrinho(request, id):
     print('out')
     item = get_object_or_404(Material, id=id)
-    carrinho_qs = Carrinho.objects.filter(usuario=request.user)
+    carrinho_qs = Carrinho.objects.filter(usuario=request.user,finalizado=False)
     if carrinho_qs.exists():
         order = carrinho_qs[0]
         # verifica se o item ja está na carrinho
@@ -367,7 +314,7 @@ def remover_do_carrinho(request, id):
 def tirar_do_carrinho(request, id):
     print('-1')
     item = get_object_or_404(Material, id=id)
-    carrinho_qs = Carrinho.objects.filter(usuario=request.user)
+    carrinho_qs = Carrinho.objects.filter(usuario=request.user,finalizado=False)
     if carrinho_qs.exists():
         order = carrinho_qs[0]
         # verifica se o item ja está na carrinho
@@ -389,7 +336,74 @@ def tirar_do_carrinho(request, id):
         messages.info(request, "Nenhuma carrinho encontrada")
         return redirect(carrinho)
 
+@login_required(login_url='/login/')
+def orcamento(request):
+    orcamentos = Orcamento.objects.all().order_by('id')
+    msg=messages.get_messages(request)
+    return render(request,'orcamentos.html',context={'orcamentos':orcamentos,'msg':msg})
 
+@login_required(login_url='/login/')
+def novo_orcamento(request):
+    try:
+        carrinho = Carrinho.objects.get(usuario=request.user,finalizado=False)
+        if request.method == 'POST':
+            print('POST')
+            form_orcamento= OrcamentoForm(request.POST)
+            form_orcamento.save(commit=False)
+            form_orcamento.carrinho=carrinho
+            form_orcamento.usuario=request.user
+            print(form_orcamento.carrinho)
+            print(form_orcamento.usuario)
+            print(form_orcamento.is_valid())
+            if form_orcamento.is_valid():
+                try:
+                    carrinho.finalizado=True
+                    form_orcamento.finalizado=True
+                    carrinho.save()
+                    form_orcamento.save()
+                    messages.success(request,'Orçamento cadastrado com sucesso')
+                    return redirect(orcamento)
+                except Exception as e:
+                    print(e)
+                    messages.error(request,e)
+            else:
+                print(form_orcamento.errors)
+                print(form_orcamento.non_field_errors)
+                return render(request,'formulario_orcamento.html',context={'form_orcamento':form_orcamento,'carrinho':carrinho})
+        else:
+            form_orcamento= OrcamentoForm()
+            form_orcamento.save(commit=False)
+            form_orcamento.carrinho=carrinho
+            form_orcamento.usuario=request.user
 
+            print('GET')
+        return render(request,'formulario_orcamento.html',context={'form_orcamento':form_orcamento,'carrinho':carrinho})
+    except:
+        messages.error(request,'Carrinho não existe')
+        return redirect(orcamento)
+    
 
+@login_required(login_url='/login/')
+def editar_orcamento(request,id=None):
+    instance = get_object_or_404(Orcamento,id=id)
+    form_orcamento= OrcamentoForm(request.POST or None, instance= instance)
+    if form_orcamento.is_valid():
+        try:
+            instance=form_orcamento.save()
+            instance.save()
+            messages.success(request,'Orçamento atualizado com sucesso')
+            return redirect(orcamento)
+        except Exception as e:
+            messages.error(request,e)
+    return render(request,'formulario_orcamento.html',context={'form_orcamento':form_orcamento,'instance':instance})
+
+@login_required(login_url='/login/')
+def deletar_orcamento(request,id=None):
+    instance = get_object_or_404(Orcamento,id=id)
+    try:
+        instance.delete()
+        messages.success(request,'Orçamento deletado com sucesso')
+    except Exception as e:
+        messages.error(request,'Não foi possível deletar o Orçamento')
+    return redirect(orcamento) 
 ##################################################################################################################

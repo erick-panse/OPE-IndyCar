@@ -103,61 +103,6 @@ class EmpresaForm(CustomerForm):
         model = Empresa
         fields=['cnpj','nome','endereco','bairro','email','telefone']
 
-
-class OrcamentoForm(forms.ModelForm):
-    ordem_de_servico = forms.ModelChoiceField(queryset=OrdemDeServico.objects.all().order_by('id'))
-    servicos = forms.CharField(max_length=500,label='Serviços:',widget = forms.Textarea(attrs={
-        'placeholder':'Informe os serviços necessários',
-        'name':'servicos',
-        'id':'servicos'}))
-    carrinho = forms.ModelChoiceField(queryset=Carrinho.objects.all().order_by('id'))
-    """ valor_mao_de_obra = forms.DecimalField(label='valor da mão de obra:',widget = forms.TextInput(attrs={
-        'placeholder':'Informe o valor da mão de obra',
-        'name':'valor_mao_de_obra',
-        'id':'valor_mao_de_obra'})) """
-    """ total_a_pagar = forms.DecimalField(label='Total a pagar:',widget = forms.TextInput(attrs={
-        'readonly':'Total a pagar',
-        'name':'total_a_pagar',
-        'id':'total_a_pagar'})) """
-    previsao_entrega = forms.DateField(label='Previsão entrega:',widget = forms.DateInput(attrs={
-        'placeholder':'Informe a previsão entrega',
-        'name':'previsao_entrega',
-        'id':'previsao_entrega'}))
-    data_saida = forms.DateField(label='Data saída:',widget = forms.DateInput(attrs={
-        'placeholder':'Informe a data de saida',
-        'name':'data_saida',
-        'id':'data_saida'}))
-    
-    def clean(self):
-        dados=self.cleaned_data
-        ordem_de_servico=dados.get('ordem_de_servico')
-        servicos=dados.get('servicos')
-        valor_mao_de_obra=dados.get('valor_mao_de_obra')
-        total_a_pagar=dados.get('total_a_pagar')
-        previsao_entrega=dados.get('previsao_entrega')
-        data_saida=dados.get('data_saida')
-
-
-        if not somenteLetras(servicos):
-            raise forms.ValidationError('Serviços inválidos !')
-
-        """ if not somenteNumeros(valor_mao_de_obra):
-            raise forms.ValidationError('Valor mão de obra inválido !') """
-
-        """ if not somenteNumeros(total_a_pagar):
-            raise forms.ValidationError('Total a pagar inválido !') """
-    
-        if not validarData(previsao_entrega):
-            raise forms.ValidationError('Data de previsao_entrega inválida !')
-
-        if not validarData(data_saida):
-            raise forms.ValidationError('Data de data_saida inválida !')
-        
-    
-    class Meta:
-        model = Orcamento
-        fields=['usuario','ordem_servico','carrinho','servicos','valor_mao_de_obra','previsao_entrega','data_saida']           
-
 class OrdemDeServicoForm(forms.ModelForm):
     cliente = forms.ModelChoiceField(empty_label=" Selecione",queryset=Customer.objects.all().select_subclasses(Cliente,Empresa),widget=forms.Select(attrs={'class':'inputText'}))#.order_by('id'))
     marca_veiculo = forms.CharField(max_length=30,label='Marca:',widget = forms.TextInput(attrs={
@@ -306,3 +251,56 @@ class MaterialForm(forms.ModelForm):
     class Meta:
         model = Material
         fields=['quantidade_estoque','descricao','valor']
+
+class OrcamentoForm(forms.ModelForm):
+    ordem_de_servico = forms.ModelChoiceField(queryset=OrdemDeServico.objects.all().order_by('id'))
+    servicos = forms.CharField(max_length=500,label='Serviços:',widget = forms.Textarea(attrs={
+        'placeholder':'Informe os serviços necessários',
+        'name':'servicos',
+        'id':'servicos'}))
+    #carrinho = forms.ModelChoiceField(queryset=Carrinho.objects.all().order_by('id'),widget=forms.HiddenInput())
+    """ valor_mao_de_obra = forms.DecimalField(label='valor da mão de obra:',widget = forms.TextInput(attrs={
+        'placeholder':'Informe o valor da mão de obra',
+        'name':'valor_mao_de_obra',
+        'id':'valor_mao_de_obra'})) """
+    """ total_a_pagar = forms.DecimalField(label='Total a pagar:',widget = forms.TextInput(attrs={
+        'readonly':'Total a pagar',
+        'name':'total_a_pagar',
+        'id':'total_a_pagar'})) """
+    previsao_entrega = forms.DateField(label='Previsão entrega:',widget = forms.DateInput(attrs={
+        'placeholder':'Informe a previsão entrega',
+        'name':'previsao_entrega',
+        'id':'previsao_entrega'}))
+    data_saida = forms.DateField(label='Data saída:',widget = forms.DateInput(attrs={
+        'placeholder':'Informe a data de saida',
+        'name':'data_saida',
+        'id':'data_saida'}))
+    
+    def clean(self):
+        dados=self.cleaned_data
+        ordem_de_servico=dados.get('ordem_de_servico')
+        servicos=dados.get('servicos')
+        valor_mao_de_obra=dados.get('valor_mao_de_obra')
+        previsao_entrega=dados.get('previsao_entrega')
+        data_saida=dados.get('data_saida')
+
+
+        if not somenteLetras(servicos):
+            raise forms.ValidationError('Serviços inválidos !')
+
+        """ if not somenteNumeros(valor_mao_de_obra):
+            raise forms.ValidationError('Valor mão de obra inválido !') """
+
+        """ if not somenteNumeros(total_a_pagar):
+            raise forms.ValidationError('Total a pagar inválido !') """
+    
+        if not validarData(previsao_entrega):
+            raise forms.ValidationError('Data de previsao_entrega inválida !')
+
+        if not validarData(data_saida):
+            raise forms.ValidationError('Data de data_saida inválida !')
+        
+    
+    class Meta:
+        model = Orcamento
+        fields=['ordem_de_servico','servicos','valor_mao_de_obra','previsao_entrega','data_saida']           

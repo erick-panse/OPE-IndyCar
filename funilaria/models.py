@@ -163,7 +163,6 @@ class Material(models.Model):
     descricao = models.TextField(max_length=200)
     quantidade_estoque = models.IntegerField()
     valor = models.DecimalField(decimal_places=2,max_digits=8)
-    slug = models.SlugField(null=True,blank=True)
 
     def __str__(self):
         return str(self.descricao)
@@ -190,7 +189,6 @@ class ItemCarrinho(models.Model):
     usuario = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
     material = models.ForeignKey(Material,on_delete=models.CASCADE)
     quantidade = models.PositiveIntegerField(default=1)
-    selecionado = models.BooleanField(default=False)
 
     def __str__(self):
         return self.material.descricao+" x"+str(self.quantidade)
@@ -203,6 +201,7 @@ class ItemCarrinho(models.Model):
 class Carrinho(models.Model):
     usuario = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
     itens = models.ManyToManyField(ItemCarrinho)
+    finalizado = models.BooleanField(default=False)
 
     def __str__(self):
         return str('Carrinho de: '+str(self.usuario))
@@ -210,26 +209,30 @@ class Carrinho(models.Model):
     def add_orcamento(self):
         return reverse('orcamento',kwargs={'id':self.id})
 
-
-class Orcamento(models.Model):
-    usuario = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,blank=True,null=True)
-    ordem_servico = models.ForeignKey(OrdemDeServico,on_delete=models.PROTECT,blank=True,null=True)
-    carrinho = models.ForeignKey(Carrinho,on_delete=models.CASCADE,blank=True,null=True)
-    servicos = models.TextField(max_length=500)
-    valor_mao_de_obra = models.DecimalField(decimal_places=2,max_digits=8,default=0)
-    previsao_entrega = models.DateField(blank=True,null=True)
-    data_saida = models.DateField(blank=True,null=True)
-    total_a_pagar = models.DecimalField(decimal_places=2,max_digits=8,blank=True,null=True,default=0)
-
     @property
     def total(self):
         t=0
-        for i in self.carrinho.itens.all():
+        for i in self.itens.all():
             t+=i.total
-        return t+self.valor_mao_de_obra
+        return t
+
+
+class Orcamento(models.Model):
+    usuario = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,null=True)
+    ordem_de_servico = models.ForeignKey(OrdemDeServico,on_delete=models.PROTECT)
+    carrinho = models.ForeignKey(Carrinho,on_delete=models.CASCADE,null=True)
+    servicos = models.TextField(max_length=500)
+    valor_mao_de_obra = models.DecimalField(decimal_places=2,max_digits=8,default=0)
+    previsao_entrega = models.DateField()
+    data_saida = models.DateField()
+    total_a_pagar = models.DecimalField(decimal_places=2,max_digits=8,default=0)
+    finalizado = models.BooleanField(default=False)
+
+    
+
 
     def __str__(self):
-        return "valor orçamento | R$: "+str(self.total)
+        return self.servicos+" | "+str(self.total_a_pagar)
 
     def get_editar_orcamento(self):
         return reverse('editar_orcamento',kwargs={'id':self.id})
