@@ -1,14 +1,20 @@
 {% extends 'base.html' %}
 
 {% block main %}
+<<<<<<< HEAD
+    <br>
+    <form action="" method="POST" id="alterarsenha">
+        <h1 id="center">Alterar Senha</h1><br>
+        {% csrf_token %}
+        {{form.as_p}}
+        <button class="btn btn-outline-info btn-lg btn-block" type="submit">Enviar</button><br>
+        {% for message in messages %}
+=======
     {% for message in messages %}
+>>>>>>> c707367b406cac397e435e86a804245af2245ad0
         <div class="alert alert-danger">
         <strong>{{message}}</strong>
         </div>  
     {% endfor %}
-    <form action="" method="POST">
-        {% csrf_token %}
-        {{form.as_p}}
-        <button type="submit">Enviar</button>
     </form>
 {% endblock %}

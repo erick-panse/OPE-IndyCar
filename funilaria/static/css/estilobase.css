@@ -15,7 +15,7 @@ body {
 
 
 /* Responsividade*/
-body { padding: 15px; background:#eee; font-family: Arial, 
+body { padding: 15px; background:rgba(224, 224, 224, 0.808); font-family: Arial, 
   Helvetica, sans-serif }
    
   .caixa {
@@ -185,7 +185,31 @@ body { padding: 15px; background:#eee; font-family: Arial,
 	left: 50%;
 	transform: translate(-50%,-50%);
 	width:450px;
+	height: 500px;
+	box-sizing: border-box;
+	background:white;
+	padding: 40px; 
+}
+
+#editarusuario {
+	position: absolute;
+	top:50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	width:450px;
 	height: 450px;
+	box-sizing: border-box;
+	background:white;
+	padding: 40px; 
+}
+
+#alterarsenha {
+	position: absolute;
+	top:50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	width:450px;
+	height: 600px;
 	box-sizing: border-box;
 	background:white;
 	padding: 40px; 
@@ -199,4 +223,6 @@ body { padding: 15px; background:#eee; font-family: Arial,
   width: 300px;
 }
 
-
+#center{
+    text-align: center;
+}

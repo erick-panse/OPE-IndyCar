@@ -3,6 +3,31 @@
 {% block main %}
 
 <div class="container" id="perfil">
+<<<<<<< HEAD
+  <div class="card" id="perfil">
+    <h1>Seu Perfil</h1><br>
+    <p><a id="negrito">Usuário: {{user}}</a> 
+    <p><a id="negrito">Nome:</a> {{user.first_name}}
+    </p>
+    <p><a id="negrito">Sobrenome:</a> {{user.last_name}}
+    </p>
+    <p><a id="negrito">Email:</a> {{user.email}}</p>
+    <br>
+    <a href="/perfil/editar/"
+    class="btn btn-outline-info btn-lg btn-block">
+        Editar
+    </a>
+    <a href="/perfil/editar/senha/"
+    class="btn btn-outline-info btn-lg btn-block">
+        Alterar senha
+  </a><br>
+  {% for message in messages %}
+  <div class="alert alert-success">
+  <strong>{{message}}</strong>
+  </div>  
+  {% endfor %}
+  </div>
+=======
     <div class="card" id="perfil">
         {% for message in messages %}
         <div class="alert alert-info">
@@ -33,6 +58,7 @@
             Criar novo usuário
         </a>
     </div>
+>>>>>>> c707367b406cac397e435e86a804245af2245ad0
 </div>
 
 {% endblock %}
