@@ -348,7 +348,7 @@ def novo_orcamento(request):
         carrinho = Carrinho.objects.get(usuario=request.user,finalizado=False)
         if request.method == 'POST':
             print('POST')
-            form_orcamento= OrcamentoForm(usuario=request.user,request.POST,initial={'carrinho':carrinho.id,'usuario':request.user.id})
+            form_orcamento= OrcamentoForm(request.POST,initial={'carrinho':carrinho.id,'usuario':request.user.id})
             print(form_orcamento.is_valid())
             if form_orcamento.is_valid():
                 try:
@@ -366,7 +366,7 @@ def novo_orcamento(request):
                 print(form_orcamento.non_field_errors)
                 return render(request,'formulario_orcamento.html',context={'form_orcamento':form_orcamento,'carrinho':carrinho})
         else:
-            form_orcamento= OrcamentoForm(usuario=request.user,initial={'carrinho':carrinho.id,'usuario':request.user.id})
+            form_orcamento= OrcamentoForm(initial={'carrinho':carrinho.id,'usuario':request.user.id})
             print('GET')
         return render(request,'formulario_orcamento.html',context={'form_orcamento':form_orcamento,'carrinho':carrinho})
     except Exception as e:
