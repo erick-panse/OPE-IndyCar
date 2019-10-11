@@ -176,8 +176,8 @@ class OrdemDeServicoForm(forms.ModelForm):
         cidade_veiculo=dados.get('cidade_veiculo')
         estado_veiculo=dados.get('estado_veiculo')
 
-        if not somenteLetras(reparos_necessarios):
-            raise forms.ValidationError('Reparos necessários inválidos !')
+        '''if not somenteLetras(reparos_necessarios):
+            raise forms.ValidationError('Reparos necessários inválidos !')'''
 
         if not somenteLetras(marca_veiculo):
             raise forms.ValidationError('Marca inválida !')
