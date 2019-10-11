@@ -44,7 +44,7 @@ def novocliente(request):
             except IntegrityError as e: 
                 print('UNIQUE constraint' in str(e.args))
                 if 'UNIQUE constraint' in str(e.args): 
-                    messages.error(request,'na casa do senhor nao existe satanas')
+                    messages.error(request,'Cliente já cadastrado')
                     return render(request,'formulario_cliente.html',context={'form_cliente':form_cliente})
             except Exception as e:
                 messages.error(request,e)
@@ -70,7 +70,7 @@ def editar_cliente(request,id=None):
         except IntegrityError as e: 
             print('UNIQUE constraint' in str(e.args))
             if 'UNIQUE constraint' in str(e.args): 
-                messages.error(request,'na casa do senhor nao existe satanas')
+                messages.error(request,'Cliente já cadastrado')
                 return render(request,'formulario_cliente.html',context={'form_cliente':form_cliente})
         except Exception as e:
             print(e)
@@ -108,7 +108,7 @@ def novoempresa(request):
             except IntegrityError as e: 
                 print('UNIQUE constraint' in str(e.args))
                 if 'UNIQUE constraint' in str(e.args): 
-                    messages.error(request,'na casa do senhor nao existe satanas')
+                    messages.error(request,'Empresa já cadastrada')
                     return render(request,'formulario_empresa.html',context={'form_empresa':form_empresa})
             except Exception as e:
                 messages.error(request,e)
@@ -132,7 +132,7 @@ def editar_empresa(request,id=None):
         except IntegrityError as e: 
             print('UNIQUE constraint' in str(e.args))
             if 'UNIQUE constraint' in str(e.args): 
-                messages.error(request,'na casa do senhor nao existe satanas')
+                messages.error(request,'Empresa já cadastrada')
                 return render(request,'formulario_empresa.html',context={'form_empresa':form_empresa})
         except Exception as e:
             messages.error(request,e)

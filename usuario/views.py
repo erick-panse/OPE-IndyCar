@@ -6,6 +6,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth import authenticate, login, logout,update_session_auth_hash
 from django.contrib.auth.decorators import login_required
+from django.db import IntegrityError
 #email
 from django.core.mail import send_mail
 from django.contrib.auth.models import User
@@ -37,8 +38,16 @@ def novo_usuario(request):
         form = UsuarioForm(request.POST)
         print(form.is_valid())
         if form.is_valid():
-            form.save()
-            messages.success(request,'Usuário cadastrado com sucesso')
+            try:
+                form.save()
+                messages.success(request,'Usuário cadastrado com sucesso')
+            except IntegrityError as e: 
+                print('UNIQUE constraint' in str(e.args))
+                if 'UNIQUE constraint' in str(e.args): 
+                    messages.error(request,'Usuário já cadastrado')
+                    return render(request,'novo-usuario.html',context={'form':form})
+            except Exception as e:
+                messages.error(request,e)
             return redirect(perfil_usuario)
         else:
             if form.non_field_errors():
