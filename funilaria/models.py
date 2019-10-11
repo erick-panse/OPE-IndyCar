@@ -136,29 +136,6 @@ class OrdemDeServico(models.Model):
         return self.prazo_entrega.strftime("%d/%m/%Y")
 
 
-""" class Orcamento(models.Model):
-    ordem_servico = models.ForeignKey(OrdemDeServico,on_delete=models.PROTECT,blank=True,null=True)
-    quantidade_pecas = models.PositiveIntegerField(blank=True,null=True)
-    pecas = models.TextField(max_length=200)
-    servicos = models.TextField(max_length=500)
-    valor_mao_de_obra = models.FloatField(blank=True,null=True)
-    previsao_entrega = models.DateField(blank=True,null=True)
-    data_saida = models.DateField(blank=True,null=True)
-    total_a_pagar = models.DecimalField(decimal_places=2,max_digits=8)
-
-    def __str__(self):
-        return "valor orçamento | "+str(self.valor_mao_de_obra)
-
-    def get_editar_orcamento(self):
-        return reverse('editar_orcamento',kwargs={'id':self.id})
-    
-    def get_del_orcamento(self):
-        return reverse('deletar_orcamento',kwargs={'id':self.id})
-     """
-
-################################################################################################
-
-
 class Material(models.Model):
     descricao = models.TextField(max_length=200)
     quantidade_estoque = models.IntegerField()
@@ -228,9 +205,6 @@ class Orcamento(models.Model):
     total_a_pagar = models.DecimalField(decimal_places=2,max_digits=8,default=0)
     finalizado = models.BooleanField(default=False)
 
-    
-
-
     def __str__(self):
         return self.servicos+" | "+str(self.total_a_pagar)
 
@@ -239,6 +213,16 @@ class Orcamento(models.Model):
     
     def get_del_orcamento(self):
         return reverse('deletar_orcamento',kwargs={'id':self.id})
+
+    @property
+    def resumo(self):
+        res=''
+        if self.carrinho:
+            for i in self.carrinho.itens.all():
+                res+=i.material.descricao+' x'+str(i.quantidade)+'\n'
+            return res
+        return 'sem carrinho'
+
     
 
 ################################################################################################

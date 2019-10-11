@@ -258,7 +258,7 @@ class OrcamentoForm(forms.ModelForm):
         'placeholder':'Informe os serviços necessários',
         'name':'servicos',
         'id':'servicos'}))
-    #carrinho = forms.ModelChoiceField(queryset=Carrinho.objects.all().order_by('id'),widget=forms.HiddenInput())
+    carrinho = forms.ModelChoiceField(queryset=Carrinho.objects.all().order_by('id'),widget=forms.HiddenInput())
     """ valor_mao_de_obra = forms.DecimalField(label='valor da mão de obra:',widget = forms.TextInput(attrs={
         'placeholder':'Informe o valor da mão de obra',
         'name':'valor_mao_de_obra',
@@ -283,6 +283,7 @@ class OrcamentoForm(forms.ModelForm):
         valor_mao_de_obra=dados.get('valor_mao_de_obra')
         previsao_entrega=dados.get('previsao_entrega')
         data_saida=dados.get('data_saida')
+        carrinho=dados.get('carrinho')
 
 
         if not somenteLetras(servicos):
@@ -299,8 +300,12 @@ class OrcamentoForm(forms.ModelForm):
 
         if not validarData(data_saida):
             raise forms.ValidationError('Data de data_saida inválida !')
-        
-    
+
+        def __init__(self, *args, **kwargs):
+            self.usuario = kwargs.pop('usuario')
+            super(OrcamentoForm, self).__init__(*args, **kwargs)
+            
+
     class Meta:
         model = Orcamento
-        fields=['ordem_de_servico','servicos','valor_mao_de_obra','previsao_entrega','data_saida']           
+        fields=['ordem_de_servico','carrinho','servicos','valor_mao_de_obra','previsao_entrega','data_saida']           

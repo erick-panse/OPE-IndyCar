@@ -348,12 +348,7 @@ def novo_orcamento(request):
         carrinho = Carrinho.objects.get(usuario=request.user,finalizado=False)
         if request.method == 'POST':
             print('POST')
-            form_orcamento= OrcamentoForm(request.POST)
-            form_orcamento.save(commit=False)
-            form_orcamento.carrinho=carrinho
-            form_orcamento.usuario=request.user
-            print(form_orcamento.carrinho)
-            print(form_orcamento.usuario)
+            form_orcamento= OrcamentoForm(usuario=request.user,request.POST,initial={'carrinho':carrinho.id,'usuario':request.user.id})
             print(form_orcamento.is_valid())
             if form_orcamento.is_valid():
                 try:
@@ -371,22 +366,18 @@ def novo_orcamento(request):
                 print(form_orcamento.non_field_errors)
                 return render(request,'formulario_orcamento.html',context={'form_orcamento':form_orcamento,'carrinho':carrinho})
         else:
-            form_orcamento= OrcamentoForm()
-            form_orcamento.save(commit=False)
-            form_orcamento.carrinho=carrinho
-            form_orcamento.usuario=request.user
-
+            form_orcamento= OrcamentoForm(usuario=request.user,initial={'carrinho':carrinho.id,'usuario':request.user.id})
             print('GET')
         return render(request,'formulario_orcamento.html',context={'form_orcamento':form_orcamento,'carrinho':carrinho})
-    except:
-        messages.error(request,'Carrinho não existe')
-        return redirect(orcamento)
+    except Exception as e:
+        messages.error(request,e)
+        return redirect(material) 
     
 
 @login_required(login_url='/login/')
 def editar_orcamento(request,id=None):
     instance = get_object_or_404(Orcamento,id=id)
-    form_orcamento= OrcamentoForm(request.POST or None, instance= instance)
+    form_orcamento= OrcamentoForm(request.POST or None, instance=instance)
     if form_orcamento.is_valid():
         try:
             instance=form_orcamento.save()
@@ -395,6 +386,7 @@ def editar_orcamento(request,id=None):
             return redirect(orcamento)
         except Exception as e:
             messages.error(request,e)
+    print(instance.resumo)
     return render(request,'formulario_orcamento.html',context={'form_orcamento':form_orcamento,'instance':instance})
 
 @login_required(login_url='/login/')

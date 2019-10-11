@@ -11,10 +11,10 @@
             Selecione o campo abaixo para cadastrar
             um novo orçamento ao cliente desejado.
 
-          {% for msg in form_orcamento.non_field_errors %}
-            <p>
-              {{msg}}
-            </p>
+            {% for message in messages %}
+            <div class="alert alert-danger">
+              <strong>{{message}}</strong>
+            </div>  
           {% endfor %}
 
           </p>
@@ -57,6 +57,7 @@
                   <span class="input-group-text">Carrinho</span>
                 </div>
                 {{form_orcamento.carrinho}}
+                {{instance.resumo}}
                 {% for i in carrinho.itens.all %}
                   {{i}}
                   <br>
