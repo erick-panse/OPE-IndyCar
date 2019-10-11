@@ -25,34 +25,33 @@
           </p>
           <form method="POST">
             {% csrf_token %}
-            <!-- Descrição -->
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text">Descrição</span>
+            <div class="form-row">
+              <div class="col-md-4 mb-3">
+                <label for="validationTooltip01">Descrição:</label><br>
+                {{form_material.descricao}}
               </div>
-              {{form_material.descricao}}
             </div>
 
-            <!-- Quantidade em estoque -->
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text">Quantidade em estoque</span>
+            <div class="form-row">
+              <div class="col-md-4 mb-3">
+                <label for="validationTooltip01">Quantidade em estoque:</label><br>
+                {{form_material.quantidade_estoque}}
               </div>
-              {{form_material.quantidade_estoque}}
             </div>
 
-            <!-- Valor -->
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text">Valor</span>
+            <div class="form-row">
+              <div class="col-md-4 mb-3">
+                <label for="validationTooltip01">Valor:</label><br>
+                {{form_material.valor}}
               </div>
-              {{form_material.valor}}
             </div>
 
             <input class="btn btn-primary" type="submit" value="Enviar"></input>
 
           </fildset>
           </form>
+
+
         </div>
       </div>
     </div>

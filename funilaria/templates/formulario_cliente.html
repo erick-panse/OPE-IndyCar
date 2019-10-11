@@ -19,60 +19,49 @@
 
 
           </p>
+          
           <form method="POST" id="forms">
             {% csrf_token %}
-            <!-- CPF -->
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text">CPF</span>
+            <div class="form-row">
+              <div class="col-md-4 mb-3">
+                <label for="validationTooltip01">Nome:</label><br>
+                {{form_cliente.nome}}
               </div>
-              {{form_cliente.cpf}}
+              <div class="col-md-4 mb-3">
+                <label for="validationTooltip02">CPF:</label><br>
+                {{form_cliente.cpf}}
+              </div>
             </div>
 
-            <!-- Nome -->
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text">Nome</span>
+            <div class="form-row">
+              <div class="col-md-4 mb-3">
+                <label for="validationTooltip01">Endereço:</label><br>
+                {{form_cliente.endereco}}
               </div>
-              {{form_cliente.nome}}
+              <div class="col-md-4 mb-3">
+                <label for="validationTooltip02">Bairro:</label><br>
+                {{form_cliente.bairro}}
+              </div>
             </div>
 
-            <!-- Endereço -->
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text">Endereço</span>
+            <div class="form-row">
+              <div class="col-md-4 mb-3">
+                <label for="validationTooltip01">Email:</label><br>
+                {{form_cliente.email}}
               </div>
-              {{form_cliente.endereco}}
-            </div>
-
-			<!-- Bairro -->
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text">Bairro</span>
+              <div class="col-md-4 mb-3">
+                <label for="validationTooltip02">Telefone:</label><br>
+                {{form_cliente.telefone}}
               </div>
-              {{form_cliente.bairro}}
             </div>
-
-			<!-- Email -->
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text">Email</span>
-              </div>
-              {{form_cliente.email}}
-            </div>
-
-			<!-- Telefone -->
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text">Telefone</span>
-              </div>
-              {{form_cliente.telefone}}
-            </div>
-
             <input class="btn btn-primary" class="tira" type="submit" value="Enviar"></input>
 
           </fildset>
-          </form>
+          </form>  
+          
+
+
+
         </div>
       </div>
     </div>

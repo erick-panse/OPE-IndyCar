@@ -19,6 +19,8 @@
           {% endfor %}
 
           </p>
+              
+          
           <form method="POST">
             {% csrf_token %}
             <!-- Cliente -->
@@ -28,150 +30,68 @@
               </div>
               {{form_os.cliente}}
             </div>
-            <!-- Marca di veículo -->
+            
             <h5 class="card-title">Veículo</h5>
-              <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">Marca</span>
+              <div class="form-row">
+                <div class="col-md-4 mb-3">
+                  <label for="validationTooltip01">Marca:</label><br>
+                  {{form_os.marca_veiculo}}
                 </div>
-                {{form_os.marca_veiculo}}
-              </div>
-              <!-- Modelo -->
-              <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">Modelo</span>
+                <div class="col-md-4 mb-3">
+                  <label for="validationTooltip02">Modelo:</label><br>
+                  {{form_os.modelo_veiculo}}
                 </div>
-                {{form_os.modelo_veiculo}}
-              </div>
-              <!-- Cor -->
-              <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">Cor</span>
+
+                <div class="col-md-4 mb-3">
+                  <label for="validationTooltip03">Cor:</label><br>
+                  {{form_os.cor_veiculo}}
                 </div>
-                {{form_os.cor_veiculo}}
               </div>
-              <!-- Placa -->
-              <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">Placa</span>
+
+              <div class="form-row">
+                <div class="col-md-2 mb-3">
+                  <label for="validationTooltip04">Placa:</label><br>
+                  {{form_os.placa_veiculo}}
                 </div>
-                {{form_os.placa_veiculo}}
-              </div>
-              <!-- Ano -->
-              <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">Ano</span>
+                <div class="col-md-2 mb-3">
+                  <label for="validationTooltip05">Ano:</label><br>
+                  {{form_os.ano_veiculo}}
                 </div>
-                {{form_os.ano_veiculo}}
-              </div>
-              <!-- Estado -->
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text">Estado</span>
-              </div>
-              {{form_os.estado_veiculo}}
-            </div>
-            <!-- Cidade -->
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text">Cidade</span>
-              </div>
-              {{form_os.cidade_veiculo}}
-            </div>
-            <br>
-            <!-- Reparos Necessários -->
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">Reparos Necessários</span>
+
+                <div class="col-md-4 mb-3">
+                  <label for="validationTooltip06">Estado:</label><br>
+                  {{form_os.estado_veiculo}}
                 </div>
+
+                <div class="col-md-4 mb-3">
+                  <label for="validationTooltip07">Cidade:</label><br>
+                  {{form_os.cidade_veiculo}}
+                </div>
+
+              </div>
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">Reparos necessários:</label><br>
                 {{form_os.reparos_necessarios}}
               </div>
-            <!-- entrada -->
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">Entrada</span>
+
+              <div class="form-row">
+                <div class="col-md-4 mb-3">
+                  <label for="validationTooltip08">Entrada:</label><br>
+                  <input class="inputText" type="text" readonly value="{{entrada}}">
                 </div>
-                <input class="inputText" type="text" readonly value="{{entrada}}">
-            </div>
-            <!-- Prazo de entrega -->
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">Prazo de entrega</span>
+                <div class="col-md-4 mb-3">
+                  <label for="validationTooltip09">Prazo de entrada:</label><br>
+                  {{form_os.prazo_entrega}}
                 </div>
-                {{form_os.prazo_entrega}}
-            </div>
-            <!-- Data de finalização -->
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">Data de finalização</span>
+
+                <div class="col-md-4 mb-3">
+                  <label for="validationTooltip010">Data de finalizção:</label><br>
+                  {{form_os.data_finalizacao}}
                 </div>
-                {{form_os.data_finalizacao}}
-            </div>
-            <input class="btn btn-primary"  type="submit" value="Enviar"></input>
-            </fildset>
-          </form><br>
-
-
-
-          <!--Teste
-          <form class="needs-validation" novalidate>
-            <div class="form-row">
-              <div class="col-md-4 mb-3">
-                <label for="validationTooltip01">Marca</label>
-                <input type="text" class="form-control" id="validationTooltip01" placeholder="Informe a marca"required>
               </div>
-              <div class="col-md-4 mb-3">
-                <label for="validationTooltip02">Modelo</label>
-                <input type="text" class="form-control" id="validationTooltip02" placeholder="Informe o modelo" required>
-              </div>
-
-              <div class="col-md-4 mb-3">
-                <label for="validationTooltip02">Cor</label>
-                <input type="text" class="form-control" id="validationTooltip03" placeholder="Informe a cor" required>
-              </div>
-            </div>
-
-            <div class="form-row">
-              <div class="col-md-2 mb-3">
-                <label for="validationTooltip01">Placa</label>
-                <input type="text" class="form-control" id="validationTooltip04" placeholder="Informe a placa"required>
-              </div>
-              <div class="col-md-2 mb-3">
-                <label for="validationTooltip02">Ano</label>
-                <input type="text" class="form-control" id="validationTooltip05" placeholder="Informe o ano" required>
-              </div>
-
-              <div class="col-md-4 mb-3">
-                <label for="validationTooltip02">Estado</label>
-                <input type="text" class="form-control" id="validationTooltip06" placeholder="Informe o estado" required>
-              </div>
-
-              <div class="col-md-4 mb-3">
-                <label for="validationTooltip02">Cidade</label>
-                <input type="text" class="form-control" id="validationTooltip07" placeholder="Informe a cidade" required>
-              </div>
-
-            </div>
-            <div class="form-group">
-              <label for="exampleFormControlTextarea1">Reparos necessários</label>
-              <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-            </div>
-
-            <div class="form-row">
-              <div class="col-md-2 mb-3">
-                <label for="validationTooltip01">Entrada</label>
-                <input type="text" class="form-control" id="validationTooltip08" placeholder=""required>
-              </div>
-              <div class="col-md-2 mb-3">
-                <label for="validationTooltip02">Prazo de entreda</label>
-                <input type="text" class="form-control" id="validationTooltip09" placeholder="" required>
-              </div>
-
-              <div class="col-md-2 mb-3">
-                <label for="validationTooltip02">Data de finalização</label>
-                <input type="text" class="form-control" id="validationTooltip10" placeholder="" required>
-              </div>
-            </div>
+              <input class="btn btn-primary"  type="submit" value="Enviar"></input>
+              </fildset>
+            </form>  
 
             
               
@@ -182,7 +102,7 @@
             </div>
           </div>
         </form>
-          -->
+          <!--Fim teste-->
 
 
 

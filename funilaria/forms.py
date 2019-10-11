@@ -124,18 +124,18 @@ class OrdemDeServicoForm(forms.ModelForm):
         'id':'cor',
         'autocomplete': 'off'}))
     placa_veiculo = forms.CharField(max_length=8,label='Placa:',widget = forms.TextInput(attrs={
-        'placeholder':'Informe a placa',
+        'placeholder':'',
         'name':'placa',
-        'class':'inputText',
+        'class':'inputLittle',
         'id':'placa',
         'autocomplete': 'off'}))
     ano_veiculo = forms.CharField(max_length=4,label='Ano:',widget = forms.NumberInput(attrs={
-        'placeholder':'Informe o ano',
+        'placeholder':'',
         'name':'ano',
-        'class':'inputText',
+        'class':'inputLittle',
         'id':'ano',
         'autocomplete': 'off'}))
-    estado_veiculo= forms.ModelChoiceField(empty_label=" Selecione",queryset=Estado.objects.all(),widget=forms.Select(attrs={'class':'inputText'}))
+    estado_veiculo= forms.ModelChoiceField(empty_label=" Selecione",queryset=Estado.objects.all(),widget=forms.Select(attrs={'class':'estado'}))
     cidade_veiculo = forms.CharField(max_length=30,label='Cidade:',widget = forms.TextInput(attrs={
         'placeholder':'Informe a cidade',
         'name':'cidade',
@@ -145,8 +145,8 @@ class OrdemDeServicoForm(forms.ModelForm):
     reparos_necessarios = forms.CharField(max_length=500,label='Reparos necessários:',widget = forms.Textarea(attrs={
         'placeholder':'Informe os reparos necessários',
         'name':'reparos_necessarios',
-        'class':'inputText',
-        'id':'reparos_necessarios',
+        'class':'inputReparo',
+        'id':'inputReparo',
         'autocomplete': 'off'}))
     prazo_entrega = forms.DateField(label='Prazo entrega:',input_formats=['%d/%m/%Y'],widget = FengyuanChenDatePickerInput(attrs={
         'placeholder':'Prazo de entrega',

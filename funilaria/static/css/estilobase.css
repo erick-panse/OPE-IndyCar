@@ -46,14 +46,37 @@ body { padding: 15px; background:rgba(224, 224, 224, 0.808); font-family: Arial,
         width: 200px;
       
       }
+
+      .estado{
+        width: 200px;
+        height: 20px;
+      }
       
       .input-group-text{
-          width: 200px;
+        width: 200px;
 
-    }
+      }
+
+      .inputLittle{
+        width: 200px;
+      }
       table, thead, tbody, th, td, tr { 
-		display: block; 
-    }
+		    display: block; 
+      }
+
+      #inputReparo{
+        width: 200px;
+        height: 150px;
+      }
+
+      .inputLittle{
+        width: 200px;
+      }
+
+      .date{
+        width: 200px;
+      }     
+
     
 	
 	/* Hide table headers (but not display: none;, for accessibility) */
@@ -92,33 +115,51 @@ body { padding: 15px; background:rgba(224, 224, 224, 0.808); font-family: Arial,
 
    
   /* min-width */
-  @media screen and (min-width: 900px) {
+  @media screen and (min-width: 1000px) {
       .dois {
           background: #F90;
       }
       span.gt900 {
           display: inline-block;
       }
+      
       .inputText{
         width: 300px;
       
       }
+
+      .estado{
+        width: 300px;
+        height: 20px;
+      }
       
-      .input-group{
+      /*.input-group{
         width: 300px;
       
-      }
+      }*/
       
-      .input-group-text{
-          width: 300px;
+      /*.input-group-text{
+        width: 300px;
+      }*/
+
+      .inputLittle{
+        width: 100px;
       }
 
-      
+      #inputReparo{
+        width: 600px;
+        height: 100px;
+      }
+
+      .date{
+        width: 300px;
+      }
+  
 
   }
    
   /* min-width & max-width */
-  @media screen and (min-width: 600px) and (max-width: 900px) {
+  @media screen and (min-width: 600px) and (max-width: 1000px) {
       .tres {
           background: #9CF;
       }
@@ -127,17 +168,35 @@ body { padding: 15px; background:rgba(224, 224, 224, 0.808); font-family: Arial,
           
       }
       .inputText{
-        width: 300px;
+        width: 200px;
       
+      }
+
+      .estado{
+        width: 200px;
+        height: 20px;
       }
       
       .input-group{
-        width: 300px;
+        width: 200px;
       
       }
       
       .input-group-text{
-          width: 300px;
+          width: 200px;
+      }
+
+      .inputLittle{
+        width: 80px;
+      }
+
+      #inputReparo{
+        width: 400px;
+        height: 100px;
+      }
+
+      .date{
+        width: 200px;
       }
 
   }
@@ -219,10 +278,6 @@ body { padding: 15px; background:rgba(224, 224, 224, 0.808); font-family: Arial,
   font-weight: bold;
 }
 
-.date{
-  width: 300px;
-}
-
 #center{
     text-align: center;
 }
@@ -234,4 +289,10 @@ body { padding: 15px; background:rgba(224, 224, 224, 0.808); font-family: Arial,
     font-size: 30px;
     color: white;
     text-transform: uppercase;
-  }
+}
+
+#estado{
+  height:10px;
+}
+
+
