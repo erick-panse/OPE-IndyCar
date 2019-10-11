@@ -2,12 +2,15 @@ body
 {   
 	margin:0px;
 	padding: 0px;
-    background:url("../static/images/bg-01.jpg")no-repeat;
+    background:url("../static/images/bg-01.jpg") fixed no-repeat;
     height: 100%;
 	webkit-background-size: cover;
     background-size: cover;
     background-repeat: no-repeat;
-    font-family: Tahoma,sans-serif;
+	font-family: Tahoma,sans-serif;
+	-webkit-background-size: cover;  
+	-o-background-size: cover;  
+	-moz-background-size: cover;  
 }
 
 .form-area
