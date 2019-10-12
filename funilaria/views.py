@@ -269,6 +269,7 @@ def carrinho(request):
     carrinho = Carrinho.objects.get(usuario=usuario, finalizado=False)
     return render(request,'carrinho.html',context={'carrinho':carrinho})
 
+
 def add_no_carrinho(request, id):
     print('add')
     item = get_object_or_404(Material, id=id)
@@ -278,17 +279,23 @@ def add_no_carrinho(request, id):
         order = carrinho_qs[0]
         # verifica se o item ja está no carrinho
         if order.itens.filter(material__id=item.id).exists():
-            item_carrinho.quantidade += 1
-            item_carrinho.save()
-            messages.info(request, "Quantidade atualizada +1")
+            try:
+                item_carrinho.add()
+                item_carrinho.save()
+                messages.info(request, "Quantidade atualizada +1")
+            except:
+                messages.info(request, "Material indisponível")
             return redirect(carrinho)
         else:
             order.itens.add(item_carrinho)
+            item_carrinho.add()
             messages.info(request, "Material adicionado a carrinho")
             return redirect(carrinho)
     else:
-        order = Carrinho.objects.create(usuario=request.user)
-        order.itens.add(item_carrinho)
+        carrinho_obj = Carrinho.objects.create(usuario=request.user)
+        carrinho_obj.itens.add(item_carrinho)
+        print('asdasdasdasdasdasdasd')
+        item_carrinho.add()
         messages.info(request, "Material adicionado a carrinho")
         return redirect(carrinho)
 
@@ -321,11 +328,12 @@ def tirar_do_carrinho(request, id):
         if order.itens.filter(material__id=item.id).exists():
             item_carrinho = ItemCarrinho.objects.filter(material=item,usuario=request.user).first()
             if item_carrinho.quantidade > 1:
-                item_carrinho.quantidade -= 1
+                item_carrinho.remover()
                 item_carrinho.save()
                 messages.info(request, "Quantidade atualizada -1")
             else:
                 print('removido')
+                item_carrinho.remover()
                 order.itens.remove(item_carrinho)
                 messages.info(request, "Material removido da carrinho")
             return redirect(carrinho)
@@ -348,7 +356,7 @@ def novo_orcamento(request):
         carrinho = Carrinho.objects.get(usuario=request.user,finalizado=False)
         if request.method == 'POST':
             print('POST')
-            form_orcamento= OrcamentoForm(request.POST,initial={'carrinho':carrinho.id,'usuario':request.user.id})
+            form_orcamento= OrcamentoForm(request.POST,initial={'carrinho':carrinho.id})
             print(form_orcamento.is_valid())
             if form_orcamento.is_valid():
                 try:
@@ -362,11 +370,9 @@ def novo_orcamento(request):
                     print(e)
                     messages.error(request,e)
             else:
-                print(form_orcamento.errors)
-                print(form_orcamento.non_field_errors)
                 return render(request,'formulario_orcamento.html',context={'form_orcamento':form_orcamento,'carrinho':carrinho})
         else:
-            form_orcamento= OrcamentoForm(initial={'carrinho':carrinho.id,'usuario':request.user.id})
+            form_orcamento= OrcamentoForm(initial={'carrinho':carrinho.id})
             print('GET')
         return render(request,'formulario_orcamento.html',context={'form_orcamento':form_orcamento,'carrinho':carrinho})
     except Exception as e:
@@ -386,7 +392,6 @@ def editar_orcamento(request,id=None):
             return redirect(orcamento)
         except Exception as e:
             messages.error(request,e)
-    print(instance.resumo)
     return render(request,'formulario_orcamento.html',context={'form_orcamento':form_orcamento,'instance':instance})
 
 @login_required(login_url='/login/')

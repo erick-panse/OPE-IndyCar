@@ -161,11 +161,15 @@ class Material(models.Model):
 
 
 from django.conf import settings
+class EstoqueMaximoException(Exception):
+    def __init__(self, message, errors):
+        super().__init__(message)
+        return 'Limite do estoque atingido'
 
 class ItemCarrinho(models.Model):
     usuario = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
     material = models.ForeignKey(Material,on_delete=models.CASCADE)
-    quantidade = models.PositiveIntegerField(default=1)
+    quantidade = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return self.material.descricao+" x"+str(self.quantidade)
@@ -173,6 +177,26 @@ class ItemCarrinho(models.Model):
     @property
     def total(self):
         return self.material.valor*self.quantidade
+
+    def add(self):
+        m=self.material
+        if m.quantidade_estoque>0:
+            self.quantidade+=1
+            m.quantidade_estoque-=1
+            m.save()
+            self.material=m
+            return True
+        raise EstoqueMaximoException
+
+
+    def remover(self):
+        m=self.material
+        if self.quantidade>0:
+            m.quantidade_estoque+=1
+            self.quantidade-=1
+            m.save()
+            self.material=m
+
 
 
 class Carrinho(models.Model):
@@ -193,9 +217,12 @@ class Carrinho(models.Model):
             t+=i.total
         return t
 
+    def get_alterar_carrinho(self):
+        return reverse('alterar_carrinho',kwargs={'id':self.id})
+
 
 class Orcamento(models.Model):
-    usuario = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,null=True)
+    #usuario = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,null=True)
     ordem_de_servico = models.ForeignKey(OrdemDeServico,on_delete=models.PROTECT)
     carrinho = models.ForeignKey(Carrinho,on_delete=models.CASCADE,null=True)
     servicos = models.TextField(max_length=500)
@@ -216,13 +243,18 @@ class Orcamento(models.Model):
 
     @property
     def resumo(self):
-        res=''
+        res=[]
         if self.carrinho:
             for i in self.carrinho.itens.all():
-                res+=i.material.descricao+' x'+str(i.quantidade)+'\n'
+                res.append(i.material.descricao+' x'+str(i.quantidade))
             return res
         return 'sem carrinho'
 
-    
+    @property
+    def total(self):
+        return self.valor_mao_de_obra+self.carrinho.total
 
+    def save(self, force_insert=False, force_update=False):
+        self.total_a_pagar = self.total
+        super(Orcamento, self).save(force_insert, force_update)
 ################################################################################################

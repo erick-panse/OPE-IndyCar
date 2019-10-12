@@ -267,14 +267,18 @@ class OrcamentoForm(forms.ModelForm):
         'readonly':'Total a pagar',
         'name':'total_a_pagar',
         'id':'total_a_pagar'})) """
-    previsao_entrega = forms.DateField(label='Previsão entrega:',widget = forms.DateInput(attrs={
-        'placeholder':'Informe a previsão entrega',
+    previsao_entrega = forms.DateField(label='Previsão entrega:',input_formats=['%d/%m/%Y'],widget = FengyuanChenDatePickerInput(attrs={
+        'placeholder':'Previsão de entrega',
         'name':'previsao_entrega',
-        'id':'previsao_entrega'}))
-    data_saida = forms.DateField(label='Data saída:',widget = forms.DateInput(attrs={
-        'placeholder':'Informe a data de saida',
+        'class':"date",
+        'id':'previsao_entrega',
+        'autocomplete': 'off'}))
+    data_saida = forms.DateField(label='Data saída:',input_formats=['%d/%m/%Y'],widget = FengyuanChenDatePickerInput(attrs={
+        'placeholder':'Data de saída',
         'name':'data_saida',
-        'id':'data_saida'}))
+        'class':"date",
+        'id':'data_saida',
+        'autocomplete': 'off'}))
     
     def clean(self):
         dados=self.cleaned_data
@@ -299,12 +303,7 @@ class OrcamentoForm(forms.ModelForm):
             raise forms.ValidationError('Data de previsao_entrega inválida !')
 
         if not validarData(data_saida):
-            raise forms.ValidationError('Data de data_saida inválida !')
-
-        def __init__(self, *args, **kwargs):
-            self.usuario = kwargs.pop('usuario')
-            super(OrcamentoForm, self).__init__(*args, **kwargs)
-            
+            raise forms.ValidationError('Data de data_saida inválida !')         
 
     class Meta:
         model = Orcamento

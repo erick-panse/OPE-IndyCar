@@ -57,12 +57,26 @@
                   <span class="input-group-text">Carrinho</span>
                 </div>
                 {{form_orcamento.carrinho}}
-                {{instance.resumo}}
-                {% for i in carrinho.itens.all %}
-                  {{i}}
-                  <br>
-                {% endfor %}
-                  
+                {% if instance %}
+                  {% for i in instance.resumo %}
+                    {{i}}<br>
+                  {% endfor %}
+                {% else %}
+                  {% for i in carrinho.itens.all %}
+                    {{i}}<br>
+                  {% endfor %}
+                {% endif %}
+                
+              </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Total</span>
+                </div>
+                {% if instance %}
+                  {{instance.carrinho.total}}
+                {% else %}
+                  {{carrinho.total}}
+                {% endif %}
               </div>
       <!-- Serviços -->
             <div class="input-group mb-3">
@@ -113,7 +127,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">Total a Pagar</span>
                 </div>
-                {{form_orcamento.total_a_pagar}}
+                {{instance.total}}
             </div>
 
       <br>
