@@ -2,6 +2,7 @@ from django.db import models
 from django.urls import reverse 
 from model_utils.managers import InheritanceManager
 from datetime import datetime
+from django.utils import timezone
 # Create your models here.
 """
 #n precisa mais já q ta salvando o cpf e cnpj com a mascara
@@ -116,7 +117,7 @@ class OrdemDeServico(models.Model):
     estado_veiculo = models.ForeignKey(Estado,on_delete=models.PROTECT)
     reparos_necessarios = models.TextField(max_length=200)
     entrada = models.DateField(auto_now_add=True,blank=True)
-    prazo_entrega = models.DateField(default=datetime.today())
+    prazo_entrega = models.DateField(default=timezone.now)
     data_finalizacao = models.DateField(blank=True,null=True)
 
     def get_editar_ordem(self):
@@ -156,15 +157,21 @@ class Material(models.Model):
     def get_tirar_carrinho(self):
         return reverse("tirar_do_carrinho", kwargs={'id': self.id})
 
+    def get_add_carrinho2(self):
+        return reverse("add_no_carrinho2", kwargs={'id': self.id})
+
+    def get_tirar_carrinho2(self):
+        return reverse("tirar_do_carrinho2", kwargs={'id': self.id})
+
     def get_remover_carrinho(self):
         return reverse("remover_do_carrinho", kwargs={'id': self.id})
 
 
 from django.conf import settings
 class EstoqueMaximoException(Exception):
-    def __init__(self, message, errors):
+    def __init__(self, message):
         super().__init__(message)
-        return 'Limite do estoque atingido'
+         
 
 class ItemCarrinho(models.Model):
     usuario = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
@@ -180,13 +187,15 @@ class ItemCarrinho(models.Model):
 
     def add(self):
         m=self.material
+        print(m.quantidade_estoque>0)
         if m.quantidade_estoque>0:
             self.quantidade+=1
             m.quantidade_estoque-=1
             m.save()
             self.material=m
             return True
-        raise EstoqueMaximoException
+        else:
+            raise EstoqueMaximoException('Limite do estoque atingido')
 
 
     def remover(self):
@@ -224,7 +233,7 @@ class Carrinho(models.Model):
 class Orcamento(models.Model):
     #usuario = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,null=True)
     ordem_de_servico = models.ForeignKey(OrdemDeServico,on_delete=models.PROTECT)
-    carrinho = models.ForeignKey(Carrinho,on_delete=models.CASCADE,null=True)
+    carrinho = models.ForeignKey(Carrinho,on_delete=models.CASCADE)
     servicos = models.TextField(max_length=500)
     valor_mao_de_obra = models.DecimalField(decimal_places=2,max_digits=8,default=0)
     previsao_entrega = models.DateField()

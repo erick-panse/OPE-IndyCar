@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block main %}
+{% for message in messages %}
+  <div class="alert alert-info">
+    <strong>{{message}}</strong>
+  </div>  
+{% endfor %}
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Lista de Materiais</h5>
+          {% if materiais|length > 0 %}
+            <p class="card-text">
+              Selecione os <code>Materiais</code> necessários para o reparo.
+            </p>
+
+            <table class="table">
+              <thead class="thead-dark">
+              <tr>
+                <th>ID</th>
+                <th>Descrição</th>
+                <th>Quantidade em estoque</th>
+                <th></th>
+              </tr>
+              </thead>
+
+              <tbody>
+              {% for i in materiais %}
+                <tr>
+                  <td><br>{{ i.id }}</td>
+                  <td><br>{{ i.descricao }}</td>
+                  <td><br>{{ i.quantidade_estoque }}</td>
+                  <td>
+                    <a href="{{i.get_add_carrinho}}"
+                      class="btn btn-outline-danger">
+                        Adicionar
+                    </a>
+                  </td>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+        {% else %}
+          <div class="text-center mt-5 mb-5 jumbotron">
+            <h5>Nenhumo <code>Material</code> cadastrado ainda.</h5>
+          </div>
+        {% endif %}
+          <hr />
+          <div class="text-right">
+            <a href="{% url 'carrinho' %}" class="btn btn-primary">
+              Resumo de materiais
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  {% endblock %}

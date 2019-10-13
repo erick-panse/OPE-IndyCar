@@ -54,7 +54,7 @@
             <br>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                  <span class="input-group-text">Carrinho</span>
+                  <span class="input-group-text">Materiais</span>
                 </div>
                 {{form_orcamento.carrinho}}
                 {% if instance %}
@@ -70,12 +70,14 @@
               </div>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                  <span class="input-group-text">Total</span>
+                  <span class="input-group-text">Total dos materiais</span>
                 </div>
                 {% if instance %}
-                  {{instance.carrinho.total}}
+                <!-- campo só usado pro js calcular o total -->
+                  <input type="text" id='carrinho_total' value='{{instance.carrinho.total}}' readonly>
                 {% else %}
-                  {{carrinho.total}}
+                <!-- campo só usado pro js calcular o total -->
+                  <input type="text" id='carrinho_total' value='{{carrinho.total}}' readonly>
                 {% endif %}
               </div>
       <!-- Serviços -->
@@ -127,7 +129,14 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">Total a Pagar</span>
                 </div>
-                {{instance.total}}
+                {% if instance %}
+                  <input id='total_a_pagar' type="text" value={{instance.total}} readonly>
+                {% else %}
+                  {% if carrinho %}
+                    <input id='total_a_pagar' type="text" value={{carrinho.total}} readonly>
+                  {% endif %}
+                {% endif %}
+                
             </div>
 
       <br>

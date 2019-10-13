@@ -259,14 +259,11 @@ class OrcamentoForm(forms.ModelForm):
         'name':'servicos',
         'id':'servicos'}))
     carrinho = forms.ModelChoiceField(queryset=Carrinho.objects.all().order_by('id'),widget=forms.HiddenInput())
-    """ valor_mao_de_obra = forms.DecimalField(label='valor da mão de obra:',widget = forms.TextInput(attrs={
+    valor_mao_de_obra = forms.DecimalField(label='valor da mão de obra:',widget = forms.TextInput(attrs={
         'placeholder':'Informe o valor da mão de obra',
         'name':'valor_mao_de_obra',
-        'id':'valor_mao_de_obra'})) """
-    """ total_a_pagar = forms.DecimalField(label='Total a pagar:',widget = forms.TextInput(attrs={
-        'readonly':'Total a pagar',
-        'name':'total_a_pagar',
-        'id':'total_a_pagar'})) """
+        'id':'valor_mao_de_obra',
+        'onkeyup':'calcularTotal()'}))
     previsao_entrega = forms.DateField(label='Previsão entrega:',input_formats=['%d/%m/%Y'],widget = FengyuanChenDatePickerInput(attrs={
         'placeholder':'Previsão de entrega',
         'name':'previsao_entrega',

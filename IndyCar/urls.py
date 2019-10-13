@@ -64,6 +64,8 @@ urlpatterns = [
     path('logout/', usuario_views.logout_user),
     re_path(r'add-no-carrinho/(?P<id>\d+)/$', funilaria_views.add_no_carrinho, name='add_no_carrinho'),
     re_path(r'tirar-do-carrinho/(?P<id>\d+)/$', funilaria_views.tirar_do_carrinho, name='tirar_do_carrinho'),
+    re_path(r'add-no-carrinho2/(?P<id>\d+)/$', funilaria_views.add_no_carrinho_, name='add_no_carrinho2'),
+    re_path(r'tirar-do-carrinho2/(?P<id>\d+)/$', funilaria_views.tirar_do_carrinho_, name='tirar_do_carrinho2'),
     re_path(r'remover-do-carrinho/(?P<id>\d+)/$', funilaria_views.remover_do_carrinho, name='remover_do_carrinho'),
     path('carrinho/', carrinho, name='carrinho'),
 
@@ -71,6 +73,7 @@ urlpatterns = [
     path('orcamento/', funilaria_views.novo_orcamento, name='orcamento'),
     re_path(r'orcamento/(?P<id>\d+)/$',funilaria_views.editar_orcamento, name='editar_orcamento'),
     re_path(r'orcamento/deletar/(?P<id>\d+)/$',funilaria_views.deletar_orcamento, name='deletar_orcamento'),
+    path('materiais-os/',funilaria_views.materiais_os,name='materiais_os'),
 
     path(r'login/recuperacaodesenha/',usuario_views.senha, name='recuperar_senha'),
     url(r'login/novasenha/(?P<uidb64>[0-9A-Za-z]+)-(?P<token>.+)/$',usuario_views.atribuir_nova_senha, name='atribuir_nova_senha'),

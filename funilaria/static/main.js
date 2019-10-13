@@ -31,3 +31,19 @@ function MontaPesquisa() {
     else
         return
     };
+
+
+function calcularTotal(){
+    let mao_de_obra = document.getElementById('valor_mao_de_obra').value;
+    let carrinho = document.getElementById('carrinho_total').value;
+
+    if (mao_de_obra == '' || mao_de_obra == null){
+        mao_de_obra=0;
+    }
+    if (carrinho == '' || carrinho == null){
+        carrinho=0;
+    }
+
+    let total = document.getElementById('total_a_pagar');
+    total.value=parseFloat(mao_de_obra)+parseFloat(carrinho);
+}
