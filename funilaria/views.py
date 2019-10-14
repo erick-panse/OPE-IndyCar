@@ -180,7 +180,7 @@ def nova_os(request):
         form_os= OrdemDeServicoForm()
         return render(request,'formulario_os.html',context={'form_os':form_os,'entrada':entrada})
 
-
+@login_required(login_url='/login/')
 def editar_os(request,id=None):
     instance = get_object_or_404(OrdemDeServico,id=id) 
     form_os= OrdemDeServicoForm(request.POST or None, instance=instance)
@@ -272,12 +272,16 @@ def materiais_os(request):
     msg=messages.get_messages(request)
     return render(request,'materiais_os.html',context={'materiais':materiais,'msg':msg})
 
+@login_required(login_url='/login/')
 def carrinho(request):
     usuario=request.user
-    carrinho = Carrinho.objects.get(usuario=usuario, finalizado=False)
+    try:
+        carrinho = Carrinho.objects.get(usuario=usuario, finalizado=False)
+    except:
+        carrinho=None
     return render(request,'carrinho.html',context={'carrinho':carrinho})
 
-
+@login_required(login_url='/login/')
 def add_no_carrinho(request, id):
     print('add')
     item = get_object_or_404(Material, id=id)
@@ -315,6 +319,7 @@ def add_no_carrinho(request, id):
             messages.error(request, "Material indisponível")
         return redirect(materiais_os)
 
+@login_required(login_url='/login/')
 def add_no_carrinho_(request, id):
     print('add')
     item = get_object_or_404(Material, id=id)
@@ -333,8 +338,8 @@ def add_no_carrinho_(request, id):
                 messages.error(request, "Material indisponível")
             return redirect(carrinho)
         else:
-            order.itens.add(item_carrinho)
             try:
+                order.itens.add(item_carrinho)
                 item_carrinho.add()
             except EstoqueMaximoException:
                 print('add22')
@@ -351,6 +356,7 @@ def add_no_carrinho_(request, id):
             messages.error(request, "Material indisponível")
         return redirect(materiais_os)
 
+@login_required(login_url='/login/')
 def remover_do_carrinho(request, id):
     print('out')
     item = get_object_or_404(Material, id=id)
@@ -370,6 +376,7 @@ def remover_do_carrinho(request, id):
         messages.error(request, "Nenhuma carrinho encontrada")
         return redirect(materiais_os)
 
+@login_required(login_url='/login/')
 def tirar_do_carrinho(request, id):
     print('-1')
     item = get_object_or_404(Material, id=id)
@@ -396,6 +403,7 @@ def tirar_do_carrinho(request, id):
         messages.error(request, "Nenhuma carrinho encontrada")
         return redirect(materiais_os)
 
+@login_required(login_url='/login/')
 def tirar_do_carrinho_(request, id):
     print('-1')
     item = get_object_or_404(Material, id=id)

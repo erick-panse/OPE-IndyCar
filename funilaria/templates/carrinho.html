@@ -12,52 +12,58 @@
       <div class="card">
         <div class="card-body">
           <h5 class="card-title">Lista de Clientes</h5>
-          {% if carrinho.itens.all|length > 0 %}
-            <p class="card-text">
-              Aqui está a lista de <code>Clientes</code> cadastrados.
-            </p>
+          {% if carrinho %}
+            {% if carrinho.itens.all|length > 0 %}
+              <p class="card-text">
+                Aqui está a lista de <code>Clientes</code> cadastrados.
+              </p>
 
-            <table class="table">
-              <thead class="thead-dark">
-              <tr>
-                <th>USUARIO</th>
-                <th>material</th>
-                <th>valor</th>
-                <th></th>
-                <th>qtd</th>
-                <th></th>
-                <th>Total</th>
-              </tr>
-              </thead>
-
-              <tbody>
-              {% for i in carrinho.itens.all %}
+              <table class="table">
+                <thead class="thead-dark">
                 <tr>
-                  <td>{{ i.usuario }}</td>
-                  <td>{{ i.material }}</td>
-                  <td>{{ i.material.valor }}</td>
-                  
-                  <td><a href="{{i.material.get_tirar_carrinho2}}"
-                    class="btn btn-outline-danger">
-                      -
-                  </a></td>
-                  <td>{{ i.quantidade }}</td>
-                  <td>
-                    <a href="{{i.material.get_add_carrinho2}}"
-                       class="btn btn-info">
-                      +
-                    </a>
-                  </td>
-                  <td>{{ i.total }}</td>
+                  <th>USUARIO</th>
+                  <th>material</th>
+                  <th>valor</th>
+                  <th></th>
+                  <th>qtd</th>
+                  <th></th>
+                  <th>Total</th>
                 </tr>
-              {% endfor %}
-              </tbody>
-            </table>
-        {% else %}
-          <div class="text-center mt-5 mb-5 jumbotron">
-            <h5>Nada no carrinho</h5>
-          </div>
-        {% endif %}
+                </thead>
+
+                <tbody>
+                {% for i in carrinho.itens.all %}
+                  <tr>
+                    <td>{{ i.usuario }}</td>
+                    <td>{{ i.material }}</td>
+                    <td>{{ i.material.valor }}</td>
+                    
+                    <td><a href="{{i.material.get_tirar_carrinho2}}"
+                      class="btn btn-outline-danger">
+                        -
+                    </a></td>
+                    <td>{{ i.quantidade }}</td>
+                    <td>
+                      <a href="{{i.material.get_add_carrinho2}}"
+                        class="btn btn-info">
+                        +
+                      </a>
+                    </td>
+                    <td>{{ i.total }}</td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+            {% else %}
+              <div class="text-center mt-5 mb-5 jumbotron">
+                <h5>Nada no carrinho</h5>
+              </div>
+            {% endif %}
+          {% else %}
+            <div class="text-center mt-5 mb-5 jumbotron">
+              <h5>Nada no carrinho</h5>
+            </div>
+          {% endif %}
           <hr />
           <div class="text-right">
             <a href="{% url 'orcamento' %}" class="btn btn-primary">

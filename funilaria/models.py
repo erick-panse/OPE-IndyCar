@@ -126,11 +126,13 @@ class OrdemDeServico(models.Model):
         return reverse('deletar_ordem',kwargs={'id':self.id})
 
     def __str__(self):
-        return "OS do cliente: "+str(self.cliente.nome)+" | "+self.status
+        return "OS do cliente: "+str(self.cliente.nome)
 
     @property
     def status(self):
-        return "Finalizado" if self.data_finalizacao else "Não finalizado"
+        if self.data_finalizacao:
+            return True
+        return False
 
     @property
     def data_entrega(self):
@@ -237,9 +239,8 @@ class Orcamento(models.Model):
     servicos = models.TextField(max_length=500)
     valor_mao_de_obra = models.DecimalField(decimal_places=2,max_digits=8,default=0)
     previsao_entrega = models.DateField()
-    data_saida = models.DateField()
+    data_saida = models.DateField(blank=True,null=True)
     total_a_pagar = models.DecimalField(decimal_places=2,max_digits=8,default=0)
-    finalizado = models.BooleanField(default=False)
 
     def __str__(self):
         return self.servicos+" | "+str(self.total_a_pagar)
@@ -262,6 +263,13 @@ class Orcamento(models.Model):
     @property
     def total(self):
         return self.valor_mao_de_obra+self.carrinho.total
+
+
+    @property
+    def status(self):
+        if self.data_saida:
+            return True
+        return False
 
     def save(self, force_insert=False, force_update=False):
         self.total_a_pagar = self.total
