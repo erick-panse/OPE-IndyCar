@@ -19,6 +19,7 @@
             <table class="table">
               <thead class="thead-dark">
               <tr>
+                <th>ID</th>
                 <th>Nome</th>
                 <th>CPF</th>
                 <th></th>
@@ -28,8 +29,19 @@
               <tbody>
               {% for i in clientes %}
                 <tr>
+                  <td><br>{{ i.id }}</td>
                   <td><br>{{ i.nome }}</td>
                   <td><br>{{ i.cpf }}</td>
+                  <td>
+                    <a href="{{i.get_editar_cliente}}"
+                       class="btn btn-info">
+                      Atualizar
+                    </a>
+                    <a href="{{i.get_del_cliente}}"
+                      class="btn btn-outline-danger" onclick="confirmarAcao()">
+                        Excluir
+                    </a>
+                  </td>
                 </tr>
               {% endfor %}
               </tbody>

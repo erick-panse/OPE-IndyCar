@@ -8,8 +8,7 @@
         <div class="card-body">
           <h5 class="card-title">Cadastro de Orçamento</h5>
           <p class="card-text">
-            Selecione o campo abaixo para cadastrar
-            um novo orçamento ao cliente desejado.
+            Selecione abaixo um cliente para realizar um novo orçamento.
 
             {% for message in messages %}
             <div class="alert alert-danger">
@@ -36,11 +35,7 @@
                 </div>             
               </div>
             {% endif %} -->
-            
-      <br>
-      <br>
-      <br>
-			<h5 class="card-title">Criar Orçamento</h5>
+			
       <p class="card-text">
           <div class="input-group mb-3">
               <div class="input-group-prepend">
@@ -48,15 +43,14 @@
               </div>
               {{form_orcamento.ordem_de_servico}}
             </div>
-
             <br>
+            <h5 class="card-title">Criar Orçamento</h5>
             <br>
-            <br>
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">Materiais</span>
-                </div>
-                {{form_orcamento.carrinho}}
+            
+            <div class="form-row">
+                <div class="col-md-4 mb-3">
+                  <label for="validationTooltip01"><strong>Materiais:</strong></label><br>
+                  {{form_orcamento.carrinho}}
                 {% if instance %}
                   {% for i in instance.resumo %}
                     {{i}}<br>
@@ -66,31 +60,28 @@
                     {{i}}<br>
                   {% endfor %}
                 {% endif %}
-                
-              </div>
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">Total dos materiais</span>
                 </div>
-                {% if instance %}
-                <!-- campo só usado pro js calcular o total -->
-                  <input type="text" id='carrinho_total' value='{{instance.carrinho.total}}' readonly>
-                {% else %}
-                <!-- campo só usado pro js calcular o total -->
-                  <input type="text" id='carrinho_total' value='{{carrinho.total}}' readonly>
-                {% endif %}
+            </div><br>
+
+
+              <div class="form-row">
+                  <div class="col-md-4 mb-3">
+                    <label for="validationTooltip01">Valor total dos materiais:</label><br>
+                    {% if instance %}
+                    <!-- campo só usado pro js calcular o total -->
+                      <input type="text" id='carrinho_total' value='{{instance.carrinho.total}}' readonly>
+                    {% else %}
+                    <!-- campo só usado pro js calcular o total -->
+                      <input type="text" id='carrinho_total' value='{{carrinho.total}}' readonly>
+                    {% endif %}
+                  </div>
               </div>
+
       <!-- Serviços -->
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">Serviços</span>
-                </div>
+            <div class="form-group">
+                <label for="exampleFormControlTextarea1">Serviços necessários:</label><br>
                 {{form_orcamento.servicos}}
-            </div>
-
-      <br>      
-
-
+              </div>    
       <!-- Peças -->
             <!-- <div class="input-group mb-3">
                 <div class="input-group-prepend">
@@ -98,8 +89,6 @@
                 </div>
                 {{form_orcamento.pecas}}
             </div> -->
-
-      <br>
 
       <!-- Quantidade -->
       
@@ -110,54 +99,40 @@
               {{form_orcamento.quantidade_pecas}}
             </div> -->
 
-
-      <br>
-
-      <!-- Valor da Mão de Obra -->
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">Valor da Mão de Obra</span>
+            
+  
+            
+            <div class="form-row">
+                <!-- Valor da Mão de Obra -->
+                <div class="col-md-4 mb-3">
+                  <label for="validationTooltip01">Valor da Mão de Obra:</label><br>
+                  {{form_orcamento.valor_mao_de_obra}}
                 </div>
-                {{form_orcamento.valor_mao_de_obra}}
-            </div>    
-
-
-      <br>
-
-      <!-- Total a Pagar -->
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">Total a Pagar</span>
-                </div>
-                {% if instance %}
+                <!-- Total a Pagar -->
+                <div class="col-md-4 mb-3">
+                  <label for="validationTooltip02">Total a Pagar:</label><br>
+                  {% if instance %}
                   <input id='total_a_pagar' type="text" value={{instance.total}} readonly>
                 {% else %}
                   {% if carrinho %}
                     <input id='total_a_pagar' type="text" value={{carrinho.total}} readonly>
                   {% endif %}
                 {% endif %}
-                
-            </div>
-
-      <br>
-
-      <!-- Previsao de Entrega -->
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">Previsão de Entrega</span>
                 </div>
-                {{form_orcamento.previsao_entrega}}
             </div>
 
-      <br>
-
-      <!-- Data de Saída -->
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">Data de Saída</span>
+            <div class="form-row">
+                <!-- Previsao de Entrega -->
+                <div class="col-md-4 mb-3">
+                  <label for="validationTooltip01">Previsão de Entrega:</label><br>
+                  {{form_orcamento.previsao_entrega}}
                 </div>
-                {{form_orcamento.data_saida}}
-            </div>
+                <!-- Data de Saída -->
+                <div class="col-md-4 mb-3">
+                  <label for="validationTooltip02">Data de Saída:</label><br>
+                  {{form_orcamento.data_saida}}
+                </div>
+            </div>    
 
 
 
