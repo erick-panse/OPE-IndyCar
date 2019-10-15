@@ -27,7 +27,13 @@ class UsuarioForm(UserCreationForm):
 
         if not somenteEmail(email):
             raise forms.ValidationError('Email inválido !')
+    
+    def __init__(self, *args, **kwargs):
+        super(UsuarioForm, self).__init__(*args, **kwargs)
 
+        for fieldname in ['username', 'password1', 'password2']:
+            self.fields[fieldname].help_text = None
+    
     class Meta:
         model = User
         fields = ['username','first_name','last_name','email','password1','password2']
