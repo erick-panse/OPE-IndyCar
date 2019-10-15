@@ -165,9 +165,6 @@ class Material(models.Model):
     def get_tirar_carrinho2(self):
         return reverse("tirar_do_carrinho2", kwargs={'id': self.id})
 
-    def get_remover_carrinho(self):
-        return reverse("remover_do_carrinho", kwargs={'id': self.id})
-
 
 from django.conf import settings
 class EstoqueMaximoException(Exception):
@@ -230,8 +227,6 @@ class Carrinho(models.Model):
             t+=i.total
         return t
 
-    def get_alterar_carrinho(self):
-        return reverse('alterar_carrinho',kwargs={'id':self.id})
 
 
 class Orcamento(models.Model):

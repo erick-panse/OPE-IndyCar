@@ -279,6 +279,15 @@ def materiais_os(request):
     msg=messages.get_messages(request)
     return render(request,'materiais_os.html',context={'materiais':materiais,'msg':msg})
 
+
+def editar_carrinho(request,id,orcamento_id=None):
+    if orcamento_id:
+        orcamento=Orcamento.objects.get(id=orcamento_id)
+        carrinho=Carrinho.objects.get(id=id)
+    else:
+        orcamento=None
+    return render(request,'editar_carrinho.html',context={'carrinho':carrinho,'orcamento':orcamento})
+
 @login_required(login_url='/login/')
 def carrinho(request):
     usuario=request.user
@@ -289,7 +298,7 @@ def carrinho(request):
     return render(request,'carrinho.html',context={'carrinho':carrinho})
 
 @login_required(login_url='/login/')
-def add_no_carrinho(request, id):
+def add_no_carrinho_lista_materiais(request, id):
     item = get_object_or_404(Material, id=id)
     m=Material.objects.get(id=id)
     if m.quantidade_estoque>0:
@@ -372,6 +381,49 @@ def add_no_carrinho_(request, id):
         messages.error(request, "Material indisponível")
         return redirect(materiais_os)
 
+
+@login_required(login_url='/login/')
+def add_no_editar_carrinho(request, id_material, id_carrinho, orcamento_id):
+    item = get_object_or_404(Material, id=id_material)
+    orcamento=Orcamento.objects.get(id=orcamento_id)
+    m=Material.objects.get(id=id_material)
+    if m.quantidade_estoque>0:
+        item_carrinho = ItemCarrinho.objects.get(material=item,usuario=request.user)
+        carrinho_qs = Carrinho.objects.filter(id=id_carrinho)
+        if carrinho_qs.exists():
+            order = carrinho_qs[0]
+            # verifica se o item ja está no carrinho
+            if order.itens.filter(material__id=item.id).exists():
+                try:
+                    item_carrinho.add()
+                    item_carrinho.save()
+                    messages.info(request, "Quantidade atualizada +1")
+                except EstoqueMaximoException:
+                    print('add3')
+                    messages.error(request, "Material indisponível")
+                return redirect('editar_carrinho', id=order.id, orcamento_id=orcamento.id)
+            else:
+                try:
+                    order.itens.add(item_carrinho)
+                    item_carrinho.add()
+                except EstoqueMaximoException:
+                    print('add23')
+                messages.info(request, "Material adicionado a carrinho")
+                return redirect('editar_carrinho', id=order.id, orcamento_id=orcamento.id)
+        else:
+            carrinho_obj = Carrinho.objects.create(usuario=request.user)
+            try:
+                carrinho_obj.itens.add(item_carrinho)
+                item_carrinho.add()
+                messages.info(request, "Material adicionado a carrinho")
+            except EstoqueMaximoException:
+                print('add333')
+                messages.error(request, "Material indisponível")
+            return redirect('editar_carrinho', id=order.id, orcamento_id=orcamento.id)
+    else:
+        messages.error(request, "Material indisponível")
+        return redirect(materiais_os)
+
 @login_required(login_url='/login/')
 def remover_do_carrinho(request, id):
     print('out')
@@ -446,6 +498,36 @@ def tirar_do_carrinho_(request, id):
         messages.error(request, "Nenhum carrinho encontrado")
         return redirect(materiais_os)
 
+
+@login_required(login_url='/login/')
+def tirar_do_editar_carrinho(request, id_material, id_carrinho, orcamento_id):
+    print('-1')
+    item = get_object_or_404(Material, id=id_material)
+    orcamento=Orcamento.objects.get(id=orcamento_id)
+    m=Material.objects.get(id=id_material)
+    carrinho_qs = Carrinho.objects.filter(id=id_carrinho)
+    if carrinho_qs.exists():
+        order = carrinho_qs[0]
+        # verifica se o item ja está na carrinho
+        if order.itens.filter(material__id=item.id).exists():
+            item_carrinho = ItemCarrinho.objects.filter(material=item,usuario=request.user).first()
+            if item_carrinho.quantidade > 1:
+                item_carrinho.remover()
+                item_carrinho.save()
+                messages.info(request, "Quantidade atualizada -1")
+            else:
+                print('removido')
+                item_carrinho.remover()
+                order.itens.remove(item_carrinho)
+                messages.info(request, "Material removido da carrinho")
+            return redirect('editar_carrinho', id=order.id, orcamento_id=orcamento.id)
+        else:
+            messages.error(request, "Material não faz parte do carrinho")
+            return redirect(materiais_os)
+    else:
+        messages.error(request, "Nenhum carrinho encontrado")
+        return redirect(materiais_os)
+
 @login_required(login_url='/login/')
 def orcamento(request):
     orcamentos = Orcamento.objects.all().order_by('id')
@@ -495,6 +577,25 @@ def editar_orcamento(request,id=None):
         except Exception as e:
             messages.error(request,e)
     return render(request,'formulario_orcamento.html',context={'form_orcamento':form_orcamento,'instance':instance})
+
+@login_required(login_url='/login/')
+def editar_carrinho_do_orcamento(request,id=None,carrinho_id=None):
+    instance = get_object_or_404(Orcamento,id=id)
+    if carrinho_id:
+        carrinho=carrinho.objects.get(id=carrinho_id)
+        instance.carrinho=carrinho
+    else:
+        carrinho=None
+    form_orcamento= OrcamentoForm(request.POST or None, instance=instance)
+    if form_orcamento.is_valid():
+        try:
+            instance=form_orcamento.save()
+            instance.save()
+            messages.success(request,'Orçamento atualizado com sucesso')
+            return redirect(orcamento)
+        except Exception as e:
+            messages.error(request,e)
+    return render(request,'formulario_orcamento.html',context={'form_orcamento':form_orcamento,'instance':instance,'carrinho':carrinho})
 
 @login_required(login_url='/login/')
 def deletar_orcamento(request,id=None):

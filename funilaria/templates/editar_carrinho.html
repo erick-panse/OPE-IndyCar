@@ -38,18 +38,29 @@
                     <td>{{ i.material }}</td>
                     <td>{{ i.material.valor }}</td>
                     
-                    
-                    <td><a href="{{i.material.get_tirar_carrinho2}}"
-                      class="btn btn-outline-danger">
-                        -
-                    </a></td>
-                    <td>{{ i.quantidade }}</td>
                     <td>
-                      <a href="{{i.material.get_add_carrinho2}}"
+                        <a href="{% url 'tirar_do_editar_carrinho' i.material.id carrinho.id orcamento.id %}"
+                          class="btn btn-danger">
+                          -
+                        </a>
+                      </td>
+                    <td>{{ i.quantidade }}</td>
+                    {% if orcamento %}
+                    <td>
+                      <a href="{% url 'add_no_editar_carrinho' i.material.id carrinho.id orcamento.id %}"
                         class="btn btn-info">
                         +
                       </a>
                     </td>
+                    {% else %}
+                    <p>n tem</p>
+                    <td>
+                        <a href="{{i.material.get_add_carrinho_editar}}"
+                          class="btn btn-info">
+                          +
+                        </a>
+                      </td>
+                    {% endif %}
                     <td>{{ i.total }}</td>
                   </tr>
                 {% endfor %}
@@ -67,7 +78,7 @@
           {% endif %}
           <hr />
           <div class="text-right">
-            <a href="{% url 'orcamento' %}" class="btn btn-primary">
+            <a href="{% url 'editar_orcamento' orcamento.id %}" class="btn btn-primary">
               Salvar
             </a>
           </div>

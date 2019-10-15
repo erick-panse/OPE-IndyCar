@@ -51,15 +51,19 @@
                 <div class="col-md-4 mb-3">
                   <label for="validationTooltip01"><strong>Materiais:</strong></label><br>
                   {{form_orcamento.carrinho}}
+                  
                 {% if instance %}
+                  <a href="{% url 'editar_carrinho' instance.carrinho.id instance.id %}">Editar</a>
                   {% for i in instance.resumo %}
                     {{i}}<br>
                   {% endfor %}
                 {% else %}
+                  <a href="{% url 'carrinho' %}">Editar</a>
                   {% for i in carrinho.itens.all %}
                     {{i}}<br>
                   {% endfor %}
                 {% endif %}
+                
                 </div>
             </div><br>
 
