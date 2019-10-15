@@ -1,12 +1,8 @@
 ﻿{% extends 'base.html' %}
 
 {% block main %}
-
-    <!-- Estilo customizado -->
-    <link rel="stylesheet" type="text/css" href="/static/css/cssempresa.css">
-
 {% for message in messages %}
-  <div class="alert alert-info">
+  <div class="alert alert-success">
     <strong>{{message}}</strong>
   </div>  
 {% endfor %}
@@ -39,7 +35,7 @@
                   <td><br>{{ i.cnpj }}</td>
                   <td>
                     <a href="{{i.get_editar_empresa}}"
-                       class="btn btn-info">
+                       class="btn btn-outline-info">
                       Atualizar
                     </a>
                     <a href="{{i.get_del_empresa}}"

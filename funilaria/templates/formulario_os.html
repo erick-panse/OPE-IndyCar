@@ -13,9 +13,9 @@
             uma nova <code>Ordem de serviço</code>.
 
           {% for msg in form_os.non_field_errors %}
-            <p>
-              {{msg}}
-            </p>
+          <div class="alert alert-danger">
+            <strong>{{msg}}</strong>
+          </div>
           {% endfor %}
 
           </p>

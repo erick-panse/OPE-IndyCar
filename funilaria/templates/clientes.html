@@ -2,7 +2,7 @@
 
     {% block main %}
 {% for message in messages %}
-  <div class="alert alert-info">
+  <div class="alert alert-success">
     <strong>{{message}}</strong>
   </div>  
 {% endfor %}
@@ -39,7 +39,7 @@
                   <td><br>{{ i.cpf }}</td>
                   <td>
                     <a href="{{i.get_editar_cliente}}"
-                       class="btn btn-info">
+                       class="btn btn-outline-info">
                       Atualizar
                     </a>
                     <a href="{{i.get_del_cliente}}"
