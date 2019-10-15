@@ -76,7 +76,7 @@ urlpatterns = [
     path('materiais-os/',funilaria_views.materiais_os,name='materiais_os'),
 
     path(r'login/recuperacaodesenha/',usuario_views.senha, name='recuperar_senha'),
-    url(r'login/novasenha/(?P<uidb64>[0-9A-Za-z]+)-(?P<token>.+)/$',usuario_views.atribuir_nova_senha, name='atribuir_nova_senha'),
+    url(r'login/novasenha/(?P<uidb64>[0-9A-Za-z]+)-(?P<token>.+)/$',usuario_views.atribuir_nova_senha, name='password_reset_confirm'),
 ] 
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -166,7 +166,7 @@ def atribuir_nova_senha(request,uidb64=None, token=None):
                 user.set_password(new_password)
                 user.save()
                 messages.success(request, 'Senha alterada com sucesso')
-                return render(request,'nova-senha.html',context={'form':form}) 
+                return redirect('/login/')
             else:
                 messages.error(request, 'Não foi possível alterar a senha.')
                 return render(request,'nova-senha.html',context={'form':form}) 
