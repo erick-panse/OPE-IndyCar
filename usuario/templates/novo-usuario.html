@@ -1,15 +1,18 @@
 {% extends 'base.html' %}
 
 {% block main %}
-{% for message in messages %}
-<div class="alert alert-danger">
-  <strong>{{message}}</strong>
-</div>  
-{% endfor %}
-    <h1>Usuário</h1>
-    <form action="/novo-usuario/" method="POST">
+
+
+    
+    <form action="/novo-usuario/" method="POST" id="novousuario">
+        <h1 id="center">Novo Usuário</h1><br>
         {% csrf_token %}
         {{form.as_p}}
-        <button type="submit">Enviar</button>
+        <br><button class="btn btn-outline-info btn-lg btn-block" type="submit">Enviar</button><br>
+        {% for message in messages %}
+        <div class="alert alert-danger">
+        <strong>{{message}}</strong>
+        </div>  
+        {% endfor %}
     </form>
-    {% endblock %}
+{% endblock %}
