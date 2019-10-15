@@ -3,10 +3,10 @@
 {% block main %}
     <br>
     <form action="" method="POST" id="alterarsenha">
-        <h1 id="center">Alterar Senha</h1><br>
+        <h1 id="center">Alterar Senha</h1><br><br>
         {% csrf_token %}
         {{form.as_p}}
-        <button class="btn btn-outline-info btn-lg btn-block" type="submit">Enviar</button><br>
+        <br><button class="btn btn-outline-info btn-lg btn-block" type="submit">Enviar</button><br>
         {% for message in messages %}
 
         <div class="alert alert-danger">
