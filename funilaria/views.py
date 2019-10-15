@@ -283,77 +283,86 @@ def carrinho(request):
 
 @login_required(login_url='/login/')
 def add_no_carrinho(request, id):
-    print('add')
     item = get_object_or_404(Material, id=id)
-    item_carrinho, created = ItemCarrinho.objects.get_or_create(material=item,usuario=request.user)
-    carrinho_qs = Carrinho.objects.filter(usuario=request.user,finalizado=False)
-    if carrinho_qs.exists():
-        order = carrinho_qs[0]
-        # verifica se o item ja está no carrinho
-        if order.itens.filter(material__id=item.id).exists():
-            try:
-                item_carrinho.add()
-                item_carrinho.save()
-                messages.info(request, "Quantidade atualizada +1")
-            except EstoqueMaximoException:
-                print('add1')
-                messages.error(request, "Material indisponível")
-            return redirect(materiais_os)
-        else:
-            try:
+    m=Material.objects.get(id=id)
+    if m.quantidade_estoque>0:
+        item_carrinho, created = ItemCarrinho.objects.get_or_create(material=item,usuario=request.user)
+        carrinho_qs = Carrinho.objects.filter(usuario=request.user,finalizado=False)
+        if carrinho_qs.exists():
+            order = carrinho_qs[0]
+            # verifica se o item ja está no carrinho
+            if order.itens.filter(material__id=item.id).exists():
+                try:
+                    item_carrinho.add()
+                    item_carrinho.save()
+                    messages.info(request, "Quantidade atualizada +1")
+                except EstoqueMaximoException:
+                    print('add1')
+                    messages.error(request, "Material indisponível")
+                return redirect(materiais_os)
+            else:
                 order.itens.add(item_carrinho)
+                try:
+                    item_carrinho.add()
+                    print('caralho')
+                    messages.info(request, "Material adicionado a carrinho")
+                except EstoqueMaximoException:
+                    print('add12')
+                    messages.error(request, "Material indisponível")
+                return redirect(materiais_os)
+        else:
+            carrinho_obj = Carrinho.objects.create(usuario=request.user)
+            try:
+                carrinho_obj.itens.add(item_carrinho)
                 item_carrinho.add()
                 messages.info(request, "Material adicionado a carrinho")
             except EstoqueMaximoException:
-                print('add12')
+                print('add13')
                 messages.error(request, "Material indisponível")
-            return redirect(materiais_os)
-    else:
-        carrinho_obj = Carrinho.objects.create(usuario=request.user)
-        try:
-            carrinho_obj.itens.add(item_carrinho)
-            item_carrinho.add()
-            messages.info(request, "Material adicionado a carrinho")
-        except EstoqueMaximoException:
-            print('add13')
-            messages.error(request, "Material indisponível")
         return redirect(materiais_os)
+    else:
+        messages.error(request, "Material indisponível") 
+    return redirect(materiais_os)
 
 @login_required(login_url='/login/')
 def add_no_carrinho_(request, id):
-    print('add')
     item = get_object_or_404(Material, id=id)
-    item_carrinho, created = ItemCarrinho.objects.get_or_create(material=item,usuario=request.user)
-    carrinho_qs = Carrinho.objects.filter(usuario=request.user,finalizado=False)
-    if carrinho_qs.exists():
-        order = carrinho_qs[0]
-        # verifica se o item ja está no carrinho
-        if order.itens.filter(material__id=item.id).exists():
-            try:
-                item_carrinho.add()
-                item_carrinho.save()
-                messages.info(request, "Quantidade atualizada +1")
-            except EstoqueMaximoException:
-                print('add2')
-                messages.error(request, "Material indisponível")
-            return redirect(carrinho)
+    m=Material.objects.get(id=id)
+    if m.quantidade_estoque>0:
+        item_carrinho, created = ItemCarrinho.objects.get_or_create(material=item,usuario=request.user)
+        carrinho_qs = Carrinho.objects.filter(usuario=request.user,finalizado=False)
+        if carrinho_qs.exists():
+            order = carrinho_qs[0]
+            # verifica se o item ja está no carrinho
+            if order.itens.filter(material__id=item.id).exists():
+                try:
+                    item_carrinho.add()
+                    item_carrinho.save()
+                    messages.info(request, "Quantidade atualizada +1")
+                except EstoqueMaximoException:
+                    print('add2')
+                    messages.error(request, "Material indisponível")
+                return redirect(carrinho)
+            else:
+                try:
+                    order.itens.add(item_carrinho)
+                    item_carrinho.add()
+                except EstoqueMaximoException:
+                    print('add22')
+                messages.info(request, "Material adicionado a carrinho")
+                return redirect(materiais_os)
         else:
+            carrinho_obj = Carrinho.objects.create(usuario=request.user)
             try:
-                order.itens.add(item_carrinho)
+                carrinho_obj.itens.add(item_carrinho)
                 item_carrinho.add()
+                messages.info(request, "Material adicionado a carrinho")
             except EstoqueMaximoException:
-                print('add22')
-            messages.info(request, "Material adicionado a carrinho")
+                print('add23')
+                messages.error(request, "Material indisponível")
             return redirect(materiais_os)
     else:
-        carrinho_obj = Carrinho.objects.create(usuario=request.user)
-        try:
-            carrinho_obj.itens.add(item_carrinho)
-            item_carrinho.add()
-            messages.info(request, "Material adicionado a carrinho")
-        except EstoqueMaximoException:
-            print('add23')
-            messages.error(request, "Material indisponível")
+        messages.error(request, "Material indisponível")
         return redirect(materiais_os)
 
 @login_required(login_url='/login/')
