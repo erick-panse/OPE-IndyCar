@@ -13,6 +13,12 @@
         <div class="card-body">
           <h5 class="card-title">Busca de Clientes</h5>
           {% if clientes|length > 0 %}
+          <form method="POST" action="/clientes/busca/">
+            {% csrf_token %}
+            <input type="text" name="cpf" id="cpfListaCliente" placeholder="CPF do Cliente" required autocomplete="off">
+            <input type="submit" value="Pesquisar">
+          </form><br>  
+          
             <p class="card-text">
               Aqui está a lista de <code>Clientes</code> encontrados.
             </p>
