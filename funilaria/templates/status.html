@@ -1,6 +1,5 @@
-    {% extends 'base.html' %}
-
-    {% block main %}
+{% extends 'base.html' %}
+{% block main %}
 {% for message in messages %}
   <div class="alert alert-info">
     <strong>{{message}}</strong>
@@ -32,7 +31,11 @@
                 <tr>
                   <td><br>{{ i.cliente.nome }}</td>
                   <td><br>{{ i.data_entrega }}</td>
-                  <td class="status"><br>{{ i.status }}</td>
+                  {% if i.status == True %}
+                    <td class="status"><br>Finalizado</td>
+                  {% else %}
+                    <td class="status"><br>Não finalizado</td>
+                  {% endif %}
                   <td>
                     <a href="{{i.get_editar_ordem}}"
                        class="btn btn-info">
@@ -49,12 +52,12 @@
             </table>
         {% else %}
           <div class="text-center mt-5 mb-5 jumbotron">
-            <h5>Nenhuma <code>OS</code> cadastrada ainda.</h5>
+            <h5>Nenhuma <code>OS</code> encontrada.</h5>
           </div>
         {% endif %}
           <hr />
           <div class="text-right">
-            <a href="/clientes/"
+            <a href=""
                 class="btn btn-info">
               Voltar
             </a>

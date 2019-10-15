@@ -256,13 +256,20 @@ def deletar_material(request,id=None):
 def status_ordem(request):
     msg=messages.get_messages(request)
     cpf=request.POST.get('cpf') or None
-    #pelo jeito colocar Empresa exclui as empresas
-    clientes = Cliente.objects.filter(cpf=cpf).order_by('id')
-    print(clientes[0])
-    print(OrdemDeServico.objects.all()[0].cliente)
-    print(clientes[0]==OrdemDeServico.objects.all()[0].cliente)
-    ordens=[]
-    return render(request,'busca_ordens.html',context={'ordens':ordens,'msg':msg})
+    cnpj=request.POST.get('cnpj') or None
+    if cpf:
+        cli=Cliente.objects.get(cpf=cpf)
+        cli=Customer.objects.get(nome=cli.nome,endereco=cli.endereco,bairro=cli.bairro,
+        email=cli.email,telefone=cli.telefone)
+        ordens = OrdemDeServico.objects.filter(cliente=cli)
+    elif cnpj:
+        cli=Empresa.objects.get(cnpj=cnpj)
+        cli=Customer.objects.get(nome=cli.nome,endereco=cli.endereco,bairro=cli.bairro,
+        email=cli.email,telefone=cli.telefone)
+        ordens = OrdemDeServico.objects.filter(cliente=cli)
+    else:
+        return redirect(pagina_inicial)
+    return render(request,'status.html',context={'ordens':ordens,'msg':msg})
 
 
 ##################################################################################################################
@@ -382,7 +389,7 @@ def remover_do_carrinho(request, id):
             messages.error(request, "Material não faz parte da carrinho")
             return redirect(materiais_os)
     else:
-        messages.error(request, "Nenhuma carrinho encontrada")
+        messages.error(request, "Nenhum carrinho encontrado")
         return redirect(materiais_os)
 
 @login_required(login_url='/login/')
@@ -409,7 +416,7 @@ def tirar_do_carrinho(request, id):
             messages.error(request, "Material não faz parte da carrinho")
             return redirect(materiais_os)
     else:
-        messages.error(request, "Nenhuma carrinho encontrada")
+        messages.error(request, "Nenhum carrinho encontrado")
         return redirect(materiais_os)
 
 @login_required(login_url='/login/')
@@ -436,7 +443,7 @@ def tirar_do_carrinho_(request, id):
             messages.error(request, "Material não faz parte da carrinho")
             return redirect(materiais_os)
     else:
-        messages.error(request, "Nenhuma carrinho encontrada")
+        messages.error(request, "Nenhum carrinho encontrado")
         return redirect(materiais_os)
 
 @login_required(login_url='/login/')
