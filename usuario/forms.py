@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth import password_validation
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm,UserChangeForm
 from django.contrib.auth.decorators import login_required
@@ -82,4 +83,5 @@ class AtribuirNovaSenhaForm(forms.Form):
                     self.error_messages['password_mismatch'],
                     code='password_mismatch',
                     )
+        password_validation.validate_password(password2)
         return password2
