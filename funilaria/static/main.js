@@ -170,7 +170,6 @@ function validar_ordem(){
     let cor = document.getElementById('cor').value;
     let placa = document.getElementById('placa').value;
     let ano = document.getElementById('ano').value;
-    let estado = document.getElementByClassName('estado').value;
     let cidade = document.getElementById('cidade').value;
     let reparo_OS = document.getElementById('inputReparo').value;
     let prazo_entrega = document.getElementById('prazo_entrega').value;
@@ -203,12 +202,6 @@ function validar_ordem(){
     if(ano == ""){
         alert("Preencha o campo Ano.");
         ano.focus();
-        return false;
-    }
-
-    if(estado == "Selecione"){
-        alert("Preencha o campo Estado.");
-        estado.focus();
         return false;
     }
 
