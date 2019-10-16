@@ -244,7 +244,7 @@ body { padding: 15px; background:rgba(224, 224, 224, 0.808); font-family: Arial,
 	left: 50%;
 	transform: translate(-50%,-50%);
 	width:450px;
-	height: 550px;
+	height: 525px;
 	box-sizing: border-box;
 	background:white;
 	padding: 40px; 
@@ -262,10 +262,23 @@ body { padding: 15px; background:rgba(224, 224, 224, 0.808); font-family: Arial,
 	padding: 40px; 
 }
 
+#novasenha {
+	position: absolute;
+	top:55%;
+  left: 50%;
+	transform: translate(-50%,-50%);
+	width:450px;
+	height: 630px;
+	box-sizing: border-box;
+	background:white;
+	padding: 40px; 
+}
+
+
 #alterarsenha {
 	position: absolute;
-	top:50%;
-	left: 50%;
+	top:55%;
+  left: 50%;
 	transform: translate(-50%,-50%);
 	width:450px;
 	height: 350px;
@@ -276,11 +289,11 @@ body { padding: 15px; background:rgba(224, 224, 224, 0.808); font-family: Arial,
 
 #novousuario {
 	position: absolute;
-	top:50%;
+	top:55%;
 	left: 50%;
 	transform: translate(-50%,-50%);
 	width:450px;
-	height: 620px;
+	height: 550px;
 	box-sizing: border-box;
 	background:white;
 	padding: 40px; 

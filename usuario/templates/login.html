@@ -15,6 +15,12 @@
 </head>
 <body>
 
+  {% for message in messages %}
+  <div class="alert alert-danger">
+    <strong>{{message}}</strong>
+  </div>  
+{% endfor %}
+
     <div class="form-area">
     	<h2>Indy Car</h2>
     	<form method="post" action="submit">{% csrf_token %}
@@ -25,11 +31,6 @@
     		<input type="password" class="form-control" id="password" name="password" placeholder="Senha">
 
 			<div>
-                {% for message in messages %}
-                  <div class="alert alert-info">
-                    <strong>{{message}}</strong>
-                  </div>  
-                {% endfor %}
                 <button type="submit" class="btn btn-primary">Entrar</button>
             </div>
         <br>

@@ -2,6 +2,13 @@
 {% extends 'base.html' %}
 
 {% block main %}
+
+{% for msg in form_os.non_field_errors %}
+<div class="alert alert-danger">
+  <strong>{{msg}}</strong>
+</div>
+{% endfor %}
+
 <div class="container">
   <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -12,11 +19,6 @@
             Complete o formulário abaixo para cadastrar
             uma nova <code>Ordem de serviço</code>.
 
-          {% for msg in form_os.non_field_errors %}
-          <div class="alert alert-danger">
-            <strong>{{msg}}</strong>
-          </div>
-          {% endfor %}
 
           </p>
               

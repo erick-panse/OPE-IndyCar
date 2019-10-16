@@ -2,11 +2,11 @@
 
 {% block main %}
     {% for message in messages %}
-        <div class="alert alert-info">
+        <div class="alert alert-danger">
         <strong>{{message}}</strong>
         </div>  
     {% endfor %}
-    <form action="" method="POST">
+    <form action="" method="POST" id="novasenha">
         {% csrf_token %}
         {{form.as_p}}
         <button type="submit">Enviar</button>
