@@ -12,6 +12,9 @@
       <div class="card">
         <div class="card-body">
           <h5 class="card-title">Busca de Clientes</h5>
+          <p class="card-text">
+              Aqui está a lista de <code>Clientes</code> encontrados.
+          </p>
           {% if clientes|length > 0 %}
           <form method="POST" action="/clientes/busca/">
             {% csrf_token %}
@@ -19,13 +22,10 @@
             <input type="submit" value="Pesquisar">
           </form><br>  
           
-            <p class="card-text">
-              Aqui está a lista de <code>Clientes</code> encontrados.
-            </p>
             <table class="table">
               <thead class="thead-dark">
               <tr>
-                <th>ID</th>
+                <th>ID</th> 
                 <th>Nome</th>
                 <th>CPF</th>
                 <th></th>
