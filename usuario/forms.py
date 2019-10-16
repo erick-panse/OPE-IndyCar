@@ -62,7 +62,7 @@ class EditarUsuarioForm(UserChangeForm):
         fields = ['first_name','last_name','email']
 
 class AlterarSenhaForm(forms.Form):
-    email = forms.CharField(label=("Email"), max_length=254,required=True)
+    email = forms.EmailField(label=("Email"), max_length=254,required=True)
 
 class AtribuirNovaSenhaForm(forms.Form):
     error_messages = {

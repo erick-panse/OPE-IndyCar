@@ -120,6 +120,9 @@ def senha(request):
         if form.is_valid():
             data= form.cleaned_data["email"]
             usuarios = User.objects.filter(email=data)
+            if not usuarios:
+                messages.error(request, 'Email inválido')
+                return render(request,'alterarsenha.html',context={'form':form}) 
             for user in usuarios:
                 c = {
                     'email': user.email,

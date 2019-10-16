@@ -224,11 +224,11 @@ class MaterialForm(forms.ModelForm):
         'id':'descricao',
         'autocomplete': 'off'}))
     
-    valor = forms.CharField(max_length=14,label='Valor:',widget = forms.TextInput(attrs={
+    valor = forms.CharField(max_length=9,label='Valor:',widget = forms.TextInput(attrs={
         'placeholder':'Valor da peça',
         'name':'valor',
         'class':'inputText',
-        #'class':'money',
+        'class':'money',
         'id':'valor',
         'autocomplete': 'off'}))
     
@@ -264,6 +264,7 @@ class OrcamentoForm(forms.ModelForm):
         'placeholder':'Informe o valor da mão de obra',
         'name':'valor_mao_de_obra',
         'class':'inputText',
+        'class':'money',
         'id':'valor_mao_de_obra',
         'onkeyup':'calcularTotal()'}))
     previsao_entrega = forms.DateField(label='Previsão entrega:',input_formats=['%d/%m/%Y'],widget = FengyuanChenDatePickerInput(attrs={
