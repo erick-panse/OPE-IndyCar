@@ -8,35 +8,40 @@ from .fields import DataField
 
 class CustomerForm(forms.ModelForm):
     
-    nome = forms.CharField(max_length=60,label='Nome completo:',widget = forms.TextInput(attrs={
+    nome = forms.CharField(max_length=60,label='Nome completo:', widget = forms.TextInput(attrs={
         'placeholder':'Informe o nome',
         'name':'nome',
         'class':'inputText',
         'id':'nome',
+        'onkeyup':'validarNome()',
         'autocomplete': 'off'}))
     endereco = forms.CharField(max_length=100,label='Endereço:',widget = forms.TextInput(attrs={
         'placeholder':'Informe o endereço',
         'name':'endereco',
         'class':'inputText',
         'id':'endereco',
+        'onkeyup':'validarEndereco()',
         'autocomplete': 'off'}))
     bairro = forms.CharField(max_length=30,label='Bairro:',widget = forms.TextInput(attrs={
         'placeholder':'Informe o bairro',
         'name':'bairro',
         'class':'inputText',
         'id':'bairro',
+        'onkeyup':'validarBairro()',
         'autocomplete': 'off'}))
     email = forms.EmailField(max_length=60,label='Email:',widget = forms.EmailInput(attrs={
         'placeholder':'Informe o email',
         'name':'email',
         'class':'inputText',
         'id':'email',
+        'onkeyup':'validarEmail()',
         'autocomplete': 'off'}))
     telefone = forms.CharField(max_length=16,label='Telefone:',widget = forms.TextInput(attrs={
         'placeholder':'Informe o telefone',
         'name':'tel',
         'class':'inputText', #'tele'
         'id':'tel',
+        'onkeyup':'validarTelefone()',
         'autocomplete': 'off'}))
 
     def validar(self):
@@ -68,6 +73,7 @@ class ClienteForm(CustomerForm):
         'name':'cpf',
         'class':'inputText',
         'id':'cpf',
+        'onkeyup':'validarCPF()',
         'autocomplete': 'off'}))
 
     def clean(self):
@@ -90,6 +96,7 @@ class EmpresaForm(CustomerForm):
         'name':'cnpj',
         'class':'inputText',
         'id':'cnpj',
+        'onkeyup':'validarCNPJ()',
         'autocomplete': 'off'}))
 
     def clean(self):
@@ -110,30 +117,35 @@ class OrdemDeServicoForm(forms.ModelForm):
         'name':'marca',
         'class':'inputText',
         'id':'marca',
+        'onkeyup':'validarMarca()',
         'autocomplete': 'off'}))
     modelo_veiculo = forms.CharField(max_length=30,label='Modelo:',widget = forms.TextInput(attrs={
         'placeholder':'Informe o modelo',
         'name':'modelo',
         'class':'inputText',
         'id':'modelo',
+        'onkeyup':'validarModelo()',
         'autocomplete': 'off'}))
     cor_veiculo = forms.CharField(max_length=30,label='Cor:',widget = forms.TextInput(attrs={
         'placeholder':'Informe a cor',
         'name':'cor',
         'class':'inputText',
         'id':'cor',
+        'onkeyup':'validarCor()',
         'autocomplete': 'off'}))
     placa_veiculo = forms.CharField(max_length=8,label='Placa:',widget = forms.TextInput(attrs={
         'placeholder':'',
         'name':'placa',
         'class':'inputLittle',
         'id':'placa',
+        'onkeyup':'validarPlaca()',
         'autocomplete': 'off'}))
     ano_veiculo = forms.CharField(max_length=4,label='Ano:',widget = forms.NumberInput(attrs={
         'placeholder':'',
         'name':'ano',
         'class':'inputLittle',
         'id':'ano',
+        'onkeyup':'validarAno()',
         'autocomplete': 'off'}))
     estado_veiculo= forms.ModelChoiceField(empty_label=" Selecione",queryset=Estado.objects.all(),widget=forms.Select(attrs={'class':'estado'}))
     cidade_veiculo = forms.CharField(max_length=30,label='Cidade:',widget = forms.TextInput(attrs={
@@ -141,18 +153,21 @@ class OrdemDeServicoForm(forms.ModelForm):
         'name':'cidade',
         'class':'inputText',
         'id':'cidade',
+        'onkeyup':'validarCidade()',
         'autocomplete': 'off'}))
     reparos_necessarios = forms.CharField(max_length=500,label='Reparos necessários:',widget = forms.Textarea(attrs={
         'placeholder':'Informe os reparos necessários',
         'name':'reparos_necessarios',
         'class':'inputReparo',
         'id':'inputReparo',
+        'onkeyup':'validarReparoOS()',
         'autocomplete': 'off'}))
     prazo_entrega = forms.DateField(label='Prazo entrega:',input_formats=['%d/%m/%Y'],widget = FengyuanChenDatePickerInput(attrs={
         'placeholder':'Prazo de entrega',
         'name':'prazo_entrega',
         'class':"date",
         'id':'prazo_entrega',
+        'onkeyup':'validarPrazoEntrega()',
         'autocomplete': 'off'}))
     data_finalizacao = DataField(required=False,label='Data de finalização:',input_formats=['%d/%m/%Y'],widget = FengyuanChenDatePickerInput(attrs={
         'placeholder':'Data de finalização',
@@ -216,12 +231,14 @@ class MaterialForm(forms.ModelForm):
         'class':'inputText',
         #'name':'quantidade_estoque',
         'id':'quantidade_estoque',
+        'onkeyup':'validarQTDestoque()',
         'autocomplete': 'off'}))
     descricao = forms.CharField(max_length=200,label='Descrição:',widget = forms.TextInput(attrs={
         'placeholder':'Informe a descrição',
         'class':'inputText',
         #'name':'descricao',
         'id':'descricao',
+        'onkeyup':'validarDescricao()',
         'autocomplete': 'off'}))
     
     valor = forms.CharField(max_length=9,label='Valor:',widget = forms.TextInput(attrs={
@@ -230,6 +247,7 @@ class MaterialForm(forms.ModelForm):
         'class':'inputText',
         'class':'money',
         'id':'valor',
+        'onkeyup':'validarValor()',
         'autocomplete': 'off'}))
     
     def clean(self):
@@ -258,6 +276,7 @@ class OrcamentoForm(forms.ModelForm):
         'placeholder':'Informe os serviços necessários',
         'name':'servicos',
         'class':'inputReparo',
+        'onkeyup':'validarServicos()',
         'id':'servicos'}))
     carrinho = forms.ModelChoiceField(queryset=Carrinho.objects.all().order_by('id'),widget=forms.HiddenInput())
     valor_mao_de_obra = forms.DecimalField(label='valor da mão de obra:',widget = forms.TextInput(attrs={
