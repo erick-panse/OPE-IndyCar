@@ -77,7 +77,8 @@ urlpatterns = [
     re_path(r'orcamento/(?P<id>\d+)/$',funilaria_views.editar_orcamento, name='editar_orcamento'),
     re_path(r'orcamento/(?P<id>\d+)-(?P<carrinho_id>\d+)/$',funilaria_views.editar_orcamento, name='editar_carrinho_do_orcamento'),
     re_path(r'orcamento/deletar/(?P<id>\d+)/$',funilaria_views.deletar_orcamento, name='deletar_orcamento'),
-    path('materiais-os/',funilaria_views.materiais_os,name='materiais_os'),
+    path('materiais-os/',funilaria_views.materiais_orcamento,name='materiais_orcamento'),
+    re_path(r'materiais/orcamento/editar/(?P<id_orcamento>\d+)/$',funilaria_views.materiais_orcamento_editar,name='materiais_orcamento_editar'),
 
     path(r'login/recuperacaodesenha/',usuario_views.senha, name='recuperar_senha'),
     url(r'login/novasenha/(?P<uidb64>[0-9A-Za-z]+)-(?P<token>.+)/$',usuario_views.atribuir_nova_senha, name='password_reset_confirm'),

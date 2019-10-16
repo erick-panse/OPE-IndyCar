@@ -186,7 +186,6 @@ class ItemCarrinho(models.Model):
 
     def add(self):
         m=self.material
-        print('disponivel ='+str(m.quantidade_estoque>0))
         if m.quantidade_estoque>0:
             self.quantidade+=1
             m.quantidade_estoque-=1
@@ -195,7 +194,6 @@ class ItemCarrinho(models.Model):
             return True
         else:
             raise EstoqueMaximoException('Limite do estoque atingido')
-            print('desgraca')
             return False
 
 

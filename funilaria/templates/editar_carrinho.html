@@ -78,6 +78,9 @@
           {% endif %}
           <hr />
           <div class="text-right">
+            <a href="{% url 'materiais_orcamento_editar' orcamento.id %}" class="btn btn-primary">
+              Adicionar outros materiaisss
+            </a>
             <a href="{% url 'editar_orcamento' orcamento.id %}" class="btn btn-primary">
               Salvar
             </a>

@@ -274,12 +274,19 @@ def status_ordem(request):
 
 ##################################################################################################################
 @login_required(login_url='/login/')
-def materiais_os(request):
+def materiais_orcamento(request):
     materiais = Material.objects.all().order_by('id')
     msg=messages.get_messages(request)
-    return render(request,'materiais_os.html',context={'materiais':materiais,'msg':msg})
+    return render(request,'materiais_orcamento.html',context={'materiais':materiais,'msg':msg})
 
+@login_required(login_url='/login/')
+def materiais_orcamento_editar(request,id_orcamento):
+    orcamento=Orcamento.objects.get(id=id_orcamento)
+    materiais = Material.objects.all().order_by('id')
+    msg=messages.get_messages(request)
+    return render(request,'materiais_editar_orcamento.html',context={'materiais':materiais,'msg':msg,'orcamento':orcamento})
 
+@login_required(login_url='/login/')
 def editar_carrinho(request,id,orcamento_id=None):
     if orcamento_id:
         orcamento=Orcamento.objects.get(id=orcamento_id)
@@ -315,7 +322,7 @@ def add_no_carrinho_lista_materiais(request, id):
                 except EstoqueMaximoException:
                     print('add1')
                     messages.error(request, "Material indisponível")
-                return redirect(materiais_os)
+                return redirect(materiais_orcamento)
             else:
                 order.itens.add(item_carrinho)
                 try:
@@ -325,7 +332,7 @@ def add_no_carrinho_lista_materiais(request, id):
                 except EstoqueMaximoException:
                     print('add12')
                     messages.error(request, "Material indisponível")
-                return redirect(materiais_os)
+                return redirect(materiais_orcamento)
         else:
             carrinho_obj = Carrinho.objects.create(usuario=request.user)
             try:
@@ -335,10 +342,10 @@ def add_no_carrinho_lista_materiais(request, id):
             except EstoqueMaximoException:
                 print('add13')
                 messages.error(request, "Material indisponível")
-        return redirect(materiais_os)
+        return redirect(materiais_orcamento)
     else:
         messages.error(request, "Material indisponível") 
-    return redirect(materiais_os)
+    return redirect(materiais_orcamento)
 
 @login_required(login_url='/login/')
 def add_no_carrinho_(request, id):
@@ -366,7 +373,7 @@ def add_no_carrinho_(request, id):
                 except EstoqueMaximoException:
                     print('add22')
                 messages.info(request, "Material adicionado a carrinho")
-                return redirect(materiais_os)
+                return redirect(materiais_orcamento)
         else:
             carrinho_obj = Carrinho.objects.create(usuario=request.user)
             try:
@@ -376,10 +383,10 @@ def add_no_carrinho_(request, id):
             except EstoqueMaximoException:
                 print('add23')
                 messages.error(request, "Material indisponível")
-            return redirect(materiais_os)
+            return redirect(materiais_orcamento)
     else:
         messages.error(request, "Material indisponível")
-        return redirect(materiais_os)
+        return redirect(materiais_orcamento)
 
 
 @login_required(login_url='/login/')
@@ -422,7 +429,7 @@ def add_no_editar_carrinho(request, id_material, id_carrinho, orcamento_id):
             return redirect('editar_carrinho', id=order.id, orcamento_id=orcamento.id)
     else:
         messages.error(request, "Material indisponível")
-        return redirect(materiais_os)
+        return redirect('materiais_orcamento_editar',id_orcamento=orcamento.id)
 
 @login_required(login_url='/login/')
 def remover_do_carrinho(request, id):
@@ -436,13 +443,13 @@ def remover_do_carrinho(request, id):
             item_carrinho = ItemCarrinho.objects.filter(material=item,usuario=request.user).first()
             order.itens.remove(item_carrinho)
             messages.info(request, "Material removido da carrinho")
-            return redirect(materiais_os)
+            return redirect(materiais_orcamento)
         else:
             messages.error(request, "Material não faz parte da carrinho")
-            return redirect(materiais_os)
+            return redirect(materiais_orcamento)
     else:
         messages.error(request, "Nenhum carrinho encontrado")
-        return redirect(materiais_os)
+        return redirect(materiais_orcamento)
 
 @login_required(login_url='/login/')
 def tirar_do_carrinho(request, id):
@@ -463,13 +470,13 @@ def tirar_do_carrinho(request, id):
                 item_carrinho.remover()
                 order.itens.remove(item_carrinho)
                 messages.info(request, "Material removido da carrinho")
-            return redirect(materiais_os)
+            return redirect(materiais_orcamento)
         else:
             messages.error(request, "Material não faz parte da carrinho")
-            return redirect(materiais_os)
+            return redirect(materiais_orcamento)
     else:
         messages.error(request, "Nenhum carrinho encontrado")
-        return redirect(materiais_os)
+        return redirect(materiais_orcamento)
 
 @login_required(login_url='/login/')
 def tirar_do_carrinho_(request, id):
@@ -493,10 +500,10 @@ def tirar_do_carrinho_(request, id):
             return redirect(carrinho)
         else:
             messages.error(request, "Material não faz parte da carrinho")
-            return redirect(materiais_os)
+            return redirect(materiais_orcamento)
     else:
         messages.error(request, "Nenhum carrinho encontrado")
-        return redirect(materiais_os)
+        return redirect(materiais_orcamento)
 
 
 @login_required(login_url='/login/')
@@ -523,10 +530,10 @@ def tirar_do_editar_carrinho(request, id_material, id_carrinho, orcamento_id):
             return redirect('editar_carrinho', id=order.id, orcamento_id=orcamento.id)
         else:
             messages.error(request, "Material não faz parte do carrinho")
-            return redirect(materiais_os)
+            return redirect(materiais_orcamento)
     else:
         messages.error(request, "Nenhum carrinho encontrado")
-        return redirect(materiais_os)
+        return redirect(materiais_orcamento)
 
 @login_required(login_url='/login/')
 def orcamento(request):
