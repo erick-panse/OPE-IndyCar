@@ -1,6 +1,13 @@
 {% extends 'base.html' %}
 
 {% block main %}
+
+{% for message in messages %}
+<div class="alert alert-danger">
+  <strong>{{message}}</strong>
+</div>  
+{% endfor %}
+
 <div class="container">
   <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -9,12 +16,6 @@
           <h5 class="card-title">Cadastro de Orçamento</h5>
           <p class="card-text">
             Selecione abaixo um cliente para realizar um novo orçamento.
-
-            {% for message in messages %}
-            <div class="alert alert-danger">
-              <strong>{{message}}</strong>
-            </div>  
-          {% endfor %}
 
           </p>
           <form method="POST">

@@ -2,6 +2,12 @@
 
 {% block main %}
 
+{% for message in messages %}
+<div class="alert alert-success">
+<strong>{{message}}</strong>
+</div>  
+{% endfor %}
+
 <div class="container" id="perfil">
   <div class="card" id="perfil">
     <h1>Seu Perfil</h1><br>
@@ -24,11 +30,6 @@
     class="btn btn-outline-info btn-lg btn-block">
         Novo Usuário
     </a><br>
-  {% for message in messages %}
-  <div class="alert alert-success">
-  <strong>{{message}}</strong>
-  </div>  
-  {% endfor %}
   </div>
 </div>
 
