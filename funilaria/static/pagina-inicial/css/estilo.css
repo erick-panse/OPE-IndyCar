@@ -111,3 +111,12 @@ body{
 .inputText{
     width: 300px;
 }
+
+#logo {
+    font-family: 'impact';
+    src: local('impact'),
+         url('/funilaria/static/fonts/isle_body/impact.ttf') format("truetype");
+    font-size: 30px;
+    color: white;
+    text-transform: uppercase;
+}

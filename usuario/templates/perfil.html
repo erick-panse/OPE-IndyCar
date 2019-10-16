@@ -8,32 +8,36 @@
 </div>  
 {% endfor %}
 
-<br>
-<br>
 
-<div class="container" id="perfil">
-  <div class="card" id="perfil">
-    <h1 id="center">Seu Perfil</h1><br>
-    <p><a id="negrito">Usuário:</a> {{user}} 
-    <p><a id="negrito">Nome:</a> {{user.first_name}}
-    </p>
-    <p><a id="negrito">Sobrenome:</a> {{user.last_name}}
-    </p>
-    <p><a id="negrito">Email:</a> {{user.email}}</p>
-    <br>
-    <a href="/perfil/editar/"
-    class="btn btn-outline-info btn-lg btn-block">
-        Editar
-    </a>
-    <a href="/perfil/editar/senha/"
-    class="btn btn-outline-info btn-lg btn-block">
-        Alterar senha
-    </a>
-    <a href="/novo-usuario/"
-    class="btn btn-outline-info btn-lg btn-block">
-        Novo Usuário
-    </a><br>
-  </div>
+<div class="container">
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-5 ">
+        <div class="card">
+            <div class="card-body">
+                <h1 id="center">Seu Perfil</h1><br>
+                <p><a id="negrito">Usuário:</a> {{user}} 
+                <p><a id="negrito">Nome:</a> {{user.first_name}}
+                </p>
+                <p><a id="negrito">Sobrenome:</a> {{user.last_name}}
+                </p>
+                <p><a id="negrito">Email:</a> {{user.email}}</p>
+                <br>
+                <a href="/perfil/editar/"
+                class="btn btn-outline-info btn-lg btn-block">
+                    Editar
+                </a>
+                <a href="/perfil/editar/senha/"
+                class="btn btn-outline-info btn-lg btn-block">
+                    Alterar senha
+                </a>
+                <a href="/novo-usuario/"
+                class="btn btn-outline-info btn-lg btn-block">
+                    Novo Usuário
+                </a><br>
+            </div>    
+        </div>
+      </div>  
+    </div>   
 </div>
 
 {% endblock %}

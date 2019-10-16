@@ -8,10 +8,23 @@
 </div>  
 {% endfor %}
     
-    <form action="/novo-usuario/" method="POST" id="novousuario">
-        <h1 id="center">Novo Usuário</h1><br>
-        {% csrf_token %}
-        {{form.as_p}}
-        <br><button class="btn btn-outline-info btn-lg btn-block" type="submit">Enviar</button><br>
-    </form>
+<div class="container">
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-5 ">
+        <div class="card">
+            <div class="card-body">
+                <form action="/novo-usuario/" method="POST" >
+                    <h1 id="center">Novo Usuário</h1><br>
+                    {% csrf_token %}
+                    {{form.as_p}}
+                    <br><button class="btn btn-outline-info btn-lg btn-block" type="submit">Enviar</button><br>
+                </form>
+            </div>    
+        </div>
+      </div>  
+    </div>   
+</div>
+
 {% endblock %}
+
+
