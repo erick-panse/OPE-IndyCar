@@ -8,10 +8,13 @@
 </div>  
 {% endfor %}
 
+<br>
+<br>
+
 <div class="container" id="perfil">
   <div class="card" id="perfil">
-    <h1>Seu Perfil</h1><br>
-    <p><a id="negrito">Usuário: {{user}}</a> 
+    <h1 id="center">Seu Perfil</h1><br>
+    <p><a id="negrito">Usuário:</a> {{user}} 
     <p><a id="negrito">Nome:</a> {{user.first_name}}
     </p>
     <p><a id="negrito">Sobrenome:</a> {{user.last_name}}

@@ -9,11 +9,16 @@
 </div>  
 {% endfor %}
 
-    <br>
+<br>
+<br>
+<br>
     <form action="" method="POST" id="alterarsenha">
         <h1 id="center">Alterar Senha</h1><br><br>
         {% csrf_token %}
         {{form.as_p}}
         <br><button class="btn btn-outline-info btn-lg btn-block" type="submit">Enviar</button><br>
     </form>
+
+    <br>
+    <br>
 {% endblock %}
