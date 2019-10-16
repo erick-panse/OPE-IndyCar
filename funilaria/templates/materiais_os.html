@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 
 {% block main %}
+
+    <!-- Estilo customizado -->
+    <link rel="stylesheet" type="text/css" href="/static/css/cssmateriais.css">
+
 {% for message in messages %}
   <div class="alert alert-success">
     <strong>{{message}}</strong>

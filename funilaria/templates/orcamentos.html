@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 
 {% block main %}
+
+    <!-- Estilo customizado -->
+    <link rel="stylesheet" type="text/css" href="/static/css/cssorcamento.css">
+
 {% for message in messages %}
   <div class="alert alert-success">
     <strong>{{message}}</strong>
@@ -34,20 +38,15 @@
               <tbody>
               {% for i in orcamentos %}
                 <tr>
-                  <td>{{ i.id }}</td>
-                  <td>{{ i.ordem_de_servico.cliente.nome }}</td>
-                  <td>
-                    {{ i.previsao_entrega }}</td>
-                  <td>
-                    {{ i.valor_mao_de_obra }}</td>
-
-                  <td>
-                    {{ i.total }}
-                  </td>
+                  <td><br>{{ i.id }}</td>
+                  <td><br>{{ i.ordem_de_servico.cliente.nome }}</td>
+                  <td><br>{{ i.previsao_entrega }}</td>
+                  <td><br>{{ i.valor_mao_de_obra }}</td>
+                  <td><br>{{ i.total }}</td>
                   {% if i.status == True %}
-                    <td class="status">Finalizado</td>
+                    <td class="status"><br>Finalizado</td>
                   {% else %}
-                    <td class="status">Não finalizado</td>
+                    <td class="status"><br>Não finalizado</td>
                   {% endif %}
                   <td>
                     <a href="{{i.get_editar_orcamento}}"
