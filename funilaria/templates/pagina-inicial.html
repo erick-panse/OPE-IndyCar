@@ -17,14 +17,12 @@
     <script src="/static/js/main.js"></script>
     <script src="/static/js/jquery.mask.js"></script>
 
-
-  </head>
-
     <title>Indy Car</title>
   </head>
   <body>
     
-    <header><!-- inicio Cabecalho -->
+    
+      <header><!-- inicio Cabecalho -->
       <nav class="navbar navbar-expand-sm navbar-light bg-primary">
         <div class="container">
           
@@ -56,14 +54,14 @@
 
         </div>
       </nav>
-    </header><!--/fim Cabecalho -->
+    </header><!--/fim Cabecalho --> 
     <section id="home"><!-- Início seção home -->
     <br>
     <br>
     <br>
       <div class="container">
         <div class="row">
-          <div class="col-md-6 d-flex"><!-- Textos da seção -->
+          <div class="col-md-5 d-flex"><!-- Textos da seção -->
             <div class="align-self-center">
               <p>
                 <h1>Saiba qual é o status do seu veículo:</h1>
@@ -71,15 +69,15 @@
               </p>
 
 
-                <div class="form-group">
-                  <form method="POST" action="ordensdeservico/busca/">
-                    {% csrf_token %}
-                    <input type="text" name="cpf" id="cpfPGinicial" placeholder="Informe seu cpf" autocomplete="off">
-                    <br>OU<br>
-                    <input type="text" name="cnpj" id="cnpjPGinicial" placeholder="Informe seu cnpj" autocomplete="off">
-                    <button type="submit" class="btn btn-danger">Enviar</button>
-                  </form>
-                </div>
+              <div class="form-group">
+                <form method="POST" action="ordensdeservico/busca/">
+                  {% csrf_token %}
+                  <input type="text" name="cpf" id="cpfPGinicial" placeholder="Informe seu cpf" autocomplete="off">
+                  <br>OU<br>
+                  <input type="text" name="cnpj" id="cnpjPGinicial" placeholder="Informe seu cnpj" autocomplete="off">
+                  <button type="submit" class="btn btn-danger">Enviar</button>
+                </form>
+              </div>
                 <!-- <div class="form-group">
                   <label for="Email1">Email:</label>
                   <input type="email" class="form-control" id="InputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
