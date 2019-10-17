@@ -309,6 +309,8 @@ def pegarItem(carrinho,material,usuario):
         if i.material==material and i.usuario==usuario:
             return i
     i = ItemCarrinho.objects.create(material=material,usuario=usuario)
+    i.add()
+    i.save()
     return i
 
 
@@ -335,8 +337,7 @@ def add_no_carrinho_lista_materiais(request, id):
             else:
                 order.itens.add(item_carrinho)
                 try:
-                    item_carrinho.add()
-                    print('caralho')
+                    #item_carrinho.add()
                     messages.info(request, "Material adicionado a carrinho")
                 except EstoqueMaximoException:
                     print('add12')
@@ -347,7 +348,7 @@ def add_no_carrinho_lista_materiais(request, id):
             item_carrinho = ItemCarrinho.objects.create(material=m,usuario=request.user)
             try:
                 carrinho_obj.itens.add(item_carrinho)
-                item_carrinho.add()
+                #item_carrinho.add()
                 messages.info(request, "Material adicionado a carrinho")
             except EstoqueMaximoException:
                 print('add13')
@@ -380,7 +381,7 @@ def add_no_carrinho_(request, id):
             else:
                 try:
                     order.itens.add(item_carrinho)
-                    item_carrinho.add()
+                    #item_carrinho.add()
                 except EstoqueMaximoException:
                     print('add22')
                 messages.info(request, "Material adicionado a carrinho")
@@ -389,7 +390,7 @@ def add_no_carrinho_(request, id):
             carrinho_obj = Carrinho.objects.create(usuario=request.user)
             try:
                 carrinho_obj.itens.add(item_carrinho)
-                item_carrinho.add()
+                #item_carrinho.add()
                 messages.info(request, "Material adicionado a carrinho")
             except EstoqueMaximoException:
                 print('add23')
@@ -466,14 +467,15 @@ def remover_do_carrinho(request, id):
 
 @login_required(login_url='/login/')
 def tirar_do_carrinho(request, id):
-    print('-1')
+    print('tirar_do_carrino')
     item = get_object_or_404(Material, id=id)
     carrinho_qs = Carrinho.objects.filter(usuario=request.user,finalizado=False)
     if carrinho_qs.exists():
         order = carrinho_qs[0]
         # verifica se o item ja está na carrinho
         if order.itens.filter(material__id=item.id).exists():
-            item_carrinho = ItemCarrinho.objects.filter(material=item,usuario=request.user).first()
+            print('existe')
+            item_carrinho = pegarItem(order,m,request.user)
             if item_carrinho.quantidade > 1:
                 item_carrinho.remover()
                 item_carrinho.save()
@@ -500,7 +502,9 @@ def tirar_do_carrinho_(request, id):
         order = carrinho_qs[0]
         # verifica se o item ja está na carrinho
         if order.itens.filter(material__id=item.id).exists():
-            item_carrinho = ItemCarrinho.objects.filter(material=item,usuario=request.user).first()
+            #item_carrinho = ItemCarrinho.objects.filter(material=item,usuario=request.user).first()
+            print('existe')
+            item_carrinho = pegarItem(order,item,request.user)
             if item_carrinho.quantidade > 1:
                 item_carrinho.remover()
                 item_carrinho.save()
@@ -528,9 +532,10 @@ def tirar_do_editar_carrinho(request, id_material, id_carrinho, orcamento_id):
     carrinho_qs = Carrinho.objects.filter(id=id_carrinho)
     if carrinho_qs.exists():
         order = carrinho_qs[0]
+        item_carrinho = pegarItem(order,item,request.user)
         # verifica se o item ja está na carrinho
         if order.itens.filter(material__id=item.id).exists():
-            item_carrinho = ItemCarrinho.objects.filter(material=item,usuario=request.user).first()
+            #item_carrinho = ItemCarrinho.objects.filter(material=item,usuario=request.user).first()
             if item_carrinho.quantidade > 1:
                 item_carrinho.remover()
                 item_carrinho.save()
