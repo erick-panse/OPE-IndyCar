@@ -42,7 +42,8 @@ urlpatterns = [
     re_path(r'empresa/(?P<id>\d+)/$',funilaria_views.editar_empresa, name='editar_empresa'),
     re_path(r'empresa/deletar/(?P<id>\d+)/$',funilaria_views.deletar_empresa, name='deletar_empresa'),
     path('empresa/', funilaria_views.novoempresa, name='empresa'),
-    
+    url(r'empresa/busca/',empresa,name='busca_empresa'),
+
     path('ordensdeservico/',funilaria_views.ordem_de_servico,name='ordensdeservico'),
     path('ordemdeservico/', funilaria_views.nova_os, name='ordemdeservico'),
     re_path(r'ordemdeservico/(?P<id>\d+)/$',funilaria_views.editar_os, name='editar_ordem'),
@@ -53,6 +54,7 @@ urlpatterns = [
     path('material/', funilaria_views.novo_material, name='material'),
     re_path(r'material/(?P<id>\d+)/$',funilaria_views.editar_material, name='editar_material'),
     re_path(r'material/deletar/(?P<id>\d+)/$',funilaria_views.deletar_material, name='deletar_material'),
+    url(r'material/busca/',material,name='busca_material'),
 
     path('perfil/',usuario_views.perfil_usuario,name='perfil_usuario'),
     path('novo-usuario/',usuario_views.novo_usuario,name='novo_usuario'),

@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block main %}
+{% for message in messages %}
+<div class="alert alert-success">
+<strong>{{message}}</strong>
+</div>  
+{% endfor %}
+<div class="container">
+<div class="row">
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Busca de Materiais</h5>
+      <p class="card-text">
+          Aqui está a lista de <code>Materiais</code> encontrados.
+      </p>
+      {% if materiais|length > 0 %}
+      <form method="POST" action="/material/busca/">
+        {% csrf_token %}
+        <input type="text" name="descricao" id="DescricaoListaMaterial" placeholder="descricao do Material" required autocomplete="off">
+        <input type="submit" value="Pesquisar">
+      </form><br>  
+      
+        <table class="table">
+          <thead class="thead-dark">
+          <tr>
+            <th>ID</th> 
+            <th>Descrição</th>
+            <th>Quantidade em estoque</th>
+            <th></th>
+          </tr>
+          </thead>
+
+          <tbody>
+          {% for i in materiais %}
+            <tr>
+              <td><br>{{ i.id }}</td>
+              <td><br>{{ i.descricao }}</td>
+              <td><br>{{ i.quantidade_estoque }}</td>
+              <td>
+                <a href="{{i.get_editar_material}}"
+                   class="btn btn-info">
+                  Atualizar
+                </a>
+                <a href="{{i.get_del_material}}"
+                  class="btn btn-outline-danger" onclick="confirmarAcao()">
+                    Excluir
+                </a>
+              </td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+    {% else %}
+      <div class="text-center mt-5 mb-5 jumbotron">
+        <h5>Nenhum resultado.</h5>
+      </div>
+    {% endif %}
+      <hr />
+      <div class="text-right">
+        <a href="/materiais/"
+            class="btn btn-info">
+          Voltar
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+{% endblock %}

@@ -93,8 +93,13 @@ def deletar_cliente(request,id=None):
 
 @login_required(login_url='/login/')
 def empresa(request):
-    empresas = Empresa.objects.all().order_by('id')
+    
     msg=messages.get_messages(request)
+    if request.POST.get('cnpj')!=None:
+        cnpj=request.POST.get('cnpj')
+        empresas = Empresa.objects.filter(cnpj=cnpj).order_by('id')
+        return render(request,'busca_empresas.html',context={'empresas':empresas,'msg':msg})
+    empresas = Empresa.objects.all().order_by('id')
     return render(request,'empresas.html',context={'empresas':empresas,'msg':msg})
 
 @login_required(login_url='/login/')
@@ -152,8 +157,21 @@ def deletar_empresa(request,id=None):
 
 @login_required(login_url='/login/')
 def ordem_de_servico(request):
-    ordens = OrdemDeServico.objects.all().order_by('id')
+    #igual status
     msg=messages.get_messages(request)
+    cpf=request.POST.get('cpf') or None
+    cnpj=request.POST.get('cnpj') or None
+    if cpf:
+        cli=Cliente.objects.get(cpf=cpf)
+        cli=Customer.objects.get(nome=cli.nome,endereco=cli.endereco,bairro=cli.bairro,
+        email=cli.email,telefone=cli.telefone)
+        ordens = OrdemDeServico.objects.filter(cliente=cli)
+    elif cnpj:
+        cli=Empresa.objects.get(cnpj=cnpj)
+        cli=Customer.objects.get(nome=cli.nome,endereco=cli.endereco,bairro=cli.bairro,
+        email=cli.email,telefone=cli.telefone)
+        ordens = OrdemDeServico.objects.filter(cliente=cli)
+    ordens = OrdemDeServico.objects.all().order_by('id')
     return render(request,'os.html',context={'ordens':ordens,'msg':msg})
 
 @login_required(login_url='/login/')
@@ -208,8 +226,13 @@ def deletar_os(request,id=None):
 
 @login_required(login_url='/login/')
 def material(request):
-    materiais = Material.objects.all().order_by('id')
     msg=messages.get_messages(request)
+    if request.POST.get('descricao')!=None:
+        descricao=request.POST.get('descricao')
+        materiais = Material.objects.filter(descricao=descricao).order_by('id')
+        return render(request,'busca_materiais.html',context={'materiais':materiais,'msg':msg})
+    materiais = Material.objects.all().order_by('id')
+    
     return render(request,'materiais.html',context={'materiais':materiais,'msg':msg})
 
 @login_required(login_url='/login/')
@@ -555,8 +578,17 @@ def tirar_do_editar_carrinho(request, id_material, id_carrinho, orcamento_id):
 
 @login_required(login_url='/login/')
 def orcamento(request):
-    orcamentos = Orcamento.objects.all().order_by('id')
     msg=messages.get_messages(request)
+    '''if request.POST.get('cnpj')!=None request.POST.get('cpf')!=None:
+        cnpj=request.POST.get('cnpj')
+        orcamentos = Orcamento.objects.filter(cnpj=cnpj).order_by('id')
+        return render(request,'busca_orcamentos.html',context={'orcamentos':orcamentos,'msg':msg})
+    elif request.POST.get('cpf')!=None:
+        cpf=request.POST.get('cpf')
+        orcamentos = Orcamento.objects.filter(cpf=cpf).order_by('id')
+        return render(request,'busca_orcamentos.html',context={'orcamentos':orcamentos,'msg':msg})'''
+    orcamentos = Orcamento.objects.all().order_by('id')
+    
     return render(request,'orcamentos.html',context={'orcamentos':orcamentos,'msg':msg})
 
 @login_required(login_url='/login/')

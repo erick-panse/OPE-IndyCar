@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block main %}
+{% for message in messages %}
+<div class="alert alert-success">
+<strong>{{message}}</strong>
+</div>  
+{% endfor %}
+<div class="container">
+<div class="row">
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+  <div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Lista de Orçamentos</h5>
+        {% if orcamentos|length > 0 %}
+          <p class="card-text">
+            Aqui está a lista de <code>Orçamentos</code> cadastrados.
+          </p>
+        {% if clientes|length > 0 %}
+        <form method="POST" action="/ordensdeservico/busca/">
+            {% csrf_token %}
+            <input type="text" name="cpf" id="OrcamentoListaCliente" placeholder="CPF do Cliente" autocomplete="off">
+            <input type="submit" value="Pesquisar">
+            <br>OU<br>
+            <input type="text" name="cnpj" id="OrcamentoListaEmpresa" placeholder="CNPJ da empresa" autocomplete="off">
+            <input type="submit" value="Pesquisar">
+        </form><br>
+      
+        <table class="table">
+          <thead class="thead-dark">
+          <tr>
+            <th>ID</th> 
+            <th>Cliente</th>
+            <th>Previsão de entrega</th>
+            <th>Mão de obra</th>
+            <th>Total</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+          </thead>
+
+          <tbody>
+            {% for i in orcamentos %}
+              <tr>
+                <td><br>{{ i.id }}</td>
+                <td><br>{{ i.ordem_de_servico.cliente.nome }}</td>
+                <td><br>{{ i.previsao_entrega }}</td>
+                <td><br>{{ i.valor_mao_de_obra }}</td>
+                <td><br>{{ i.total }}</td>
+                {% if i.status == True %}
+                  <td class="status"><br>Finalizado</td>
+                {% else %}
+                  <td class="status"><br>Não finalizado</td>
+                {% endif %}
+                <td>
+                  <a href="{{i.get_editar_orcamento}}"
+                     class="btn btn-outline-info">
+                    Atualizar
+                  </a>
+                  <a href="{{i.get_del_orcamento}}"
+                    class="btn btn-outline-danger" onclick="confirmarAcao()">
+                      Excluir
+                  </a>
+                </td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+      {% else %}
+        <div class="text-center mt-5 mb-5 jumbotron">
+          <h5>Nenhum <code>Orçamento</code> cadastrado ainda.</h5>
+        </div>
+      {% endif %}
+      <hr />
+      <div class="text-right">
+        <a href="{% url 'orcamento' %}" class="btn btn-primary">
+            Voltar
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+{% endblock %}
