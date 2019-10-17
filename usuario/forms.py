@@ -8,6 +8,32 @@ from .validacao import*
 class UsuarioForm(UserCreationForm):
     email = forms.EmailField(required=True)
 
+    username = forms.CharField(max_length=60,label='nome', widget = forms.TextInput(attrs={
+        'placeholder':'Username',
+        'name':'nome'}))
+
+    first_name = forms.CharField(max_length=60,label='sobrenome', widget = forms.TextInput(attrs={
+        'placeholder':'Sobrenome',
+        'name':'nome'}))
+
+    last_name = forms.CharField(max_length=60,label='lastname', widget = forms.TextInput(attrs={
+        'placeholder':'Última nome',
+        'name':'nome'}))
+
+    email = forms.EmailField(max_length=60,label='email', widget = forms.EmailInput(attrs={
+        'placeholder':'Email',
+        'name':'nome'}))
+
+    password1 = forms.CharField(max_length=60,label='password', widget = forms.TextInput(attrs={
+        'placeholder':'Última nome',
+        'name':'nome'}))
+
+    password2 = forms.CharField(max_length=60,label='password2', widget = forms.TextInput(attrs={
+        'placeholder':'Última nome',
+        'name':'nome'}))         
+
+               
+
     def clean(self):
         dados=self.cleaned_data
         username=dados.get('username')
@@ -38,6 +64,8 @@ class UsuarioForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['username','first_name','last_name','email','password1','password2']
+
+        
 
 
 class EditarUsuarioForm(UserChangeForm):
