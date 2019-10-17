@@ -21,7 +21,6 @@
               <table class="table">
                 <thead class="thead-dark">
                 <tr>
-                  <th>USUARIO</th>
                   <th>material</th>
                   <th>valor</th>
                   <th></th>
@@ -34,7 +33,6 @@
                 <tbody>
                 {% for i in carrinho.itens.all %}
                   <tr>
-                    <td>{{ i.usuario }}</td>
                     <td>{{ i.material }}</td>
                     <td>{{ i.material.valor }}</td>
                     

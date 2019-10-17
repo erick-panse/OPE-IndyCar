@@ -38,6 +38,14 @@
                   <td><br>{{ i.descricao }}</td>
                   <td><br>{{ i.quantidade_estoque }}</td>
                   <td>
+                    <a href="{{i.get_editar_material}}"
+                      class="btn btn-outline-info">
+                     Atualizar
+                   </a>
+                   <a href="{{i.get_del_material}}"
+                     class="btn btn-outline-danger" onclick="confirmarAcao()">
+                       Excluir
+                   </a>
                     <a href="{% url 'add_no_editar_carrinho' i.id orcamento.carrinho.id orcamento.id %}"
                         class="btn btn-danger">
                         Adicionar
