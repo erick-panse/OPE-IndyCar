@@ -16,6 +16,11 @@
             <p class="card-text">
               Aqui está a lista de <code>Materiais</code> cadastrados.
             </p>
+            <form method="POST" action="/material/busca/">
+              {% csrf_token %}
+              <input type="text" name="descricao" id="DescricaoListaMaterial" placeholder="descricao do Material" required autocomplete="off">
+              <input type="submit" value="Pesquisar">
+            </form><br>
 
             <table class="table">
               <thead class="thead-dark">
