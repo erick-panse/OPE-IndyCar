@@ -165,6 +165,9 @@ class Material(models.Model):
     def get_tirar_carrinho2(self):
         return reverse("tirar_do_carrinho2", kwargs={'id': self.id})
 
+    def get_remover_carrinho(self):
+        return reverse("remover_do_carrinho", kwargs={'id': self.id})
+
 
 from django.conf import settings
 class EstoqueMaximoException(Exception):
@@ -184,13 +187,14 @@ class ItemCarrinho(models.Model):
     def total(self):
         return self.material.valor*self.quantidade
 
-    def add(self,qtd=1):
+    def adicionar(self,qtd=1):
         m=self.material
         if m.quantidade_estoque>=qtd:
             self.quantidade+=qtd
             m.quantidade_estoque-=qtd
             m.save()
             self.material=m
+            self.save()
             return True
         else:
             raise EstoqueMaximoException('Limite do estoque atingido')
@@ -204,6 +208,7 @@ class ItemCarrinho(models.Model):
             self.quantidade-=1
             m.save()
             self.material=m
+            self.save()
 
 
 
@@ -251,7 +256,7 @@ class Orcamento(models.Model):
         res=[]
         if self.carrinho:
             for i in self.carrinho.itens.all():
-                res.append(i.material.descricao+' x'+str(i.quantidade))
+                res.append(i.material.descricao+' x'+str(i.quantidade)+' valor unitário: '+str(i.material.valor))
             return res
         return 'sem carrinho'
 

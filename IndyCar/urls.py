@@ -70,7 +70,8 @@ urlpatterns = [
     url(r'add-no-carrinho3/(?P<id_material>\d+)-(?P<id_carrinho>\d+)-(?P<orcamento_id>\d+)/$', funilaria_views.add_no_editar_carrinho, name='add_no_editar_carrinho'),
     url(r'tirar-do-carrinho3/(?P<id_material>\d+)-(?P<id_carrinho>\d+)-(?P<orcamento_id>\d+)/$', funilaria_views.tirar_do_editar_carrinho, name='tirar_do_editar_carrinho'),
     re_path(r'tirar-do-carrinho2/(?P<id>\d+)/$', funilaria_views.tirar_do_carrinho_, name='tirar_do_carrinho2'),
-    re_path(r'remover-do-carrinho/(?P<id>\d+)/$', funilaria_views.remover_do_carrinho, name='remover_do_carrinho'),
+    re_path(r'remover-do-carrinho/(?P<id_material>\d+)-(?P<id_carrinho>\d+)/$', funilaria_views.remover_do_carrinho, name='remover_do_carrinho'),
+    re_path(r'remover-do-editar-carrinho/(?P<id_material>\d+)-(?P<id_carrinho>\d+)-(?P<orcamento_id>\d+)/$', funilaria_views.remover_do_editar_carrinho, name='remover_do_editar_carrinho'),
     path('carrinho/', carrinho, name='carrinho'),
     re_path(r'carrinho/editar/(?P<id>\d+)-(?P<orcamento_id>\d+)/$', editar_carrinho, name='editar_carrinho'),
 

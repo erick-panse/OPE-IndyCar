@@ -42,7 +42,7 @@
                           -
                         </a>
                       </td>
-                    <td>{{ i.quantidade }}</td>
+                    <td>{{ i.quantidade }}</td> <td><a href="{% url 'remover_do_editar_carrinho' i.material.id carrinho.id orcamento.id %}">remover</a></td>      
                     {% if orcamento %}
                     <td>
                       <a href="{% url 'add_no_editar_carrinho' i.material.id carrinho.id orcamento.id %}"
@@ -62,6 +62,11 @@
                     <td>{{ i.total }}</td>
                   </tr>
                 {% endfor %}
+                <tr>
+                  <td>
+                    {{carrinho.total}}
+                  </td>
+                </tr>
                 </tbody>
               </table>
             {% else %}

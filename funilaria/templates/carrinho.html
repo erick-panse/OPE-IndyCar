@@ -42,6 +42,7 @@
                         -
                     </a></td>
                     <td>{{ i.quantidade }}</td>
+                    <td><a href="{% url 'remover_do_carrinho' i.material.id carrinho.id %}">remover</a></td>
                     <td>
                       <a href="{{i.material.get_add_carrinho2}}"
                         class="btn btn-info">
@@ -51,6 +52,11 @@
                     <td>{{ i.total }}</td>
                   </tr>
                 {% endfor %}
+                <tr>
+                  <td>
+                    {{carrinho.total}}
+                  </td>
+                </tr>
                 </tbody>
               </table>
             {% else %}
