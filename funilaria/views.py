@@ -44,7 +44,6 @@ def novocliente(request):
                 form_cliente.save()
                 messages.success(request,'Cliente cadastrado com sucesso')
             except IntegrityError as e: 
-                print('UNIQUE constraint' in str(e.args))
                 if 'UNIQUE constraint' in str(e.args): 
                     messages.error(request,'Cliente já cadastrado')
                     return render(request,'formulario_cliente.html',context={'form_cliente':form_cliente})
@@ -70,7 +69,6 @@ def editar_cliente(request,id=None):
             messages.success(request,'Cliente atualizado com sucesso')
             return redirect(cliente)
         except IntegrityError as e: 
-            print('UNIQUE constraint' in str(e.args))
             if 'UNIQUE constraint' in str(e.args): 
                 messages.error(request,'Cliente já cadastrado')
                 return render(request,'formulario_cliente.html',context={'form_cliente':form_cliente})
@@ -106,14 +104,12 @@ def empresa(request):
 def novoempresa(request):
     if request.method == 'POST':
         form_empresa= EmpresaForm(request.POST or None)
-        print(form_empresa.is_valid())
         if form_empresa.is_valid():
             try:
                 form_empresa.save()
                 messages.success(request,'Empresa cadastrada com sucesso')
                 return redirect(empresa)
             except IntegrityError as e: 
-                print('UNIQUE constraint' in str(e.args))
                 if 'UNIQUE constraint' in str(e.args): 
                     messages.error(request,'Empresa já cadastrada')
                     return render(request,'formulario_empresa.html',context={'form_empresa':form_empresa})
@@ -137,7 +133,6 @@ def editar_empresa(request,id=None):
             messages.success(request,'Empresa atualizada com sucesso')
             return redirect(empresa)
         except IntegrityError as e: 
-            print('UNIQUE constraint' in str(e.args))
             if 'UNIQUE constraint' in str(e.args): 
                 messages.error(request,'Empresa já cadastrada')
                 return render(request,'formulario_empresa.html',context={'form_empresa':form_empresa})
@@ -176,11 +171,6 @@ def ordem_de_servico(request):
 
 @login_required(login_url='/login/')
 def nova_os(request):
-    #testando a consulta entre datas
-    start_date = date(2011, 4, 1)
-    end_date = date.today()
-    print(OrdemDeServico.objects.filter(data_finalizacao__range=(start_date,end_date)))
-    #testando a consulta entre datas
     entrada=datetime.date.today().strftime("%d/%m/%Y")
     if request.method == 'POST':
         form_os= OrdemDeServicoForm(request.POST or None)
@@ -356,20 +346,17 @@ def add_no_carrinho_lista_materiais(request, id):
                     messages.error(request, "Material indisponível")
                 return redirect(material)
             else:
-                print('359')
                 #item_carrinho.adicionar()
                 order.itens.add(item_carrinho)
                 try:
                     messages.info(request, "Material adicionado ao carrinho")
                 except EstoqueMaximoException:
-                    print('add12')
                     messages.error(request, "Material indisponível")
                 return redirect(material)
         else:
             carrinho_obj = Carrinho.objects.create(usuario=request.user)
             item_carrinho = ItemCarrinho.objects.create(material=m,usuario=request.user)
             try:
-                print('371')
                 item_carrinho.adicionar()
                 carrinho_obj.itens.add(item_carrinho)
                 messages.info(request, "Material adicionado ao carrinho")
@@ -389,7 +376,6 @@ def add_no_carrinho_(request, id):
         if carrinho_qs.exists():
             order = carrinho_qs[0]
             item_carrinho=pegarItem(order,m,request.user)
-            print(item_carrinho)
             # verifica se o item ja está no carrinho
             if order.itens.filter(material__id=item.id).exists():
                 try:
@@ -413,7 +399,6 @@ def add_no_carrinho_(request, id):
                 carrinho_obj.itens.add(item_carrinho) 
                 messages.info(request, "Material adicionado ao carrinho")
             except EstoqueMaximoException:
-                print('add23')
                 messages.error(request, "Material indisponível")
             return redirect(materiais_orcamento)
     else:
@@ -441,7 +426,7 @@ def add_no_editar_carrinho(request, id_material, id_carrinho, orcamento_id):
                 return redirect('editar_carrinho', id=order.id, orcamento_id=orcamento.id)
             else:
                 try:
-                    print('442')
+                    #item_carrinho.adicionar()
                     order.itens.add(item_carrinho)
                 except EstoqueMaximoException:
                     messages.info(request, "Material adicionado ao carrinho")
@@ -470,7 +455,6 @@ def remover_do_carrinho(request, id_material, id_carrinho):
         if order.itens.filter(material__id=item.id).exists():
             for i in range(item_carrinho.quantidade):
                 item_carrinho.remover()
-                print(i+1)
             order.itens.remove(item_carrinho)
             messages.info(request, "Material removido do carrinho")
             return redirect(materiais_orcamento)
@@ -492,7 +476,6 @@ def remover_do_editar_carrinho(request, id_material, id_carrinho, orcamento_id):
         if order.itens.filter(material__id=item.id).exists():
             for i in range(item_carrinho.quantidade):
                 item_carrinho.remover()
-                print(i+1)
             order.itens.remove(item_carrinho)
             messages.info(request, "Material removido do carrinho")
         else:
@@ -554,7 +537,6 @@ def tirar_do_carrinho_(request, id):
 
 @login_required(login_url='/login/')
 def tirar_do_editar_carrinho(request, id_material, id_carrinho, orcamento_id):
-    print('-1')
     item = get_object_or_404(Material, id=id_material)
     orcamento=Orcamento.objects.get(id=orcamento_id)
     m=Material.objects.get(id=id_material)
@@ -568,12 +550,11 @@ def tirar_do_editar_carrinho(request, id_material, id_carrinho, orcamento_id):
             if item_carrinho.quantidade > 1:
                 item_carrinho.remover()
                 item_carrinho.save()
-                messages.info(request, "Quantidade atualizada -1")
+                messages.info(request, "Quantidade atualizada")
             else:
-                print('removido')
                 item_carrinho.remover()
                 order.itens.remove(item_carrinho)
-                messages.info(request, "Material removido da carrinho")
+                messages.info(request, "Material removido do carrinho")
             return redirect('editar_carrinho', id=order.id, orcamento_id=orcamento.id)
         else:
             messages.error(request, "Material não faz parte do carrinho")
@@ -605,7 +586,6 @@ def novo_orcamento(request):
             carrinho =Carrinho.objects.create(usuario=request.user,finalizado=False)
     if request.method == 'POST':
         form_orcamento= OrcamentoForm(request.POST,initial={'carrinho':carrinho.id})
-        print(form_orcamento.is_valid())
         if form_orcamento.is_valid():
             try:
                 carrinho.finalizado=True
@@ -615,7 +595,6 @@ def novo_orcamento(request):
                 messages.success(request,'Orçamento cadastrado com sucesso')
                 return redirect(orcamento)
             except Exception as e:
-                print(e)
                 messages.error(request,e)
         else:
             return render(request,'formulario_orcamento.html',context={'form_orcamento':form_orcamento,'carrinho':carrinho})
