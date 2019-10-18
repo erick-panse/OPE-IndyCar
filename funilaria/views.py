@@ -268,18 +268,34 @@ def deletar_material(request,id=None):
 
 def status_ordem(request):
     msg=messages.get_messages(request)
-    cpf=request.POST.get('cpf') or None
-    cnpj=request.POST.get('cnpj') or None
+    cpf_cnpj=request.POST.get('cpf-cnpj')
+
+    if len(cpf_cnpj)==14:
+        cpf=cpf_cnpj
+        cnpj=None
+    elif len(cpf_cnpj)==18:
+        cnpj=cpf_cnpj
+        cpf=None
+    else:
+        messages.error(request,'dados inválidos')
+        return redirect(pagina_inicial)
+
     if cpf:
-        cli=Cliente.objects.get(cpf=cpf)
-        cli=Customer.objects.get(nome=cli.nome,endereco=cli.endereco,bairro=cli.bairro,
-        email=cli.email,telefone=cli.telefone)
-        ordens = OrdemDeServico.objects.filter(cliente=cli)
+        try:
+            cli=Cliente.objects.get(cpf=cpf)
+            cli=Customer.objects.get(nome=cli.nome,endereco=cli.endereco,bairro=cli.bairro,
+            email=cli.email,telefone=cli.telefone)
+            ordens = OrdemDeServico.objects.filter(cliente=cli)
+        except ObjectDoesNotExist:
+            ordens=[]
     elif cnpj:
-        cli=Empresa.objects.get(cnpj=cnpj)
-        cli=Customer.objects.get(nome=cli.nome,endereco=cli.endereco,bairro=cli.bairro,
-        email=cli.email,telefone=cli.telefone)
-        ordens = OrdemDeServico.objects.filter(cliente=cli)
+        try:
+            cli=Empresa.objects.get(cnpj=cnpj)
+            cli=Customer.objects.get(nome=cli.nome,endereco=cli.endereco,bairro=cli.bairro,
+            email=cli.email,telefone=cli.telefone)
+            ordens = OrdemDeServico.objects.filter(cliente=cli)
+        except ObjectDoesNotExist:
+            ordens=[]
     else:
         return redirect(pagina_inicial)
     return render(request,'status.html',context={'ordens':ordens,'msg':msg})

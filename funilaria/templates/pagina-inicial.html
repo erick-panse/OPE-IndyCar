@@ -72,9 +72,7 @@
               <div class="form-group">
                 <form method="POST" action="ordensdeservico/busca/">
                   {% csrf_token %}
-                  <input type="text" name="cpf" id="cpfPGinicial" placeholder="Informe seu cpf" autocomplete="off">
-                  <br>OU<br>
-                  <input type="text" name="cnpj" id="cnpjPGinicial" placeholder="Informe seu cnpj" autocomplete="off">
+                  <input type="text" name="cpf-cnpj" id="cpf-cnpj-PGinicial" placeholder="Informe seu cpf" autocomplete="off">
                   <button type="submit" class="btn btn-danger">Enviar</button>
                 </form>
               </div>
