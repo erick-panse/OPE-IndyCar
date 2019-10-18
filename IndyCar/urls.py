@@ -66,11 +66,12 @@ urlpatterns = [
     path('logout/', usuario_views.logout_user),
     re_path(r'add-no-carrinho/(?P<id>\d+)/$', funilaria_views.add_no_carrinho_lista_materiais, name='add_no_carrinho'),
     re_path(r'tirar-do-carrinho/(?P<id>\d+)/$', funilaria_views.tirar_do_carrinho, name='tirar_do_carrinho'),
-    re_path(r'add-no-carrinho2/(?P<id>\d+)/$', funilaria_views.add_no_carrinho_, name='add_no_carrinho2'),
-    url(r'add-no-carrinho3/(?P<id_material>\d+)-(?P<id_carrinho>\d+)-(?P<orcamento_id>\d+)/$', funilaria_views.add_no_editar_carrinho, name='add_no_editar_carrinho'),
-    url(r'tirar-do-carrinho3/(?P<id_material>\d+)-(?P<id_carrinho>\d+)-(?P<orcamento_id>\d+)/$', funilaria_views.tirar_do_editar_carrinho, name='tirar_do_editar_carrinho'),
-    re_path(r'tirar-do-carrinho2/(?P<id>\d+)/$', funilaria_views.tirar_do_carrinho_, name='tirar_do_carrinho2'),
-    re_path(r'remover-do-carrinho/(?P<id>\d+)/$', funilaria_views.remover_do_carrinho, name='remover_do_carrinho'),
+    re_path(r'add-no-carrinho/#/(?P<id>\d+)/$', funilaria_views.add_no_carrinho_, name='add_no_carrinho2'),
+    url(r'add-no-carrinho-editado/(?P<id_material>\d+)-(?P<id_carrinho>\d+)-(?P<orcamento_id>\d+)/$', funilaria_views.add_no_editar_carrinho, name='add_no_editar_carrinho'),
+    url(r'tirar-do-carrinho-editado/(?P<id_material>\d+)-(?P<id_carrinho>\d+)-(?P<orcamento_id>\d+)/$', funilaria_views.tirar_do_editar_carrinho, name='tirar_do_editar_carrinho'),
+    re_path(r'tirar-do-carrinho/#/(?P<id>\d+)/$', funilaria_views.tirar_do_carrinho_, name='tirar_do_carrinho2'),
+    re_path(r'remover-do-carrinho/(?P<id_material>\d+)-(?P<id_carrinho>\d+)/$', funilaria_views.remover_do_carrinho, name='remover_do_carrinho'),
+    re_path(r'remover-do-carrinho-editado/(?P<id_material>\d+)-(?P<id_carrinho>\d+)-(?P<orcamento_id>\d+)/$', funilaria_views.remover_do_editar_carrinho, name='remover_do_editar_carrinho'),
     path('carrinho/', carrinho, name='carrinho'),
     re_path(r'carrinho/editar/(?P<id>\d+)-(?P<orcamento_id>\d+)/$', editar_carrinho, name='editar_carrinho'),
 
@@ -81,7 +82,11 @@ urlpatterns = [
     re_path(r'orcamento/deletar/(?P<id>\d+)/$',funilaria_views.deletar_orcamento, name='deletar_orcamento'),
     url(r'orcamento/busca/',orcamento,name='busca_orcamento'),
     path('materiais-os/',funilaria_views.materiais_orcamento,name='materiais_orcamento'),
+    path('materiais/',funilaria_views.materiais_orcamento,name='materiais_orcamento'),
     re_path(r'materiais/orcamento/editar/(?P<id_orcamento>\d+)/$',funilaria_views.materiais_orcamento_editar,name='materiais_orcamento_editar'),
+
+    re_path(r'lucros/',funilaria_views.lucros, name='lucros'),
+    
 
     path(r'login/recuperacaodesenha/',usuario_views.senha, name='recuperar_senha'),
     url(r'login/novasenha/(?P<uidb64>[0-9A-Za-z]+)-(?P<token>.+)/$',usuario_views.atribuir_nova_senha, name='password_reset_confirm'),

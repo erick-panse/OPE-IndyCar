@@ -1,3 +1,4 @@
+<title>Material | Indy Car</title>
 {% extends 'base.html' %}
 
 {% block main %}
@@ -14,7 +15,7 @@
           <h5 class="card-title">Lista de Materiais</h5>
           {% if materiais|length > 0 %}
             <p class="card-text">
-              Aqui está a lista de <code>Materiais</code> cadastrados.
+                Selecione os <code>Materiais</code> necessários para o reparo.
             </p>
             <form method="POST" action="/material/busca/">
               {% csrf_token %}
@@ -47,7 +48,12 @@
                       class="btn btn-outline-danger" onclick="confirmarAcao()">
                         Excluir
                     </a>
+                    <a href="{{i.get_add_carrinho}}"
+                        class="btn btn-outline-info">
+                          Adicionar no carrinho
+                      </a>
                   </td>
+                      
                 </tr>
               {% endfor %}
               </tbody>
@@ -59,6 +65,9 @@
         {% endif %}
           <hr />
           <div class="text-right">
+              <a href="{% url 'carrinho' %}" class="btn btn-primary">
+                  Carrinho
+                </a>
             <a href="{% url 'material' %}" class="btn btn-primary">
               Cadastrar Material
             </a>

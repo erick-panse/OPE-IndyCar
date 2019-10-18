@@ -368,3 +368,129 @@ function validarServicos() {
     return true;
     
 }
+
+
+// FORMULÁRIOS DE USUÁRIO 
+
+
+
+//Novo usuário
+
+
+function validarNovoUsuario(){
+    let username = document.getElementById('userUsuarioForm').value;
+    let nome = document.getElementById('nomeUsuarioForm').value;
+    let sobrenome = document.getElementById('sobrenomeUsuarioForm').value;
+    let email = document.getElementById('emailUsuarioForm').value;
+    let password1 = document.getElementById('password1UsuarioForm').value;
+    let password2 = document.getElementById('password2UsuarioForm').value;
+    
+    
+    if(username == ""){
+        $('#userUsuarioForm').css({'border':'1px solid red'});
+        return false;
+    }
+
+    if(nome == ""){
+        $('#nomeUsuarioForm').css({'border':'1px solid red'});
+        return false;
+    }
+
+    if(sobrenome == ""){
+        $('#sobrenomeUsuarioForm').css({'border':'1px solid red'});
+        return false;
+    }
+
+    if(email == ""){
+        $('#emailUsuarioForm').css({'border':'1px solid red'});
+        return false;
+    }
+
+    if(password1 == ""){
+        $('#password1UsuarioForm').css({'border':'1px solid red'});
+        return false;
+    }
+
+    if(password2 == ""){
+        $('#password2UsuarioForm').css({'border':'1px solid red'});
+        return false;
+    }
+
+}
+
+function validarUserUsuarioForm(){
+    var x = document.getElementById("userUsuarioForm");
+    $('#userUsuarioForm').css({'border':'1px solid #A9A9A9'});
+    return true;
+}
+
+function validarNomeUsuarioForm(){
+    var x = document.getElementById("nomeUsuarioForm");
+    $('#nomeUsuarioForm').css({'border':'1px solid #A9A9A9'});
+    return true;
+}
+
+function validarSobrenomeUsuarioForm(){
+    var x = document.getElementById("sobrenomeUsuarioForm");
+    $('#sobrenomeUsuarioForm').css({'border':'1px solid #A9A9A9'});
+    return true;
+}
+
+function validarEmailUsuarioForm(){
+    var x = document.getElementById("emailUsuarioForm");
+    $('#emailUsuarioForm').css({'border':'1px solid #A9A9A9'});
+    return true;
+}
+
+function validarPassword1UsuarioForm(){
+    var x = document.getElementById("password1UsuarioForm");
+    $('#password1UsuarioForm').css({'border':'1px solid #A9A9A9'});
+    return true;
+}
+
+function validarPassword2UsuarioForm(){
+    var x = document.getElementById("password2UsuarioForm");
+    $('#password2UsuarioForm').css({'border':'1px solid #A9A9A9'});
+    return true;
+}
+
+// Editar usuário
+
+function validarEditarUsuario(){
+    let nome = document.getElementById('userNomeEditar').value;
+    let sobrenome = document.getElementById('userSobrenomeEditar').value;
+    let email = document.getElementById('userEmailEditar').value;
+
+    if(nome == ""){
+        $('#userNomeEditar').css({'border':'1px solid red'});
+        return false;
+    }
+
+    if(sobrenome == ""){
+        $('#userSobrenomeEditar').css({'border':'1px solid red'});
+        return false;
+    }
+
+    if(email == ""){
+        $('#userEmailEditar').css({'border':'1px solid red'});
+        return false;
+    }
+}
+
+function validarNomeEditar(){
+    var x = document.getElementById("userNomeEditar");
+    $('#userNomeEditar').css({'border':'1px solid #A9A9A9'});
+    return true;
+}
+
+function validarSobrenomeEditar(){
+    var x = document.getElementById("userSobrenomeEditar");
+    $('#userSobrenomeEditar').css({'border':'1px solid #A9A9A9'});
+    return true;
+}
+
+function validarEmailEditar(){
+    var x = document.getElementById("userEmailEditar");
+    $('#userEmailEditar').css({'border':'1px solid #A9A9A9'});
+    return true;
+}

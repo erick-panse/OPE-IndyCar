@@ -1,0 +1,26 @@
+<title>Lucros | Indy Car</title>
+{% extends 'base.html' %}
+
+{% block main %}
+{% for message in messages %}
+<div class="alert alert-danger">
+    <strong>{{message}}</strong>
+  </div>  
+  {% endfor %}
+<form action="" method="GET">
+    {{form.as_p}}
+  <input type="submit" value="Buscar">
+</form>
+
+total gasto com materiais
+<p>{{total_gasto}}</p>
+total mao de obra
+<p>{{mao_de_obra}}</p>
+total orcamentos
+<p>{{total_orcamento}}</p>
+total de lucros
+<p>{{lucros}}</p>
+
+
+
+{% endblock %}

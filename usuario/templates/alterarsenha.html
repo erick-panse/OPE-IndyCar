@@ -1,3 +1,4 @@
+<title>Conta | Indy Car</title>
 {% extends 'base.html' %}
 
 {% block main %}
@@ -18,6 +19,12 @@
                     <h1 id="center">Alterar Senha</h1><br><br>
                     {% csrf_token %}
                     {{form.as_p}}
+                    <!--<h5>Nova senha:</h5>
+                    {{form.new_password1}}<br><br>
+                    <h5>Confirmação da nova senha:</h5>
+                    {{form.new_password2}}<br>-->
+                    
+
                     <br><button class="btn btn-outline-info btn-lg btn-block" type="submit">Enviar</button><br>
                 </form>
             </div>    
