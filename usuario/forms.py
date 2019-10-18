@@ -33,13 +33,13 @@ class UsuarioForm(UserCreationForm):
         'onkeyup':'validarEmailUsuarioForm()',
         'name':'emailUsuarioForm'}))
 
-    password1 = forms.CharField(max_length=60,label='password', widget = forms.TextInput(attrs={
+    password1 = forms.CharField(max_length=60,label='password', widget = forms.PasswordInput(attrs={
         'placeholder':'Senha',
         'id':'password1UsuarioForm',
         'onkeyup':'validarPassword1UsuarioForm()',
         'name':'password1UsuarioForm'}))
 
-    password2 = forms.CharField(max_length=60,label='password2', widget = forms.TextInput(attrs={
+    password2 = forms.CharField(max_length=60,label='password2', widget = forms.PasswordInput(attrs={
         'placeholder':'Repita a senha',
         'id':'password2UsuarioForm',
         'onkeyup':'validarPassword2UsuarioForm()',
