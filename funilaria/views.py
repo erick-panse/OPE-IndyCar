@@ -155,18 +155,34 @@ def ordem_de_servico(request):
     #igual status
     msg=messages.get_messages(request)
     cpf=request.POST.get('cpf') or None
-    cnpj=request.POST.get('cnpj') or None
-    if cpf:
-        cli=Cliente.objects.get(cpf=cpf)
-        cli=Customer.objects.get(nome=cli.nome,endereco=cli.endereco,bairro=cli.bairro,
-        email=cli.email,telefone=cli.telefone)
-        ordens = OrdemDeServico.objects.filter(cliente=cli)
-    elif cnpj:
-        cli=Empresa.objects.get(cnpj=cnpj)
-        cli=Customer.objects.get(nome=cli.nome,endereco=cli.endereco,bairro=cli.bairro,
-        email=cli.email,telefone=cli.telefone)
-        ordens = OrdemDeServico.objects.filter(cliente=cli)
-    ordens = OrdemDeServico.objects.all().order_by('id')
+    try:
+        if len(cpf)==15:
+            cpf=request.POST.get('cpf') or None
+            cnpj=None
+        elif len(cpf)==18:
+            cpf=None
+            cnpj=request.POST.get('cpf') or None
+            
+        if cpf:
+            try:
+                cli=Cliente.objects.get(cpf=cpf)
+                cli=Customer.objects.get(nome=cli.nome,endereco=cli.endereco,bairro=cli.bairro,
+                email=cli.email,telefone=cli.telefone)
+                ordens = OrdemDeServico.objects.filter(cliente=cli)
+            except ObjectDoesNotExist as e:
+                ordens = []
+        elif cnpj:
+            try:
+                cli=Empresa.objects.get(cnpj=cnpj)
+                cli=Customer.objects.get(nome=cli.nome,endereco=cli.endereco,bairro=cli.bairro,
+                email=cli.email,telefone=cli.telefone)
+                ordens = OrdemDeServico.objects.filter(cliente=cli)
+            except ObjectDoesNotExist as e:
+                ordens = []
+        else:
+            return redirect(ordem_de_servico)
+    except:
+        ordens = OrdemDeServico.objects.all().order_by('id')
     return render(request,'os.html',context={'ordens':ordens,'msg':msg})
 
 @login_required(login_url='/login/')
@@ -592,16 +608,38 @@ def tirar_do_editar_carrinho(request, id_material, id_carrinho, orcamento_id):
 @login_required(login_url='/login/')
 def orcamento(request):
     msg=messages.get_messages(request)
-    '''if request.POST.get('cnpj')!=None request.POST.get('cpf')!=None:
-        cnpj=request.POST.get('cnpj')
-        orcamentos = Orcamento.objects.filter(cnpj=cnpj).order_by('id')
-        return render(request,'busca_orcamentos.html',context={'orcamentos':orcamentos,'msg':msg})
-    elif request.POST.get('cpf')!=None:
-        cpf=request.POST.get('cpf')
-        orcamentos = Orcamento.objects.filter(cpf=cpf).order_by('id')
-        return render(request,'busca_orcamentos.html',context={'orcamentos':orcamentos,'msg':msg})'''
-    orcamentos = Orcamento.objects.all().order_by('id')
-    
+    '''cpf=request.POST.get('cpf') or None
+    try:
+        if len(cpf)==15:
+            cpf=request.POST.get('cpf') or None
+            cnpj=None
+        elif len(cpf)==18:
+            cpf=None
+            cnpj=request.POST.get('cpf') or None
+            
+        if cpf:
+            try:
+                cli=Cliente.objects.get(cpf=cpf)
+                cli=Customer.objects.get(nome=cli.nome,endereco=cli.endereco,bairro=cli.bairro,
+                email=cli.email,telefone=cli.telefone)
+                orcamentos = Orcamento.objects.filter(cliente=cli)
+            except ObjectDoesNotExist as e:
+                orcamentos = []
+        elif cnpj:
+            try:
+                cli=Empresa.objects.get(cnpj=cnpj)
+                cli=Customer.objects.get(nome=cli.nome,endereco=cli.endereco,bairro=cli.bairro,
+                email=cli.email,telefone=cli.telefone)
+                orcamentos = Orcamento.objects.filter(cliente=cli)
+            except ObjectDoesNotExist as e:
+                orcamentos = []
+        else:
+            return redirect(orcamento)
+    except:
+        orcamentos = Orcamento.objects.all().order_by('id')'''
+    #quando testar tira a linha de baixo
+    orcamentos = Orcamento.objects.all().order_by('id')  #quando testar tira essa linha  
+    #quando testar tira a linha de cima
     return render(request,'orcamentos.html',context={'orcamentos':orcamentos,'msg':msg})
 
 @login_required(login_url='/login/')
