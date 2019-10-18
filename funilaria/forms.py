@@ -326,4 +326,19 @@ class OrcamentoForm(forms.ModelForm):
 
     class Meta:
         model = Orcamento
-        fields=['ordem_de_servico','carrinho','servicos','valor_mao_de_obra','previsao_entrega','data_saida']           
+        fields=['ordem_de_servico','carrinho','servicos','valor_mao_de_obra','previsao_entrega','data_saida']       
+
+
+class LucrosForm(forms.Form):
+    data_inicial = forms.DateField(required=False,label='Data inicial:',input_formats=['%d/%m/%Y'],widget = FengyuanChenDatePickerInput(attrs={
+        'placeholder':'Data inicial',
+        'name':'data_inicial',
+        'class':"date",
+        'id':'data_inicial',
+        'autocomplete': 'off'}))
+    data_final = forms.DateField(required=False,input_formats=['%d/%m/%Y'],widget = FengyuanChenDatePickerInput(attrs={
+        'placeholder':'Data final',
+        'name':'data_final',
+        'class':"date",
+        'id':'data_final',
+        'autocomplete': 'off'}))

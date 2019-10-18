@@ -185,7 +185,6 @@ class ItemCarrinho(models.Model):
         return self.material.valor*self.quantidade
 
     def add(self,qtd=1):
-        print('qtd = '+str(qtd))
         m=self.material
         if m.quantidade_estoque>=qtd:
             self.quantidade+=qtd

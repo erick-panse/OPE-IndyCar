@@ -1,10 +1,10 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from django.http import request,HttpResponseRedirect
-from funilaria.forms import ClienteForm,EmpresaForm,OrdemDeServicoForm,MaterialForm,OrcamentoForm
+from funilaria.forms import ClienteForm,EmpresaForm,OrdemDeServicoForm,MaterialForm,OrcamentoForm,LucrosForm
 from django.contrib import messages
 from funilaria.models import Cliente,Customer,Empresa,OrdemDeServico,Material,Carrinho,ItemCarrinho,Orcamento
 from django.contrib.auth.decorators import login_required
-from datetime import date
+import datetime
 from django.db import IntegrityError
 from django import forms
 from django.core.exceptions import ObjectDoesNotExist
@@ -181,7 +181,7 @@ def nova_os(request):
     end_date = date.today()
     print(OrdemDeServico.objects.filter(data_finalizacao__range=(start_date,end_date)))
     #testando a consulta entre datas
-    entrada=date.today().strftime("%d/%m/%Y")
+    entrada=datetime.date.today().strftime("%d/%m/%Y")
     if request.method == 'POST':
         form_os= OrdemDeServicoForm(request.POST or None)
         if form_os.is_valid():
@@ -663,4 +663,43 @@ def deletar_orcamento(request,id=None):
     except Exception as e:
         messages.error(request,'Não foi possível deletar o Orçamento')
     return redirect(orcamento) 
+
+def pegarOrcamentosfinalizados():
+    o=[]
+    for i in Orcamento.objects.all():
+        if i.status:
+            o.append(i)
+    return o
+
+
+@login_required(login_url='/login/')
+def lucros(request):
+    form = LucrosForm()
+    data_inicial=request.GET.get('data_inicial') or None
+    data_final=request.GET.get('data_final') or None
+    if data_inicial and data_final:
+        data_inicial=datetime.datetime.strptime(data_inicial, "%d/%m/%Y").date()
+        data_final=datetime.datetime.strptime(data_final, "%d/%m/%Y").date()
+        orc=pegarOrcamentosfinalizados()
+
+        total_gasto=0
+        mao_de_obra=0
+        for i in orc:
+            if i.data_saida >= data_inicial and i.data_saida<=data_final:
+                #gasto com materiais
+                total_gasto+=i.carrinho.total
+                #valor mao de obra
+                mao_de_obra+=i.valor_mao_de_obra
+
+        return render(request,'lucros.html',context={'form':form,'total_gasto':total_gasto,
+                            'mao_de_obra':mao_de_obra,
+                            'total_orcamento':total_gasto+mao_de_obra,
+                            'lucros':mao_de_obra-total_gasto
+                            })
+    else:
+        form = LucrosForm()
+        return render(request,'lucros.html',context={'form':form,'total_gasto':0,
+                            'mao_de_obra':0,
+                            'total_orcamento':0,
+                            'lucros':0})
 ##################################################################################################################

@@ -82,6 +82,9 @@ urlpatterns = [
     path('materiais/',funilaria_views.materiais_orcamento,name='materiais_orcamento'),
     re_path(r'materiais/orcamento/editar/(?P<id_orcamento>\d+)/$',funilaria_views.materiais_orcamento_editar,name='materiais_orcamento_editar'),
 
+    re_path(r'lucros/',funilaria_views.lucros, name='lucros'),
+    
+
     path(r'login/recuperacaodesenha/',usuario_views.senha, name='recuperar_senha'),
     url(r'login/novasenha/(?P<uidb64>[0-9A-Za-z]+)-(?P<token>.+)/$',usuario_views.atribuir_nova_senha, name='password_reset_confirm'),
 ] 
