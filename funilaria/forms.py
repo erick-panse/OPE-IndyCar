@@ -228,14 +228,14 @@ class OrdemDeServicoForm(forms.ModelForm):
 class MaterialForm(forms.ModelForm):
     quantidade_estoque = forms.CharField(max_length=6,label='Quantidade em estoque:',widget = forms.NumberInput(attrs={
         'placeholder':'Informe a quantidade em estoque',
-        'class':'inputText',
+        'class':'inputMaterial',
         #'name':'quantidade_estoque',
         'id':'quantidade_estoque',
         'onkeyup':'validarQTDestoque()',
         'autocomplete': 'off'}))
     descricao = forms.CharField(max_length=200,label='Descrição:',widget = forms.TextInput(attrs={
         'placeholder':'Informe a descrição',
-        'class':'inputText',
+        'class':'inputMaterial',
         #'name':'descricao',
         'id':'descricao',
         'onkeyup':'validarDescricao()',
@@ -244,7 +244,7 @@ class MaterialForm(forms.ModelForm):
     valor = forms.CharField(max_length=9,label='Valor:',widget = forms.TextInput(attrs={
         'placeholder':'Valor da peça',
         'name':'valor',
-        'class':'inputText',
+        'class':'inputMaterial',
         'class':'money',
         'id':'valor',
         'onkeyup':'validarValor()',
@@ -271,11 +271,11 @@ class MaterialForm(forms.ModelForm):
         fields=['quantidade_estoque','descricao','valor']
 
 class OrcamentoForm(forms.ModelForm):
-    ordem_de_servico = forms.ModelChoiceField(queryset=OrdemDeServico.objects.all().order_by('id'))
+    ordem_de_servico = forms.ModelChoiceField(queryset=OrdemDeServico.objects.all(),widget=forms.Select(attrs={'class':'inputText'}))
     servicos = forms.CharField(max_length=500,label='Serviços:',widget = forms.Textarea(attrs={
         'placeholder':'Informe os serviços necessários',
         'name':'servicos',
-        'class':'inputReparo',
+        'class':'inputServico',
         'onkeyup':'validarServicos()',
         'id':'servicos'}))
     carrinho = forms.ModelChoiceField(queryset=Carrinho.objects.all().order_by('id'),widget=forms.HiddenInput())
@@ -289,13 +289,13 @@ class OrcamentoForm(forms.ModelForm):
     previsao_entrega = forms.DateField(label='Previsão entrega:',input_formats=['%d/%m/%Y'],widget = FengyuanChenDatePickerInput(attrs={
         'placeholder':'Previsão de entrega',
         'name':'previsao_entrega',
-        'class':"date",
+        'class':"inputMaterial",
         'id':'previsao_entrega',
         'autocomplete': 'off'}))
     data_saida = forms.DateField(required=False,label='Data saída:',input_formats=['%d/%m/%Y'],widget = FengyuanChenDatePickerInput(attrs={
         'placeholder':'Data de saída',
         'name':'data_saida',
-        'class':"date",
+        'class':"inputMaterial",
         'id':'data_saida',
         'autocomplete': 'off'}))
     
