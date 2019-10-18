@@ -17,8 +17,15 @@
                     <h1 id="center">Editar Usuário</h1><br><br>
             
                     {% csrf_token %}
-                    {{form.as_p}}
-                    <br><br><button class="btn btn-outline-info btn-lg btn-block" type="submit">Enviar</button>
+                    <h5>Primeiro nome:</h5>
+                    {{form.first_name}}<br><br>
+                    <h5>Último nome:</h5>
+                    {{form.last_name}}<br><br>
+                    <h5>Endereço de E-mail:</h5>
+                    {{form.email}}<br><br>
+
+                    <input class="btn btn-outline-info btn-lg btn-block" type="submit" value="Enviar" onclick="return validarEditarUsuario()"/>
+                  </fildset>
             
                 </form>
             </div>    

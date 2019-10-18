@@ -16,13 +16,21 @@
                 <form action="/novo-usuario/" method="POST" >
                     <h1 id="center">Novo Usuário</h1><br>
                     {% csrf_token %}
-                    {{form.username}}<br>
-                    {{form.first_name}}<br>
-                    {{form.last_name}}<br>
-                    {{form.email}}<br>
-                    {{form.password1}}<br>
-                    {{form.password2}}<br>
-                    <br><button class="btn btn-outline-info btn-lg btn-block" type="submit">Enviar</button><br>
+                    <h5>Usuário:</h5>
+                    {{form.username}}<br><br>
+                    <h5>Primeiro nome:</h5>
+                    {{form.first_name}}<br><br>
+                    <h5>Último nome:</h5>
+                    {{form.last_name}}<br><br>
+                    <h5>Endereço de email:</h5>
+                    {{form.email}}<br><br>
+                    <h5>Senha:</h5>
+                    {{form.password1}}<br><br>
+                    <h5>Repita a senha:</h5>
+                    {{form.password2}}<br><br>
+                    <!--<br><button class="btn btn-outline-info btn-lg btn-block" type="submit">Enviar</button><br>-->
+                    <input class="btn btn-outline-info btn-lg btn-block" type="submit" value="Enviar" onclick="return validarNovoUsuario()"/>
+                  </fildset>
                 </form>
             </div>    
         </div>
