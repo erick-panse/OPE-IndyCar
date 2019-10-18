@@ -342,14 +342,16 @@ def add_no_carrinho_lista_materiais(request, id):
                     item_carrinho.adicionar()
                     item_carrinho.save()
                     messages.info(request, "Quantidade atualizada")
+                    return redirect(carrinho)
                 except EstoqueMaximoException:
                     messages.error(request, "Material indisponível")
                 return redirect(material)
             else:
                 #item_carrinho.adicionar()
-                order.itens.add(item_carrinho)
                 try:
+                    order.itens.add(item_carrinho)
                     messages.info(request, "Material adicionado ao carrinho")
+                    return redirect(carrinho)
                 except EstoqueMaximoException:
                     messages.error(request, "Material indisponível")
                 return redirect(material)
@@ -360,12 +362,13 @@ def add_no_carrinho_lista_materiais(request, id):
                 item_carrinho.adicionar()
                 carrinho_obj.itens.add(item_carrinho)
                 messages.info(request, "Material adicionado ao carrinho")
+                return redirect(carrinho)
             except EstoqueMaximoException:
                 messages.error(request, "Material indisponível")
-        return redirect(material)
+            return redirect(material)
     else:
         messages.error(request, "Material indisponível") 
-    return redirect(material)
+        return redirect(material)
 
 @login_required(login_url='/login/')
 def add_no_carrinho_(request, id):
@@ -382,15 +385,18 @@ def add_no_carrinho_(request, id):
                     item_carrinho.adicionar()
                     item_carrinho.save()
                     messages.info(request, "Quantidade atualizada")
+                    return redirect(carrinho)
                 except EstoqueMaximoException:
                     messages.error(request, "Material indisponível")
-                return redirect(carrinho)
+                return redirect(materiais_orcamento)
             else:
                 try:
                     item_carrinho.adicionar()
                     order.itens.add(item_carrinho)
-                except EstoqueMaximoException:
                     messages.info(request, "Material adicionado ao carrinho")
+                    return redirect(carrinho)
+                except EstoqueMaximoException:
+                    messages.error(request, "Material indisponível")
                 return redirect(materiais_orcamento)
         else:
             carrinho_obj = Carrinho.objects.create(usuario=request.user)
@@ -398,6 +404,7 @@ def add_no_carrinho_(request, id):
                 item_carrinho.adicionar()
                 carrinho_obj.itens.add(item_carrinho) 
                 messages.info(request, "Material adicionado ao carrinho")
+                return redirect(carrinho)
             except EstoqueMaximoException:
                 messages.error(request, "Material indisponível")
             return redirect(materiais_orcamento)
@@ -421,16 +428,19 @@ def add_no_editar_carrinho(request, id_material, id_carrinho, orcamento_id):
                     item_carrinho.adicionar()
                     item_carrinho.save()
                     messages.info(request, "Quantidade atualizada")
+                    return redirect('editar_carrinho', id=order.id, orcamento_id=orcamento.id)
                 except EstoqueMaximoException:
                     messages.error(request, "Material indisponível")
-                return redirect('editar_carrinho', id=order.id, orcamento_id=orcamento.id)
+                return redirect('materiais_orcamento_editar',id_orcamento=orcamento.id)
             else:
                 try:
                     #item_carrinho.adicionar()
                     order.itens.add(item_carrinho)
-                except EstoqueMaximoException:
                     messages.info(request, "Material adicionado ao carrinho")
-                return redirect('editar_carrinho', id=order.id, orcamento_id=orcamento.id)
+                    return redirect('editar_carrinho', id=order.id, orcamento_id=orcamento.id)
+                except EstoqueMaximoException:
+                    messages.error(request, "Material indisponível")
+                return redirect('materiais_orcamento_editar',id_orcamento=orcamento.id)
         else:
             carrinho_obj = Carrinho.objects.create(usuario=request.user)
             item_carrinho=pegarItem(order,m,request.user)
@@ -438,9 +448,10 @@ def add_no_editar_carrinho(request, id_material, id_carrinho, orcamento_id):
                 carrinho_obj.itens.add(item_carrinho)
                 item_carrinho.adicionar()
                 messages.info(request, "Material adicionado ao carrinho")
+                return redirect('editar_carrinho', id=order.id, orcamento_id=orcamento.id)
             except EstoqueMaximoException:
                 messages.error(request, "Material indisponível")
-            return redirect('editar_carrinho', id=order.id, orcamento_id=orcamento.id)
+            return redirect('materiais_orcamento_editar',id_orcamento=orcamento.id)
     else:
         messages.error(request, "Material indisponível")
         return redirect('materiais_orcamento_editar',id_orcamento=orcamento.id)
@@ -457,13 +468,12 @@ def remover_do_carrinho(request, id_material, id_carrinho):
                 item_carrinho.remover()
             order.itens.remove(item_carrinho)
             messages.info(request, "Material removido do carrinho")
-            return redirect(materiais_orcamento)
         else:
             messages.error(request, "Material não faz parte do carrinho")
-            return redirect(materiais_orcamento)
+        return redirect(materiais_orcamento)
     else:
         messages.error(request, "Nenhum carrinho encontrado")
-        return redirect(materiais_orcamento),
+        return redirect(materiais_orcamento)
 
 @login_required(login_url='/login/')
 def remover_do_editar_carrinho(request, id_material, id_carrinho, orcamento_id):
