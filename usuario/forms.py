@@ -5,32 +5,45 @@ from django.contrib.auth.forms import UserCreationForm,UserChangeForm
 from django.contrib.auth.decorators import login_required
 from .validacao import*
 
+
 class UsuarioForm(UserCreationForm):
     email = forms.EmailField(required=True)
 
     username = forms.CharField(max_length=60,label='nome', widget = forms.TextInput(attrs={
         'placeholder':'Username',
-        'name':'nome'}))
+        'id':'userUsuarioForm',
+        'onkeyup':'validarUserUsuarioForm()',
+        'name':'username'}))
 
     first_name = forms.CharField(max_length=60,label='sobrenome', widget = forms.TextInput(attrs={
-        'placeholder':'Sobrenome',
-        'name':'nome'}))
+        'placeholder':'Nome',
+        'id':'nomeUsuarioForm',
+        'onkeyup':'validarNomeUsuarioForm()',
+        'name':'nomeUsuarioForm'}))
 
     last_name = forms.CharField(max_length=60,label='lastname', widget = forms.TextInput(attrs={
-        'placeholder':'Última nome',
-        'name':'nome'}))
+        'placeholder':'Sobrenome',
+        'id':'sobrenomeUsuarioForm',
+        'onkeyup':'validarSobrenomeUsuarioForm()',
+        'name':'sobrenomeUsuarioForm'}))
 
     email = forms.EmailField(max_length=60,label='email', widget = forms.EmailInput(attrs={
         'placeholder':'Email',
-        'name':'nome'}))
+        'id':'emailUsuarioForm',
+        'onkeyup':'validarEmailUsuarioForm()',
+        'name':'emailUsuarioForm'}))
 
     password1 = forms.CharField(max_length=60,label='password', widget = forms.TextInput(attrs={
-        'placeholder':'Última nome',
-        'name':'nome'}))
+        'placeholder':'Senha',
+        'id':'password1UsuarioForm',
+        'onkeyup':'validarPassword1UsuarioForm()',
+        'name':'password1UsuarioForm'}))
 
     password2 = forms.CharField(max_length=60,label='password2', widget = forms.TextInput(attrs={
-        'placeholder':'Última nome',
-        'name':'nome'}))         
+        'placeholder':'Repita a senha',
+        'id':'password2UsuarioForm',
+        'onkeyup':'validarPassword2UsuarioForm()',
+        'name':'password2UsuarioForm'}))         
 
                
 
@@ -71,6 +84,24 @@ class UsuarioForm(UserCreationForm):
 class EditarUsuarioForm(UserChangeForm):
     password=None
 
+    first_name = forms.CharField(max_length=60,label='nome', widget = forms.TextInput(attrs={
+        'placeholder':'Nome',
+        'id':'userNomeEditar',
+        'onkeyup':'validarNomeEditar()',
+        'name':'nomeEditUser'}))
+
+    last_name = forms.CharField(max_length=60,label='sobrenome', widget = forms.TextInput(attrs={
+        'placeholder':'Sobrenome',
+        'id':'userSobrenomeEditar',
+        'onkeyup':'validarSobrenomeEditar()',
+        'name':'ultimonomeEditUser'}))    
+
+    email = forms.EmailField(max_length=60,label='email', widget = forms.EmailInput(attrs={
+        'placeholder':'Email',
+        'id':'userEmailEditar',
+        'onkeyup':'validarEmailEditar()',
+        'name':'emailEditUser'}))    
+
     def clean(self):
         dados=self.cleaned_data
         first_name=dados.get('first_name')
@@ -100,7 +131,7 @@ class AtribuirNovaSenhaForm(forms.Form):
     new_password1 = forms.CharField(label=("Nova senha"),
                                     widget=forms.PasswordInput)
     new_password2 = forms.CharField(label=("Confirmação da nova senha"),
-                                    widget=forms.PasswordInput)
+                                    widget=forms.PasswordInput)                                       
 
     def clean_new_password2(self):
         password1 = self.cleaned_data.get('new_password1')
