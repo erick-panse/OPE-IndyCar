@@ -608,39 +608,39 @@ def tirar_do_editar_carrinho(request, id_material, id_carrinho, orcamento_id):
 @login_required(login_url='/login/')
 def orcamento(request):
     msg=messages.get_messages(request)
-    '''cpf=request.POST.get('cpf') or None
-    try:
-        if len(cpf)==15:
-            cpf=request.POST.get('cpf') or None
+    cpf_cnpj=request.POST.get('cpf-cnpj') or None
+    if cpf_cnpj:
+        if len(cpf_cnpj)==14:
+            cpf=cpf_cnpj
             cnpj=None
-        elif len(cpf)==18:
+        elif len(cpf_cnpj)==18:
+            cnpj=cpf_cnpj
             cpf=None
-            cnpj=request.POST.get('cpf') or None
-            
+        else:
+            messages.error(request,'dados inválidos')
+            return redirect(pagina_inicial)
+
         if cpf:
             try:
                 cli=Cliente.objects.get(cpf=cpf)
                 cli=Customer.objects.get(nome=cli.nome,endereco=cli.endereco,bairro=cli.bairro,
                 email=cli.email,telefone=cli.telefone)
-                orcamentos = Orcamento.objects.filter(cliente=cli)
-            except ObjectDoesNotExist as e:
-                orcamentos = []
+                orcamentos = Orcamento.objects.filter(ordem_de_servico__cliente__id=cli.id)
+            except ObjectDoesNotExist:
+                orcamentos=[]
         elif cnpj:
             try:
                 cli=Empresa.objects.get(cnpj=cnpj)
                 cli=Customer.objects.get(nome=cli.nome,endereco=cli.endereco,bairro=cli.bairro,
                 email=cli.email,telefone=cli.telefone)
-                orcamentos = Orcamento.objects.filter(cliente=cli)
-            except ObjectDoesNotExist as e:
-                orcamentos = []
-        else:
-            return redirect(orcamento)
-    except:
-        orcamentos = Orcamento.objects.all().order_by('id')'''
-    #quando testar tira a linha de baixo
-    orcamentos = Orcamento.objects.all().order_by('id')  #quando testar tira essa linha  
-    #quando testar tira a linha de cima
-    return render(request,'orcamentos.html',context={'orcamentos':orcamentos,'msg':msg})
+                orcamentos = Orcamento.objects.filter(ordem_de_servico__cliente__id=cli.id)
+            except ObjectDoesNotExist:
+                orcamentos=[]
+        return render(request,'orcamentos.html',context={'orcamentos':orcamentos,'msg':msg})
+    else:
+        print('ntem')
+        orcamentos=Orcamento.objects.all()
+        return render(request,'orcamentos.html',context={'orcamentos':orcamentos,'msg':msg})
 
 @login_required(login_url='/login/')
 def novo_orcamento(request):
