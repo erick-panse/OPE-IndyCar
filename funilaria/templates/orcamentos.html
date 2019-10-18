@@ -32,6 +32,7 @@
                 <th>ID</th>
                 <th>Cliente</th>
                 <th>Previsão de entrega</th>
+                <th>Total materiais</th>
                 <th>Mão de obra</th>
                 <th>Total</th>
                 <th>Status</th>
@@ -46,6 +47,7 @@
                   <td><br>{{ i.id }}</td>
                   <td><br>{{ i.ordem_de_servico.cliente.nome }}</td>
                   <td><br>{{ i.previsao_entrega }}</td>
+                  <td><br>{{ i.carrinho.total }}</td>
                   <td><br>{{ i.valor_mao_de_obra }}</td>
                   <td><br>{{ i.total }}</td>
                   {% if i.status == True %}
