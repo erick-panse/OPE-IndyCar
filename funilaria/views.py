@@ -618,7 +618,7 @@ def orcamento(request):
             cpf=None
         else:
             messages.error(request,'dados inválidos')
-            return redirect(pagina_inicial)
+            return redirect(orcamento)
 
         if cpf:
             try:

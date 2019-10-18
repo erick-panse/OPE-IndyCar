@@ -36,23 +36,13 @@
                   {% else %}
                     <td class="status"><br>Não finalizado</td>
                   {% endif %}
-                  <td>
-                    <a href="{{i.get_editar_ordem}}"
-                       class="btn btn-info">
-                      Atualizar
-                    </a>
-                    <a href="{{i.get_del_ordem}}"
-                      class="btn btn-outline-danger" onclick="confirmarAcao()">
-                        Excluir
-                    </a>
-                  </td>
                 </tr>
               {% endfor %}
               </tbody>
             </table>
         {% else %}
           <div class="text-center mt-5 mb-5 jumbotron">
-            <h5>Nenhuma <code>OS</code> encontrada.</h5>
+            <h5>Nenhum resultado.</h5>
           </div>
         {% endif %}
           <hr />
