@@ -61,12 +61,12 @@
                 {% if instance %}
                   <a href="{% url 'editar_carrinho' instance.carrinho.id instance.id %}">Editar</a>
                   {% for i in instance.resumo %}
-                    {{i}}<br>
+                    <a class="btn btn-outline-info">{{i}}</a>
                   {% endfor %}
                 {% else %}
-                  <a href="{% url 'carrinho' %}">Editar</a>
+                  <a href="{% url 'carrinho' %}">Editar</a><br><br>
                   {% for i in carrinho.itens.all %}
-                    {{i}}<br>
+                    <a class="btn btn-outline-info">{{i }} <a>
                   {% endfor %}
                 {% endif %}
                 
