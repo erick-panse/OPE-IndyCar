@@ -45,6 +45,14 @@ body { padding: 15px; background:rgba(224, 224, 224, 0.808); font-family: Arial,
       .inputMaterial{
         width:200px;
       }
+
+      #data_saida{
+        width:200px;
+      }
+
+      #previsao_entrega{
+        width:200px;
+      }
       
       .input-group{
         width: 200px;
@@ -173,6 +181,14 @@ body { padding: 15px; background:rgba(224, 224, 224, 0.808); font-family: Arial,
         width:200px;
       }
 
+      #data_saida{
+        width:200px;
+      }
+
+      #previsao_entrega{
+        width:200px;
+      }
+
       
   
 
@@ -224,6 +240,14 @@ body { padding: 15px; background:rgba(224, 224, 224, 0.808); font-family: Arial,
       }
 
       .inputMaterial{
+        width:200px;
+      }
+
+      #data_saida{
+        width:200px;
+      }
+
+      #previsao_entrega{
         width:200px;
       }
 

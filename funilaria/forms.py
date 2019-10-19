@@ -289,13 +289,13 @@ class OrcamentoForm(forms.ModelForm):
     previsao_entrega = forms.DateField(label='Previsão entrega:',input_formats=['%d/%m/%Y'],widget = FengyuanChenDatePickerInput(attrs={
         'placeholder':'Previsão de entrega',
         'name':'previsao_entrega',
-        'class':"inputMaterial",
+        'class':"date",
         'id':'previsao_entrega',
         'autocomplete': 'off'}))
     data_saida = forms.DateField(required=False,label='Data saída:',input_formats=['%d/%m/%Y'],widget = FengyuanChenDatePickerInput(attrs={
         'placeholder':'Data de saída',
         'name':'data_saida',
-        'class':"inputMaterial",
+        'class':"date",
         'id':'data_saida',
         'autocomplete': 'off'}))
     

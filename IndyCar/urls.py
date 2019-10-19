@@ -27,6 +27,7 @@ from django.conf.urls import url
 urlpatterns = [
 
     path('paginainicial/', funilaria_views.pagina_inicial),
+    url(r'status/busca/',status_ordem,name='status_ordem'),
     path('quemsomos/', funilaria_views.quemsomos),
     path('index/', funilaria_views.index),
     path('admin/', admin.site.urls),
@@ -48,7 +49,7 @@ urlpatterns = [
     path('ordemdeservico/', funilaria_views.nova_os, name='ordemdeservico'),
     re_path(r'ordemdeservico/(?P<id>\d+)/$',funilaria_views.editar_os, name='editar_ordem'),
     re_path(r'ordemdeservico/deletar/(?P<id>\d+)/$',funilaria_views.deletar_os, name='deletar_ordem'),
-    url(r'ordensdeservico/busca/',status_ordem,name='busca_ordem'),
+    url(r'ordensdeservico/busca/',ordem_de_servico,name='busca_ordem'),
 
     path('materiais/',funilaria_views.material,name='material'),
     path('material/', funilaria_views.novo_material, name='material'),

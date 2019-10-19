@@ -2,6 +2,7 @@
     {% extends 'base.html' %}
 
     {% block main %}
+<<<<<<< HEAD
     {% for message in messages %}
     <div class="alert {{ message.tags }} alert-dismissible" role="alert">
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -10,6 +11,17 @@
       {{ message }}
     </div>
   {% endfor %}
+=======
+
+    <!-- Estilo customizado -->
+<link rel="stylesheet" type="text/css" href="/static/css/csscarrinho.css">
+
+{% for message in messages %}
+  <div class="alert alert-success">
+    <strong>{{message}}</strong>
+  </div>  
+{% endfor %}
+>>>>>>> 796e851ddb2d7ce174f188ef0787603f8bef4833
 <div class="container">
   <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -21,14 +33,16 @@
               <p class="card-text">
                 Aqui está a lista de itens cadastrados em seu <code>Carrinho</code>
               </p>
+              <div class="text-right">Valor total de intes no carrinho: {{carrinho.total}}</div>
 
               <table class="table">
                 <thead class="thead-dark">
                 <tr>
-                  <th>material</th>
-                  <th>valor</th>
+                  <th>Material</th>
+                  <th>Valor</th>
                   <th></th>
-                  <th>qtd</th>
+                  <th>Quantidade</th>
+                  <th></th>
                   <th></th>
                   <th>Total</th>
                 </tr>
@@ -37,29 +51,23 @@
                 <tbody>
                 {% for i in carrinho.itens.all %}
                   <tr>
-                    <td>{{ i.material }}</td>
-                    <td>{{ i.material.valor }}</td>
+                    <td><br>{{ i.material }}</td>
+                    <td><br>{{ i.material.valor }}</td>
                     
                     
-                    <td><a href="{{i.material.get_tirar_carrinho2}}"
+                    <td><br><a href="{{i.material.get_tirar_carrinho2}}"
                       class="btn btn-outline-danger">
                         -
                     </a></td>
-                    <td>{{ i.quantidade }}</td>
-                    <td><a href="{% url 'remover_do_carrinho' i.material.id carrinho.id %}">remover</a></td>
-                    <td>
-                      <a href="{{i.material.get_add_carrinho2}}"
-                        class="btn btn-info">
-                        +
-                      </a>
-                    </td>
-                    <td>{{ i.total }}</td>
+                    <td><br>{{ i.quantidade }}</td>
+                    <td><br><a href="{% url 'remover_do_carrinho' i.material.id carrinho.id %}">remover</a></td>
+                    <td><br><a href="{{i.material.get_add_carrinho2}}"class="btn btn-info">+</a></td>
+                    <td><br>{{ i.total }}</td>
+                    
                   </tr>
                 {% endfor %}
-                <tr>
-                  <td>
-                    {{carrinho.total}}
-                  </td>
+                  <tr>
+                  
                 </tr>
                 </tbody>
               </table>
