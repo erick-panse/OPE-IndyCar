@@ -1,10 +1,91 @@
-{% extends 'base.html' %}
-{% block main %}
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <title>Indy Car</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+
+     <!-- Font Awesome -->
+     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+    <!-- JavaScript -->
+    <!-- jQuery first,Popper.js, Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="/static/main.js"></script>
+    <script src="/static/jquery.mask.js"></script>
+
+
+    <!-- Fengyuan Chen's Datepicker -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.css" integrity="sha256-b88RdwbRJEzRx95nCuuva+hO5ExvXXnpX+78h8DjyOE=" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js" integrity="sha256-/7FLTdzP6CfC1VBAj/rsp3Rinuuu9leMRGd354hvk0k=" crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width", initial-scale="1.0"> 
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+
+    <!-- Estilo customizado -->
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="/static/pagina-inicial/css/estilo.css">
+
+    <script src="/static/main.js"></script>
+    <script src="/static/js/jquery.mask.js"></script>
+
+</head>
+<body>
+
+      <header><!-- inicio Cabecalho -->
+      <nav class="navbar navbar-expand-md navbar-light bg-primary">
+        <div class="container">
+          
+          <a href="" class="navbar-brand">
+            <h3 id="logo">Indy Car</h3>
+          </a>
+
+          <!--<button class="navbar-toggler" data-toggle="collapse" data-target="#nav-principal">
+            <span class="navbar-toggler-icon"></span>
+          </button>-->
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          
+
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ml-auto ">
+              <li class="nav-item">
+                <a href="" class="nav-link text-light">Home</a>
+              </li>
+              <li class="nav-item">
+                <a href="/quemsomos/" class="nav-link text-light">Quem Somos</a>
+              </li>
+              <li class="nav-item">
+                <a href="/login" class="btn btn-outline-light ml-1">Entrar</a>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+      </nav>
+    </header><!--/fim Cabecalho --> 
+
+
 {% for message in messages %}
   <div class="alert alert-success">
     <strong>{{message}}</strong>
   </div>  
 {% endfor %}
+
+<br>
+<br>
+<br>
+<br>
+<br>
 <div class="container">
   <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -57,4 +138,6 @@
     </div>
   </div>
 </div>
-  {% endblock %}
+
+</body>
+</html>
