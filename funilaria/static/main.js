@@ -7,6 +7,8 @@ function confirmarAcao(){
 
 $(document).ready(function(){
     $('.date').mask('00/00/0000');
+    $('#previsao_entrega').mask('00/00/0000');
+    $('#data_saida').mask('00/00/0000');
     $('#cpf').mask('000.000.000-00', {reverse: true});
     $('#cpfPGinicial').mask('000.000.000-00', {reverse: true});
     $('#cpfListaCliente').mask('000.000.000-00', {reverse: true});
