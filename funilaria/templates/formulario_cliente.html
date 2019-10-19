@@ -26,33 +26,33 @@
             {% csrf_token %}
             <div class="form-row">
               <div class="col-md-4 mb-3">
-                <label for="validationTooltip01">Nome:</label><br>
+                <label for="validationTooltip01">Nome:<a id="red">*</a></label><br>
                 {{form_cliente.nome}}
               </div>
               <div class="col-md-4 mb-3">
-                <label for="validationTooltip02">CPF:</label><br>
+                <label for="validationTooltip02">CPF:<a id="red">*</a></label><br>
                 {{form_cliente.cpf}}
               </div>
             </div>
 
             <div class="form-row">
               <div class="col-md-4 mb-3">
-                <label for="validationTooltip01">Endereço:</label><br>
+                <label for="validationTooltip01">Endereço:<a id="red">*</a></label><br>
                 {{form_cliente.endereco}}
               </div>
               <div class="col-md-4 mb-3">
-                <label for="validationTooltip02">Bairro:</label><br>
+                <label for="validationTooltip02">Bairro:<a id="red">*</a></label><br>
                 {{form_cliente.bairro}}
               </div>
             </div>
 
             <div class="form-row">
               <div class="col-md-4 mb-3">
-                <label for="validationTooltip01">Email:</label><br>
+                <label for="validationTooltip01">Email:<a id="red">*</a></label><br>
                 {{form_cliente.email}}
               </div>
               <div class="col-md-4 mb-3">
-                <label for="validationTooltip02">Telefone:</label><br>
+                <label for="validationTooltip02">Telefone:<a id="red">*</a></label><br>
                 {{form_cliente.telefone}}
               </div>
             </div>

@@ -51,7 +51,7 @@
             
             <div class="form-row">
                 <div class="col-md-4 mb-3">
-                  <label for="validationTooltip01"><strong>Materiais:</strong></label><br>
+                  <label for="validationTooltip01"><strong>Materiais:<a id="red">*</a></strong></label><br>
                   {{form_orcamento.carrinho}}
                   
                 {% if instance %}
@@ -85,7 +85,7 @@
 
       <!-- Serviços -->
             <div class="form-group">
-                <label for="exampleFormControlTextarea1">Serviços necessários:</label><br>
+                <label for="exampleFormControlTextarea1">Serviços necessários:<a id="red">*</a></label><br>
                 {{form_orcamento.servicos}}
               </div>    
       <!-- Peças -->
@@ -111,7 +111,7 @@
             <div class="form-row">
                 <!-- Valor da Mão de Obra -->
                 <div class="col-md-4 mb-3">
-                  <label for="validationTooltip01">Valor da Mão de Obra:</label><br>
+                  <label for="validationTooltip01">Valor da Mão de Obra:<a id="red">*</a></label><br>
                   {{form_orcamento.valor_mao_de_obra}}
                 </div>
                 <!-- Total a Pagar -->
@@ -130,12 +130,12 @@
             <div class="form-row">
                 <!-- Previsao de Entrega -->
                 <div class="col-md-4 mb-3">
-                  <label for="validationTooltip01">Previsão de Entrega:</label><br>
+                  <label for="validationTooltip01">Previsão de Entrega:<a id="red">*</a></label><br>
                   {{form_orcamento.previsao_entrega}}
                 </div>
                 <!-- Data de Saída -->
                 <div class="col-md-4 mb-3">
-                  <label for="validationTooltip02">Data de Saída:</label><br>
+                  <label for="validationTooltip02">Data de Saída:<a id="red">*</a></label><br>
                   {{form_orcamento.data_saida}}
                 </div>
             </div>    

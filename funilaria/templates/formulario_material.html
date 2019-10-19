@@ -28,21 +28,21 @@
             {% csrf_token %}
             <div class="form-row">
               <div class="col-md-4 mb-3">
-                <label for="validationTooltip01">Descrição:</label><br>
+                <label for="validationTooltip01">Descrição:<a id="red">*</a></label><br>
                 {{form_material.descricao}}
               </div>
             </div>
 
             <div class="form-row">
               <div class="col-md-4 mb-3">
-                <label for="validationTooltip01">Quantidade em estoque:</label><br>
+                <label for="validationTooltip01">Quantidade em estoque:<a id="red">*</a></label><br>
                 {{form_material.quantidade_estoque}}
               </div>
             </div>
 
             <div class="form-row">
               <div class="col-md-4 mb-3">
-                <label for="validationTooltip01">Valor:</label><br>
+                <label for="validationTooltip01">Valor:<a id="red">*</a></label><br>
                 {{form_material.valor}}
               </div>
             </div>
