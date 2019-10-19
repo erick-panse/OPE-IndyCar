@@ -14,7 +14,7 @@
     <!-- Estilo customizado -->
     <link rel="stylesheet" type="text/css" href="../static/pagina-inicial/css/estilo.css">
 
-    <script src="/static/js/main.js"></script>
+    <script src="/static/main.js"></script>
     <script src="/static/js/jquery.mask.js"></script>
 
     <title>Indy Car</title>
@@ -65,15 +65,17 @@
             <div class="align-self-center">
               <p>
                 <h1>Saiba qual é o status do seu veículo:</h1>
-                <p> Para ter acesso a seu status de veiculo por favor digite seu CPF: </p>
+                <p> Para ter acesso a seu status de veiculo por favor digite seu CPF ou CNPJ: </p>
               </p>
 
 
               <div class="form-group">
                 <form method="POST" action="/status/busca/">
                   {% csrf_token %}
-                  <input type="text" name="cpf-cnpj" id="cpf-cnpj-PGinicial" placeholder="Informe seu cpf" autocomplete="off">
+                  <input type="text" maxlength="18" name="cpf-cnpj" id="cpf-cnpj-PGinicial" placeholder="Informe seu cpf" autocomplete="off" onkeypress='mascaraMutuario(this,cpfCnpj)' onblur='clearTimeout()'>
+                  
                   <button type="submit" class="btn btn-danger">Enviar</button>
+                </fildset>
                 </form>
               </div>
                 <!-- <div class="form-group">
@@ -81,6 +83,8 @@
                   <input type="email" class="form-control" id="InputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
                 </div>
                 <div class="form-group">
+                  <input type='text' maxlength="17" name='cpf-cnpj'id="cpf-cnpj-PGinicial" onkeypress='mascaraMutuario(this,cpfCnpj)' onblur='clearTimeout()'>
+                  <input type="text" name="cpf-cnpj" id="cpf-cnpj-PGinicial" placeholder="Informe seu cpf" autocomplete="off">
                   <label for="Numero">Seu Numero:</label>
                   <input type="phone" class="form-control" id="exampleInputPassword1" placeholder="Seu Numero">
                 </div> -->
