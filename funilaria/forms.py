@@ -309,8 +309,8 @@ class OrcamentoForm(forms.ModelForm):
         carrinho=dados.get('carrinho')
 
 
-        if not somenteLetras(servicos):
-            raise forms.ValidationError('Serviços inválidos !')
+        """if not somenteLetras(servicos):
+            raise forms.ValidationError('Serviços inválidos !')"""
 
         """ if not somenteNumeros(valor_mao_de_obra):
             raise forms.ValidationError('Valor mão de obra inválido !') """
