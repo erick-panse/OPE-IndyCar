@@ -20,6 +20,7 @@
     <title>Indy Car</title>
   </head>
   <body>
+
     
     
       <header><!-- inicio Cabecalho -->
@@ -55,6 +56,8 @@
         </div>
       </nav>
     </header><!--/fim Cabecalho --> 
+
+
     <section id="home"><!-- Início seção home -->
     <br>
     <br>
@@ -78,6 +81,14 @@
                 </fildset>
                 </form>
               </div>
+                  {% for message in messages %}
+                  <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong>{{ message }}</strong>
+                  </div>
+                  {% endfor %}
                 <!-- <div class="form-group">
                   <label for="Email1">Email:</label>
                   <input type="email" class="form-control" id="InputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
