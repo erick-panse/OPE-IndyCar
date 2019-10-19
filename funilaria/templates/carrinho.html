@@ -2,26 +2,15 @@
     {% extends 'base.html' %}
 
     {% block main %}
-<<<<<<< HEAD
+    <link rel="stylesheet" type="text/css" href="/static/css/csscarrinho.css">
     {% for message in messages %}
     <div class="alert {{ message.tags }} alert-dismissible" role="alert">
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
-      {{ message }}
+      <strong>{{ message }}</strong>
     </div>
   {% endfor %}
-=======
-
-    <!-- Estilo customizado -->
-<link rel="stylesheet" type="text/css" href="/static/css/csscarrinho.css">
-
-{% for message in messages %}
-  <div class="alert alert-success">
-    <strong>{{message}}</strong>
-  </div>  
-{% endfor %}
->>>>>>> 796e851ddb2d7ce174f188ef0787603f8bef4833
 <div class="container">
   <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
