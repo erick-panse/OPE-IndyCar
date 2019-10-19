@@ -38,10 +38,14 @@
 <body>
 
 {% for message in messages %}
-<div class="alert alert-success">
-<strong>{{message}}</strong>
-</div>  
+    <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <strong>{{ message }}</strong>
+    </div>
 {% endfor %}
+
 
 <br>
 <br>
