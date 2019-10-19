@@ -90,6 +90,9 @@ function validar_cliente(){
 
     if(nome == ""){
         $('#nome').css({'border':'1px solid red'});
+        document.getElementById("demo").innerHTML = "Campo vazio!";
+        return false;
+    } else if (verificar(nome)){
         return false;
     }
 
@@ -528,4 +531,32 @@ function cpfCnpj(v) {
         v = v.replace(/(\d{4})(\d)/, "$1-$2")
     }
     return v
+}
+
+function verificar(){
+
+    var texto=document.getElementById("nome").value;
+
+    for (letra of texto){
+
+        letraspermitidas="ABCEDFGHIJKLMNOPQRSTUVXWYZ abcdefghijklmnopqrstuvxwyzáàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ"
+
+        var ok=false;
+        for (letra2 of letraspermitidas ){
+
+            if (letra==letra2){
+                document.getElementById("demo").innerHTML = "";
+                ok=true;
+            }
+         }
+
+         if (!ok){
+            document.getElementById("demo").innerHTML = "Nome inválido!";
+            //document.getElementById("nome").value="";
+            $('#nome').css({'border':'1px solid red'});
+            return true; 
+         }
+
+    }
+
 }
