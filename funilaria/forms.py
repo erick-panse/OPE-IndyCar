@@ -336,7 +336,7 @@ class LucrosForm(forms.Form):
         'class':"date",
         'id':'data_inicial',
         'autocomplete': 'off'}))
-    data_final = forms.DateField(required=False,input_formats=['%d/%m/%Y'],widget = FengyuanChenDatePickerInput(attrs={
+    data_final = forms.DateField(required=False,label='Data final   ',input_formats=['%d/%m/%Y'],widget = FengyuanChenDatePickerInput(attrs={
         'placeholder':'Data final',
         'name':'data_final',
         'class':"date",

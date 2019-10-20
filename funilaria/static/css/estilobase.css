@@ -381,3 +381,9 @@ body { padding: 15px; background:rgba(224, 224, 224, 0.808); font-family: Arial,
 .vermelho{
   color:red;
 }
+
+#lucro{
+
+  width:250px;
+  height:100px;
+}

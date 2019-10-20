@@ -23,28 +23,36 @@
               {{form.as_p}}
             <input class="btn btn-outline-info" type="submit" value="Buscar">
             </form>  
+            <br>
+            <br>
 
           
           {% csrf_token %}
-            <div class="form-row">
-              <div class="col-md-4 mb-3">
-                <label for="validationTooltip01">Total gasto com materiais:</label><br>
-                {{total_gasto}}
+            <div class="form-row d-flex justify-content-center">
+              <div class="card border-danger mb-3" id="lucro">
+                <div class="card-header">Total gasto com materiais</div>
+                <div class="card-body text-danger">
+                <p class="card-text">R$ {{total_gasto}}</p>
+                </div>
               </div>
-              <div class="col-md-4 mb-3">
-                <label for="validationTooltip02">Total mao de obra:</label><br>
-                {{mao_de_obra}}
+              <div class="card border-info mb-3" id="lucro">
+                <div class="card-header">Total mao de obra</div>
+                <div class="card-body text-info">
+                <p class="card-text">R$ {{mao_de_obra}}</p>
+                </div>
               </div>
-            </div>
 
-            <div class="form-row">
-              <div class="col-md-4 mb-3">
-                <label for="validationTooltip01">Total orçamentos:</label><br>
-                {{total_orcamento}}
+              <div class="card border-info mb-3" id="lucro">
+                <div class="card-header">Total orçamentos</div>
+                <div class="card-body text-info">
+                <p class="card-text">R$ {{total_orcamento}}</p>
+                </div>
               </div>
-              <div class="col-md-4 mb-3">
-                <label for="validationTooltip02">Total de lucros:</label><br>
-                {{lucros}}
+              <div class="card border-success mb-3" id="lucro">
+                <div class="card-header">Total de lucros</div>
+                <div class="card-body text-success">
+                <p class="card-text">R$ {{lucros}}</p>
+                </div>
               </div>
             </div>
           
