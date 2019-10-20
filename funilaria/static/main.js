@@ -103,11 +103,17 @@ function validar_cliente(){
 
     if(endereco == ""){
         $('#endereco').css({'border':'1px solid red'});
+        document.getElementById("demo1").innerHTML = "Campo vazio!";
+        return false;
+    } else if (verificarEnderecoCliente(endereco)){
         return false;
     }
 
     if(bairro == ""){
         $('#bairro').css({'border':'1px solid red'});
+        document.getElementById("demo2").innerHTML = "Campo vazio!";
+        return false;
+    } else if (verificarBairroCliente(bairro)){
         return false;
     }
 
@@ -135,6 +141,9 @@ function validar_empresa(){
 
     if(nome == ""){
         $('#nome').css({'border':'1px solid red'});
+        document.getElementById("demo3").innerHTML = "Campo vazio!";
+        return false;
+    } else if (verificarNomeEmpresa(nome)){
         return false;
     }
 
@@ -145,11 +154,17 @@ function validar_empresa(){
 
     if(endereco == ""){
         $('#endereco').css({'border':'1px solid red'});
+        document.getElementById("demo4").innerHTML = "Campo vazio!";
+        return false;
+    } else if (verificarEnderecoEmpresa(endereco)){
         return false;
     }
 
     if(bairro == ""){
         $('#bairro').css({'border':'1px solid red'});
+        document.getElementById("demo5").innerHTML = "Campo vazio!";
+        return false;
+    } else if (verificarBairroEmpresa(bairro)){
         return false;
     }
 
@@ -177,6 +192,9 @@ function validar_ordem(){
 
     if(marca == ""){
         $('#marca').css({'border':'1px solid red'});
+        document.getElementById("demo6").innerHTML = "Campo vazio!";
+        return false;
+    } else if (verificarMarca(marca)){
         return false;
     }
 
@@ -187,6 +205,9 @@ function validar_ordem(){
 
     if(cor == ""){
         $('#cor').css({'border':'1px solid red'});
+        document.getElementById("demo8").innerHTML = "Campo vazio!";
+        return false;
+    } else if (verificarCor(cor)){
         return false;
     }
 
@@ -202,6 +223,9 @@ function validar_ordem(){
 
     if(cidade == ""){
         $('#cidade').css({'border':'1px solid red'});
+        document.getElementById("demo7").innerHTML = "Campo vazio!";
+        return false;
+    } else if (verificarCidade(cidade)){
         return false;
     }
 
@@ -540,9 +564,10 @@ function verificar(){
     for (letra of texto){
 
         letraspermitidas="ABCEDFGHIJKLMNOPQRSTUVXWYZ abcdefghijklmnopqrstuvxwyzáàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ"
+        
 
         var ok=false;
-        for (letra2 of letraspermitidas ){
+        for (letra2 of letraspermitidas){
 
             if (letra==letra2){
                 document.getElementById("demo").innerHTML = "";
@@ -554,6 +579,239 @@ function verificar(){
             document.getElementById("demo").innerHTML = "Nome inválido!";
             //document.getElementById("nome").value="";
             $('#nome').css({'border':'1px solid red'});
+            return true; 
+         }
+
+    }
+
+}
+
+function verificarBairroCliente(){
+
+    var texto=document.getElementById("bairro").value;
+
+    for (letra of texto){
+
+        letraspermitidas="ABCEDFGHIJKLMNOPQRSTUVXWYZ abcdefghijklmnopqrstuvxwyzáàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ 0123456789 ,"
+        
+
+        var ok=false;
+        for (letra2 of letraspermitidas || caracterPermitido ){
+
+            if (letra==letra2){
+                document.getElementById("demo2").innerHTML = "";
+                ok=true;
+            }
+         }
+
+         if (!ok){
+            document.getElementById("demo2").innerHTML = "Bairro inválido!";
+            //document.getElementById("nome").value="";
+            $('#bairro').css({'border':'1px solid red'});
+            return true; 
+         }
+
+    }
+
+}
+
+function verificarNomeEmpresa(){
+
+    var texto=document.getElementById("nome").value;
+
+    for (letra of texto){
+
+        letraspermitidas="ABCEDFGHIJKLMNOPQRSTUVXWYZ abcdefghijklmnopqrstuvxwyzáàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ"
+        
+
+        var ok=false;
+        for (letra2 of letraspermitidas){
+
+            if (letra==letra2){
+                document.getElementById("demo3").innerHTML = "";
+                ok=true;
+            }
+         }
+
+         if (!ok){
+            document.getElementById("demo3").innerHTML = "Nome inválido!";
+            //document.getElementById("nome").value="";
+            $('#nome').css({'border':'1px solid red'});
+            return true; 
+         }
+
+    }
+
+}
+
+
+function verificarEnderecoCliente(){
+
+    var texto=document.getElementById("endereco").value;
+
+    for (letra of texto){
+
+        letraspermitidas="ABCEDFGHIJKLMNOPQRSTUVXWYZ abcdefghijklmnopqrstuvxwyzáàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ 0123456789 ,"
+        
+
+        var ok=false;
+        for (letra2 of letraspermitidas || caracterPermitido ){
+
+            if (letra==letra2){
+                document.getElementById("demo1").innerHTML = "";
+                ok=true;
+            }
+         }
+
+         if (!ok){
+            document.getElementById("demo1").innerHTML = "Endereço inválido!";
+            //document.getElementById("nome").value="";
+            $('#endereco').css({'border':'1px solid red'});
+            return true; 
+         }
+
+    }
+
+}
+
+function verificarEnderecoEmpresa(){
+
+    var texto=document.getElementById("endereco").value;
+
+    for (letra of texto){
+
+        letraspermitidas="ABCEDFGHIJKLMNOPQRSTUVXWYZ abcdefghijklmnopqrstuvxwyzáàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ 0123456789 ,"
+        
+
+        var ok=false;
+        for (letra2 of letraspermitidas || caracterPermitido ){
+
+            if (letra==letra2){
+                document.getElementById("demo4").innerHTML = "";
+                ok=true;
+            }
+         }
+
+         if (!ok){
+            document.getElementById("demo4").innerHTML = "Endereço inválido!";
+            //document.getElementById("nome").value="";
+            $('#endereco').css({'border':'1px solid red'});
+            return true; 
+         }
+
+    }
+
+}
+
+function verificarBairroEmpresa(){
+
+    var texto=document.getElementById("bairro").value;
+
+    for (letra of texto){
+
+        letraspermitidas="ABCEDFGHIJKLMNOPQRSTUVXWYZ abcdefghijklmnopqrstuvxwyzáàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ 0123456789 ,"
+        
+
+        var ok=false;
+        for (letra2 of letraspermitidas || caracterPermitido ){
+
+            if (letra==letra2){
+                document.getElementById("demo5").innerHTML = "";
+                ok=true;
+            }
+         }
+
+         if (!ok){
+            document.getElementById("demo5").innerHTML = "Bairro inválido!";
+            //document.getElementById("nome").value="";
+            $('#bairro').css({'border':'1px solid red'});
+            return true; 
+         }
+
+    }
+
+}
+
+function verificarMarca(){
+
+    var texto=document.getElementById("marca").value;
+
+    for (letra of texto){
+
+        letraspermitidas="ABCEDFGHIJKLMNOPQRSTUVXWYZ abcdefghijklmnopqrstuvxwyzáàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ"
+        
+
+        var ok=false;
+        for (letra2 of letraspermitidas){
+
+            if (letra==letra2){
+                document.getElementById("demo6").innerHTML = "";
+                ok=true;
+            }
+         }
+
+         if (!ok){
+            document.getElementById("demo6").innerHTML = "Marca inválida!";
+            //document.getElementById("nome").value="";
+            $('#marca').css({'border':'1px solid red'});
+            return true; 
+         }
+
+    }
+
+}
+
+function verificarCidade(){
+
+    var texto=document.getElementById("cidade").value;
+
+    for (letra of texto){
+
+        letraspermitidas="ABCEDFGHIJKLMNOPQRSTUVXWYZ abcdefghijklmnopqrstuvxwyzáàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ"
+        
+
+        var ok=false;
+        for (letra2 of letraspermitidas){
+
+            if (letra==letra2){
+                document.getElementById("demo7").innerHTML = "";
+                ok=true;
+            }
+         }
+
+         if (!ok){
+            document.getElementById("demo7").innerHTML = "Cidade inválida!";
+            //document.getElementById("nome").value="";
+            $('#cidade').css({'border':'1px solid red'});
+            return true; 
+         }
+
+    }
+
+}
+
+function verificarCor(){
+
+    var texto=document.getElementById("cor").value;
+
+    for (letra of texto){
+
+        letraspermitidas="ABCEDFGHIJKLMNOPQRSTUVXWYZ abcdefghijklmnopqrstuvxwyzáàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ,# 0123456789"
+        
+
+        var ok=false;
+        for (letra2 of letraspermitidas){
+
+            if (letra==letra2){
+                document.getElementById("demo8").innerHTML = "";
+                ok=true;
+            }
+         }
+
+         if (!ok){
+            document.getElementById("demo8").innerHTML = "Cor inválida!";
+            //document.getElementById("nome").value="";
+            $('#cor').css({'border':'1px solid red'});
             return true; 
          }
 
