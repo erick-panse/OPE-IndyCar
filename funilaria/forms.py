@@ -285,6 +285,7 @@ class OrcamentoForm(forms.ModelForm):
         'class':'inputText',
         'class':'money',
         'id':'valor_mao_de_obra',
+        'autocomplete': 'off',
         'onkeyup':'calcularTotal()'}))
     previsao_entrega = forms.DateField(label='Previsão entrega:',input_formats=['%d/%m/%Y'],widget = FengyuanChenDatePickerInput(attrs={
         'placeholder':'Previsão de entrega',
