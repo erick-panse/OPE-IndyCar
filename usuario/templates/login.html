@@ -26,7 +26,7 @@
 
 
     <div class="form-area">
-    	<h2>Indy Car</h2>
+    	<h2 id="logo">Indy Car</h2>
     	<form method="post" action="submit">{% csrf_token %}
     		<p>Usuário:</p>
     		<input type="text" id="username" class="form-control" name="username" placeholder="Usuário">
@@ -35,13 +35,19 @@
     		<input type="password" class="form-control" id="password" name="password" placeholder="Senha">
 
 			<div>
-                <button type="submit" class="btn btn-primary">Entrar</button>
-            </div>
+        <button type="submit" class="btn btn-primary">Entrar</button>
+      </div>
         <br>
-    		<a href="recuperacaodesenha/">Esqueceu sua senha?</a>
+        <br>
+    	<div>
+        <a href="recuperacaodesenha/">Esqueceu sua senha?     </a>
+        <a href="http://127.0.0.1:8000/" id="direita">Voltar </a>
+
+      </div>
 
 
     	</form>
+
     </div>
 
 </body>

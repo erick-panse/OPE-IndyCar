@@ -98,3 +98,17 @@ h2
 	font-size: 14px;
 	font-weight: bold;
 }
+#direita{
+	display: inline;
+	width: 5%;
+	float: right;
+   }
+
+#logo {
+    font-family: 'impact';
+    src: local('impact'),
+         url('/funilaria/static/fonts/isle_body/impact.ttf') format("truetype");
+    font-size: 30px;
+    color: white;
+    text-transform: uppercase;
+}
