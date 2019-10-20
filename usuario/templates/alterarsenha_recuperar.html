@@ -92,7 +92,8 @@
                 <form action="" method="POST" >
                     <h1 id="center">Recuperar senha</h1><br><br>
                     {% csrf_token %}
-                    {{form.as_p}}        
+                    <h5>E-mail:</h5>
+                    {{form.email}}<br><br>       
 
                     <br><button class="btn btn-outline-info btn-lg btn-block" type="submit">Enviar</button><br>
                 </form>
