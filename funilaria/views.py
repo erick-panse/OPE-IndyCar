@@ -284,38 +284,38 @@ def deletar_material(request,id=None):
 
 def status_ordem(request):
     msg=messages.get_messages(request)
-    cpf_cnpj=request.POST.get('cpf-cnpj')
+    cpf_cnpj=request.POST.get('cpf-cnpj') or None
+    if cpf_cnpj:
+        if len(cpf_cnpj)==14:
+            cpf=cpf_cnpj
+            cnpj=None
+        elif len(cpf_cnpj)==18:
+            cnpj=cpf_cnpj
+            cpf=None
+        else:
+            messages.error(request,'dados inválidos')
+            return redirect(pagina_inicial)
 
-    if len(cpf_cnpj)==14:
-        cpf=cpf_cnpj
-        cnpj=None
-    elif len(cpf_cnpj)==18:
-        cnpj=cpf_cnpj
-        cpf=None
-    else:
-        messages.error(request,'dados inválidos')
-        return redirect(pagina_inicial)
-
-    if cpf:
-        try:
-            cli=Cliente.objects.get(cpf=cpf)
-            cli=Customer.objects.get(nome=cli.nome,endereco=cli.endereco,bairro=cli.bairro,
-            email=cli.email,telefone=cli.telefone)
-            ordens = OrdemDeServico.objects.filter(cliente=cli)
-        except ObjectDoesNotExist:
-            ordens=[]
-    elif cnpj:
-        try:
-            cli=Empresa.objects.get(cnpj=cnpj)
-            cli=Customer.objects.get(nome=cli.nome,endereco=cli.endereco,bairro=cli.bairro,
-            email=cli.email,telefone=cli.telefone)
-            ordens = OrdemDeServico.objects.filter(cliente=cli)
-        except ObjectDoesNotExist:
-            ordens=[]
-    else:
-        return redirect(pagina_inicial)
-    return render(request,'status.html',context={'ordens':ordens,'msg':msg})
-
+        if cpf:
+            try:
+                cli=Cliente.objects.get(cpf=cpf)
+                cli=Customer.objects.get(nome=cli.nome,endereco=cli.endereco,bairro=cli.bairro,
+                email=cli.email,telefone=cli.telefone)
+                ordens = OrdemDeServico.objects.filter(cliente=cli)
+            except ObjectDoesNotExist:
+                ordens=[]
+        elif cnpj:
+            try:
+                cli=Empresa.objects.get(cnpj=cnpj)
+                cli=Customer.objects.get(nome=cli.nome,endereco=cli.endereco,bairro=cli.bairro,
+                email=cli.email,telefone=cli.telefone)
+                ordens = OrdemDeServico.objects.filter(cliente=cli)
+            except ObjectDoesNotExist:
+                ordens=[]
+        else:
+            return redirect(pagina_inicial)
+        return render(request,'status.html',context={'ordens':ordens,'msg':msg})
+    return redirect(pagina_inicial)
 
 ##################################################################################################################
 @login_required(login_url='/login/')
@@ -638,7 +638,6 @@ def orcamento(request):
                 orcamentos=[]
         return render(request,'orcamentos.html',context={'orcamentos':orcamentos,'msg':msg})
     else:
-        print('ntem')
         orcamentos=Orcamento.objects.all()
         return render(request,'orcamentos.html',context={'orcamentos':orcamentos,'msg':msg})
 

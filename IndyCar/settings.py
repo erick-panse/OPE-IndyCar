@@ -136,12 +136,12 @@ STATICFILES_DIRS = [
 LOGIN_REDIRECT_URL = 'cliente'
 
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'tstmail92@gmail.com'
-SERVER_EMAIL = 'tstmail92@gmail.com'
+DEFAULT_FROM_EMAIL = 'ope.indycar2019@gmail.com'
+SERVER_EMAIL = 'ope.indycar2019@gmail.com'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'tstmail92@gmail.com'
-EMAIL_HOST_PASSWORD = 'mailtst2019'
+EMAIL_HOST_USER = 'ope.indycar2019@gmail.com'
+EMAIL_HOST_PASSWORD = 'Brasil@1010'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 from django.contrib.messages import constants as messages
