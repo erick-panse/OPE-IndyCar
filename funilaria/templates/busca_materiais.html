@@ -45,13 +45,17 @@
               <td><br>{{ i.quantidade_estoque }}</td>
               <td>
                 <a href="{{i.get_editar_material}}"
-                   class="btn btn-info">
+                   class="btn btn-outline-info">
                   Atualizar
                 </a>
                 <a href="{{i.get_del_material}}"
                   class="btn btn-outline-danger" onclick="confirmarAcao()">
                     Excluir
                 </a>
+                <a href="{{i.get_add_carrinho}}"
+                    class="btn btn-outline-success">
+                      Adicionar no carrinho
+                  </a>
               </td>
             </tr>
           {% endfor %}

@@ -22,14 +22,15 @@
               <p class="card-text">
                 Aqui está a lista de <code>Clientes</code> cadastrados.
               </p>
+              <div class="text-right">Valor total de itens no carrinho: {{carrinho.total}}</div>
 
               <table class="table">
                 <thead class="thead-dark">
                 <tr>
-                  <th>material</th>
-                  <th>valor</th>
+                  <th>Material</th>
+                  <th>Valor</th>
                   <th></th>
-                  <th>qtd</th>
+                  <th>Quantidade</th>
                   <th></th>
                   <th>Total</th>
                 </tr>
@@ -37,41 +38,23 @@
 
                 <tbody>
                 {% for i in carrinho.itens.all %}
-                  <tr>
-                    <td>{{ i.material }}</td>
-                    <td>{{ i.material.valor }}</td>
-                    
-                    <td>
-                        <a href="{% url 'tirar_do_editar_carrinho' i.material.id carrinho.id orcamento.id %}"
-                          class="btn btn-danger">
-                          -
-                        </a>
-                      </td>
-                    <td>{{ i.quantidade }}</td> <td><a href="{% url 'remover_do_editar_carrinho' i.material.id carrinho.id orcamento.id %}">remover</a></td>      
-                    {% if orcamento %}
-                    <td>
-                      <a href="{% url 'add_no_editar_carrinho' i.material.id carrinho.id orcamento.id %}"
-                        class="btn btn-info">
-                        +
-                      </a>
-                    </td>
-                    {% else %}
-                    <p>n tem</p>
-                    <td>
-                        <a href="{{i.material.get_add_carrinho_editar}}"
-                          class="btn btn-info">
-                          +
-                        </a>
-                      </td>
-                    {% endif %}
-                    <td>{{ i.total }}</td>
-                  </tr>
-                {% endfor %}
                 <tr>
-                  <td>
-                    {{carrinho.total}}
-                  </td>
+                  <td><br>{{ i.material }}</td>
+                  <td><br>{{ i.material.valor }}</td>
+                  
+                  
+                  <td><br><a href="{{i.material.get_tirar_carrinho2}}"
+                    class="btn btn-outline-danger">
+                      -
+                  </a></td>
+                  <td><br>{{ i.quantidade }}<br><a href="{% url 'remover_do_carrinho' i.material.id carrinho.id %}" class="red">remover</a></td>
+                  <td><br><a href="{{i.material.get_add_carrinho2}}"class="btn btn-outline-info">+</a></td>
+                  <td><br>{{ i.total }}</td>
+                  
+                  
+                  
                 </tr>
+                {% endfor %}
                 </tbody>
               </table>
             {% else %}

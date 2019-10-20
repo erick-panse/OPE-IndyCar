@@ -34,7 +34,7 @@
                   <th></th>
                   <th>Total</th>
                   <th></th>
-                  <th></th>
+                  
                 </tr>
                 </thead>
 
@@ -49,11 +49,11 @@
                       class="btn btn-outline-danger">
                         -
                     </a></td>
-                    <td><br>{{ i.quantidade }}</td>
+                    <td><br>{{ i.quantidade }}<br><a href="{% url 'remover_do_carrinho' i.material.id carrinho.id %}" class="red">remover</a></td>
                     <td><br><a href="{{i.material.get_add_carrinho2}}"class="btn btn-outline-info">+</a></td>
-                    <td><br>{{ i.total }}</td><br>
+                    <td><br>{{ i.total }}</td>
                     <td></td>
-                    <td><br><a href="{% url 'remover_do_carrinho' i.material.id carrinho.id %}" class="red">remover</a></td>
+                    
                     
                   </tr>
                 {% endfor %}
