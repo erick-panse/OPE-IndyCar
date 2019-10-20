@@ -35,7 +35,9 @@
                 <th>ID</th>
                 <th>Cliente</th>
                 <th>Prazo</th>
+                <th>Placa</th>
                 <th>Status</th>
+                
                 <th></th>
               </tr>
               </thead>
@@ -46,6 +48,7 @@
                   <td><br>{{ i.id }}</td>
                   <td><br>{{ i.cliente.nome }}</td>
                   <td><br>{{ i.data_entrega }}</td>
+                  <td><br>{{ i.placa_veiculo }}</td>            
                   {% if i.status == True %}
                     <td class="status"><br>Finalizado</td>
                   {% else %}
