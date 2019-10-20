@@ -80,6 +80,7 @@ def editar_usuario(request):
 def alterar_senha(request):
     if request.method=="POST":
         form = PasswordChangeForm(data=request.POST,user=request.user)
+        print(form)
         if form.is_valid():
             form.save()
             update_session_auth_hash(request,form.user)
@@ -122,7 +123,7 @@ def senha(request):
             usuarios = User.objects.filter(email=data)
             if not usuarios:
                 messages.error(request, 'Email inválido')
-                return render(request,'alterarsenha.html',context={'form':form}) 
+                return render(request,'alterarsenha_recuperar.html',context={'form':form}) 
             for user in usuarios:
                 c = {
                     'email': user.email,
@@ -141,12 +142,12 @@ def senha(request):
                 # Email subject *must not* contain newlines
                 subject = ''.join(subject.splitlines())
                 email = loader.render_to_string(email_template_name, c)
-                send_mail(subject, email, 'tstmail92@gmail.com' , [user.email], fail_silently=False)
+                send_mail(subject, email, 'ope.indycar2019@gmail.com' , [user.email], fail_silently=False)
             messages.success(request, 'Um email foi enviado para ' + data +". Por favor acesse seu inbox para continuar o processo de redefinição de senha.")
             return redirect('/login/')
     else:
         form = AlterarSenhaForm()
-    return render(request,'alterarsenha.html',context={'form':form})
+    return render(request,'alterarsenha_recuperar.html',context={'form':form})
 
 def atribuir_nova_senha(request,uidb64=None, token=None):
     """

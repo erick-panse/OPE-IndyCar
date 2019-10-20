@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block main %}
+
+<title>Conta | Indy Car</title>
+
+
+{% for message in messages %}
+    <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <strong>{{ message }}</strong>
+    </div>
+{% endfor %}
+
+
+
+<div class="container">
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-5 ">
+        <div class="card">
+            <div class="card-body">
+                <form action="" method="POST" >
+                    <h1 id="center">Nova Senha2</h1><br><br>
+                    {% csrf_token %}
+                    {{form.as_p}}
+                    <!--<h5>Nova senha:</h5>
+                    {{form.new_password1}}<br><br>
+                    <h5>Confirmação da nova senha:</h5>
+                    {{form.new_password2}}<br>-->
+                    
+
+                    <br><button class="btn btn-outline-info btn-lg btn-block" type="submit">Enviar</button><br>
+                </form>
+            </div>    
+        </div>
+      </div>  
+    </div>   
+</div>
+  {% endblock %}
