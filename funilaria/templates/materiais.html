@@ -28,7 +28,7 @@
             <form method="POST" action="/material/busca/">
               {% csrf_token %}
               <input type="text" name="descricao" id="DescricaoListaMaterial" placeholder="descricao do Material" required autocomplete="off">
-              <input type="submit" value="Pesquisar">
+              <input class="btn btn-outline-info" type="submit" value="Pesquisar">
             </form><br>
 
             <table class="table">

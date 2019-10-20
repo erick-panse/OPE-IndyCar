@@ -28,8 +28,8 @@
             </p>
             <form method="POST" action="/empresa/busca/">
               {% csrf_token %}
-              <input type="text" name="cnpj" id="cnpjListaEmpresa" placeholder="cnpj da Empresa" required autocomplete="off">
-              <input type="submit" value="Pesquisar">
+              <input type="text" name="cnpj" id="cnpjListaEmpresa" placeholder="CNPJ da Empresa" required autocomplete="off">
+              <input class="btn btn-outline-info" type="submit" value="Pesquisar">
             </form><br>
 
             <table class="table">

@@ -1,9 +1,8 @@
 
-
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-    <title>Conta | Indy Car</title>
+    <title>Recuperar senha | Indy Car</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -31,12 +30,46 @@
     <!-- Estilo customizado -->
     {% load staticfiles %}
     <link rel="stylesheet" type="text/css" href="/static/css/estilobase.css">
-
     
-
 
 </head>
 <body>
+
+    <header><!-- inicio Cabecalho -->
+      <nav class="navbar navbar-expand-sm navbar-light bg-primary">
+        <div class="container">
+          
+          <a href="" class="navbar-brand">
+            <h3 id="logo">Indy Car</h3>
+          </a>
+
+          <!--<button class="navbar-toggler" data-toggle="collapse" data-target="#nav-principal">
+            <span class="navbar-toggler-icon"></span>
+          </button>-->
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          
+
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ml-auto ">
+              <li class="nav-item">
+                <a href="http://127.0.0.1:8000" class="nav-link text-light">Home</a>
+              </li>
+              <li class="nav-item">
+                <a href="/quemsomos/" class="nav-link text-light">Quem Somos</a>
+              </li>
+              <li class="nav-item">
+                <a href="/login" class="btn btn-outline-light ml-1">Entrar</a>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+      </nav>
+    </header><!--/fim Cabecalho -->  
+    <br>
+    <br> 
     {% for message in messages %}
     <div class="alert {{ message.tags }} alert-dismissible" role="alert">
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -45,12 +78,6 @@
       <strong>{{ message }}</strong>
     </div>
     {% endfor %}
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
 <br>
 <br>
 <br><br>
@@ -67,7 +94,7 @@
                     <form action="" method="POST" >
                         {% csrf_token %}
                         {{form.as_p}}
-                        <button type="submit">Enviar</button>
+                        <button class="btn btn-outline-info btn-lg btn-block" type="submit">Enviar</button>
                     </form>
                 </div>            
             </div>

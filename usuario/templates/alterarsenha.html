@@ -23,12 +23,19 @@
             <div class="card-body">
                 <form action="" method="POST" >
                     <h1 id="center">Nova Senha</h1><br><br>
-                    {% csrf_token %}
-                    {{form.as_p}}
-                    <!--<h5>Nova senha:</h5>
+                    
+                    <h5>Senha antiga:</h5>
+                    {{form.old_password}}<br><br>
+                    <h5>Nova senha:</h5>
                     {{form.new_password1}}<br><br>
-                    <h5>Confirmação da nova senha:</h5>
-                    {{form.new_password2}}<br>-->
+                    <ul class="disc">
+                      <li>Sua senha não pode ser tão parecida como suas outras informações pessoais.</li>
+                      <li>Sua senha precisa conter pelo menos 8 caracteres.</li>
+                      <li>Sua senha não pode ser uma senha habitualmente utilizada.</li>
+                      <li>Sua senha não pode ser inteiramente numérica.</li>
+                    </ul><br>
+                    <h5>Repita a nova senha:</h5>
+                    {{form.new_password2}}<br><br>
                     
 
                     <br><button class="btn btn-outline-info btn-lg btn-block" type="submit">Enviar</button><br>
