@@ -22,6 +22,7 @@
         <div class="card">
             <div class="card-body">
                 <form action="" method="POST" >
+                    {% csrf_token %}
                     <h1 id="center">Nova Senha</h1><br><br>
                     
                     <h5>Senha antiga:</h5>
