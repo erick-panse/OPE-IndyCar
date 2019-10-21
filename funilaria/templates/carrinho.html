@@ -49,17 +49,12 @@
                       class="btn btn-outline-danger">
                         -
                     </a></td>
-                    <td><br>{{ i.quantidade }}<br><a href="{% url 'remover_do_carrinho' i.material.id carrinho.id %}" class="red">remover</a></td>
+                    <td><br>&nbsp;&nbsp; &nbsp;&nbsp;{{ i.quantidade }}<br><a href="{% url 'remover_do_carrinho' i.material.id carrinho.id %}" class="red">remover</a></td>
                     <td><br><a href="{{i.material.get_add_carrinho2}}"class="btn btn-outline-info">+</a></td>
                     <td><br>{{ i.total }}</td>
-                    <td></td>
-                    
                     
                   </tr>
                 {% endfor %}
-                  <tr>
-                  
-                </tr>
                 </tbody>
               </table>
             {% else %}
