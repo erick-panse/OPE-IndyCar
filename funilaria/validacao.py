@@ -50,6 +50,8 @@ def validarPlaca(placa):
     for i in bloqueado:
         if i in placa:
             return False
+    if len(placa)< 7:
+        return False
     return True
 
 def validarModelo(modelo):
@@ -67,6 +69,8 @@ def validarAno(ano):
     try:
         a = int(ano)
     except:
+        return False
+    if len(ano)< 4 or len(ano) > 4:
         return False
     now=datetime.datetime.now().year
     return a<=int(now)+5

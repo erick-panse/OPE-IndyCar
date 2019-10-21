@@ -23,7 +23,7 @@
       {% if materiais|length > 0 %}
       <form method="POST" action="/material/busca/">
         {% csrf_token %}
-        <input type="text" name="descricao" id="DescricaoListaMaterial" placeholder="descricao do Material" required autocomplete="off">
+        <input type="text" name="descricao" id="DescricaoListaMaterial" placeholder="Descrição do Material" required autocomplete="off">
         <input type="submit" value="Pesquisar">
       </form><br>  
       

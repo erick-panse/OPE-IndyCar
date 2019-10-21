@@ -75,7 +75,7 @@
               <div class="form-group">
                 <form method="POST" action="/status/busca/">
                   {% csrf_token %}
-                  <input type="text" maxlength="18" name="cpf-cnpj" id="cpf-cnpj-PGinicial" placeholder="Informe seu cpf ou cnpj" autocomplete="off" onkeypress='mascaraMutuario(this,cpfCnpj)' onblur='clearTimeout()'>
+                  <input type="text" maxlength="18" name="cpf-cnpj" class="mascara-cpfcnpj" placeholder="Informe seu CPF ou CNPJ" autocomplete="off" onkeypress='mascaraMutuario(this,cpfCnpj)' onblur='clearTimeout()' >
                   
                   <button type="submit" class="btn btn-danger">Enviar</button>
                 </fildset>

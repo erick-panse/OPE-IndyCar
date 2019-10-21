@@ -724,10 +724,16 @@ def lucros(request):
     data_inicial=request.GET.get('data_inicial') or None
     data_final=request.GET.get('data_final') or None
     if data_inicial and data_final:
-        data_inicial=datetime.datetime.strptime(data_inicial, "%d/%m/%Y").date()
-        data_final=datetime.datetime.strptime(data_final, "%d/%m/%Y").date()
-        orc=pegarOrcamentosfinalizados()
-
+        try:
+            data_inicial=datetime.datetime.strptime(data_inicial, "%d/%m/%Y").date()
+            data_final=datetime.datetime.strptime(data_final, "%d/%m/%Y").date()
+            orc=pegarOrcamentosfinalizados()
+        except:
+            messages.error(request,'Datas inválidas')
+            return render(request,'lucros.html',context={'form':form,'total_gasto':0,
+                            'mao_de_obra':0,
+                            'total_orcamento':0,
+                            'lucros':0})
         total_gasto=0
         mao_de_obra=0
         for i in orc:
