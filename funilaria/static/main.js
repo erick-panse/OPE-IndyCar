@@ -117,8 +117,12 @@ function validar_cliente(){
         return false;
     }
 
-    if(email == "" || email.indexOf('@')  == -1){
+    if(email == ""){
         $('#email').css({'border':'1px solid red'});
+        document.getElementById("demo9").innerHTML = "Campo vazio!";
+        return false;
+    } else if(email.indexOf('@')  == -1){
+        document.getElementById("demo9").innerHTML = "E-mail inválido!";
         return false;
     }
 
@@ -168,8 +172,11 @@ function validar_empresa(){
         return false;
     }
 
-    if(email == "" || email.indexOf('@')  == -1){
-        $('#email').css({'border':'1px solid red'});
+    if(email == ""){
+        document.getElementById("demo10").innerHTML = "Campo vazio!";
+        return false;
+    } else if(email.indexOf('@')  == -1){
+        document.getElementById("demo10").innerHTML = "E-mail inválido!";
         return false;
     }
 
@@ -235,7 +242,9 @@ function validar_ordem(){
     }
 
     if(prazo_entrega == ""){
-        alert("Digite um Prazo de entrega válido.")
+        document.getElementById("demo11").innerHTML = "Campo vazio!";
+        return false;
+    }else if(validaData(prazo_entrega)){
         return false;
     }
     
@@ -258,7 +267,9 @@ function validar_orcamento(){
     }
 
     if(previsao_entrega == ""){
-        alert("Digite um Prazo de entrega válido.")
+        document.getElementById("demo12").innerHTML = "Campo vazio!";
+        return false;
+    }else if(validaDataPreviEntrega(previsao_entrega)){
         return false;
     }
 
@@ -337,7 +348,6 @@ function validarCor() {
     return true;
 
 }
-
 function validarPlaca() {
     var x = document.getElementById("placa");
     $('#placa').css({'border':'1px solid #A9A9A9'});
@@ -818,3 +828,110 @@ function verificarCor(){
     }
 
 }
+
+function validaData(stringData)
+{
+    /******** VALIDA DATA NO FORMATO DD/MM/AAAA *******/
+    
+    var regExpCaracter = /[^d]/;     //Expressão regular para procurar caracter não-numérico.
+    var regExpEspaco = /^s+|s+$/g;  //Expressão regular para retirar espaços em branco.
+    
+    if(stringData.length != 10)
+    {
+        document.getElementById("demo11").innerHTML = "Data fora do padrão DD/MM/AAAA.";
+        return true;
+    }
+    
+    splitData = stringData.split('/');
+    
+    if(splitData.length != 3)
+    {
+        document.getElementById("demo11").innerHTML = "Data fora do padrão DD/MM/AAAA.";
+        return true;
+    }
+    
+    /* Retira os espaços em branco do início e fim de cada string. */
+    splitData[0] = splitData[0].replace(regExpEspaco, '');
+    splitData[1] = splitData[1].replace(regExpEspaco, '');
+    splitData[2] = splitData[2].replace(regExpEspaco, '');
+    
+    if ((splitData[0].length != 2) || (splitData[1].length != 2) || (splitData[2].length != 4))
+    {
+        document.getElementById("demo11").innerHTML = "Data fora do padrão DD/MM/AAAA.";
+        return true;
+    }
+    
+    dia = parseInt(splitData[0],10);
+    mes = parseInt(splitData[1],10)-1; //O JavaScript representa o mês de 0 a 11 (0->janeiro, 1->fevereiro... 11->dezembro)
+    ano = parseInt(splitData[2],10);
+    
+    var novaData = new Date(ano, mes, dia);
+    
+    /* O JavaScript aceita criar datas com, por exemplo, mês=14, porém a cada 12 meses mais um ano é acrescentado à data
+         final e o restante representa o mês. O mesmo ocorre para os dias, sendo maior que o número de dias do mês em
+         questão o JavaScript o converterá para meses/anos.
+         Por exemplo, a data 28/14/2011 (que seria o comando "new Date(2011,13,28)", pois o mês é representado de 0 a 11)
+         o JavaScript converterá para 28/02/2012.
+         Dessa forma, se o dia, mês ou ano da data resultante do comando "new Date()" for diferente do dia, mês e ano da
+         data que está sendo testada esta data é inválida. */
+    if ((novaData.getDate() != dia) || (novaData.getMonth() != mes) || (novaData.getFullYear() != ano))
+    {
+        document.getElementById("demo11").innerHTML = "Data inválida!";
+        return true;
+    }
+}
+
+function validaDataPreviEntrega(stringData)
+{
+    /******** VALIDA DATA NO FORMATO DD/MM/AAAA *******/
+    
+    var regExpCaracter = /[^d]/;     //Expressão regular para procurar caracter não-numérico.
+    var regExpEspaco = /^s+|s+$/g;  //Expressão regular para retirar espaços em branco.
+    
+    if(stringData.length != 10)
+    {
+        document.getElementById("demo12").innerHTML = "Data fora do padrão DD/MM/AAAA.";
+        return true;
+    }
+    
+    splitData = stringData.split('/');
+    
+    if(splitData.length != 3)
+    {
+        document.getElementById("demo12").innerHTML = "Data fora do padrão DD/MM/AAAA.";
+        return true;
+    }
+    
+    /* Retira os espaços em branco do início e fim de cada string. */
+    splitData[0] = splitData[0].replace(regExpEspaco, '');
+    splitData[1] = splitData[1].replace(regExpEspaco, '');
+    splitData[2] = splitData[2].replace(regExpEspaco, '');
+    
+    if ((splitData[0].length != 2) || (splitData[1].length != 2) || (splitData[2].length != 4))
+    {
+        document.getElementById("demo12").innerHTML = "Data fora do padrão DD/MM/AAAA.";
+        return true;
+    }
+    
+    dia = parseInt(splitData[0],10);
+    mes = parseInt(splitData[1],10)-1; //O JavaScript representa o mês de 0 a 11 (0->janeiro, 1->fevereiro... 11->dezembro)
+    ano = parseInt(splitData[2],10);
+    
+    var novaData = new Date(ano, mes, dia);
+    
+    /* O JavaScript aceita criar datas com, por exemplo, mês=14, porém a cada 12 meses mais um ano é acrescentado à data
+         final e o restante representa o mês. O mesmo ocorre para os dias, sendo maior que o número de dias do mês em
+         questão o JavaScript o converterá para meses/anos.
+         Por exemplo, a data 28/14/2011 (que seria o comando "new Date(2011,13,28)", pois o mês é representado de 0 a 11)
+         o JavaScript converterá para 28/02/2012.
+         Dessa forma, se o dia, mês ou ano da data resultante do comando "new Date()" for diferente do dia, mês e ano da
+         data que está sendo testada esta data é inválida. */
+    if ((novaData.getDate() != dia) || (novaData.getMonth() != mes) || (novaData.getFullYear() != ano))
+    {
+        document.getElementById("demo12").innerHTML = "Data inválida!";
+        return true;
+    }
+}
+
+
+
