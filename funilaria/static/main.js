@@ -126,8 +126,12 @@ function validar_cliente(){
         return false;
     }
 
-    if(telefone == "" || telefone.length < 10){
+    if(telefone == ""){
         $('#tel').css({'border':'1px solid red'});
+        document.getElementById("demo13").innerHTML = "Campo vazio!";
+        return false;
+    }else if(telefone.length < 13){
+        document.getElementById("demo13").innerHTML = "Telefone inválido!";
         return false;
     }
 
@@ -180,8 +184,12 @@ function validar_empresa(){
         return false;
     }
 
-    if(telefone == "" || telefone.length < 10){
+    if(telefone == ""){
         $('#tel').css({'border':'1px solid red'});
+        document.getElementById("demo14").innerHTML = "Campo vazio!";
+        return false;
+    }else if(telefone.length < 14){
+        document.getElementById("demo14").innerHTML = "Telefone inválido!";
         return false;
     }
 
@@ -427,31 +435,49 @@ function validarNovoUsuario(){
     
     if(username == ""){
         $('#userUsuarioForm').css({'border':'1px solid red'});
+        document.getElementById("demo14").innerHTML = "Campo vazio!";
+        return false;
+    } else if(verificarUser(username)){
         return false;
     }
 
     if(nome == ""){
         $('#nomeUsuarioForm').css({'border':'1px solid red'});
+        document.getElementById("demo15").innerHTML = "Campo vazio!";
+        return false;
+    } else if(verificarNomeForm(username)){
         return false;
     }
 
     if(sobrenome == ""){
         $('#sobrenomeUsuarioForm').css({'border':'1px solid red'});
+        document.getElementById("demo16").innerHTML = "Campo vazio!";
+        return false;
+    } else if(verificarSobrenomeForm(username)){
         return false;
     }
 
     if(email == ""){
         $('#emailUsuarioForm').css({'border':'1px solid red'});
+        document.getElementById("demo17").innerHTML = "Campo vazio!";
+        return false;
+    } else if(email.indexOf('@')  == -1){
+        document.getElementById("demo17").innerHTML = "E-mail inválido!";
         return false;
     }
 
     if(password1 == ""){
         $('#password1UsuarioForm').css({'border':'1px solid red'});
+        document.getElementById("demo18").innerHTML = "Campo vazio!";
         return false;
     }
 
     if(password2 == ""){
         $('#password2UsuarioForm').css({'border':'1px solid red'});
+        document.getElementById("demo19").innerHTML = "Campo vazio!";
+        return false;
+    } else if(password2 != password1){
+        document.getElementById("demo19").innerHTML = "Senhas diferentes!";
         return false;
     }
 
@@ -935,3 +961,89 @@ function validaDataPreviEntrega(stringData)
 
 
 
+function verificarUser(){
+
+    var texto=document.getElementById("userUsuarioForm").value;
+
+    for (letra of texto){
+
+        letraspermitidas="ABCEDFGHIJKLMNOPQRSTUVXWYZ abcdefghijklmnopqrstuvxwyz 0123456789"
+        
+
+        var ok=false;
+        for (letra2 of letraspermitidas){
+
+            if (letra==letra2){
+                document.getElementById("demo14").innerHTML = "";
+                ok=true;
+            }
+         }
+
+         if (!ok){
+            document.getElementById("demo14").innerHTML = "Usuário inválido!";
+            //document.getElementById("nome").value="";
+            $('#userUsuarioForm').css({'border':'1px solid red'});
+            return true; 
+         }
+
+    }
+
+}
+
+function verificarNomeForm(){
+
+    var texto=document.getElementById("nomeUsuarioForm").value;
+
+    for (letra of texto){
+
+        letraspermitidas="ABCEDFGHIJKLMNOPQRSTUVXWYZ abcdefghijklmnopqrstuvxwyzáàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ"
+        
+
+        var ok=false;
+        for (letra2 of letraspermitidas){
+
+            if (letra==letra2){
+                document.getElementById("demo15").innerHTML = "";
+                ok=true;
+            }
+         }
+
+         if (!ok){
+            document.getElementById("demo15").innerHTML = "Nome inválido!";
+            //document.getElementById("nome").value="";
+            $('#nomeUsuarioForm').css({'border':'1px solid red'});
+            return true; 
+         }
+
+    }
+
+}
+
+function verificarSobrenomeForm(){
+
+    var texto=document.getElementById("sobrenomeUsuarioForm").value;
+
+    for (letra of texto){
+
+        letraspermitidas="ABCEDFGHIJKLMNOPQRSTUVXWYZ abcdefghijklmnopqrstuvxwyzáàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ"
+        
+
+        var ok=false;
+        for (letra2 of letraspermitidas){
+
+            if (letra==letra2){
+                document.getElementById("demo16").innerHTML = "";
+                ok=true;
+            }
+         }
+
+         if (!ok){
+            document.getElementById("demo16").innerHTML = "Sobrenome inválido!";
+            //document.getElementById("nome").value="";
+            $('#sobrenomeUsuarioForm').css({'border':'1px solid red'});
+            return true; 
+         }
+
+    }
+
+}

@@ -22,17 +22,23 @@
                     <h1 id="center">Novo Usuário</h1><br>
                     {% csrf_token %}
                     <h5>Usuário:</h5>
-                    {{form.username}}<br><br>
+                    {{form.username}}
+                    <p id="demo14"></p><br>
                     <h5>Primeiro nome:</h5>
-                    {{form.first_name}}<br><br>
+                    {{form.first_name}}
+                    <p id="demo15"></p><br>
                     <h5>Último nome:</h5>
-                    {{form.last_name}}<br><br>
+                    {{form.last_name}}
+                    <p id="demo16"></p><br>
                     <h5>Endereço de email:</h5>
-                    {{form.email}}<br><br>
+                    {{form.email}}
+                    <p id="demo17"></p><br>
                     <h5>Senha:</h5>
-                    {{form.password1}}<br><br>
+                    {{form.password1}}
+                    <p id="demo18"></p><br>
                     <h5>Repita a senha:</h5>
-                    {{form.password2}}<br><br>
+                    {{form.password2}}
+                    <p id="demo19"></p><br>
                     <!--<br><button class="btn btn-outline-info btn-lg btn-block" type="submit">Enviar</button><br>-->
                     <input class="btn btn-outline-info btn-lg btn-block" type="submit" value="Enviar" onclick="return validarNovoUsuario()"/>
                   </fildset>
