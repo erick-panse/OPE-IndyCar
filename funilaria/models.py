@@ -126,7 +126,7 @@ class OrdemDeServico(models.Model):
         return reverse('deletar_ordem',kwargs={'id':self.id})
 
     def __str__(self):
-        return "OS do cliente: "+str(self.cliente.nome)
+        return str(self.cliente.nome)+" | "+self.placa_veiculo+" | "+self.modelo_veiculo
 
     @property
     def status(self):
