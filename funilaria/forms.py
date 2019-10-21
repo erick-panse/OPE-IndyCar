@@ -279,8 +279,8 @@ class OrcamentoForm(forms.ModelForm):
         'onkeyup':'validarServicos()',
         'id':'servicos'}))
     carrinho = forms.ModelChoiceField(queryset=Carrinho.objects.all().order_by('id'),widget=forms.HiddenInput())
-    valor_mao_de_obra = forms.DecimalField(label='valor da mão de obra:',widget = forms.TextInput(attrs={
-        'placeholder':'Informe o valor da mão de obra',
+    valor_mao_de_obra = forms.DecimalField(label='Valor da mão de obra:',widget = forms.TextInput(attrs={
+        'placeholder':'Informe o valor',
         'name':'valor_mao_de_obra',
         'class':'inputText',
         'class':'money',

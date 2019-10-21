@@ -50,7 +50,12 @@
               {{form_orcamento.ordem_de_servico}}
             </div>
             <br>
+            {% if instance %}
+            <h5 class="card-title">Editar Orçamento</h5>
+            {% else %}
             <h5 class="card-title">Criar Orçamento</h5>
+            {% endif %}
+            
             <br>
             
             <div class="form-row">
@@ -59,15 +64,16 @@
                   {{form_orcamento.carrinho}}
                   
                 {% if instance %}
-                  <a href="{% url 'editar_carrinho' instance.carrinho.id instance.id %}" class="btn btn-outline-success">Editar</a>
+                <a href="{% url 'editar_carrinho' instance.carrinho.id instance.id %}" class="btn btn-outline-success material_carrinho">Editar</a>
                   {% for i in instance.resumo %}
-                    <a class="btn btn-outline-info">{{i}}</a>
+                  <a class="btn btn-outline-info material_carrinho">{{i}}</a><br>
                   {% endfor %}
                 {% else %}
-                  <a href="{% url 'carrinho' %}" class="btn btn-outline-success" >Editar</a><br><br>
+                  <a href="{% url 'carrinho' %}" class="btn btn-outline-success material_carrinho" >Editar</a>
                   {% for i in carrinho.itens.all %}
-                    <a class="btn btn-outline-info">{{i }} <a>
+                    <a class="btn btn-outline-info material_carrinho">{{i}} <a>
                   {% endfor %}
+                  
                 {% endif %}
                 
                 </div>

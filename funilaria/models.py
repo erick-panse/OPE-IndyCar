@@ -181,7 +181,7 @@ class ItemCarrinho(models.Model):
     quantidade = models.PositiveIntegerField(default=0)
 
     def __str__(self):
-        return self.material.descricao+" x"+str(self.quantidade)
+        return self.material.descricao+" x"+str(self.quantidade)+' valor unitário: '+str(self.material.valor)
     
     @property
     def total(self):
