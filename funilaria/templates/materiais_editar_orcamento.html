@@ -52,7 +52,7 @@
                        Excluir
                    </a>
                     <a href="{% url 'add_no_editar_carrinho' i.id orcamento.carrinho.id orcamento.id %}"
-                        class="btn btn-danger">
+                        class="btn btn-outline-success">
                         Adicionar
                       </a>
                   </td>
@@ -67,7 +67,7 @@
         {% endif %}
           <hr />
           <div class="text-right">
-            <a href="{% url 'editar_carrinho' orcamento.carrinho.id orcamento.id %}">Resumo</a>
+            <a href="{% url 'editar_carrinho' orcamento.carrinho.id orcamento.id %}" class="btn btn-primary">Resumo</a>
           </div>
         </div>
       </div>
