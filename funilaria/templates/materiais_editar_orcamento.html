@@ -25,6 +25,11 @@
             <p class="card-text">
               Selecione os <code>Materiais</code> necessários para o reparo.
             </p>
+            <form method="POST" action="/material/busca/">
+              {% csrf_token %}
+              <input type="text" name="descricao" id="DescricaoListaMaterial" placeholder="descricao do Material" required autocomplete="off">
+              <input class="btn btn-outline-info" type="submit" value="Pesquisar">
+            </form><br>
 
             <table class="table">
               <thead class="thead-dark">
@@ -53,7 +58,7 @@
                    </a>
                     <a href="{% url 'add_no_editar_carrinho' i.id orcamento.carrinho.id orcamento.id %}"
                         class="btn btn-outline-success">
-                        Adicionar
+                        Adicionar no carrinho
                       </a>
                   </td>
                 </tr>
@@ -67,7 +72,10 @@
         {% endif %}
           <hr />
           <div class="text-right">
-            <a href="{% url 'editar_carrinho' orcamento.carrinho.id orcamento.id %}" class="btn btn-primary">Resumo</a>
+            <a href="{% url 'editar_carrinho' orcamento.carrinho.id orcamento.id %}" class="btn btn-primary">Carrinho</a>
+            <a href="{% url 'material' %}" class="btn btn-primary">
+              Cadastrar Material
+            </a>
           </div>
         </div>
       </div>

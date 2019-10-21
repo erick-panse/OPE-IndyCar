@@ -20,7 +20,7 @@
           {% if carrinho %}
             {% if carrinho.itens.all|length > 0 %}
               <p class="card-text">
-                Aqui está a lista de itens cadastrados em seu <code>Carrinho</code>
+                Aqui está a lista de itens no <code>Carrinho</code>
               </p>
               <div class="text-right">Valor total de itens no carrinho: {{carrinho.total}}</div>
 
@@ -33,7 +33,6 @@
                   <th>Quantidade</th>
                   <th></th>
                   <th>Total</th>
-                  <th></th>
                   
                 </tr>
                 </thead>
@@ -41,17 +40,17 @@
                 <tbody>
                 {% for i in carrinho.itens.all %}
                   <tr>
-                    <td><br>{{ i.material }}</td>
-                    <td><br>{{ i.material.valor }}</td>
+                    <td>{{ i.material }}</td>
+                    <td>{{ i.material.valor }}</td>
                     
                     
-                    <td><br><a href="{{i.material.get_tirar_carrinho2}}"
+                    <td><a href="{{i.material.get_tirar_carrinho2}}"
                       class="btn btn-outline-danger">
                         -
                     </a></td>
-                    <td><br>&nbsp;&nbsp; &nbsp;&nbsp;{{ i.quantidade }}<br><a href="{% url 'remover_do_carrinho' i.material.id carrinho.id %}" class="red">remover</a></td>
-                    <td><br><a href="{{i.material.get_add_carrinho2}}"class="btn btn-outline-info">+</a></td>
-                    <td><br>{{ i.total }}</td>
+                    <td>&nbsp;&nbsp; &nbsp;&nbsp;{{ i.quantidade }}<br><a href="{% url 'remover_do_carrinho' i.material.id carrinho.id %}" class="red">remover</a></td>
+                    <td><a href="{{i.material.get_add_carrinho2}}"class="btn btn-outline-info">+</a></td>
+                    <td>{{ i.total }}</td>
                     
                   </tr>
                 {% endfor %}
@@ -70,7 +69,7 @@
           <hr />
           <div class="text-right">
             <a href="{% url 'materiais_orcamento'%}" class="btn btn-primary">
-              Adicionar outros materiais
+              Adicionar materiais
             </a>
             <a href="{% url 'orcamento' %}" class="btn btn-primary">
               Salvar
