@@ -16,20 +16,21 @@
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">Lista de Clientes</h5>
+          <h5 class="card-title">Lista de itens no carrinho</h5>
           {% if carrinho %}
             {% if carrinho.itens.all|length > 0 %}
               <p class="card-text">
-                Aqui está a lista de <code>Clientes</code> cadastrados.
+                Aqui está a lista de itens no <code>carrinho</code>.
               </p>
+              <div class="text-right">Valor total de itens no carrinho: {{carrinho.total}}</div>
 
               <table class="table">
                 <thead class="thead-dark">
                 <tr>
-                  <th>material</th>
-                  <th>valor</th>
+                  <th>Material</th>
+                  <th>Valor</th>
                   <th></th>
-                  <th>qtd</th>
+                  <th>Quantidade</th>
                   <th></th>
                   <th>Total</th>
                 </tr>
@@ -43,15 +44,15 @@
                     
                     <td>
                         <a href="{% url 'tirar_do_editar_carrinho' i.material.id carrinho.id orcamento.id %}"
-                          class="btn btn-danger">
+                          class="btn btn-outline-danger">
                           -
                         </a>
                       </td>
-                    <td>{{ i.quantidade }}</td> <td><a href="{% url 'remover_do_editar_carrinho' i.material.id carrinho.id orcamento.id %}">remover</a></td>      
+                    <td>{{ i.quantidade }}<br><a href="{% url 'remover_do_editar_carrinho' i.material.id carrinho.id orcamento.id %}">remover</a></td>
                     {% if orcamento %}
                     <td>
                       <a href="{% url 'add_no_editar_carrinho' i.material.id carrinho.id orcamento.id %}"
-                        class="btn btn-info">
+                        class="btn btn-outline-info">
                         +
                       </a>
                     </td>
@@ -66,11 +67,6 @@
                     <td>{{ i.total }}</td>
                   </tr>
                 {% endfor %}
-                <tr>
-                  <td>
-                    {{carrinho.total}}
-                  </td>
-                </tr>
                 </tbody>
               </table>
             {% else %}
@@ -86,7 +82,7 @@
           <hr />
           <div class="text-right">
             <a href="{% url 'materiais_orcamento_editar' orcamento.id %}" class="btn btn-primary">
-              Adicionar outros materiaisss
+              Adicionar outros materiais
             </a>
             <a href="{% url 'editar_orcamento' orcamento.id %}" class="btn btn-primary">
               Salvar
